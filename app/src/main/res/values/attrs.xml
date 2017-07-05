@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--昼夜模式主色调-->
+    <attr name="dayNightBackground" format="color|reference" />
+    <attr name="dayNightOneTextColor" format="color|reference" />
+    <attr name="dayNightTwoTextColor" format="color|reference" />
+    <attr name="dayNightThreeTextColor" format="color|reference" />
+    <attr name="dayNightBackgroundDrawable" format="color|reference" />
+
+    <declare-styleable name="DayNightMode">
+        <attr name="dayNightBackgroundAttr" format="string|reference" /><!--切换背景属性-->
+        <attr name="dayNightOneTextColorAttr" format="string|reference" /><!--切换一级字体颜色属性-->
+        <attr name="dayNightTwoTextColorAttr" format="string|reference" /><!--切换二级字体颜色属性-->
+        <attr name="dayNightThreeTextColorAttr" format="string|reference" /><!--切换三级字体颜色属性-->
+        <attr name="dayNightBackgroundDrawableAttr" format="string|reference" /><!--切换背景图片属性-->
+    </declare-styleable>
+
+    <!--编辑框自定义-->
+    <declare-styleable name="WPEditText">
+        <attr name="edit_icon" format="reference|integer" />
+        <attr name="edit_left_text" format="reference|string" />
+        <attr name="edit_show_eye" format="reference|boolean" />
+        <attr name="edit_hint" format="reference|string" />
+        <attr name="edit_pwd" format="reference|boolean" />
+        <attr name="edit_show_icon" format="reference|boolean" />
+        <attr name="edit_show_right_text" format="reference|boolean" />
+        <attr name="edit_right_text" format="reference|string" />
+    </declare-styleable>
+    <!-- 分页标签 -->
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsIndicatorColor" format="color" />
+        <attr name="pstsUnderlineColor" format="color" />
+        <attr name="pstsDividerColor" format="color" />
+        <attr name="pstsCheckedTextColor" format="reference" />
+        <attr name="pstsUncheckedTextColor" format="reference" />
+        <attr name="pstsIndicatorHeight" format="dimension" />
+        <attr name="pstsUnderlineHeight" format="dimension" />
+        <attr name="pstsDividerPadding" format="dimension" />
+        <attr name="pstsTabPaddingLeftRight" format="dimension" />
+        <attr name="pstsScrollOffset" format="dimension" />
+        <attr name="pstsTabBackground" format="reference" />
+        <attr name="pstsShouldExpand" format="boolean" />
+        <attr name="pstsTextAllCaps" format="boolean" />
+    </declare-styleable>
+
+    <!-- 左右文本 -->
+    <declare-styleable name="TwoTextView">
+
+        <!-- 左边文本内容 -->
+        <attr name="ttLeftText" format="string|reference" />
+        <!-- 右边文本内容 -->
+        <attr name="ttRightText" format="string|reference" />
+        <!-- 左边文本字体大小 -->
+        <attr name="ttLeftTextSize" format="dimension" />
+        <!-- 右边文本字体大小 -->
+        <attr name="ttRightTextSize" format="dimension" />
+        <!-- 左边文本颜色 -->
+        <attr name="ttLeftTextColor" format="reference" />
+        <!-- 右边文本颜色 -->
+        <attr name="ttRightTextColor" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="NumberButton">
+        <attr name="editable" format="boolean" />
+        <attr name="buttonWidth" format="dimension" />
+        <attr name="textWidth" format="dimension" />
+        <attr name="textSize" format="dimension" />
+        <attr name="textColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundImageView">
+        <attr name="roundWidth" format="dimension" />
+        <attr name="roundHeight" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="ViewPagerIndicator">
+        <!-- Style of the circle indicator. -->
+        <attr name="vpiCirclePageIndicatorStyle" format="reference"/>
+        <!-- Style of the icon indicator's views. -->
+        <attr name="vpiIconPageIndicatorStyle" format="reference"/>
+        <!-- Style of the line indicator. -->
+        <attr name="vpiLinePageIndicatorStyle" format="reference"/>
+        <!-- Style of the title indicator. -->
+        <attr name="vpiTitlePageIndicatorStyle" format="reference"/>
+        <!-- Style of the tab indicator's tabs. -->
+        <attr name="vpiTabPageIndicatorStyle" format="reference"/>
+        <!-- Style of the underline indicator. -->
+        <attr name="vpiUnderlinePageIndicatorStyle" format="reference"/>
+    </declare-styleable>
+</resources>

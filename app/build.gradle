@@ -1,0 +1,109 @@
+apply plugin: 'com.android.application'
+def getGitVersion() {
+    try {
+        return 'git rev-parse --short HEAD'.execute().text.trim()
+    } catch (Throwable th) {
+        return "";
+    }
+}
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    defaultConfig {
+        applicationId "com.yundian.celebrity"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "GIT_REVISION", "\"${getGitVersion()}\""
+        buildConfigField "String", "BUILD_DATE", "\"${new Date().toLocaleString()}\"";
+        ndk {
+            //设置支持的SO库架构
+            abiFilters "armeabi-v7a", "x86","arm64-v8a","x86_64","armeabi"
+        }
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            minifyEnabled true
+            shrinkResources true//去掉不用资源
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    // 将 .so 文件打包为 Native_Libs.jar 包文件
+    task nativeLibsToJar(type: Zip, description: "create a jar archive of the native libs") {
+        destinationDir file("$projectDir/libs")
+        baseName "Native_Libs"
+        extension "jar"
+        from fileTree(dir: "libs", include: "**/*.so")
+        into "lib"
+    }
+    /*针对greenDao的一些配置*/
+//    greendao {
+//        schemaVersion 1 //数据库版本号
+//        daoPackage 'com.yundian.star.greendao.gen' //自动生成的工具类的包名
+//        targetGenDir 'src/main/java' //路径
+//    }
+}
+//repositories {
+//    mavenCentral()
+//    maven { url 'https://maven.fabric.io/public' }
+//}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    //菜单栏
+    compile 'com.github.bumptech.glide:glide:3.6.1'
+    //显示图片框架
+    //compile 'com.github.jdsjlzx:LRecyclerView:1.4.3'
+    compile 'com.android.support:multidex:1.0.0'
+    //分包
+    compile 'com.jakewharton:butterknife:7.0.1'
+    //view注解
+    compile 'com.orhanobut:logger:1.15'
+    compile 'com.android.support:recyclerview-v7:25+'
+    compile 'com.alibaba:fastjson:1.2.31'
+    compile 'io.netty:netty-all:5.0.0.Alpha2'
+    compile 'com.netease.nimlib:jsbridge:1.3.1'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
+    compile project(path: ':uikit')
+    //微信登录
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile files('libs/alipaySingle-20170510.jar')
+//    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+//        transitive = true;
+//    }
+    //fabric
+    //compile project(':qAMasterSDK')
+    //compile 'com.getui:sdk:2.10.2.0'
+    //compile 'org.greenrobot:greendao:3.2.2' // add library
+    compile 'com.qiangxi.checkupdatelibrary:checkupdatelibrary:1.1.2@aar'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+}
