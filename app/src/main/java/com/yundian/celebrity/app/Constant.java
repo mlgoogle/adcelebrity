@@ -1,6 +1,14 @@
 package com.yundian.celebrity.app;
 
+import com.yundian.celebrity.R;
+
 public interface Constant {
+
+    String[] mTitles = {"收益情况", "联系粉丝", "约见管理"};
+    int[] mIconUnselectIds = {
+            R.drawable.differ_answer_no_ok, R.drawable.market_no_ok, R.drawable.me_no_ok};
+    int[] mIconSelectIds = {
+            R.drawable.differ_answer_ok, R.drawable.market_ok, R.drawable.me_ok};
 
     String[] rechargeType = new String[]{"微信支付", "支付宝支付"};
     String[] handleText = new String[]{" 未操作 ", " 双倍返还 ", " 货运 ", " 退舱 "};

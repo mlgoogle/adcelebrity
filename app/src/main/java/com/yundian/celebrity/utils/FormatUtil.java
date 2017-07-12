@@ -348,5 +348,19 @@ public class FormatUtil {
         card = startNo + card + cardNo.substring(cardNo.length() - 4);
         return card;
     }
+
+    /**
+     * 获取银行卡尾号
+     *
+     * @param cardNo
+     * @return
+     */
+    public static String getCardEnd(String cardNo) {
+        if (cardNo.length() < 4) {
+            return cardNo;
+        }
+
+        return cardNo.substring(cardNo.length() - 4);
+    }
 }
 

@@ -67,15 +67,15 @@
             android:src="@drawable/icon_password_2" />
 
 
-        <com.yundian.star.widget.ClearEditText
+        <com.yundian.celebrity.widget.ClearEditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:gravity="center"
             android:layout_toLeftOf="@id/editEye"
             android:layout_toRightOf="@id/lineView"
             android:background="@null"
+            android:gravity="center"
             android:hint="请输入用户名"
             android:paddingRight="@dimen/dp_5"
             android:singleLine="true"

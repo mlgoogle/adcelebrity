@@ -56,20 +56,20 @@ public enum Host {
 
     public static String getSocketServerIp() {
         //测试环境
-          return "dapi.star.smartdata-x.com";
+//          return "dapi.star.smartdata-x.com";
         //正式环境
        // return "api.star.smartdata-x.com";
 //        return "61.147.114.87";
-       // return "139.224.34.22";
+        return "139.224.34.22";  //测试
 //        return "61.147.114.78";
 //        return "192.168.8.131";
     }
 
     public static short getSocketServerPort() {
-        return (short) 16006 ;
+//        return (short) 16006 ;
 //        return (short) 12300 ;
           //return (short) 16104 ;
-//         return (short) 16060;
+         return (short) 16060;
 //         return (short) 16060;
         //return (short) 16115 ;
         //return (short) 16008 ;

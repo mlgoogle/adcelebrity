@@ -1,6 +1,7 @@
 package com.yundian.celebrity.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,12 +12,18 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.app.Constant;
 import com.yundian.celebrity.bean.OrderReturnBeen;
+import com.yundian.celebrity.bean.RequestResultBean;
+import com.yundian.celebrity.listener.OnAPIListener;
+import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
+import com.yundian.celebrity.ui.main.activity.ResetPayPwdActivity;
 import com.yundian.celebrity.ui.main.adapter.KeyBoardAdapter;
 import com.yundian.celebrity.utils.LogUtils;
+import com.yundian.celebrity.utils.MD5Util;
+import com.yundian.celebrity.utils.SharePrefUtil;
+import com.yundian.celebrity.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,9 +100,9 @@ public class PasswordView extends RelativeLayout {
                 LogUtils.loge("重新设置交易密码---------------------");
                 Bundle bundle4 = new Bundle();
                 bundle4.putString("resetPwd", Constant.PAY_PWD);
-                //Intent intent = new Intent(mContext, ResetPayPwdActivity.class);
-                //intent.putExtras(bundle4);
-                //mContext.startActivity(intent);
+                Intent intent = new Intent(mContext, ResetPayPwdActivity.class);
+                intent.putExtras(bundle4);
+                mContext.startActivity(intent);
                 //payPwdEditText.clearText();
             }
         });
@@ -180,7 +187,7 @@ public class PasswordView extends RelativeLayout {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(final Editable s) {
 
                 if (s.toString().length() == 1) {
 
@@ -192,6 +199,41 @@ public class PasswordView extends RelativeLayout {
                     LogUtils.loge("strPassword :" + strPassword);
 
                     //校验支付密码
+                    final String finalStrPassword = strPassword;
+                    NetworkAPIFactoryImpl.getInformationAPI().checkPayPas(SharePrefUtil.getInstance().getUserId(),
+                            SharePrefUtil.getInstance().getToken(), MD5Util.MD5(strPassword), new OnAPIListener<RequestResultBean>() {
+                                @Override
+                                public void onError(Throwable ex) {
+                                    ToastUtils.showShort("密码错误");
+                                    LogUtils.loge("密码输入失败");
+                                    //支付密码确定接口有待验证
+                                    if (checkPasCallBake != null) {
+                                        checkPasCallBake.checkError();
+                                    }
+                                }
+
+                                @Override
+                                public void onSuccess(RequestResultBean resultBeen) {
+                                    LogUtils.loge("密码输入正确");
+                                    LogUtils.loge("密码输入正确" + resultBeen.toString());
+                                    // ToastUtils.showShort("支付完成");
+                                    if (resultBeen != null) {
+                                        if (resultBeen.getResult() == 1) {
+                                            if (checkPasCallBake != null) {
+                                                if (ordersListBean!=null){
+                                                    checkPasCallBake.checkSuccess(ordersListBean, finalStrPassword);
+                                                }
+                                                checkPasCallBake.checkSuccessPwd(finalStrPassword);
+                                            }
+                                        } else if (resultBeen.getResult() == 0) {
+                                            ToastUtils.showShort("密码错误");
+                                            if (checkPasCallBake != null) {
+                                                checkPasCallBake.checkError();
+                                            }
+                                        }
+                                    }
+                                }
+                            });
 
 
                     //pass.inputFinish(strPassword);    //接口中要实现的方法，完成密码输入完成后的响应逻辑
@@ -212,11 +254,11 @@ public class PasswordView extends RelativeLayout {
     }
 
     public interface CheckPasCallBake {
-        void checkSuccess(OrderReturnBeen.OrdersListBean ordersListBean);
+        void checkSuccess(OrderReturnBeen.OrdersListBean ordersListBean, String pwd);
 
         void checkError();
 
-        void checkSuccessPwd();
+        void checkSuccessPwd(String pwd);
 
     }
 

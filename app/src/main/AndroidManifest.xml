@@ -22,11 +22,13 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
+
     <permission
         android:name="com.yundian.star.permission.RECEIVE_MSG"
         android:protectionLevel="signature" />
@@ -48,7 +50,6 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
 
 
-
     <application
         android:name=".app.AppApplication"
         android:allowBackup="true"
@@ -57,13 +58,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.activity.MainActivity">
+        <activity android:name=".ui.main.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.main.activity.MainActivity"
+            android:theme="@style/AppTheme" />
 
         <!--微信相关-->
         <activity
@@ -72,7 +77,7 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
@@ -120,7 +125,7 @@
         <!--友盟sdk-->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5944e976c62dca4b80001e50"></meta-data>
+            android:value="5944e976c62dca4b80001e50" />
 
         <!-- APP key, 可以在这里设置，也可以在 SDKOptions 中提供。
             如果 SDKOptions 中提供了，取 SDKOptions 中的值。 -->
@@ -167,12 +172,12 @@
         <!-- 安卓保活配置 -->
         <service
             android:name="com.netease.cosine.core.CosineService"
-            android:process=":cosine"></service>
+            android:process=":cosine" />
 
         <receiver
             android:name="com.netease.cosine.target.CosineReceiver"
             android:exported="true"
-            android:process=":cosine"></receiver>
+            android:process=":cosine" />
 
         <meta-data
             android:name="com.netease.cosine.target"
@@ -494,7 +499,7 @@
         </provider>
         <!--三方-->
 
-<!--支付宝等三方-->
+        <!--支付宝等三方-->
         <!--支付宝-->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
@@ -507,7 +512,7 @@
             android:exported="false"
             android:screenOrientation="behind" />
 
-<!--？？？收集？-->
+        <!--？？？收集？-->
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="13b0dd85b007ad78249b02fc26fa3972dff8da79" />
@@ -519,9 +524,44 @@
         <meta-data
             android:name="CHANNEL"
             android:value="Channel_ID" />
-        <service android:name="com.qiangxi.checkupdatelibrary.service.DownloadService"/>
-<!--支付宝等三方-->
+        <service android:name="com.qiangxi.checkupdatelibrary.service.DownloadService" />
+        <!--支付宝等三方-->
 
+        <activity
+            android:name=".ui.main.activity.UserAssetsManageActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.AddBankCardActvivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.CashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.CashHistoryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.ResetPayPwdActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/TransparentActivityDialog" />
+
+        <activity android:name=".ui.main.activity.ResetUserPwdActivity" />
+        <activity android:name=".ui.main.activity.AddMeetTypeActivity" />
+        <activity
+            android:name=".ui.main.activity.MeetingFansDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.InComeDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
