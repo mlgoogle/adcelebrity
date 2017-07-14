@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yundian.celebrity.R;
+import com.yundian.celebrity.bean.BookingStarListBean;
 import com.yundian.celebrity.bean.WithDrawCashHistoryBean;
 import com.yundian.celebrity.utils.FormatUtil;
 
@@ -25,6 +26,9 @@ public class CashHistoryAdapter extends BaseQuickAdapter<WithDrawCashHistoryBean
     @Override
     protected void convert(BaseViewHolder helper, WithDrawCashHistoryBean item) {
         helper.setText(R.id.tv_cash_time, item.getWithdrawTime());
+        helper.setText(R.id.tv_bank_name, String.format(mContext.getResources().getString(R.string.bank_end_number),
+                item.getBank(), FormatUtil.getCardEnd(item.getCardNo())));
+         helper.setText(R.id.tv_cash_time, item.getWithdrawTime());
         helper.setText(R.id.tv_bank_name, String.format(mContext.getResources().getString(R.string.bank_end_number),
                 item.getBank(), FormatUtil.getCardEnd(item.getCardNo())));
         helper.setText(R.id.tv_cash_money, "-" + item.getAmount());

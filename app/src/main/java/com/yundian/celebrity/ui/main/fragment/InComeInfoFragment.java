@@ -1,10 +1,14 @@
 package com.yundian.celebrity.ui.main.fragment;
 
+import android.app.Dialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,10 +16,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.base.BaseFragment;
 import com.yundian.celebrity.bean.WithDrawCashHistoryBean;
+import com.yundian.celebrity.ui.main.activity.AddBankCardActvivity;
+import com.yundian.celebrity.ui.main.activity.CashActivity;
 import com.yundian.celebrity.ui.main.activity.InComeDetailActivity;
 import com.yundian.celebrity.ui.main.adapter.InComeInfoAdapter;
 import com.yundian.celebrity.utils.DisplayUtil;
 import com.yundian.celebrity.utils.LogUtils;
+import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.utils.TimeUtil;
 import com.yundian.celebrity.utils.ToastUtils;
 import com.yundian.celebrity.utils.timeselectutils.DatePicker;
@@ -83,9 +90,7 @@ public class InComeInfoFragment extends BaseFragment {
 
         getDateTime();
         addChart();
-
         initListener();
-
 //        getData(false, 1);
     }
 
@@ -257,6 +262,20 @@ public class InComeInfoFragment extends BaseFragment {
 //    }
 
     private void initListener() {
+        nt_title.setOnRightTextListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //首先判断登录  登录后请求银行卡,然后再处理
+                String cardNo = SharePrefUtil.getInstance().getCardNo();
+                if (TextUtils.isEmpty(cardNo)) {
+                    showBindBankDialog();
+                } else {
+                    startActivity(CashActivity.class);
+                }
+            }
+        });
+
         ll_start_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -270,6 +289,28 @@ public class InComeInfoFragment extends BaseFragment {
                 onYearMonthEndTime();
             }
         });
+    }
+
+    private void showBindBankDialog() {
+        final Dialog mDetailDialog = new Dialog(getActivity(), R.style.custom_dialog);
+        mDetailDialog.setContentView(R.layout.dialog_bind_bank_card);
+        final Button startIdentity = (Button) mDetailDialog.findViewById(R.id.btn_start_identity);
+        ImageView closeImg = (ImageView) mDetailDialog.findViewById(R.id.iv_dialog_close);
+        closeImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDetailDialog.dismiss();
+            }
+        });
+        mDetailDialog.setCancelable(false);
+        startIdentity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(AddBankCardActvivity.class);
+                mDetailDialog.dismiss();
+            }
+        });
+        mDetailDialog.show();
     }
 
     private void onYearMonthEndTime() {

@@ -65,7 +65,7 @@ public class MeetManageFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.rb_fans_talk, R.id.rb_fans_interaction,R.id.ll_user_money_bag})
+    @OnClick({R.id.rb_fans_talk, R.id.rb_fans_interaction})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rb_fans_talk:
@@ -74,9 +74,7 @@ public class MeetManageFragment extends BaseFragment {
             case R.id.rb_fans_interaction:
                 switchTo(2);
                 break;
-            case R.id.ll_user_money_bag:
-                startActivity(UserAssetsManageActivity.class);
-                break;
+          
         }
     }
 }

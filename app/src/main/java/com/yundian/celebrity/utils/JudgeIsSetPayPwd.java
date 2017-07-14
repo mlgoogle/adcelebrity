@@ -2,11 +2,13 @@ package com.yundian.celebrity.utils;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.yundian.celebrity.R;
+import com.yundian.celebrity.ui.main.activity.SettingDealPwdActivity;
 
 /**
  * 校验是否设置支付密码
@@ -66,10 +68,10 @@ public class JudgeIsSetPayPwd {
         startIdentity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtils.logd("进入输入密码-----");
-                //Intent intent = new Intent(context, SettingDealPwdActivity.class);
-                //context.startActivity(intent);
-                //mDetailDialog.dismiss();
+                LogUtils.logd("进入设置密码-----");
+                Intent intent = new Intent(context, SettingDealPwdActivity.class);
+                context.startActivity(intent);
+                mDetailDialog.dismiss();
             }
         });
 

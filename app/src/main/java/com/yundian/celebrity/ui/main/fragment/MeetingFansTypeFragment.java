@@ -14,6 +14,7 @@ import com.yundian.celebrity.base.BaseFragment;
 import com.yundian.celebrity.bean.WithDrawCashHistoryBean;
 
 import com.yundian.celebrity.ui.main.activity.AddMeetTypeActivity;
+import com.yundian.celebrity.ui.main.activity.PublishStateActivity;
 import com.yundian.celebrity.ui.main.adapter.MeetTypeAdapter;
 import com.yundian.celebrity.utils.ToastUtils;
 import com.yundian.celebrity.widget.NormalTitleBar;
@@ -21,6 +22,7 @@ import com.yundian.celebrity.widget.NormalTitleBar;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.yundian.celebrity.R.string.logout;
 
 
 /**
@@ -80,12 +82,12 @@ public class MeetingFansTypeFragment extends BaseFragment{
 //        adapter = new ExpandableItemAdapter(list);
         meetTypeAdapter = new MeetTypeAdapter(R.layout.item_meet_type,list);
         final GridLayoutManager manager = new GridLayoutManager(getActivity(), 4);
-        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return 1;
-            }
-        });
+//        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {  //复用
+//            @Override
+//            public int getSpanSize(int position) {
+//                return 1;
+//            }
+//        });
 
 
         mRecyclerView.setAdapter(meetTypeAdapter);
@@ -100,6 +102,14 @@ public class MeetingFansTypeFragment extends BaseFragment{
                 adapter.getData().remove(position);
                 adapter.notifyItemRemoved(position);
                 return false;
+            }
+        });
+
+        meetTypeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ToastUtils.showShort("模拟进入发布朋友圈");
+                startActivity(PublishStateActivity.class);
             }
         });
 

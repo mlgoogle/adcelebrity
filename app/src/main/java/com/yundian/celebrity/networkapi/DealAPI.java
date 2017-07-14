@@ -5,6 +5,7 @@ import com.yundian.celebrity.bean.AliPayReturnBean;
 import com.yundian.celebrity.bean.AssetDetailsBean;
 import com.yundian.celebrity.bean.BankCardBean;
 import com.yundian.celebrity.bean.BankInfoBean;
+import com.yundian.celebrity.bean.BookingStarListBean;
 import com.yundian.celebrity.bean.IdentityInfoBean;
 import com.yundian.celebrity.bean.MoneyDetailListBean;
 import com.yundian.celebrity.bean.RequestResultBean;
@@ -65,7 +66,7 @@ public interface DealAPI {
 //    void rechargeList(int startPos, int count, OnAPIListener<List<RechargeRecordItemEntity>> listener);//解绑操作
     void moneyList(String time, int status, int count, int startPos, OnAPIListener<List<MoneyDetailListBean>> listener);//资金明细
 
-//    void bookingStarList(int startPos, int count, OnAPIListener<List<BookingStarListBean>> listener);//预约明星列表
+    void bookingStarList(int startPos, int count, OnAPIListener<List<BookingStarListBean>> listener);//预约明星列表
 
     void identityAuthentication(String realname, String id_card, OnAPIListener<RequestResultBean> listener);
 

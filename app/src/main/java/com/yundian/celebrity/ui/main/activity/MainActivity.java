@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.flyco.tablayout.CommonTabLayout;
@@ -23,19 +24,26 @@ import com.netease.nim.uikit.permission.annotation.OnMPermissionGranted;
 import com.netease.nim.uikit.permission.annotation.OnMPermissionNeverAskAgain;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
+import com.netease.nimlib.sdk.RequestCallbackWrapper;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.mixpush.MixPushService;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
+import com.netease.nimlib.sdk.uinfo.UserService;
+import com.netease.nimlib.sdk.uinfo.constant.UserInfoFieldEnum;
 import com.qiangxi.checkupdatelibrary.dialog.UpdateDialog;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.app.AppConstant;
 import com.yundian.celebrity.app.Constant;
 import com.yundian.celebrity.base.BaseActivity;
+import com.yundian.celebrity.bean.AssetDetailsBean;
+import com.yundian.celebrity.bean.BankCardBean;
 import com.yundian.celebrity.bean.CheckUpdateInfoEntity;
 import com.yundian.celebrity.bean.EventBusMessage;
 import com.yundian.celebrity.bean.TabEntity;
+import com.yundian.celebrity.listener.OnAPIListener;
+import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.ui.main.fragment.ContactFansFragment;
 import com.yundian.celebrity.ui.main.fragment.InComeInfoFragment;
 import com.yundian.celebrity.ui.main.fragment.MeetManageFragment;
@@ -44,15 +52,19 @@ import com.yundian.celebrity.ui.wangyi.chatroom.helper.ChatRoomHelper;
 import com.yundian.celebrity.ui.wangyi.config.preference.UserPreferences;
 import com.yundian.celebrity.utils.CheckLoginUtil;
 import com.yundian.celebrity.utils.LogUtils;
+import com.yundian.celebrity.utils.SharePrefUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
+
 import static com.qiangxi.checkupdatelibrary.dialog.UpdateDialog.UPDATE_DIALOG_PERMISSION_REQUEST_CODE;
 import static com.yundian.celebrity.ui.view.ForceUpdateDialog.FORCE_UPDATE_DIALOG_PERMISSION_REQUEST_CODE;
 
@@ -68,6 +80,8 @@ public class MainActivity extends BaseActivity {
     private final int BASIC_PERMISSION_REQUEST_CODE = 100;
     private boolean flag = true;
     private int match_info;
+    private static boolean isSaveWangYi = false;
+
 
     private Handler handler = new Handler() {
         @Override
@@ -101,6 +115,12 @@ public class MainActivity extends BaseActivity {
         initTab();
         checkunReadMsg();
         handler.postDelayed(runnablePermission, 1000);
+        checkLogin();
+    }
+
+    private void checkLogin() {
+        LogUtils.loge("mainactivity检查token---------------");
+        CheckLoginUtil.checkLogin(this);
     }
 
     private void checkunReadMsg() {
@@ -218,7 +238,7 @@ public class MainActivity extends BaseActivity {
                 transaction.commitAllowingStateLoss();
                 break;
             case 2:
-                CheckLoginUtil.checkLogin(this);
+//                CheckLoginUtil.checkLogin(this);
                 transaction.hide(contactFansFragment);
                 transaction.hide(inComeInfoFragment);
                 transaction.show(meetManageFragment);
@@ -355,8 +375,82 @@ public class MainActivity extends BaseActivity {
                     updateDialog(eventBusMessage.getCheckUpdateInfoEntity());
                 }
                 break;
+
+            case 1:  //登录成功
+                requestBankInfo();  //更新银行卡信息
+                requestBalance();   //更新余额信息
+                tabLayout.setCurrentTab(0);
+                break;
         }
     }
+
+    /**
+     * 请求银行卡信息
+     */
+    private void requestBankInfo() {
+        NetworkAPIFactoryImpl.getDealAPI().bankCardList(new OnAPIListener<BankCardBean>() {
+            @Override
+            public void onSuccess(BankCardBean bankCardBeen) {
+                if (TextUtils.isEmpty(bankCardBeen.getCardNo()) || TextUtils.isEmpty(bankCardBeen.getBankUsername())) {
+                    LogUtils.loge("银行卡列表失败----------------------------------------------");
+//                    SharePrefUtil.getInstance().saveCardNo("");
+                } else {
+                    LogUtils.loge("银行卡列表----------------成功");
+                    SharePrefUtil.getInstance().saveCardNo(bankCardBeen.getCardNo());
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable ex) {
+//                SharePrefUtil.getInstance().saveCardNo("");
+            }
+        });
+    }
+
+    private void requestBalance() {
+        NetworkAPIFactoryImpl.getDealAPI().balance(new OnAPIListener<AssetDetailsBean>() {
+            @Override
+            public void onSuccess(AssetDetailsBean bean) {
+                LogUtils.loge("余额请求成功:" + bean.toString());
+                if (bean.getIs_setpwd() != -100) {
+                    SharePrefUtil.getInstance().saveAssetInfo(bean);
+                }
+                if (!TextUtils.isEmpty(bean.getHead_url()) && !TextUtils.isEmpty(bean.getNick_name())) {
+                    SharePrefUtil.getInstance().putUserNickName(bean.getNick_name());
+                    SharePrefUtil.getInstance().putUserPhotoUrl(bean.getHead_url());
+                }
+
+                // SharePrefUtil.getInstance().saveAssetInfo(bean);
+                if (!TextUtils.isEmpty(SharePrefUtil.getInstance().getUserNickName()) && isSaveWangYi == false) {
+//                    updateWangYiInfo();      //修改网易头像和昵称
+                    isSaveWangYi = true;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex) {
+                LogUtils.loge("余额请求失败:" + ex.getMessage());
+            }
+        });
+    }
+
+    //修改网易头像和昵称
+    private void updateWangYiInfo() {
+        Map<UserInfoFieldEnum, Object> fields = new HashMap<>(1);
+        fields.put(UserInfoFieldEnum.Name, SharePrefUtil.getInstance().getUserNickName());
+        fields.put(UserInfoFieldEnum.AVATAR, SharePrefUtil.getInstance().getUserPhotoUrl());
+        LogUtils.loge("网易云修改名字昵称" + SharePrefUtil.getInstance().getUserNickName() +
+                SharePrefUtil.getInstance().getUserPhotoUrl());
+        NIMClient.getService(UserService.class).updateUserInfo(fields)
+                .setCallback(new RequestCallbackWrapper<Void>() {
+                    @Override
+                    public void onResult(int i, Void aVoid, Throwable throwable) {
+                        LogUtils.loge(i + "网易云修改名字昵称");
+                    }
+                });
+    }
+
 
     private UpdateDialog mUpdateDialog;
     private ForceUpdateDialog mForceUpdateDialog;

@@ -153,6 +153,27 @@
     <string name="yestoday_price">昨收</string>
     <string name="turnover_total_count">成交总数</string>
     <string name="total_time_count">时间总数</string>
+    <string name="add_pic_tips">Tips：当前只能添加一张图片。</string>
+    <string name="add_pic">添加图片</string>
+    <string name="remainder_input_count">%1$s/200</string>
+    <string name="input_your_idea">这一刻的想法...</string>
+    <string name="setting_pwd_tip">为保障您的交易安全，请设置交易密码。</string>
+    <string name="setting_next">下一步</string>
+    <string name="setting_pay_pwd">设置交易密码</string>
+    <string name="setting_pay_pwd2">请确认交易密码</string>
+    <string name="disclaimer_title">免责声明</string>n
+    <string name="disclaimer">\t\t\t\t在使用本系统的所有功能之前，请您务必仔细阅读并透彻理解本声明。
+        您可以选择不使用本系统，但如果您使用本系统，您的使用行为将被视为对本声明全部内容的认可。\n\t\t\t\t免责声明： 鉴于本系统使用非人工检索/分析方式，
+        无法确定您输入的条件进行是否合法，所以本系统对检索/分析出的结果不承担责任。
+        如果因以本系统的检索/分析结果作为任何商业行为或者学术研究的依据而产生不良后果，本系统不承担任何法律责任。
+        \n\t\t\t\t关于隐私权： 访问者在本系统注册时提供的一些个人资料，本系统除您本人同意外不会将用户的任何资料以任何方式泄露给第三方。当政府部门、司法机关等依照法定程序要求本系统披露个人资料时，本系统将根据执法单位之要求或为公共安全之目的提供个人资料，在此情况下的披露，本系统不承担任何责任。</string>
+    <string name="login_out">退出登录</string>
+    <string name="star_booking">约见</string>
+    <string name="star_refuse">已拒绝</string>
+    <string name="me_agree">我已同意</string>
+    <string name="disclaimer_text">《免责声明》</string>
+    <string name="recharge_info">充值方式</string>
+    <string name="make_sure">确定</string>
 
 
     <!-- session -->

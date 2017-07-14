@@ -6,6 +6,7 @@ import com.yundian.celebrity.bean.AliPayReturnBean;
 import com.yundian.celebrity.bean.AssetDetailsBean;
 import com.yundian.celebrity.bean.BankCardBean;
 import com.yundian.celebrity.bean.BankInfoBean;
+import com.yundian.celebrity.bean.BookingStarListBean;
 import com.yundian.celebrity.bean.IdentityInfoBean;
 import com.yundian.celebrity.bean.MoneyDetailListBean;
 import com.yundian.celebrity.bean.RequestResultBean;
@@ -239,5 +240,20 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.UnBindCard,
                 SocketAPIConstant.ReqeutType.Bank, map);
         requestEntity(socketDataPacket, ResultCodeBeen.class, listener);
+    }
+//临时模拟数据
+    @Override
+    public void bookingStarList(int startPos, int count, OnAPIListener<List<BookingStarListBean>> listener) {
+        LogUtils.logd("请求预约明星列表");
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", SharePrefUtil.getInstance().getUserId());
+        map.put("token", SharePrefUtil.getInstance().getToken());
+//        map.put("id", 120);
+//        map.put("token", "deef1f3d463139a1c50d366c63b22687");
+        map.put("count", count);
+        map.put("startPos", startPos);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.BookingStar,
+                SocketAPIConstant.ReqeutType.History, map);
+        requestEntitys(socketDataPacket, "depositsinfo", BookingStarListBean.class, listener);
     }
 }

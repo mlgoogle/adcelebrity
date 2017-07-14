@@ -24,10 +24,6 @@ public class FansTalkAdapter extends BaseQuickAdapter<WithDrawCashHistoryBean, B
 
     @Override
     protected void convert(BaseViewHolder helper, WithDrawCashHistoryBean item) {
-        helper.setText(R.id.tv_cash_time, item.getWithdrawTime());
-        helper.setText(R.id.tv_bank_name, String.format(mContext.getResources().getString(R.string.bank_end_number),
-                item.getBank(), FormatUtil.getCardEnd(item.getCardNo())));
-        helper.setText(R.id.tv_cash_money, "-" + item.getAmount());
-
+        helper.setText(R.id.tv_star_name, item.getWithdrawTime());
     }
 }

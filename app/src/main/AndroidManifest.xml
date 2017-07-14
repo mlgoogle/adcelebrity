@@ -562,6 +562,19 @@
             android:name=".ui.main.activity.InComeDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.PublishStateActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.SettingDealPwdActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.main.activity.CashHistoryActivity_Test"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

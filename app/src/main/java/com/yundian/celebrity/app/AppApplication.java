@@ -91,11 +91,14 @@ public class AppApplication extends BaseApplication {
 
     private void testProcress() {
         String processName = getProcessName(this);
+        initWangYiIM();
+        LogUtils.loge("------------processName:"+processName);
         if (processName!= null) {
             if(processName.equals("com.yundian.celebrity")){
                 //Fabric.with(this, new Crashlytics());
                 //初始化logger
                 LogUtils.logInit(BuildConfig.LOG_DEBUG);
+//                initWangYiIM();
                 checkNet();
                 initNetworkAPIConfig();
                 registerToWx();   //注册微信
@@ -113,7 +116,7 @@ public class AppApplication extends BaseApplication {
 
             }
         }
-        initWangYiIM();
+//        initWangYiIM();
     }
 
     private String getProcessName(Context context) {
@@ -418,7 +421,6 @@ public class AppApplication extends BaseApplication {
 
     private void logout() {
         SharePrefUtil.getInstance().clearUserInfo();
-        SharePrefUtil.getInstance().clearUserLoginInfo();
         SharePrefUtil.getInstance().clearUserLoginInfo();
         Preferences.saveUserToken("");
         LogoutHelper.logout();
