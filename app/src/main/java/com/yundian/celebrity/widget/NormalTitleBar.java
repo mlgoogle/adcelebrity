@@ -136,7 +136,11 @@ public class NormalTitleBar extends RelativeLayout {
      * @param id
      */
     public void setLeftImagSrc(int id) {
-        ivBack.setCompoundDrawables(getResources().getDrawable(id), null, null, null);
+        if (id == 0){
+            ivBack.setCompoundDrawables(null, null, null, null);
+        }else{
+            ivBack.setCompoundDrawables(getResources().getDrawable(id), null, null, null);
+        }
     }
 
     /**
@@ -187,4 +191,7 @@ public class NormalTitleBar extends RelativeLayout {
         return rlCommonTitle.getBackground();
     }
 
+    public void setRightTitleColor(int color) {
+        tvRight.setTextColor(color);
+    }
 }

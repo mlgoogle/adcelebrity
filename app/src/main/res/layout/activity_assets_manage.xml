@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_fafafa"
+    android:orientation="vertical">
+
+    <com.yundian.celebrity.widget.NormalTitleBar
+        android:id="@+id/nt_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_140"
+        android:background="@color/color_FB9938"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_24"
+            android:text="余额"
+            android:textColor="@color/main_bg_color"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/star_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_26"
+            android:text="0"
+            android:textColor="@color/main_bg_color"
+            android:textSize="@dimen/text_size_40" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_bg_color"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dp_18"
+            android:paddingTop="@dimen/dp_18">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ddd"
+                android:textColor="@color/font_999999"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/hold_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18"
+                android:text="0"
+                android:textColor="@color/color_FB9938"
+                android:textSize="@dimen/text_size_16" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dp_18"
+            android:paddingTop="@dimen/dp_18">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="bbbb"
+                android:textColor="@color/font_999999"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/user_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18"
+                android:text="0"
+                android:textColor="@color/color_FB9938"
+                android:textSize="@dimen/text_size_16" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_recharge"
+        style="@style/user_info_setting_style"
+        android:layout_marginTop="@dimen/dp_29"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/dp_22"
+            android:layout_height="@dimen/dp_22"
+            android:src="@drawable/about_logo" />
+
+        <TextView
+            style="@style/user_setting_text_style"
+            android:layout_marginLeft="@dimen/dp_22"
+            android:text="充值" />
+
+        <include layout="@layout/ll_right_arrow" />
+
+    </LinearLayout>
+
+    <include layout="@layout/ll_interval_line"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/ll_user_cash"
+        style="@style/user_info_setting_style"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="@dimen/dp_22"
+            android:layout_height="@dimen/dp_22"
+            android:src="@drawable/about_logo" />
+
+        <TextView
+            style="@style/user_setting_text_style"
+            android:layout_marginLeft="@dimen/dp_22"
+            android:text="提现" />
+
+        <include layout="@layout/ll_right_arrow" />
+
+    </LinearLayout>
+
+    <include layout="@layout/ll_interval_line" />
+
+</LinearLayout>

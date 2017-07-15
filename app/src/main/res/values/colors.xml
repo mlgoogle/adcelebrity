@@ -20,7 +20,7 @@
     <color name="transparent">#00000000</color>
     <color name="toast_white">#ffffff</color>
     <color name="toast_stroke_gray">#99d4d4d4</color>
-
+    <color name="color_ececec">#ececec</color>
 
     <color name="alpha_50_black">#80000000</color>
 
@@ -41,6 +41,24 @@
     <color name="color_f8f8f8">#f8f8f8</color>
     <color name="color_E1EEFF">#E1EEFF</color>
     <color name="color_FB9938">#FB9938</color>
+    <color name="color_8D0809">#8D0809</color>
+    <color name="color_C2CFD8">#C2CFD8</color>
+    <color name="color_A6A6A6">#A6A6A6</color>
+    <color name="color_CB4232">#CB4232</color>
+    <color name="color_ffffff">#ffffff</color>
+    <color name="color_dcdcdc">#dcdcdc</color>
+    <color name="color_FB6A38">#FB6A38</color>
+    <color name="color_f98d8d">#f98d8d</color>
+    <color name="color_fefefe">#fefefe</color>
+    <color name="color_F6F6F6">#F6F6F6</color>
+    <color name="color_bdbdbd">#bdbdbd</color>
+    <color name="color_800505">#ed1212</color>
+    <color name="color_bce0d0">#bce0d0</color>
+    <color name="color_B90A0A">#B90A0A</color>
+    <color name="color_D2D2D2">#D2D2D2</color>
+    <color name="alpha_95_black">#F2000000</color>
+
+
 
 
     <color name="color_f2f7fc">#F2F7FC</color>

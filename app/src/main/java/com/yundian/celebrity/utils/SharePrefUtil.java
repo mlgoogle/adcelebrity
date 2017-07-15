@@ -44,7 +44,8 @@ public class SharePrefUtil {
         sp.edit().putString("phoneNum", user.getUserinfo().getPhone()).apply();
         sp.edit().putString("token", user.getToken()).apply();
         sp.edit().putInt("userId", user.getUserinfo().getId()).apply();
-        sp.edit().putString("balance", user.getUserinfo().getBalance() + "").apply();
+        sp.edit().putInt("userId", user.getUserinfo().getId()).apply();
+//        sp.edit().putString("balance", user.getUserinfo().getBalance() + "").apply();  //当前余额不准确,请求余额需要到请求余额的接口
     }
 
     public String getUserRole() {
@@ -443,4 +444,18 @@ public class SharePrefUtil {
         sp = context.getSharedPreferences(UserLoginInfo, MODE_PRIVATE);
         sp.edit().putString("version", versionName).apply();
     }
+
+    /**
+     * 保存银行卡信息
+     */
+    public void saveCardNo(String cardNo) {
+        sp = context.getSharedPreferences(UserInfo, MODE_PRIVATE);
+        sp.edit().putString("cardNo", cardNo).apply();
+    }
+
+    public String getCardNo() {
+        sp = context.getSharedPreferences(UserInfo, MODE_PRIVATE);
+        return sp.getString("cardNo","");
+    }
+
 }

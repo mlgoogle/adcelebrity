@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_recharge_ui"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_fafafa"
+    android:orientation="vertical">
+
+    <com.yundian.celebrity.widget.NormalTitleBar
+        android:id="@+id/nt_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp" />
+
+    <LinearLayout
+        android:id="@+id/ll_user_recharge_type"
+        style="@style/user_info_setting_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_bg_color"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp_15"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_11"
+        android:paddingTop="@dimen/dp_15">
+
+        <ImageView
+            android:id="@+id/iv_recharge_type"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_13"
+            android:src="@drawable/icon_weixin" />
+
+        <TextView
+            android:id="@+id/tv_recharge_name"
+            style="@style/user_setting_text_style"
+            android:layout_marginLeft="@dimen/dp_13"
+            android:text="微信支付" />
+
+        <TextView
+            android:id="@+id/tv_user_pet_name"
+            style="@style/user_setting_hint_style"
+            android:text="点击切换支付方式"
+            android:visibility="gone" />
+
+        <include layout="@layout/ll_right_arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/dp_24"
+        android:background="@color/main_bg_color">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_13"
+            android:text="@string/recharge_money"
+            android:textColor="@color/color_434343"
+            android:textSize="@dimen/text_size_16" />
+
+        <EditText
+            android:id="@+id/edit_recharge_money"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="@string/input_recharge_money"
+            android:paddingLeft="@dimen/dp_10"
+            android:textSize="@dimen/text_size_16" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_bg_color"
+        android:padding="@dimen/dp_13"
+        android:text="选择充值额度"
+        android:textColor="@color/font_999999"
+        android:textSize="@dimen/text_size_14" />
+
+    <com.yundian.celebrity.ui.view.CustomerRadioGroup
+        android:id="@+id/rg_recharge_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_bg_color"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_24"
+            android:paddingRight="@dimen/dp_24"
+            android:paddingTop="@dimen/dp_24">
+
+            <RadioButton
+                android:id="@+id/rb_recharge_money1"
+                style="@style/recharge_money_style"
+                android:checked="true"
+                android:text="@string/recharge_money1" />
+
+            <RadioButton
+                android:id="@+id/rb_recharge_money2"
+                style="@style/recharge_money_style"
+                android:layout_marginLeft="@dimen/dp_29"
+                android:text="@string/recharge_money2" />
+
+            <RadioButton
+                android:id="@+id/rb_recharge_money3"
+                style="@style/recharge_money_style"
+                android:layout_marginLeft="@dimen/dp_29"
+                android:text="@string/recharge_money3" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_bg_color"
+            android:paddingBottom="@dimen/dp_28"
+            android:paddingLeft="@dimen/dp_24"
+            android:paddingRight="@dimen/dp_24"
+            android:paddingTop="@dimen/dp_24">
+
+            <RadioButton
+                android:id="@+id/rb_recharge_money4"
+                style="@style/recharge_money_style"
+                android:text="@string/recharge_money4" />
+
+            <RadioButton
+                android:id="@+id/rb_recharge_money5"
+                style="@style/recharge_money_style"
+                android:layout_marginLeft="@dimen/dp_29"
+                android:text="@string/recharge_money5" />
+
+            <RadioButton
+                android:id="@+id/rb_recharge_money6"
+                style="@style/recharge_money_style"
+                android:layout_marginLeft="@dimen/dp_29"
+                android:text="@string/recharge_money6" />
+
+        </LinearLayout>
+
+    </com.yundian.celebrity.ui.view.CustomerRadioGroup>
+
+    <Button
+        android:id="@+id/btn_recharge_sure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_60"
+        android:background="@drawable/bg_make_sure"
+        android:text="确定"
+        android:textColor="@color/main_bg_color"
+        android:textSize="@dimen/text_size_14" />
+</LinearLayout>
+

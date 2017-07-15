@@ -1,194 +1,98 @@
 [
     {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_switch_track.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_tint_switch_track.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_light.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_primary_text_disable_only_material_light.xml"
     },
     {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_light.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_primary_text_disable_only_material_light.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_hint_foreground_material_dark.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_hint_foreground_material_dark.xml"
     },
     {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_dark.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\switch_thumb_material_dark.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\color_picker_preview_selector.xml",
+        "source": "E:\\AdStar\\adcelebrity\\uikit\\res\\color\\color_picker_preview_selector.xml"
     },
     {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\color_picker_preview_selector.xml",
-        "source": "E:\\adcelebrity\\uikit\\res\\color\\color_picker_preview_selector.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_dark.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_primary_text_material_dark.xml"
     },
     {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\color_green_text_view_selector.xml",
-        "source": "E:\\adcelebrity\\uikit\\res\\color\\color_green_text_view_selector.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\color_green_text_view_selector.xml",
+        "source": "E:\\AdStar\\adcelebrity\\uikit\\res\\color\\color_green_text_view_selector.xml"
     },
     {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\design_error.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\091bd54b3b134add49b5931f8c43937d43af0bb4\\output\\res\\color\\design_error.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\design_error.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\7cd65f64088e751be8875f6e253ba6e6fd95aec1\\output\\res\\color\\design_error.xml"
     },
     {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_light.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_secondary_text_material_light.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_light.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_primary_text_material_light.xml"
     },
     {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_dark.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_primary_text_material_dark.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_light.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\switch_thumb_material_light.xml"
     },
     {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_light.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\switch_thumb_material_light.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_btn_colored_text_material.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_btn_colored_text_material.xml"
     },
     {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\design_error.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\091bd54b3b134add49b5931f8c43937d43af0bb4\\output\\res\\color\\design_error.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_switch_thumb.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_tint_switch_thumb.xml"
     },
     {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_edittext.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_tint_edittext.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_dark.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_secondary_text_material_dark.xml"
     },
     {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_light.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_secondary_text_material_light.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_spinner.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_tint_spinner.xml"
     },
     {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_dark.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_secondary_text_material_dark.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_dark.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
     },
     {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_btn_colored_text_material.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_btn_colored_text_material.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_hint_foreground_material_light.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_hint_foreground_material_light.xml"
     },
     {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_light.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_primary_text_material_light.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_dark.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\switch_thumb_material_dark.xml"
     },
     {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_dark.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_secondary_text_material_dark.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_secondary_text_material_light.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_secondary_text_material_light.xml"
     },
     {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_spinner.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_tint_spinner.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_seek_thumb.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_tint_seek_thumb.xml"
     },
     {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_dark.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_primary_text_material_dark.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_search_url_text.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_search_url_text.xml"
     },
     {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_light.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\switch_thumb_material_light.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_switch_track.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_tint_switch_track.xml"
     },
     {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_seek_thumb.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_tint_seek_thumb.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\design_tint_password_toggle.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\7cd65f64088e751be8875f6e253ba6e6fd95aec1\\output\\res\\color\\design_tint_password_toggle.xml"
     },
     {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\color_green_text_view_selector.xml",
-        "source": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\res\\color\\color_green_text_view_selector.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_btn_checkable.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_tint_btn_checkable.xml"
     },
     {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_switch_track.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_tint_switch_track.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_edittext.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_tint_edittext.xml"
     },
     {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_dark.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_default.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_tint_default.xml"
     },
     {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_search_url_text.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_search_url_text.xml"
-    },
-    {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_material_light.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_primary_text_material_light.xml"
-    },
-    {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_hint_foreground_material_light.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_hint_foreground_material_light.xml"
-    },
-    {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_hint_foreground_material_dark.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_hint_foreground_material_dark.xml"
-    },
-    {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_btn_checkable.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_tint_btn_checkable.xml"
-    },
-    {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_btn_colored_borderless_text_material.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_btn_colored_borderless_text_material.xml"
-    },
-    {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_default.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_tint_default.xml"
-    },
-    {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_dark.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
-    },
-    {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_edittext.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_tint_edittext.xml"
-    },
-    {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_btn_colored_borderless_text_material.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_btn_colored_borderless_text_material.xml"
-    },
-    {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_switch_thumb.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_tint_switch_thumb.xml"
-    },
-    {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_spinner.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_tint_spinner.xml"
-    },
-    {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_switch_thumb.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_tint_switch_thumb.xml"
-    },
-    {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_primary_text_disable_only_material_light.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_primary_text_disable_only_material_light.xml"
-    },
-    {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\color_picker_preview_selector.xml",
-        "source": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\res\\color\\color_picker_preview_selector.xml"
-    },
-    {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\design_tint_password_toggle.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\091bd54b3b134add49b5931f8c43937d43af0bb4\\output\\res\\color\\design_tint_password_toggle.xml"
-    },
-    {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_btn_checkable.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_tint_btn_checkable.xml"
-    },
-    {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_btn_colored_text_material.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_btn_colored_text_material.xml"
-    },
-    {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\switch_thumb_material_dark.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\switch_thumb_material_dark.xml"
-    },
-    {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_hint_foreground_material_light.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_hint_foreground_material_light.xml"
-    },
-    {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_default.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_tint_default.xml"
-    },
-    {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_hint_foreground_material_dark.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_hint_foreground_material_dark.xml"
-    },
-    {
-        "merged": "E:\\kaiyuan_develop\\AdnroidCelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\design_tint_password_toggle.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\091bd54b3b134add49b5931f8c43937d43af0bb4\\output\\res\\color\\design_tint_password_toggle.xml"
-    },
-    {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_search_url_text.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_search_url_text.xml"
-    },
-    {
-        "merged": "E:\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_tint_seek_thumb.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\color\\abc_tint_seek_thumb.xml"
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\color\\abc_btn_colored_borderless_text_material.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\color\\abc_btn_colored_borderless_text_material.xml"
     }
 ]

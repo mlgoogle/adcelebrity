@@ -44,6 +44,10 @@ import com.umeng.socialize.UMShareAPI;
 import com.yundian.celebrity.BuildConfig;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.base.baseapp.BaseApplication;
+import com.yundian.celebrity.bean.CheckUpdateInfoEntity;
+import com.yundian.celebrity.bean.EventBusMessage;
+import com.yundian.celebrity.bean.LoginReturnInfo;
+import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.Host;
 import com.yundian.celebrity.networkapi.NetworkAPIConfig;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
@@ -69,6 +73,8 @@ import com.yundian.celebrity.utils.MD5Util;
 import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.utils.Utils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 import java.util.Map;
 
@@ -85,12 +91,15 @@ public class AppApplication extends BaseApplication {
 
     private void testProcress() {
         String processName = getProcessName(this);
+        initWangYiIM();
+        LogUtils.loge("------------processName:"+processName);
         if (processName!= null) {
-            if(processName.equals("com.yundian.star")){
+            if(processName.equals("com.yundian.celebrity")){
                 //Fabric.with(this, new Crashlytics());
                 //初始化logger
                 LogUtils.logInit(BuildConfig.LOG_DEBUG);
-                checkToken();
+//                initWangYiIM();
+                checkNet();
                 initNetworkAPIConfig();
                 registerToWx();   //注册微信
                 UMShareAPI.get(this);//初始化友盟
@@ -99,15 +108,15 @@ public class AppApplication extends BaseApplication {
                     return;
                 }
                 LeakCanary.install(this);
-            } else if(processName.equals("com.yundian.star:core")){
+            } else if(processName.equals("com.yundian.celebrity:core")){
 
-            }else if(processName.equals("com.yundian.star:cosine")){
+            }else if(processName.equals("com.yundian.celebrity:cosine")){
 
-            }else if (processName.equals("com.yundian.star:pushservice")){
+            }else if (processName.equals("com.yundian.celebrity:pushservice")){
 
             }
         }
-        initWangYiIM();
+//        initWangYiIM();
     }
 
     private String getProcessName(Context context) {
@@ -135,7 +144,6 @@ public class AppApplication extends BaseApplication {
         ExtraOptions.provide();
         AppCrashHandler.getInstance(this);
         if (inMainProcess()) {
-
             // init pinyin
             PinYin.init(this);
             PinYin.validate();
@@ -414,7 +422,6 @@ public class AppApplication extends BaseApplication {
     private void logout() {
         SharePrefUtil.getInstance().clearUserInfo();
         SharePrefUtil.getInstance().clearUserLoginInfo();
-        SharePrefUtil.getInstance().clearUserLoginInfo();
         Preferences.saveUserToken("");
         LogoutHelper.logout();
         SocketAPINettyBootstrap.getInstance().closeChannel();
@@ -428,19 +435,103 @@ public class AppApplication extends BaseApplication {
     private void judgeIsLogin() {
         if (!TextUtils.isEmpty(SharePrefUtil.getInstance().getToken())) {
             LogUtils.loge("已经登录,开始校验token---------------------------------");
+            NetworkAPIFactoryImpl.getUserAPI().loginWithToken(SharePrefUtil.getInstance().getTokenTime(),new OnAPIListener<LoginReturnInfo>() {
+                @Override
+                public void onError(Throwable ex) {
+                    ex.printStackTrace();
+                    LogUtils.loge("----------------------登录失败.token已经失效");
+                    logout();
+                }
+
+                @Override
+                public void onSuccess(LoginReturnInfo loginReturnEntity) {
+                    LogUtils.loge("------------------======token登录成功，保存信息"+loginReturnEntity.toString());
+                    if (loginReturnEntity.getResult()==1){
+                        NetworkAPIFactoryImpl.getUserAPI().saveDevice(loginReturnEntity.getUserinfo().getId(), new OnAPIListener<Object>() {
+                            @Override
+                            public void onError(Throwable ex) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(Object o) {
+                                LogUtils.logd("上传设备id和类型成功:" + o.toString());
+                            }
+                        });
+                        //服务器问题,先token登录不保存信息
+                        //SharePrefUtil.getInstance().saveLoginUserInfo(loginReturnEntity);
+                        if (!TextUtils.isEmpty(loginReturnEntity.getToken())){
+//                        SharePrefUtil.getInstance().setToken(loginReturnEntity.getToken());
+                            SharePrefUtil.getInstance().saveLoginUserInfo(loginReturnEntity);
+                        }
+                        EventBus.getDefault().postSticky(new EventBusMessage(1));  //登录成功消息
+                    }else {
+                        LogUtils.loge("----------------------登录失败.token已经失效");
+                        logout();
+                    }
+                }
+            });
+
         }else{
             LogUtils.logd("token为空-------------------");
         }
     }
 
-    private void checkToken() {
+    private void checkNet() {
         LogUtils.logd("检测网络-------------------");
+        SocketAPINettyBootstrap.getInstance().setOnConnectListener(new SocketAPINettyBootstrap.OnConnectListener() {
+            @Override
+            public void onExist() {
+                LogUtils.logd("检测到链接存在-------------------");
+            }
+
+            @Override
+            public void onSuccess() {
+                LogUtils.logd("检测到连接成功-------------------");
+                //token交易暂时关闭
+                judgeIsLogin();
+                // checkUpdate();
+            }
+
+            @Override
+            public void onFailure(boolean tag) {
+                LogUtils.logd("检测到连接失败--------------");
+                if (tag) {
+                    if (!TextUtils.isEmpty(SharePrefUtil.getInstance().getToken())) {
+                        LogUtils.logd("检测到连接失败----logout----------");
+                        logout();
+                    }
+                    // connectionError();
+                    //logout();
+                }
+            }
+        });
     }
 
 
 
     private void checkUpdate() {
         LogUtils.loge("检查更新----------");
+        NetworkAPIFactoryImpl.getUserAPI().update(new OnAPIListener<CheckUpdateInfoEntity>() {
+            @Override
+            public void onError(Throwable ex) {
+                ex.printStackTrace();
+                LogUtils.loge("检查更新失败-------------");
+            }
+
+            @Override
+            public void onSuccess(CheckUpdateInfoEntity checkUpdateInfoEntity) {
+                SharePrefUtil.getInstance().setVersion( checkUpdateInfoEntity.getNewAppVersionName());
+                LogUtils.loge("checkUpdateInfoEntity:" + checkUpdateInfoEntity.toString());
+                if (checkUpdateInfoEntity != null && checkUpdateInfoEntity.getNewAppVersionCode() > getVersionCode()) {
+                    EventBusMessage msg = new EventBusMessage(-11);
+                    msg.setCheckUpdateInfoEntity(checkUpdateInfoEntity);  //发送广播
+                    EventBus.getDefault().postSticky(msg);
+                } else {
+                    LogUtils.loge("--最新版本");
+                }
+            }
+        });
     }
     /**
      * 获取当前应用版本号

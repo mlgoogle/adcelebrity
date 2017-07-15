@@ -52,6 +52,129 @@
 
 
     <string name="input_pay_pwd">请输入交易密码</string>
+    <string name="prepare_data">正在准备数据...</string>
+    <string name="money_bag_detail">钱包明细</string>
+    <string name="bank_info">银行卡</string>
+    <string name="user_recharge">充值</string>
+    <string name="recharge_ali_pay">支付宝支付</string>
+    <string name="recharge_wxpay">微信支付</string>
+    <string name="recharge_money">充值金额</string>
+    <string name="input_recharge_money">手动输入充值金额</string>
+    <string name="choose_recharge_money">选择充值额度</string>
+    <string name="recharge_money1">1元</string>
+    <string name="recharge_money2">10元</string>
+    <string name="recharge_money3">100元</string>
+    <string name="recharge_money4">1000元</string>
+    <string name="recharge_money5">10000元</string>
+    <string name="recharge_money6">50000元</string>
+    <string name="booking_star_list">预约名单</string>
+    <string name="have_talk">聊一聊</string>
+    <string name="service_center">客服中心</string>
+    <string name="service_weixin">客服微信</string>
+    <string name="choose_pay_type">请选择付款方式</string>
+    <string name="no_bind_bank_tips">您还没有绑定银行卡</string>
+    <string name="bind_bank_now">立即绑定</string>
+    <string name="bind_bank_tips">\t\t\t\t需要绑定银行卡才能进行充值等相关操作。绑定银行卡后，可以在预售、购买、兑换时、用该银行卡进行交易。</string>
+    <string name="booking_time_status">约见时间 %1$s</string>
+    <string name="bank_end_number">%1$s    尾号%2$s</string>
+    <string name="money_cash">提现</string>
+    <string name="cash_user_account">收款账户</string>
+    <string name="cash_history">提现记录</string>
+    <string name="cash_money">提现金额</string>
+    <string name="cash_sign">¥</string>
+    <string name="cash_available_money">可提金额¥ %1$s，</string>
+    <string name="cash_all_money">全部提现</string>
+    <string name="bank_card_user">持卡人</string>
+    <string name="bank_card_number">卡号</string>
+    <string name="input_card_number">请输入您的卡号</string>
+    <string name="input_card_phone">请输入您的预留手机号</string>
+    <string name="input_card_code">请输入验证码</string>
+    <string name="phone_number_bank">手机号</string>
+    <string name="phone_code_bank">验证码</string>
+    <string name="bind_bank_card">绑定银行卡</string>
+    <string name="forget_deal_pwd">忘记交易密码</string>
+    <string name="name_code">%1$s (%2$s)</string>
+    <string name="reset_login_pwd">重置登录密码</string>
+    <string name="reset_pay_pwd">重置交易密码</string>
+
+
+    <string name="no_net">网络不可用,请检查你的网络</string>
+    <string name="no_register">还没有账户</string>
+    <string name="had_account">已有账户</string>
+    <string name="register">现在注册</string>
+    <string name="loging">现在登录</string>
+    <string name="other_login">第三方登录</string>
+    <string name="wei_xin_login">微信登录</string>
+    <string name="title_welcome_1">星悦，</string>
+    <string name="title_welcome_2">你与明星零距离</string>
+    <string name="news_info_title">资讯</string>
+    <string name="sample_heard_layout">头布局</string>
+    <string name="regiset_put_note_code">输入系统验证码</string>
+    <string name="put_account_number">请输入账号</string>
+    <string name="put_password_number">请输入6位以上密码</string>
+    <string name="regiset_phone_number">输入您的手机号</string>
+    <string name="retrieve_password_2">点击找回</string>
+    <string name="butten_register">注册</string>
+    <string name="butten_loging">登录</string>
+    <string name="butten_reset_psd">重置登录密码</string>
+    <string name="again_reset_psd">重新输入登录密码</string>
+    <string name="check_famous_address_book">查看名人通讯录</string>
+    <string name="famous_address_book">名人通讯录</string>
+    <string name="diff_answer">星聊</string>
+    <string name="ming_xing">明星</string>
+    <string name="number_80004">8004</string>
+    <string name="search_hint">搜索发行人代码或名称</string>
+    <string name="search_star_result_1">(</string>
+    <string name="search_star_result_2">)</string>
+    <string name="option">自选</string>
+    <string name="user_total_assets">资产总额</string>
+    <string name="user_buyed_star">已购明星</string>
+    <string name="end_times">距离结束还有</string>
+    <string name="fans_talk">粉丝聊天</string>
+    <string name="fans_interaction">粉丝互动</string>
+    <string name="contact_fans">联系粉丝</string>
+    <string name="meeting_type">约见类型</string>
+    <string name="meeting_order">约见订单</string>
+    <string name="meeting_type_tips">Tips：未确认的都将视为不同意此约见类型，否则粉丝无法正常约见您。</string>
+    <string name="meeting_detail_time">时间:  %1$s</string>
+    <string name="meeting_detail_please">地点:  %1$s</string>
+    <string name="meeting_detail_type">约见类型:  %1$s</string>
+    <string name="meeting_detail_additional">约见补充:  %1$s</string>
+    <string name="meeting_detail_agree">同意</string>
+    <string name="turnover_acount">成交总数</string>
+    <string name="turnover_acount_week">一周交易数据</string>
+    <string name="deal_date">交易日期</string>
+    <string name="turnover_date">成交日期</string>
+    <string name="turnover_count">成交总数</string>
+    <string name="time_count">时间总数</string>
+    <string name="order_total_money">订单总金额</string>
+    <string name="income_money_today_">当天收益（元）</string>
+    <string name="today_price">今开</string>
+    <string name="yestoday_price">昨收</string>
+    <string name="turnover_total_count">成交总数</string>
+    <string name="total_time_count">时间总数</string>
+    <string name="add_pic_tips">Tips：当前只能添加一张图片。</string>
+    <string name="add_pic">添加图片</string>
+    <string name="remainder_input_count">%1$s/200</string>
+    <string name="input_your_idea">这一刻的想法...</string>
+    <string name="setting_pwd_tip">为保障您的交易安全，请设置交易密码。</string>
+    <string name="setting_next">下一步</string>
+    <string name="setting_pay_pwd">设置交易密码</string>
+    <string name="setting_pay_pwd2">请确认交易密码</string>
+    <string name="disclaimer_title">免责声明</string>n
+    <string name="disclaimer">\t\t\t\t在使用本系统的所有功能之前，请您务必仔细阅读并透彻理解本声明。
+        您可以选择不使用本系统，但如果您使用本系统，您的使用行为将被视为对本声明全部内容的认可。\n\t\t\t\t免责声明： 鉴于本系统使用非人工检索/分析方式，
+        无法确定您输入的条件进行是否合法，所以本系统对检索/分析出的结果不承担责任。
+        如果因以本系统的检索/分析结果作为任何商业行为或者学术研究的依据而产生不良后果，本系统不承担任何法律责任。
+        \n\t\t\t\t关于隐私权： 访问者在本系统注册时提供的一些个人资料，本系统除您本人同意外不会将用户的任何资料以任何方式泄露给第三方。当政府部门、司法机关等依照法定程序要求本系统披露个人资料时，本系统将根据执法单位之要求或为公共安全之目的提供个人资料，在此情况下的披露，本系统不承担任何责任。</string>
+    <string name="login_out">退出登录</string>
+    <string name="star_booking">约见</string>
+    <string name="star_refuse">已拒绝</string>
+    <string name="me_agree">我已同意</string>
+    <string name="disclaimer_text">《免责声明》</string>
+    <string name="recharge_info">充值方式</string>
+    <string name="make_sure">确定</string>
+
 
     <!-- session -->
     <string name="input_panel_guess">猜 拳</string>
@@ -65,6 +188,7 @@
     <string name="message_search_title">搜索本地消息记录</string>
     <string name="message_clear">清空本地消息记录</string>
     <string name="message_info">聊天信息</string>
+    <string name="user_asset_manage">资产管理</string>
 
     <!-- 通讯录 -->
     <string name="add_friend">加为好友</string>

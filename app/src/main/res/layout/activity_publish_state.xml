@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_fafafa"
+    android:orientation="vertical">
+
+    <com.yundian.celebrity.widget.NormalTitleBar
+        android:id="@+id/nt_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/color_FB9938" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@color/main_bg_color"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/feedbackContent"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginLeft="@dimen/dp_26"
+            android:layout_marginRight="@dimen/dp_26"
+            android:layout_marginTop="18dp"
+            android:background="@null"
+            android:gravity="left"
+            android:hint="@string/input_your_idea"
+            android:lineSpacingExtra="5dp"
+            android:maxLength="200"
+            android:minHeight="200dp"
+            android:paddingBottom="10dp"
+            android:textColorHint="@color/font_999999"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/feedbackContentNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingRight="@dimen/dp_12"
+            android:text="200/200"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/text_size_14"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_add_pic"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:layout_marginLeft="@dimen/dp_25"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/about_logo" />
+            <ImageView
+                android:id="@+id/iv_clear"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/close"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_25"
+        android:layout_marginTop="@dimen/dp_14"
+        android:text="@string/add_pic_tips"
+        android:textColor="@color/font_999999"
+        android:textSize="@dimen/text_size_14" />
+</LinearLayout>

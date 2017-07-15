@@ -13,21 +13,28 @@
         android:layout_width="match_parent"
         android:layout_height="48dp">
 
+        <!--<ImageView-->
+        <!--android:id="@+id/iv_back"-->
+        <!--android:layout_width="@dimen/dp_9"-->
+        <!--android:layout_height="@dimen/dp_17"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginLeft="@dimen/dp_12"-->
+        <!--android:src="@drawable/back_button" />-->
+
         <TextView
-            android:paddingRight="30dp"
             android:id="@+id/tv_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/back_button"
             android:gravity="center"
             android:paddingLeft="12dp"
-            android:textColor="@color/white"
+            android:drawableLeft="@drawable/back_button"
+            android:paddingRight="30dp"
+            android:textColor="@color/font_333333"
             android:visibility="visible" />
 
-        />
 
         <TextView
             android:id="@+id/tv_title"
@@ -57,7 +64,7 @@
             android:gravity="center"
             android:padding="5dp"
             android:text="右标题"
-            android:textColor="@color/white"
+            android:textColor="@color/font_333333"
             android:textSize="15sp"
             android:visibility="gone" />
     </RelativeLayout>

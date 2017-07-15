@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_fafafa"
+    android:orientation="vertical">
+
+    <com.yundian.celebrity.widget.NormalTitleBar
+        android:id="@+id/nt_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/color_FB9938" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_ffffff"
+        android:orientation="vertical"
+        android:paddingBottom="30dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_13"
+            android:background="@color/main_bg_color"
+            android:gravity="center"
+            android:padding="@dimen/dp_30">
+
+            <com.yundian.celebrity.ui.view.RoundImageView
+                android:id="@+id/headImage"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user_default_head"
+                app:roundHeight="20dp"
+                app:roundWidth="20dp" />
+
+            <TextView
+                android:id="@+id/tv_petname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:text="ddddddd"
+                android:textColor="@color/font_333333"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_meeting_detail_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_26"
+            android:layout_marginTop="@dimen/dp_24"
+            android:background="@color/main_bg_color"
+            android:text="@string/meeting_detail_time"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/fontSize_14sp" />
+
+        <TextView
+            android:id="@+id/tv_meeting_detail_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_26"
+            android:layout_marginTop="@dimen/dp_24"
+            android:background="@color/main_bg_color"
+            android:text="@string/meeting_detail_time"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/fontSize_14sp" />
+
+        <TextView
+            android:id="@+id/tv_meeting_detail_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_26"
+            android:layout_marginTop="@dimen/dp_24"
+            android:background="@color/main_bg_color"
+            android:text="@string/meeting_detail_time"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/fontSize_14sp" />
+
+        <TextView
+            android:id="@+id/tv_meeting_detail_additional"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_26"
+            android:layout_marginTop="@dimen/dp_24"
+            android:background="@color/main_bg_color"
+            android:text="@string/meeting_detail_time"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/fontSize_14sp" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="220dp"
+        android:layout_height="53dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_42"
+        android:background="@drawable/button_bank_message_selected"
+        android:text="@string/meeting_detail_agree"
+        android:textColor="@color/color_ffffff"
+        android:textSize="@dimen/text_size_14" />
+
+
+</LinearLayout>
