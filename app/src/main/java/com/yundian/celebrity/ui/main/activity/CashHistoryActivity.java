@@ -63,11 +63,12 @@ public class CashHistoryActivity extends BaseActivity implements SwipeRefreshLay
     private void initAdapter() {
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         cashHistoryAdapter = new CashHistoryAdapter(R.layout.adapter_cash_history_item, dataList);
         cashHistoryAdapter.setOnLoadMoreListener(this, mRecyclerView);
         cashHistoryAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         mRecyclerView.setAdapter(cashHistoryAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mCurrentCounter = cashHistoryAdapter.getData().size();
         cashHistoryAdapter.setEmptyView(R.layout.message_search_empty_view, (ViewGroup) mRecyclerView.getParent());
 

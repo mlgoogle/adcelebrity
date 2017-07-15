@@ -21,6 +21,7 @@ public interface SocketAPIConstant {
         byte Inquirylist = 12;
         byte Search = 13;
         byte BuyOrSell = 5;
+        byte StarIncome = 16;
     }
 
     interface OperateCode {
@@ -107,6 +108,7 @@ public interface SocketAPIConstant {
         Short Update = 3033;
         Short CancelPay = 7055;
         Short saveDevice = 3035;
+        Short Income = 16001;
 
 
 

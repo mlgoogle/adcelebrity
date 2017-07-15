@@ -8,6 +8,7 @@ import com.yundian.celebrity.bean.BankCardBean;
 import com.yundian.celebrity.bean.BankInfoBean;
 import com.yundian.celebrity.bean.BookingStarListBean;
 import com.yundian.celebrity.bean.IdentityInfoBean;
+import com.yundian.celebrity.bean.IncomeReturnBean;
 import com.yundian.celebrity.bean.MoneyDetailListBean;
 import com.yundian.celebrity.bean.RequestResultBean;
 import com.yundian.celebrity.bean.ResultCodeBeen;
@@ -182,6 +183,20 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.CashOut,
                 SocketAPIConstant.ReqeutType.Pay, map);
         requestEntity(socketDataPacket, WithDrawCashReturnBean.class, listener);
+    }
+
+    @Override
+    public void requestIncome(String starcode, int stardate, int enddate, OnAPIListener<List<IncomeReturnBean>> listener) {
+        LogUtils.loge("提现列表请求网络---------");
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", SharePrefUtil.getInstance().getUserId());
+        map.put("token", SharePrefUtil.getInstance().getToken());
+        map.put("starcode", starcode);
+        map.put("stardate", stardate);
+        map.put("enddate", enddate);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.Income,
+                SocketAPIConstant.ReqeutType.StarIncome, map);
+        requestEntitys(socketDataPacket, "OrderList", IncomeReturnBean.class, listener);
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.yundian.celebrity.bean.BankCardBean;
 import com.yundian.celebrity.bean.BankInfoBean;
 import com.yundian.celebrity.bean.BookingStarListBean;
 import com.yundian.celebrity.bean.IdentityInfoBean;
+import com.yundian.celebrity.bean.IncomeReturnBean;
 import com.yundian.celebrity.bean.MoneyDetailListBean;
 import com.yundian.celebrity.bean.RequestResultBean;
 import com.yundian.celebrity.bean.ResultCodeBeen;
@@ -91,4 +92,5 @@ public interface DealAPI {
     void cashOut(double price, String withdrawPwd, OnAPIListener<WithDrawCashReturnBean> listener);
 
 //    void meetStatus(int pos, int count, OnAPIListener<MeetStarStatusBean> listener);
+    void requestIncome(String starcode, int stardate, int enddate,OnAPIListener<List<IncomeReturnBean>> listener);
 }

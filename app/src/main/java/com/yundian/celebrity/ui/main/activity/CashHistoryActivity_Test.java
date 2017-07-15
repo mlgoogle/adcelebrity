@@ -63,11 +63,11 @@ public class CashHistoryActivity_Test extends BaseActivity implements SwipeRefre
 
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         testAdapter = new TestAdapter(R.layout.adapter_cash_history_item, dataList);
         testAdapter.setOnLoadMoreListener(this, mRecyclerView);
-
         mRecyclerView.setAdapter(testAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mCurrentCounter = testAdapter.getData().size();
 
         testAdapter.setEmptyView(R.layout.message_search_empty_view, (ViewGroup) mRecyclerView.getParent());
