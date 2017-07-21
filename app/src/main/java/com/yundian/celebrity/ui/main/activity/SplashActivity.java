@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 
 import com.yundian.celebrity.R;
-import com.yundian.celebrity.app.AppApplication;
 
 /**
  * Created by Administrator on 2017/5/5.

@@ -261,3 +261,7 @@ public <methods>;
  -dontwarn org.greenrobot.greendao.database.**
  # If you do not use Rx:
  -dontwarn rx.**
+ #qiniu
+ -keep class com.qiniu.**{*;}
+ -keep class com.qiniu.**{public <init>();}
+ -ignorewarnings

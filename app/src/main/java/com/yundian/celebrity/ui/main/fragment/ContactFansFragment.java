@@ -35,6 +35,7 @@ public class ContactFansFragment extends BaseFragment {
     public void initView() {
         initFindViewById();
         ntTitle.setTitleText(getContext().getResources().getString(R.string.contact_fans));
+        ntTitle.setTvLeftVisiable(false);
         initFragment();
         switchTo(1);
     }

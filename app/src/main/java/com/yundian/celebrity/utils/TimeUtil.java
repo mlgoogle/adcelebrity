@@ -1095,6 +1095,7 @@ public class TimeUtil {
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         return format.format(new Date(time));
     }
+
     //毫秒转化为YD
     public static String getYD(long time) {
         SimpleDateFormat format = new SimpleDateFormat("MM-dd");
@@ -1139,7 +1140,7 @@ public class TimeUtil {
 
     //定义默认时区为0的，将毫秒转为HH:mm:ss
     public static String getHMS(long time) {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss" , Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+0"));
         Date date = new Date(time);
         sdf.format(date);
@@ -1148,27 +1149,53 @@ public class TimeUtil {
 
     /**
      * 得到几天前的时间
+     *
      * @param d
      * @param day
      * @return
      */
-    public static Date getDateBefore(Date d,int day){
-        Calendar now =Calendar.getInstance();
+    public static Date getDateBefore(Date d, int day) {
+        Calendar now = Calendar.getInstance();
         now.setTime(d);
-        now.set(Calendar.DATE,now.get(Calendar.DATE)-day);
+        now.set(Calendar.DATE, now.get(Calendar.DATE) - day);
         return now.getTime();
     }
 
     /**
      * 得到几天后的时间
+     *
      * @param d
      * @param day
      * @return
      */
-    public static Date getDateAfter(Date d,int day){
-        Calendar now =Calendar.getInstance();
+    public static Date getDateAfter(Date d, int day) {
+        Calendar now = Calendar.getInstance();
         now.setTime(d);
-        now.set(Calendar.DATE,now.get(Calendar.DATE)+day);
+        now.set(Calendar.DATE, now.get(Calendar.DATE) + day);
         return now.getTime();
+    }
+
+    /**
+     * 转化int日期类型 20170719 --> 7.19
+     *
+     * @param dateDay
+     * @return
+     */
+    public static String getMonthAndDayWithPoint(int dateDay) {
+        String s = String.valueOf(dateDay);
+        if (s.length() <8){
+            return s;
+        }
+        String before =  s.substring(0, 4) + "-"+ s.substring(4,6)+"-"+ s.substring(6,8);
+
+
+        String after;
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(before);
+            after = new SimpleDateFormat("MM.dd", Locale.getDefault()).format(date);
+        } catch (ParseException e) {
+            return before;
+        }
+        return after;
     }
 }

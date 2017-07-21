@@ -1,6 +1,8 @@
 package com.yundian.celebrity.ui.main.fragment;
 
 import android.app.Dialog;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yundian.celebrity.R;
+import com.yundian.celebrity.app.Constant;
 import com.yundian.celebrity.base.BaseFragment;
 import com.yundian.celebrity.bean.IncomeReturnBean;
 import com.yundian.celebrity.bean.WithDrawCashHistoryBean;
@@ -28,7 +31,6 @@ import com.yundian.celebrity.utils.FormatUtil;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.utils.TimeUtil;
-import com.yundian.celebrity.utils.ToastUtils;
 import com.yundian.celebrity.utils.timeselectutils.DatePicker;
 import com.yundian.celebrity.widget.NormalTitleBar;
 
@@ -44,7 +46,6 @@ import java.util.List;
 
 public class InComeInfoFragment extends BaseFragment {
 
-    private static final int REQUEST_COUNT = 10;
     private int start_year = 2017;
     private int start_month = 1;
     private int start_day = 1;
@@ -64,6 +65,7 @@ public class InComeInfoFragment extends BaseFragment {
     InComeInfoAdapter inComeInfoAdapter;
     private View head_view;
     private NormalTitleBar nt_title;
+    private ChartFragment chartFragment;
 
     @Override
     protected int getLayoutResource() {
@@ -100,12 +102,14 @@ public class InComeInfoFragment extends BaseFragment {
 
 
     private void addChart() {
-        ChartFragment chartFragment = new ChartFragment(getContext());
+        chartFragment = new ChartFragment(getContext());
         container.addView(chartFragment);
     }
 
     private void getDateTime() {
+        Date yesterdayDate = TimeUtil.getDateBefore(new Date(), 1);
         Calendar c1 = Calendar.getInstance();
+        c1.setTime(yesterdayDate);
         current_end_year = c1.get(Calendar.YEAR);
         current_end_month = c1.get(Calendar.MONTH) + 1;
         current_end_day = c1.get(Calendar.DAY_OF_MONTH);
@@ -117,7 +121,7 @@ public class InComeInfoFragment extends BaseFragment {
         String after_day7_tes = FormatUtil.formatDayOrMmonth(current_end_day);
         tv_end_time.setText(current_end_year + "-" + after_month7_tes + "-" + after_day7_tes);
 
-        Date dateBefore = TimeUtil.getDateBefore(new Date(), 6);
+        Date dateBefore = TimeUtil.getDateBefore(new Date(), 7);
         Calendar c2 = Calendar.getInstance();
         c2.setTime(dateBefore);
         start_year = c2.get(Calendar.YEAR);
@@ -141,8 +145,12 @@ public class InComeInfoFragment extends BaseFragment {
         inComeInfoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.showShort("点击了自条目" + position);
-                startActivity(InComeDetailActivity.class);
+                IncomeReturnBean bean = inComeInfoAdapter.getData().get(position);
+                Intent intent = new Intent(getActivity(), InComeDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constant.INCOME_INFO, bean);
+                intent.putExtra(Constant.INCOME, bundle);
+                startActivity(intent);
             }
         });
 
@@ -238,6 +246,12 @@ public class InComeInfoFragment extends BaseFragment {
             @Override
             public void onDatePicked(String year, String month, String day) {
                 tv_end_time.setText(year + "-" + month + "-" + day);
+
+                LogUtils.loge(year + "-" + month + "-" + day);
+                after_year7 = Integer.valueOf(year).intValue();
+                after_month7 = Integer.valueOf(month).intValue();
+                after_day7 = Integer.valueOf(day).intValue();
+
                 getData();
             }
         });
@@ -318,14 +332,28 @@ public class InComeInfoFragment extends BaseFragment {
             @Override
             public void onError(Throwable ex) {
                 LogUtils.loge("收益请求失败----------------");
-                inComeInfoAdapter.loadMoreEnd();
+                list.clear();
+//                inComeInfoAdapter.loadMoreEnd();
+//                inComeInfoAdapter.loadMoreEnd(true);
+                inComeInfoAdapter.getData().clear();
+//                inComeInfoAdapter.loadMoreEnd();
+                inComeInfoAdapter.notifyDataSetChanged();
+//                inComeInfoAdapter.loadMoreComplete();
+                chartFragment.loadChartData(null);
+//                inComeInfoAdapter.setNewData(incomeReturnBeen);
+
             }
 
             @Override
             public void onSuccess(List<IncomeReturnBean> incomeReturnBeen) {
                 LogUtils.loge("收益请求成功----------------");
 
+                if (incomeReturnBeen == null || incomeReturnBeen.size() == 0){
+                 return;
+                }
                 inComeInfoAdapter.setNewData(incomeReturnBeen);
+                chartFragment.loadChartData(incomeReturnBeen);
+//                getMonthAndDayWithPoint
             }
         });
     }

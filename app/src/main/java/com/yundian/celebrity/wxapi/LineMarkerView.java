@@ -32,14 +32,14 @@ public class LineMarkerView extends MarkerView {
             markerView.setVisibility(INVISIBLE);
         } else {
             markerView.setVisibility(VISIBLE);
-            currentPrice.setText(String.format("%.2f", entry.getVal()));
+            currentPrice.setText(entry.getVal()+"");
             time.setText(entry.getData() + "");
         }
     }
 
     @Override
     public int getXOffset(float xpos) {
-        return -(getWidth() / 5);
+        return -(getWidth());
     }
 
     @Override

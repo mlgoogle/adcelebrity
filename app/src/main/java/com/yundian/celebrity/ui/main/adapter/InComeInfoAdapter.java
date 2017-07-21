@@ -24,6 +24,10 @@ public class InComeInfoAdapter extends BaseQuickAdapter<IncomeReturnBean, BaseVi
 
     @Override
     protected void convert(BaseViewHolder helper, IncomeReturnBean item) {
+        if (helper.getLayoutPosition()%2 == 0){
+            helper.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.color_fafafa));
+        }
+
         helper.setText(R.id.tv_turnover_date, String.valueOf(item.getOrderdate()))
                 .setText(R.id.tv_turnover_count, String.valueOf(item.getOrder_count()))
                 .setText(R.id.tv_time_count, String.valueOf(item.getOrder_num()))

@@ -109,6 +109,13 @@ public interface SocketAPIConstant {
         Short CancelPay = 7055;
         Short saveDevice = 3035;
         Short Income = 16001;
+        Short YesterdayIncome = 16003;
+        Short OrderList = 16007;
+        Short HaveOrderList = 16005;
+        Short UpdateType = 16011;
+        Short MeetOrderList = 16009;
+        Short AgreeMeet = 16013;
+        Short FansList = 16019;
 
 
 

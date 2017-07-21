@@ -2,31 +2,39 @@ package com.yundian.celebrity.ui.main.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.netease.nim.uikit.common.media.picker.PickImageHelper;
 import com.netease.nim.uikit.session.constant.Extras;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
 import com.yundian.celebrity.R;
+import com.yundian.celebrity.app.Constant;
 import com.yundian.celebrity.base.BaseActivity;
+import com.yundian.celebrity.bean.QiNiuImageToken;
 import com.yundian.celebrity.ui.view.ValidationWatcher;
+import com.yundian.celebrity.utils.DisplayUtil;
+import com.yundian.celebrity.utils.FormatUtil;
+import com.yundian.celebrity.utils.HttpUtils;
 import com.yundian.celebrity.utils.ImageLoaderUtils;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.ToastUtils;
 import com.yundian.celebrity.widget.NormalTitleBar;
 
+import org.json.JSONObject;
+
 import java.io.File;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.netease.nimlib.sdk.msg.constant.SystemMessageStatus.init;
 
 /**
  * 发布状态
@@ -77,12 +85,50 @@ public class PublishStateActivity extends BaseActivity {
         ntTitle.setOnRightTextListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(feedbackContent.getText().toString().trim()) &&
+                if (TextUtils.isEmpty(feedbackContent.getText().toString().trim()) ||
                         TextUtils.isEmpty(pathUrl)) {
-                    TextUtils.isEmpty("发布内容不能为空");
+                    ToastUtils.showShort("发布内容不能为空");
                 } else {
-                    TextUtils.isEmpty("fabu");
+                    publishState();//发布状态
                 }
+            }
+        });
+
+    }
+
+    private UploadManager uploadManager = new UploadManager();
+
+    private void publishState() {
+        HttpUtils.doGetAsyn(Constant.QI_NIU_TOKEN_URL, new HttpUtils.CallBack() {
+            @Override
+            public void onRequestComplete(String result) {
+                LogUtils.loge("请求到的http数据:" + result);
+                final QiNiuImageToken tokenEntity = JSON.parseObject(result, QiNiuImageToken.class);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        LogUtils.loge("生成的图片名称是:" + FormatUtil.createImageName());
+                        uploadManager.put(pathUrl, FormatUtil.createImageName(), tokenEntity.getImageToken(),
+                                new UpCompletionHandler() {
+                                    @Override
+                                    public void complete(String key, ResponseInfo info, JSONObject response) {
+                                        //res包含hash、key等信息，具体字段取决于上传策略的设置
+                                        if (info.isOK()) {
+                                            Log.i("qiniu", "Upload Success");
+
+                                            //拿到上传的图片地址,请求自己的服务器
+                                            String imageUrl = Constant.QI_NIU_BASE_URL + key;
+                                            LogUtils.loge("获取的图片地址:" + imageUrl);
+                                        } else {
+                                            Log.i("qiniu", "Upload Fail");
+                                            //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
+                                        }
+                                        Log.i("qiniu", key + ",\r\n " + info + ",\r\n " + response);
+
+                                    }
+                                }, null);
+                    }
+                });
             }
         });
 
@@ -93,12 +139,6 @@ public class PublishStateActivity extends BaseActivity {
         public void afterTextChanged(Editable editable) {
             String importAbilityWords = String.valueOf(200 - editable.toString().trim().length());
             feedbackContentNumber.setText(String.format(getString(R.string.remainder_input_count), importAbilityWords));
-
-//            if (!TextUtils.isEmpty(editable.toString().trim())) {
-//                mFeedbackSubmit.setEnabled(true);
-//            } else {
-//                mFeedbackSubmit.setEnabled(false);
-//            }
         }
     };
 
@@ -107,7 +147,7 @@ public class PublishStateActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.iv_add_pic:
                 ToastUtils.showShort("添加图片...");
-                showSelector(R.string.add_pic, 100);
+                showSelector(R.string.add_pic, 4);
                 break;
             case R.id.iv_clear:
                 ivAddPic.setImageResource(R.drawable.about_logo);
@@ -123,18 +163,20 @@ public class PublishStateActivity extends BaseActivity {
     private void showSelector(int titleId, final int requestCode) {
         PickImageHelper.PickImageOption option = new PickImageHelper.PickImageOption();
         option.titleResId = titleId;
-        option.multiSelect = false;
-        option.crop = true;
-        option.cropOutputImageWidth = 720;
-        option.cropOutputImageHeight = 720;
+        option.multiSelect = false;  //是否多选
+        option.crop = true;  //是否裁剪
+        option.cropOutputImageWidth = DisplayUtil.getScreenWidth(this);
+        option.cropOutputImageHeight = DisplayUtil.getScreenHeight(this);
+//        option.outputPath = outPath;
         PickImageHelper.pickImage(PublishStateActivity.this, requestCode, option);
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         LogUtils.logd("jieshoudao 拍摄的回调:" + requestCode);
-        if (resultCode == Activity.RESULT_OK && requestCode == 100) {
+        if (resultCode == Activity.RESULT_OK && requestCode == 4) {
             String path = data.getStringExtra(Extras.EXTRA_FILE_PATH);
             updatePic(path);
         }
@@ -153,7 +195,7 @@ public class PublishStateActivity extends BaseActivity {
             return;
         }
         LogUtils.loge("获取到上传的图片的地址:" + path);
-        ImageLoaderUtils.displaySmallPhotoRound(mContext, ivAddPic, path);
+        ImageLoaderUtils.display(mContext, ivAddPic, path);
         pathUrl = path;
         ivClear.setVisibility(View.VISIBLE);
     }

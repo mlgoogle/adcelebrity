@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.base.BaseFragment;
-import com.yundian.celebrity.ui.main.activity.UserAssetsManageActivity;
 import com.yundian.celebrity.widget.NormalTitleBar;
 
 
@@ -37,6 +36,7 @@ public class MeetManageFragment extends BaseFragment {
     protected void initView() {
         initFindViewById();
         ntTitle.setTitleText(getContext().getResources().getString(R.string.contact_fans));
+        ntTitle.setTvLeftVisiable(false);
         initFragment();
         switchTo(1);
     }

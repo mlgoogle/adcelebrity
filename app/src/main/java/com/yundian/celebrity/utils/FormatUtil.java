@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Hashtable;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -371,6 +372,18 @@ public class FormatUtil {
      */
     public static String formatDayOrMmonth(int day) {
         return String.valueOf(day).length() == 2 ? String.valueOf(day) : "0" + String.valueOf(day);
+    }
+
+    /**
+     * 生成图片名称
+     *
+     * @return
+     */
+    public static String createImageName() {
+        Random random = new Random();
+
+        long number = System.currentTimeMillis() + random.nextInt(999999999);
+        return String.valueOf(number);
     }
 }
 

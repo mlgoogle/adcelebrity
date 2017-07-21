@@ -7,9 +7,12 @@ import com.yundian.celebrity.bean.AssetDetailsBean;
 import com.yundian.celebrity.bean.BankCardBean;
 import com.yundian.celebrity.bean.BankInfoBean;
 import com.yundian.celebrity.bean.BookingStarListBean;
+import com.yundian.celebrity.bean.HaveStarUsersBean;
 import com.yundian.celebrity.bean.IdentityInfoBean;
 import com.yundian.celebrity.bean.IncomeReturnBean;
+import com.yundian.celebrity.bean.MeetOrderListBean;
 import com.yundian.celebrity.bean.MoneyDetailListBean;
+import com.yundian.celebrity.bean.OrderListReturnBean;
 import com.yundian.celebrity.bean.RequestResultBean;
 import com.yundian.celebrity.bean.ResultCodeBeen;
 import com.yundian.celebrity.bean.WXPayReturnEntity;
@@ -200,6 +203,57 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
     }
 
     @Override
+    public void yesterdayIncome(String starcode, int orderdate, OnAPIListener<IncomeReturnBean> listener) {
+        LogUtils.loge("昨收今开---------");
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", SharePrefUtil.getInstance().getUserId());
+        map.put("token", SharePrefUtil.getInstance().getToken());
+        map.put("starcode", starcode);
+        map.put("orderdate", orderdate);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.YesterdayIncome,
+                SocketAPIConstant.ReqeutType.StarIncome, map);
+        requestEntity(socketDataPacket, IncomeReturnBean.class, listener);
+    }
+
+    @Override
+    public void orderList(String starcode, OnAPIListener<List<OrderListReturnBean>> listener) {
+        LogUtils.loge("所有活动类型---------");
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", SharePrefUtil.getInstance().getUserId());
+        map.put("token", SharePrefUtil.getInstance().getToken());
+        map.put("starcode", starcode);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.OrderList,
+                SocketAPIConstant.ReqeutType.StarIncome, map);
+        requestEntitys(socketDataPacket, "OrderList",OrderListReturnBean.class, listener);
+    }
+
+    @Override
+    public void haveOrderType(String starcode, OnAPIListener<List<OrderListReturnBean>> listener) {
+        LogUtils.loge("明星拥有活动类型---------");
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", SharePrefUtil.getInstance().getUserId());
+        map.put("token", SharePrefUtil.getInstance().getToken());
+        map.put("starcode", starcode);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.HaveOrderList,
+                SocketAPIConstant.ReqeutType.StarIncome, map);
+        requestEntitys(socketDataPacket, "OrderList",OrderListReturnBean.class, listener);
+    }
+
+    @Override
+    public void updateOrderType(String starcode, int mid, int type, OnAPIListener<RequestResultBean> listener) {
+        LogUtils.loge("修改约见类型---------");
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", SharePrefUtil.getInstance().getUserId());
+        map.put("token", SharePrefUtil.getInstance().getToken());
+        map.put("starcode", starcode);
+        map.put("mid", mid);
+        map.put("type", type);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.UpdateType,
+                SocketAPIConstant.ReqeutType.StarIncome, map);
+        requestEntity(socketDataPacket,RequestResultBean.class, listener);
+    }
+
+    @Override
     public void cashList(int status, int startPos, int count, OnAPIListener<List<WithDrawCashHistoryBean>> listener) {
         LogUtils.loge("提现列表请求网络---------");
         HashMap<String, Object> map = new HashMap<>();
@@ -223,7 +277,6 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
                 SocketAPIConstant.ReqeutType.Bank, map);
         requestEntity(socketDataPacket, BankCardBean.class, listener);
     }
-
     @Override
     public void bankCardInfo(String cardNo, OnAPIListener<BankInfoBean> listener) {
         HashMap<String, Object> map = new HashMap<>();
@@ -270,5 +323,45 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.BookingStar,
                 SocketAPIConstant.ReqeutType.History, map);
         requestEntitys(socketDataPacket, "depositsinfo", BookingStarListBean.class, listener);
+    }
+
+    @Override
+    public void meetOrderList(String starcode,int startPos, int count, OnAPIListener<List<MeetOrderListBean>> listener) {
+        LogUtils.logd("约见订单列表");
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", SharePrefUtil.getInstance().getUserId());
+        map.put("token", SharePrefUtil.getInstance().getToken());
+        map.put("starcode", starcode);
+        map.put("startPos", startPos);
+        map.put("count", count);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.MeetOrderList,
+                SocketAPIConstant.ReqeutType.StarIncome, map);
+        requestEntitys(socketDataPacket, "OrderList", MeetOrderListBean.class, listener);
+    }
+
+    @Override
+    public void agreeMeet(String starcode, int meettype, int meetid, OnAPIListener<RequestResultBean> listener) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", SharePrefUtil.getInstance().getUserId());
+        map.put("token", SharePrefUtil.getInstance().getToken());
+        map.put("starcode", starcode);
+        map.put("meettype", meettype);
+        map.put("meetid", meetid);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.AgreeMeet,
+                SocketAPIConstant.ReqeutType.StarIncome, map);
+        requestEntity(socketDataPacket, RequestResultBean.class, listener);
+    }
+
+    @Override
+    public void fansList(String starcode, int startPos, int count, OnAPIListener<List<HaveStarUsersBean>> listener) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", SharePrefUtil.getInstance().getUserId());
+        map.put("token", SharePrefUtil.getInstance().getToken());
+        map.put("starcode", starcode);
+        map.put("starPos", startPos);
+        map.put("count", count);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.FansList,
+                SocketAPIConstant.ReqeutType.StarIncome, map);
+        requestEntitys(socketDataPacket,"OrderList", HaveStarUsersBean.class, listener);
     }
 }

@@ -10,8 +10,8 @@ import android.os.Parcelable;
 public class IncomeReturnBean implements Parcelable {
 
     /**
-     "max_price":45.21,         最高价
-     "min_price":45.21,         最低价
+     "max_price":45.21,         最高价   /昨收
+     "min_price":45.21,         最低价  /今开
      "order_count":1,           订单总笔数
      "order_num":1,             订单总时间
      "orderdate":20170626,      日期
@@ -135,4 +135,18 @@ public class IncomeReturnBean implements Parcelable {
             return new IncomeReturnBean[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "IncomeReturnBean{" +
+                "max_price=" + max_price +
+                ", min_price=" + min_price +
+                ", order_count=" + order_count +
+                ", order_num=" + order_num +
+                ", orderdate=" + orderdate +
+                ", price=" + price +
+                ", profit=" + profit +
+                ", starcode='" + starcode + '\'' +
+                '}';
+    }
 }

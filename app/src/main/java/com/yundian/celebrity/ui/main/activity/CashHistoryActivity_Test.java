@@ -39,6 +39,7 @@ public class CashHistoryActivity_Test extends BaseActivity implements SwipeRefre
     private long exitNow;
     private static final int REQUEST_COUNT = 10;
     private List<MoneyDetailListBean> dataList = new ArrayList<>();
+    private int mCurrentCounter = 1;
 
     @Override
     public int getLayoutId() {
@@ -79,8 +80,6 @@ public class CashHistoryActivity_Test extends BaseActivity implements SwipeRefre
             }
         });
     }
-
-    private int mCurrentCounter = 1;
 
     @Override
     public void onRefresh() {
