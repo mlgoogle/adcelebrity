@@ -334,7 +334,7 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         map.put("id", SharePrefUtil.getInstance().getUserId());
         map.put("token", SharePrefUtil.getInstance().getToken());
         map.put("starcode", starcode);
-        map.put("startPos", startPos);
+        map.put("starPos", startPos);
         map.put("count", count);
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.MeetOrderList,
                 SocketAPIConstant.ReqeutType.StarIncome, map);
