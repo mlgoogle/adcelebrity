@@ -65,6 +65,7 @@
                 android:id="@+id/iv_clear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
                 android:src="@drawable/close"
                 android:visibility="gone" />
         </LinearLayout>

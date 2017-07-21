@@ -325,10 +325,10 @@ public class InComeInfoFragment extends BaseFragment {
     }
 
     private void getData() {
-        String starcode = "1001";
+        String starCode = SharePrefUtil.getInstance().getStarcode();
         int endTime = Integer.parseInt(after_year7 + FormatUtil.formatDayOrMmonth(after_month7) + FormatUtil.formatDayOrMmonth(after_day7));
         int starTime = Integer.parseInt(start_year + FormatUtil.formatDayOrMmonth(start_month) + FormatUtil.formatDayOrMmonth(start_day));
-        NetworkAPIFactoryImpl.getDealAPI().requestIncome(starcode, starTime, endTime, new OnAPIListener<List<IncomeReturnBean>>() {
+        NetworkAPIFactoryImpl.getDealAPI().requestIncome(starCode, starTime, endTime, new OnAPIListener<List<IncomeReturnBean>>() {
             @Override
             public void onError(Throwable ex) {
                 LogUtils.loge("收益请求失败----------------");

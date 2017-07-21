@@ -16,6 +16,7 @@ import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.ui.main.adapter.AddMeetTypeAdapter;
 import com.yundian.celebrity.utils.LogUtils;
+import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.utils.ToastUtils;
 import com.yundian.celebrity.widget.NormalTitleBar;
 
@@ -63,7 +64,7 @@ public class AddMeetTypeActivity extends BaseActivity {
 
 
     private void getHaveOrderList() {
-        String starCode = "1001";
+        String starCode = SharePrefUtil.getInstance().getStarcode();
         NetworkAPIFactoryImpl.getDealAPI().haveOrderType(starCode, new OnAPIListener<List<OrderListReturnBean>>() {
             @Override
             public void onError(Throwable ex) {
@@ -86,7 +87,7 @@ public class AddMeetTypeActivity extends BaseActivity {
 
 
     private void getData() {
-        String starCode = "1001";
+        String starCode = SharePrefUtil.getInstance().getStarcode();
         NetworkAPIFactoryImpl.getDealAPI().orderList(starCode, new OnAPIListener<List<OrderListReturnBean>>() {
             @Override
             public void onError(Throwable ex) {
@@ -165,7 +166,8 @@ public class AddMeetTypeActivity extends BaseActivity {
     }
 
     private void updateMeetType(int mid, int type) {
-        NetworkAPIFactoryImpl.getDealAPI().updateOrderType("1001", mid, type, new OnAPIListener<RequestResultBean>() {
+        String starCode = SharePrefUtil.getInstance().getStarcode();
+        NetworkAPIFactoryImpl.getDealAPI().updateOrderType(starCode, mid, type, new OnAPIListener<RequestResultBean>() {
             @Override
             public void onError(Throwable ex) {
                 LogUtils.loge("修改类型失败");

@@ -12,6 +12,7 @@ import com.yundian.celebrity.bean.IncomeReturnBean;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.utils.LogUtils;
+import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.widget.NormalTitleBar;
 
 import butterknife.Bind;
@@ -72,8 +73,7 @@ public class InComeDetailActivity extends BaseActivity {
     }
 
     private void requestData(int date) {
-        String starCode = "1001";
-
+        String starCode = SharePrefUtil.getInstance().getStarcode();
         NetworkAPIFactoryImpl.getDealAPI().yesterdayIncome(starCode, date, new OnAPIListener<IncomeReturnBean>() {
             @Override
             public void onError(Throwable ex) {

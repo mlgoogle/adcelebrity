@@ -7,6 +7,7 @@ import com.yundian.celebrity.bean.AssetDetailsBean;
 import com.yundian.celebrity.bean.BankCardBean;
 import com.yundian.celebrity.bean.BankInfoBean;
 import com.yundian.celebrity.bean.BookingStarListBean;
+import com.yundian.celebrity.bean.CircleFriendBean;
 import com.yundian.celebrity.bean.HaveStarUsersBean;
 import com.yundian.celebrity.bean.IdentityInfoBean;
 import com.yundian.celebrity.bean.IncomeReturnBean;
@@ -14,6 +15,7 @@ import com.yundian.celebrity.bean.MeetOrderListBean;
 import com.yundian.celebrity.bean.MoneyDetailListBean;
 import com.yundian.celebrity.bean.OrderListReturnBean;
 import com.yundian.celebrity.bean.RequestResultBean;
+import com.yundian.celebrity.bean.ResultBeen;
 import com.yundian.celebrity.bean.ResultCodeBeen;
 import com.yundian.celebrity.bean.WXPayReturnEntity;
 import com.yundian.celebrity.bean.WithDrawCashHistoryBean;
@@ -363,5 +365,50 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.FansList,
                 SocketAPIConstant.ReqeutType.StarIncome, map);
         requestEntitys(socketDataPacket,"OrderList", HaveStarUsersBean.class, listener);
+    }
+
+    @Override
+    public void getUserAddComment(String star_code, long circle_id, long uid, int direction, String content, OnAPIListener<ResultBeen> listener) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("star_code", star_code);
+        map.put("circle_id", circle_id);
+        map.put("uid", uid);
+        map.put("direction", direction);
+        map.put("content", content);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.StarAddComment,
+                SocketAPIConstant.ReqeutType.CircleInfo, map);
+        requestEntity(socketDataPacket,ResultBeen.class,listener);
+    }
+
+    @Override
+    public void getPraisestar(String star_code, long circle_id, long uid, OnAPIListener<ResultBeen> listener) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("star_code", star_code);
+        map.put("circle_id", circle_id);
+        map.put("uid", uid);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.PresenterStar,
+                SocketAPIConstant.ReqeutType.CircleInfo, map);
+        requestEntity(socketDataPacket,ResultBeen.class,listener);
+    }
+
+    @Override
+    public void getAllCircleInfo(int pos, int count, OnAPIListener<CircleFriendBean> listener) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("pos", pos);
+        map.put("count", count);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.CircleFrindInfo,
+                SocketAPIConstant.ReqeutType.CircleInfo, map);
+        requestEntity(socketDataPacket,CircleFriendBean.class,listener);
+    }
+
+    @Override
+    public void publishState(String content, String picurl, String star_code, OnAPIListener<RequestResultBean> listener) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("content", content);
+        map.put("picurl", picurl);
+        map.put("star_code", star_code);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.Publish,
+                SocketAPIConstant.ReqeutType.CircleInfo, map);
+        requestEntity(socketDataPacket,RequestResultBean.class,listener);
     }
 }

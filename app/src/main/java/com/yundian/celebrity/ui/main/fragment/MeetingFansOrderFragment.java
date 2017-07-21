@@ -20,6 +20,7 @@ import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.ui.main.activity.MeetingFansDetailActivity;
 import com.yundian.celebrity.ui.main.adapter.MeetingFansOrderAdapter;
 import com.yundian.celebrity.utils.LogUtils;
+import com.yundian.celebrity.utils.SharePrefUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -101,7 +102,8 @@ public class MeetingFansOrderFragment extends BaseFragment implements SwipeRefre
 
 
     private void getData(final boolean isLoadMore, int start, int count) {
-        NetworkAPIFactoryImpl.getDealAPI().meetOrderList("1001", start, count, new OnAPIListener<List<MeetOrderListBean>>() {
+        String starCode = SharePrefUtil.getInstance().getStarcode();
+        NetworkAPIFactoryImpl.getDealAPI().meetOrderList(starCode, start, count, new OnAPIListener<List<MeetOrderListBean>>() {
             @Override
             public void onError(Throwable ex) {
                 if (isLoadMore) {

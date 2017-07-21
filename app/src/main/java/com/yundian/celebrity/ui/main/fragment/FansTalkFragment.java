@@ -9,17 +9,24 @@ import android.view.ViewGroup;
 
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.netease.nim.uikit.NimUIKit;
+import com.netease.nim.uikit.session.SessionCustomization;
+
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.base.BaseFragment;
 import com.yundian.celebrity.bean.HaveStarUsersBean;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.ui.main.adapter.FansTalkAdapter;
+import com.yundian.celebrity.ui.wangyi.session.activity.P2PMessageActivity;
 import com.yundian.celebrity.utils.LogUtils;
+import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.R.id.list;
 
 
 /**
@@ -72,7 +79,10 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
         fansTalkAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.showShort("条目被点击+：" + position);
+                HaveStarUsersBean haveStarUsersBean = fansTalkAdapter.getData().get(position);
+                SessionCustomization customization = NimUIKit.getCommonP2PSessionCustomization();
+                P2PMessageActivity.start(getActivity(), haveStarUsersBean.getFaccid(), haveStarUsersBean.getStarcode(),
+                        haveStarUsersBean.getNickname(), customization, null);
             }
         });
     }
@@ -91,8 +101,7 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
     }
 
     private void getData(final boolean isLoadMore, int start, int count) {
-        int status = 0;
-        String starCode = "1001";
+        String starCode = SharePrefUtil.getInstance().getStarcode();
         NetworkAPIFactoryImpl.getDealAPI().fansList(starCode, start, count, new OnAPIListener<List<HaveStarUsersBean>>() {
             @Override
             public void onSuccess(List<HaveStarUsersBean> listBeans) {

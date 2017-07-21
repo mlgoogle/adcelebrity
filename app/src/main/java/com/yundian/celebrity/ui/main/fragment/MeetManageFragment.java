@@ -35,7 +35,7 @@ public class MeetManageFragment extends BaseFragment {
     @Override
     protected void initView() {
         initFindViewById();
-        ntTitle.setTitleText(getContext().getResources().getString(R.string.contact_fans));
+        ntTitle.setTitleText(getContext().getResources().getString(R.string.meeting_manager));
         ntTitle.setTvLeftVisiable(false);
         initFragment();
         switchTo(1);

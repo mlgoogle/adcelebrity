@@ -15,9 +15,9 @@ import com.yundian.celebrity.bean.OrderListReturnBean;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.ui.main.activity.AddMeetTypeActivity;
-import com.yundian.celebrity.ui.main.activity.PublishStateActivity;
 import com.yundian.celebrity.ui.main.adapter.MeetTypeAdapter;
 import com.yundian.celebrity.utils.LogUtils;
+import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.utils.ToastUtils;
 import com.yundian.celebrity.widget.NormalTitleBar;
 
@@ -65,7 +65,7 @@ public class MeetingFansTypeFragment extends BaseFragment implements SwipeRefres
     }
 
     private void getData() {
-        String starCode = "1001";
+        String starCode = SharePrefUtil.getInstance().getStarcode();
         NetworkAPIFactoryImpl.getDealAPI().orderList(starCode, new OnAPIListener<List<OrderListReturnBean>>() {
             @Override
             public void onError(Throwable ex) {
@@ -148,13 +148,13 @@ public class MeetingFansTypeFragment extends BaseFragment implements SwipeRefres
 //            }
 //        });
 
-        meetTypeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.showShort("模拟进入发布朋友圈");
-                startActivity(PublishStateActivity.class);
-            }
-        });
+//        meetTypeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                ToastUtils.showShort("模拟进入发布朋友圈");
+//                startActivity(PublishStateActivity.class);
+//            }
+//        });
 
     }
 

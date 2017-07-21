@@ -19,16 +19,23 @@ import com.qiniu.android.storage.UploadManager;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.app.Constant;
 import com.yundian.celebrity.base.BaseActivity;
+import com.yundian.celebrity.bean.EventBusMessage;
 import com.yundian.celebrity.bean.QiNiuImageToken;
+import com.yundian.celebrity.bean.RequestResultBean;
+import com.yundian.celebrity.listener.OnAPIListener;
+import com.yundian.celebrity.networkapi.NetworkAPIConstant;
+import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.ui.view.ValidationWatcher;
 import com.yundian.celebrity.utils.DisplayUtil;
 import com.yundian.celebrity.utils.FormatUtil;
 import com.yundian.celebrity.utils.HttpUtils;
 import com.yundian.celebrity.utils.ImageLoaderUtils;
 import com.yundian.celebrity.utils.LogUtils;
+import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.utils.ToastUtils;
 import com.yundian.celebrity.widget.NormalTitleBar;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -85,7 +92,7 @@ public class PublishStateActivity extends BaseActivity {
         ntTitle.setOnRightTextListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(feedbackContent.getText().toString().trim()) ||
+                if (TextUtils.isEmpty(feedbackContent.getText().toString().trim()) &&
                         TextUtils.isEmpty(pathUrl)) {
                     ToastUtils.showShort("发布内容不能为空");
                 } else {
@@ -119,6 +126,7 @@ public class PublishStateActivity extends BaseActivity {
                                             //拿到上传的图片地址,请求自己的服务器
                                             String imageUrl = Constant.QI_NIU_BASE_URL + key;
                                             LogUtils.loge("获取的图片地址:" + imageUrl);
+                                            doSendContent(imageUrl);
                                         } else {
                                             Log.i("qiniu", "Upload Fail");
                                             //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
@@ -132,6 +140,26 @@ public class PublishStateActivity extends BaseActivity {
             }
         });
 
+    }
+
+    private void doSendContent(String imageUrl) {
+        String s = feedbackContent.getText().toString();  //内容
+        String starCode = SharePrefUtil.getInstance().getStarcode();
+        NetworkAPIFactoryImpl.getDealAPI().publishState(s, imageUrl, starCode, new OnAPIListener<RequestResultBean>() {
+            @Override
+            public void onError(Throwable ex) {
+                LogUtils.loge("发布失败");
+            }
+
+            @Override
+            public void onSuccess(RequestResultBean requestResultBean) {
+
+                if (requestResultBean.getCircle_id() != -1) {
+                    EventBus.getDefault().post(new EventBusMessage(-65));
+                    finish();
+                }
+            }
+        });
     }
 
     private ValidationWatcher mValidationWatcher = new ValidationWatcher() {
