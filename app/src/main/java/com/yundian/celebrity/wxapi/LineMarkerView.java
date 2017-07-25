@@ -8,6 +8,8 @@ import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.yundian.celebrity.R;
+import com.yundian.celebrity.utils.DisplayUtil;
+import com.yundian.celebrity.utils.LogUtils;
 
 /**
  * Created by Administrator on 2017/3/20.
@@ -32,13 +34,16 @@ public class LineMarkerView extends MarkerView {
             markerView.setVisibility(INVISIBLE);
         } else {
             markerView.setVisibility(VISIBLE);
-            currentPrice.setText(entry.getVal()+"");
+            currentPrice.setText(entry.getVal() + "");
             time.setText(entry.getData() + "");
         }
     }
 
     @Override
     public int getXOffset(float xpos) {
+        if (xpos < DisplayUtil.getScreenWidth(context) / 2) {
+            return 0;
+        }
         return -(getWidth());
     }
 
