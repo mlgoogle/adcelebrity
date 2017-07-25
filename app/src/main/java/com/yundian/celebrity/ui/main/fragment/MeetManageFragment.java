@@ -1,12 +1,14 @@
 package com.yundian.celebrity.ui.main.fragment;
 
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.base.BaseFragment;
-import com.yundian.celebrity.ui.main.activity.UserAssetsManageActivity;
+import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.widget.NormalTitleBar;
 
 
@@ -34,19 +36,41 @@ public class MeetManageFragment extends BaseFragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initFragment(savedInstanceState);
+    }
+
+    private void initFragment(Bundle savedInstanceState) {
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        if (savedInstanceState == null) {
+            meetingFansTypeFragment = new MeetingFansTypeFragment();
+            meetingFansOrderFragment = new MeetingFansOrderFragment();
+            transaction.add(R.id.fl_container, meetingFansTypeFragment, "meetingFansTypeFragment");
+            transaction.add(R.id.fl_container, meetingFansOrderFragment, "meetingFansOrderFragment");
+        } else {
+            meetingFansTypeFragment = (MeetingFansTypeFragment) getChildFragmentManager().findFragmentByTag("meetingFansTypeFragment");
+            meetingFansOrderFragment = (MeetingFansOrderFragment) getChildFragmentManager().findFragmentByTag("meetingFansOrderFragment");
+        }
+        transaction.commit();
+    }
+
+
+    @Override
     protected void initView() {
         initFindViewById();
-        ntTitle.setTitleText(getContext().getResources().getString(R.string.contact_fans));
+        ntTitle.setTitleText(getContext().getResources().getString(R.string.meeting_manager));
+        ntTitle.setTvLeftVisiable(false);
         initFragment();
         switchTo(1);
     }
+
     private void initFindViewById() {
         ntTitle = (NormalTitleBar) rootView.findViewById(R.id.nt_title);
     }
 
     private void initFragment() {
-        meetingFansTypeFragment = new MeetingFansTypeFragment();
-        meetingFansOrderFragment = new MeetingFansOrderFragment();
+
     }
 
 
@@ -54,11 +78,15 @@ public class MeetManageFragment extends BaseFragment {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         switch (type) {
             case 1:
-                transaction.replace(R.id.fl_container, meetingFansTypeFragment);
+                transaction.hide(meetingFansTypeFragment);
+                transaction.hide(meetingFansOrderFragment);
+                transaction.show(meetingFansTypeFragment);
                 transaction.commit();
                 break;
             case 2:
-                transaction.replace(R.id.fl_container, meetingFansOrderFragment);
+                transaction.hide(meetingFansTypeFragment);
+                transaction.hide(meetingFansOrderFragment);
+                transaction.show(meetingFansOrderFragment);
                 transaction.commit();
                 break;
         }
@@ -74,7 +102,13 @@ public class MeetManageFragment extends BaseFragment {
             case R.id.rb_fans_interaction:
                 switchTo(2);
                 break;
-          
+
         }
+    }
+
+    public void loadData() {
+        LogUtils.loge("登陆成功ssssssss-------------------------------------MeetManageFragment");
+        meetingFansTypeFragment.getData();
+        meetingFansOrderFragment.getData(false, 1, 10);
     }
 }

@@ -3,6 +3,9 @@ package com.yundian.celebrity.ui.wangyi.session.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -19,6 +22,7 @@ import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.CustomNotification;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
+import com.yundian.celebrity.R;
 import com.yundian.celebrity.ui.wangyi.session.fragment.MessageFragment;
 
 import java.util.List;
@@ -35,11 +39,11 @@ public class P2PMessageActivity extends BaseMessageActivity {
 
     private boolean isResume = false;
 
-    public static void start(Context context, String contactId, String starcode, String starName, SessionCustomization customization, IMMessage anchor) {
+    public static void start(Context context, String contactId, String uid, String nikeName, SessionCustomization customization, IMMessage anchor) {
         Intent intent = new Intent();
         intent.putExtra(Extras.EXTRA_ACCOUNT, contactId);
-        //intent.putExtra(Extras.EXTRA_STARCODE, starcode);
-        //intent.putExtra(Extras.EXTRA_STARNAME, starName);
+        intent.putExtra(Extras.NIKE_NAME, uid);
+        intent.putExtra(Extras.NIKE_NAME, nikeName);
         intent.putExtra(Extras.EXTRA_CUSTOMIZATION, customization);
         if (anchor != null) {
             intent.putExtra(Extras.EXTRA_ANCHOR, anchor);
@@ -79,17 +83,17 @@ public class P2PMessageActivity extends BaseMessageActivity {
     }
 
     private void requestBuddyInfo() {
-//        TextView viewById = (TextView) findViewById(R.id.broker_id);
-//        ImageView back = (ImageView) findViewById(com.netease.nim.uikit.R.id.back);
-//        TextView tv_chart_rule = (TextView) findViewById(com.netease.nim.uikit.R.id.tv_chart_rule);
-//        String starname = getIntent().getStringExtra(Extras.EXTRA_STARNAME);
-//        viewById.setText(starname);
-//        back.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
+        TextView viewById = (TextView) findViewById(R.id.text_name);
+        ImageView back = (ImageView) findViewById(R.id.back);
+        TextView tv_chart_rule = (TextView) findViewById(R.id.tv_chart_rule);
+        String starname = getIntent().getStringExtra(Extras.NIKE_NAME);
+        viewById.setText(starname);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         //setTitle(UserInfoHelper.getUserTitleName(sessionId, SessionTypeEnum.P2P));
 //        tv_chart_rule.setOnClickListener(new View.OnClickListener() {
 //            @Override

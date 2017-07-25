@@ -30,6 +30,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25+'
     compile fileTree(include: '*.jar', dir: 'libs')
     compile files('libs/universal-image-loader-1.9.5.jar')
-
-
+    compile 'com.alibaba:fastjson:1.2.35'
 }

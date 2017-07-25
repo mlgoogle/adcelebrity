@@ -7,6 +7,15 @@ package com.yundian.celebrity.bean;
 public class RequestResultBean {
     private int status = -1;
     private int result = -1;
+    private int circle_id = -1;
+
+    public int getCircle_id() {
+        return circle_id;
+    }
+
+    public void setCircle_id(int circle_id) {
+        this.circle_id = circle_id;
+    }
 
     public int getStatus() {
         return status;

@@ -30,9 +30,9 @@
         android:required="true" />
 
     <permission
-        android:name="com.yundian.star.permission.RECEIVE_MSG"
+        android:name="com.yundian.celebrity.permission.RECEIVE_MSG"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.yundian.star.permission.RECEIVE_MSG" />
+    <uses-permission android:name="com.yundian.celebrity.permission.RECEIVE_MSG" />
     <!-- 加入应用需要的权限 -->
     <!-- 网络相关 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -68,7 +68,11 @@
 
         <activity
             android:name=".ui.main.activity.MainActivity"
-            android:theme="@style/AppTheme" />
+            android:configChanges="keyboardHidden|orientation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan" />
 
         <!--微信相关-->
         <activity
@@ -457,7 +461,7 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.yundian.star.ACTION.RECEIVE_CUSTOM_NOTIFICATION" />
+                <action android:name="com.yundian.celebrity.ACTION.RECEIVE_CUSTOM_NOTIFICATION" />
             </intent-filter>
         </receiver>
 
@@ -467,7 +471,7 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.yundian.star.ACTION.RECEIVE_RTS_NOTIFICATION" />
+                <action android:name="com.yundian.celebrity.ACTION.RECEIVE_RTS_NOTIFICATION" />
             </intent-filter>
         </receiver>
 

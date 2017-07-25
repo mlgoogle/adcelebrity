@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/dp_10"
     android:background="@color/main_bg_color"
+    android:gravity="center_vertical"
     android:padding="@dimen/dp_10">
 
     <ImageView
@@ -17,7 +18,7 @@
         android:id="@+id/tv_meet_des"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_13"
         android:text="张三李四"
         android:textColor="@color/font_333333"
         android:textSize="@dimen/text_size_14" />
@@ -28,8 +29,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_weight="1"
-        android:text="消耗时间....秒"
-        android:textColor="@color/color_FB9938"
+        android:text="paoguangg"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textColor="@color/font_999999"
         android:textSize="@dimen/text_size_14" />
 
     <TextView

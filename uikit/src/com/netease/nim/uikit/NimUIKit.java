@@ -371,6 +371,10 @@ public final class NimUIKit {
         NimUIKit.commonP2PSessionCustomization = commonP2PSessionCustomization;
     }
 
+    public static SessionCustomization getCommonP2PSessionCustomization() {
+        return commonP2PSessionCustomization ;
+    }
+
     /**
      * 设置群聊界面定制 SessionCustomization
      *

@@ -23,6 +23,24 @@ public class UserinfoBean implements Parcelable {
     private int type;
     private String agentName;
     private String avatar_Large;
+    private String channel;
+    private String starcode; //明星code
+
+    public String getChannel() {
+        return channel;
+    }
+
+    public void setChannel(String channel) {
+        this.channel = channel;
+    }
+
+    public String getStarcode() {
+        return starcode;
+    }
+
+    public void setStarcode(String starcode) {
+        this.starcode = starcode;
+    }
 
     public double getBalance() {
         return balance;
@@ -73,6 +91,20 @@ public class UserinfoBean implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        return "UserinfoBean{" +
+                "balance=" + balance +
+                ", id=" + id +
+                ", phone='" + phone + '\'' +
+                ", type=" + type +
+                ", agentName='" + agentName + '\'' +
+                ", avatar_Large='" + avatar_Large + '\'' +
+                ", channel='" + channel + '\'' +
+                ", starcode='" + starcode + '\'' +
+                '}';
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -85,6 +117,8 @@ public class UserinfoBean implements Parcelable {
         dest.writeInt(this.type);
         dest.writeString(this.agentName);
         dest.writeString(this.avatar_Large);
+        dest.writeString(this.channel);
+        dest.writeString(this.starcode);
     }
 
     public UserinfoBean() {
@@ -97,6 +131,8 @@ public class UserinfoBean implements Parcelable {
         this.type = in.readInt();
         this.agentName = in.readString();
         this.avatar_Large = in.readString();
+        this.channel = in.readString();
+        this.starcode = in.readString();
     }
 
     public static final Creator<UserinfoBean> CREATOR = new Creator<UserinfoBean>() {
@@ -110,16 +146,4 @@ public class UserinfoBean implements Parcelable {
             return new UserinfoBean[size];
         }
     };
-
-    @Override
-    public String toString() {
-        return "UserinfoBean{" +
-                "balance=" + balance +
-                ", id=" + id +
-                ", phone='" + phone + '\'' +
-                ", type=" + type +
-                ", agentName='" + agentName + '\'' +
-                ", avatar_Large='" + avatar_Large + '\'' +
-                '}';
-    }
 }

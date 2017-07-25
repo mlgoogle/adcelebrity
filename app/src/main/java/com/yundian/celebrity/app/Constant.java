@@ -6,9 +6,9 @@ public interface Constant {
 
     String[] mTitles = {"收益情况", "联系粉丝", "约见管理"};
     int[] mIconUnselectIds = {
-            R.drawable.differ_answer_no_ok, R.drawable.market_no_ok, R.drawable.me_no_ok};
+            R.drawable.market_no_ok, R.drawable.differ_answer_no_ok, R.drawable.icon_manager_normal};
     int[] mIconSelectIds = {
-            R.drawable.differ_answer_ok, R.drawable.market_ok, R.drawable.me_ok};
+            R.drawable.market_ok, R.drawable.differ_answer_ok, R.drawable.icon_manager_sel};
 
     String[] rechargeType = new String[]{"微信支付", "支付宝支付"};
     String[] handleText = new String[]{" 未操作 ", " 双倍返还 ", " 货运 ", " 退舱 "};
@@ -64,5 +64,13 @@ public interface Constant {
 
     String ABOUT_US_URL = "http://122.144.169.219:3389/aboutStar";
     String DEAL_RULE_URL = "https://www.baidu.com/";
+
+    String INCOME_INFO = "income_info";
+    String INCOME = "income";
+    String MEET_TYPE = "MEET_TYPE";
+    String MEET_TYPE_DETAIL = "MEET_TYPE_DETAIL";
+    String QI_NIU_TOKEN_URL = "http://122.144.169.219:3378/imageToken";
+    String QI_NIU_BASE_URL = "http://ot81955n7.bkt.clouddn.com/";
+
 
 }

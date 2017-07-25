@@ -252,6 +252,10 @@
         "source": "E:\\AdStar\\adcelebrity\\uikit\\res\\drawable-hdpi\\nim_contact_letter_view_hit_point.png"
     },
     {
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\back_button.png",
+        "source": "E:\\AdStar\\adcelebrity\\uikit\\res\\drawable-hdpi\\back_button.png"
+    },
+    {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\nim_default_img_failed.png",
         "source": "E:\\AdStar\\adcelebrity\\uikit\\res\\drawable-hdpi\\nim_default_img_failed.png"
     },

@@ -11,7 +11,10 @@ import android.graphics.Color;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.contact.core.query.PinYin;
 import com.netease.nim.uikit.custom.DefalutUserInfoProvider;
@@ -72,9 +75,12 @@ import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.MD5Util;
 import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.utils.Utils;
+import com.yundian.celebrity.widget.emoji.IImageLoader;
+import com.yundian.celebrity.widget.emoji.LQREmotionKit;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -91,7 +97,7 @@ public class AppApplication extends BaseApplication {
 
     private void testProcress() {
         String processName = getProcessName(this);
-        initWangYiIM();
+//        initWangYiIM();
         LogUtils.loge("------------processName:"+processName);
         if (processName!= null) {
             if(processName.equals("com.yundian.celebrity")){
@@ -104,6 +110,7 @@ public class AppApplication extends BaseApplication {
                 registerToWx();   //注册微信
                 UMShareAPI.get(this);//初始化友盟
                 Config.DEBUG = true;
+                initEmoji();
                 if (LeakCanary.isInAnalyzerProcess(this)) {
                     return;
                 }
@@ -116,7 +123,7 @@ public class AppApplication extends BaseApplication {
 
             }
         }
-//        initWangYiIM();
+        initWangYiIM();
     }
 
     private String getProcessName(Context context) {
@@ -135,7 +142,14 @@ public class AppApplication extends BaseApplication {
         return "";
     }
 
-
+    private void initEmoji() {
+        LQREmotionKit.init(this, Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "emoji", new IImageLoader() {
+            @Override
+            public void displayImage(Context context, String path, ImageView imageView) {
+                Glide.with(context).load(path).centerCrop().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+            }
+        });
+    }
 
 
     private void initWangYiIM() {
@@ -423,8 +437,8 @@ public class AppApplication extends BaseApplication {
         SharePrefUtil.getInstance().clearUserInfo();
         SharePrefUtil.getInstance().clearUserLoginInfo();
         Preferences.saveUserToken("");
-        LogoutHelper.logout();
-        SocketAPINettyBootstrap.getInstance().closeChannel();
+//        LogoutHelper.logout();   临时关闭
+//        SocketAPINettyBootstrap.getInstance().closeChannel();
 //      ChatRoomHelper.logout();
 //        DemoCache.clear();
 //        LoginSyncDataStatusObserver.getInstance().reset();

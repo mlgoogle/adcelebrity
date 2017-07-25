@@ -32,7 +32,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp_50"
-            android:text="10000"
             android:textColor="@color/main_bg_color"
             android:textSize="@dimen/text_size_40" />
 
@@ -43,9 +42,10 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/tv_today_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/total_time_count"
+                android:text="@string/today_price"
                 android:textColor="@color/color_ffffff"
                 android:textSize="@dimen/text_size_14" />
 
@@ -56,17 +56,17 @@
                 android:background="@color/color_ffffff" />
 
             <TextView
+                android:id="@+id/tv_yesToday_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_30"
-                android:text="@string/total_time_count"
+                android:text="@string/yestoday_price"
                 android:textColor="@color/color_ffffff"
                 android:textSize="@dimen/text_size_14" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_recharge"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
         android:layout_marginTop="@dimen/dp_5"
@@ -77,7 +77,7 @@
         <ImageView
             android:layout_width="@dimen/dp_22"
             android:layout_height="@dimen/dp_22"
-            android:src="@drawable/about_logo" />
+            android:src="@drawable/icon_turnover_count" />
 
         <TextView
             style="@style/user_setting_text_style"
@@ -89,7 +89,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_19"
-            android:text="ssssssss"
             android:textColor="@color/color_FB9938"
             android:textSize="@dimen/dp_18" />
 
@@ -106,7 +105,7 @@
         <ImageView
             android:layout_width="@dimen/dp_22"
             android:layout_height="@dimen/dp_22"
-            android:src="@drawable/about_logo" />
+            android:src="@drawable/icon_time_count" />
 
         <TextView
             style="@style/user_setting_text_style"
@@ -118,7 +117,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_19"
-            android:text="ssssssss"
             android:textColor="@color/color_FB9938"
             android:textSize="@dimen/dp_18" />
 
@@ -134,7 +132,7 @@
         <ImageView
             android:layout_width="@dimen/dp_22"
             android:layout_height="@dimen/dp_22"
-            android:src="@drawable/about_logo" />
+            android:src="@drawable/icon_order_count" />
 
         <TextView
             style="@style/user_setting_text_style"
@@ -146,7 +144,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_19"
-            android:text="ssssssss"
             android:textColor="@color/color_FB9938"
             android:textSize="@dimen/dp_18" />
 

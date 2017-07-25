@@ -107,4 +107,5 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    compile 'com.qiniu:qiniu-android-sdk:7.3.+'  //qiniu
 }

@@ -6,9 +6,15 @@ import com.yundian.celebrity.bean.AssetDetailsBean;
 import com.yundian.celebrity.bean.BankCardBean;
 import com.yundian.celebrity.bean.BankInfoBean;
 import com.yundian.celebrity.bean.BookingStarListBean;
+import com.yundian.celebrity.bean.CircleFriendBean;
+import com.yundian.celebrity.bean.HaveStarUsersBean;
 import com.yundian.celebrity.bean.IdentityInfoBean;
+import com.yundian.celebrity.bean.IncomeReturnBean;
+import com.yundian.celebrity.bean.MeetOrderListBean;
 import com.yundian.celebrity.bean.MoneyDetailListBean;
+import com.yundian.celebrity.bean.OrderListReturnBean;
 import com.yundian.celebrity.bean.RequestResultBean;
+import com.yundian.celebrity.bean.ResultBeen;
 import com.yundian.celebrity.bean.ResultCodeBeen;
 import com.yundian.celebrity.bean.WXPayReturnEntity;
 import com.yundian.celebrity.bean.WithDrawCashHistoryBean;
@@ -91,4 +97,17 @@ public interface DealAPI {
     void cashOut(double price, String withdrawPwd, OnAPIListener<WithDrawCashReturnBean> listener);
 
 //    void meetStatus(int pos, int count, OnAPIListener<MeetStarStatusBean> listener);
+    void requestIncome(String starcode, int stardate, int enddate,OnAPIListener<List<IncomeReturnBean>> listener);
+    void yesterdayIncome(String starcode, int orderdate,OnAPIListener<IncomeReturnBean> listener);
+    void orderList(String starcode, OnAPIListener<List<OrderListReturnBean>> listener);  //约见类型列表
+    void haveOrderType(String starcode, OnAPIListener<List<OrderListReturnBean>> listener);  //明星拥有活动类型
+    void updateOrderType(String starcode,int mid,int type, OnAPIListener<RequestResultBean> listener);  //明星拥有活动类型
+    void meetOrderList(String starcode,int startPos, int count, OnAPIListener<List<MeetOrderListBean>> listener);  //约见订单列表
+    void agreeMeet(String starcode,int meettype, int meetid, OnAPIListener<RequestResultBean> listener);  //约见订单列表
+    void fansList(String starcode,int startPos, int count, OnAPIListener<List<HaveStarUsersBean>> listener);  //拥有明星用户
+    void starCommentUid(String star_code, long circle_id, long uid, int direction, String content, OnAPIListener<ResultBeen> listener);
+    void getPraisestar(String star_code,long circle_id,long uid,OnAPIListener<ResultBeen> listener);
+    void getAllCircleInfo(int pos,int count,OnAPIListener<CircleFriendBean> listener);
+    void publishState(String content,String picurl,String star_code,OnAPIListener<RequestResultBean> listener);
+
 }

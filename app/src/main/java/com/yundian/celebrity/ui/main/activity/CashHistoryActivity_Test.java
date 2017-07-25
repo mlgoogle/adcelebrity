@@ -39,6 +39,7 @@ public class CashHistoryActivity_Test extends BaseActivity implements SwipeRefre
     private long exitNow;
     private static final int REQUEST_COUNT = 10;
     private List<MoneyDetailListBean> dataList = new ArrayList<>();
+    private int mCurrentCounter = 1;
 
     @Override
     public int getLayoutId() {
@@ -63,11 +64,11 @@ public class CashHistoryActivity_Test extends BaseActivity implements SwipeRefre
 
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         testAdapter = new TestAdapter(R.layout.adapter_cash_history_item, dataList);
         testAdapter.setOnLoadMoreListener(this, mRecyclerView);
-
         mRecyclerView.setAdapter(testAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mCurrentCounter = testAdapter.getData().size();
 
         testAdapter.setEmptyView(R.layout.message_search_empty_view, (ViewGroup) mRecyclerView.getParent());
@@ -79,8 +80,6 @@ public class CashHistoryActivity_Test extends BaseActivity implements SwipeRefre
             }
         });
     }
-
-    private int mCurrentCounter = 1;
 
     @Override
     public void onRefresh() {
