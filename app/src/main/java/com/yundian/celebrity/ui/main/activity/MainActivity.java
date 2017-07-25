@@ -382,20 +382,13 @@ public class MainActivity extends BaseActivity {
                 break;
 
             case 1:  //登录成功
+                LogUtils.loge("ssssssss接收到登录已成功的消息---------------");
                 requestBankInfo();  //更新银行卡信息
                 requestBalance();   //更新余额信息
                 tabLayout.setCurrentTab(0);
                 inComeInfoFragment.getData();
-                FansTalkFragment fansTalkFragment = (FansTalkFragment) contactFansFragment.getFragmentManager().findFragmentByTag("fansTalkFragment");
-                fansTalkFragment.getData(false, 1, 10);
-                FansInteractionFragment fansInteractionFragment = (FansInteractionFragment) contactFansFragment.getFragmentManager().findFragmentByTag("fansInteractionFragment");
-                fansInteractionFragment.getData(false, 0, 10);
-
-                MeetingFansTypeFragment meetingFansTypeFragment = (MeetingFansTypeFragment) meetManageFragment.getFragmentManager().findFragmentByTag("meetingFansTypeFragment");
-                meetingFansTypeFragment.getData();
-                MeetingFansOrderFragment meetingFansOrderFragment = (MeetingFansOrderFragment) meetManageFragment.getFragmentManager().findFragmentByTag("meetingFansOrderFragment");
-                meetingFansOrderFragment.getData(false, 0, 10);
-
+                contactFansFragment.loadData();
+                meetManageFragment.loadData();
                 break;
         }
     }
