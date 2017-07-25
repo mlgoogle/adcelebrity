@@ -187,6 +187,7 @@ public class InComeInfoFragment extends BaseFragment {
             public void onClick(View v) {
                 //首先判断登录  登录后请求银行卡,然后再处理
                 String cardNo = SharePrefUtil.getInstance().getCardNo();
+                LogUtils.loge("-----------------cardNo:"+cardNo);
                 if (TextUtils.isEmpty(cardNo)) {
                     showBindBankDialog();
                 } else {
