@@ -376,6 +376,10 @@
         "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\back_button.png",
+        "source": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\back_button.png"
+    },
+    {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_list_pressed_holo_light.9.png",
         "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\drawable-hdpi-v4\\abc_list_pressed_holo_light.9.png"
     },
@@ -448,12 +452,12 @@
         "source": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\nim_picker_image_selected.png"
     },
     {
-        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\nim_message_unread_news_icon_pressed.png",
-        "source": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\nim_message_unread_news_icon_pressed.png"
-    },
-    {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\nim_message_left_white_bg_pressed.9.png",
         "source": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\nim_message_left_white_bg_pressed.9.png"
+    },
+    {
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\nim_message_unread_news_icon_pressed.png",
+        "source": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\nim_message_unread_news_icon_pressed.png"
     },
     {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\nim_message_input_voice_normal.png",

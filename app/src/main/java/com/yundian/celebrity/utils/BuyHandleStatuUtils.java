@@ -101,4 +101,24 @@ public class BuyHandleStatuUtils {
         }
         return imgId;
     }
+
+    public static String getMeetStatus(int meetType) {
+        String statusType = "";
+        switch (meetType) {
+            case 1:
+                statusType = "待确认";
+                break;
+            case 2:
+                statusType = "已拒绝";
+                break;
+            case 3:
+                statusType = "已完成";
+                break;
+            case 4:
+                statusType = "已同意";
+                break;
+
+        }
+        return statusType;
+    }
 }

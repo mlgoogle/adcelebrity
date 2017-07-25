@@ -6,12 +6,21 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.yundian.celebrity.R;
+import com.yundian.celebrity.bean.IncomeReturnBean;
+import com.yundian.celebrity.utils.LogUtils;
+import com.yundian.celebrity.utils.TimeUtil;
+import com.yundian.celebrity.wxapi.LineMarkerView;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * K线图
@@ -19,10 +28,16 @@ import java.util.ArrayList;
 public class ChartFragment extends FrameLayout {
 
     private View chatView;
-
+    private Context context;
+    private int colorLine;
+    private int colorText;
+    private LineMarkerView mvLine;
+    private LineChart mLineChart;
+    private List<IncomeReturnBean> lineEntities;
 
     public ChartFragment(Context context) {
         super(context);
+        this.context = context;
         initChart();
     }
 
@@ -36,100 +51,131 @@ public class ChartFragment extends FrameLayout {
         initChart();
     }
 
-    /**
-     * 天然地往LoadingPage中添加3个view
-     */
-    private void initChart(){
+    private void initChart() {
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        if(chatView == null){
+        if (chatView == null) {
             chatView = View.inflate(getContext(), R.layout.fragment_chart, null);
         }
         addView(chatView, params);
         mLineChart = (LineChart) chatView.findViewById(R.id.chart);
+        initChartData();
+    }
 
-        LineData mLineData = getLineData(36, 100);
-        showChart(mLineChart, mLineData, Color.rgb(114, 188, 223));
-//        initData();
+    public void initChartData() {
+        int colorHomeBg = context.getResources().getColor(R.color.color_fafafa); //背景色
+        int colorDivide = context.getResources().getColor(R.color.color_e5e5e5);//分割线
+        colorText = context.getResources().getColor(R.color.color_FB9938);
+        //条目
+        colorLine = context.getResources().getColor(R.color.color_FB9938);
+        mLineChart.setNoDataTextDescription("当前时间段没有收益数据");
+        mLineChart.setDescription("");//描述信息
+        mLineChart.setDrawGridBackground(false); //是否显示表格颜色
+        mLineChart.setBackgroundColor(colorHomeBg);
+        mLineChart.setGridBackgroundColor(colorHomeBg);
+        mLineChart.setScaleYEnabled(true);  //Y轴激活
+        mLineChart.setPinchZoom(false); //设置x轴和y轴能否同时缩放。默认是否
+        mLineChart.setNoDataText("");
+//        mLineChart.setAutoScaleMinMaxEnabled(true);
+        mLineChart.setDragEnabled(true); //可以拖拽
+        mLineChart.setScaleEnabled(false);  //放大缩小
+        mLineChart.getLegend().setEnabled(false);//图例
+        mLineChart.setTouchEnabled(true);
+        mLineChart.animateX(1000);
+
+        mLineChart.setDrawBorders(false);  //设置图表内格子外的边框是否显示
+//        mLineChart.setBorderColor(colorDivide);   //上面的边框颜色
+
+        mLineChart.setDescriptionColor(colorText);
+        mLineChart.setDescriptionTextSize(16);
+
+//        mLineChart.requestDisallowInterceptTouchEvent(true);
+//        mLineChart.setExtraLeftOffset(50);
+        mLineChart.setExtraRightOffset(10);
+        XAxis xAxis = mLineChart.getXAxis();
+
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGridColor(colorLine);
+        xAxis.setTextColor(Color.rgb(102, 102, 102));
+        xAxis.setTextSize(14);
+//        xAxis.setSpaceBetweenLabels(4);// 轴刻度间的宽度，默认值是4
+        xAxis.resetLabelsToSkip();
+
+        xAxis.setEnabled(true);
+        xAxis.setAvoidFirstLastClipping(true);
+
+        YAxis leftAxis = mLineChart.getAxisLeft();
+        leftAxis.setLabelCount(6, false);
+
+        leftAxis.setGridColor(colorDivide);
+        leftAxis.setTextColor(colorLine);
+        leftAxis.setTextSize(14);
+
+
+//        leftAxis.setDrawAxisLine(true); //是否绘制坐标轴的线，即含有坐标的那条线，默认是true
+
+        //rightAxis.setAxisMinValue(0);此方法虽然可以设置最小值为0，但是起点都会从0开始
+        leftAxis.setStartAtZero(false);
+        leftAxis.setDrawGridLines(true);
+        leftAxis.setDrawLabels(true);  //显示刻度
+
+        YAxis rightAxis = mLineChart.getAxisRight();
+        rightAxis.setEnabled(false);
+        refreshMarkerView();
+        initListener();
+    }
+
+    private void initListener() {
+        mLineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry entry, int i, Highlight highlight) {
+                if (lineEntities == null) {
+                    return;
+                }
+                entry.setData(lineEntities.get(entry.getXIndex()).getOrderdate());
+                mvLine.refreshContent(entry, highlight);
+            }
+
+            @Override
+            public void onNothingSelected() {
+            }
+        });
+    }
+
+    public void refreshMarkerView() {
+        mvLine = new LineMarkerView(getContext(), R.layout.ly_marker_line);
+        mLineChart.setMarkerView(mvLine);
     }
 
 
-    private LineChart mLineChart;
-//  private Typeface mTf;
-
-
-    // 设置显示的样式
-    private void showChart(LineChart lineChart, LineData lineData, int color) {
-        lineChart.setDrawBorders(false);  //是否在折线图上添加边框
-
-        // no description text
-        lineChart.setDescription("");// 数据描述
-        // 如果没有数据的时候，会显示这个，类似listview的emtpyview
-        lineChart.setNoDataTextDescription("You need to provide data for the chart.");
-
-        // enable / disable grid background
-        lineChart.setDrawGridBackground(false); // 是否显示表格颜色
-        lineChart.setGridBackgroundColor(Color.WHITE & 0x70FFFFFF); // 表格的的颜色，在这里是是给颜色设置一个透明度
-
-        // enable touch gestures
-        lineChart.setTouchEnabled(true); // 设置是否可以触摸
-
-        // enable scaling and dragging
-        lineChart.setDragEnabled(true);// 是否可以拖拽
-        lineChart.setScaleEnabled(true);// 是否可以缩放
-
-        // if disabled, scaling can be done on x- and y-axis separately
-        lineChart.setPinchZoom(false);//
-
-        lineChart.setBackgroundColor(color);// 设置背景
-
-        // add data
-        lineChart.setData(lineData); // 设置数据
-
-        // get the legend (only possible after setting data)
-        Legend mLegend = lineChart.getLegend(); // 设置比例图标示，就是那个一组y的value的
-
-        // modify the legend ...
-        // mLegend.setPosition(LegendPosition.LEFT_OF_CHART);
-        mLegend.setForm(Legend.LegendForm.CIRCLE);// 样式
-        mLegend.setFormSize(6f);// 字体
-        mLegend.setTextColor(Color.WHITE);// 颜色
-//      mLegend.setTypeface(mTf);// 字体
-
-        lineChart.animateX(2500); // 立即执行的动画,x轴
-    }
-
-    /**
-     * 生成一个数据
-     * @param count 表示图表中有多少个坐标点
-     * @param range 用来生成range以内的随机数
-     * @return
-     */
-    private LineData getLineData(int count, float range) {
-        ArrayList<String> xValues = new ArrayList<String>();
+    public void loadChartData(List<IncomeReturnBean> dataList) {
+        this.lineEntities = dataList;
+        mLineChart.resetTracking();
+        if (dataList == null) {
+            mLineChart.clear();
+            mLineChart.invalidate();
+            return;
+        }
+        int count = dataList.size();
+        List<String> xValues = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             // x轴显示的数据，这里默认使用数字下标显示
-            xValues.add("" + i);
+            String dateX = TimeUtil.getMonthAndDayWithPoint(dataList.get(i).getOrderdate());
+            LogUtils.loge("处理后的dateX:" + dateX);
+            xValues.add(dateX);
         }
 
         // y轴的数据
-        ArrayList<Entry> yValues = new ArrayList<Entry>();
+        List<Entry> yValues = new ArrayList<Entry>();
         for (int i = 0; i < count; i++) {
-            float value = (float) (Math.random() * range) + 3;
+            float value = (float) (dataList.get(i).getOrder_count());
             yValues.add(new Entry(value, i));
         }
-
-        // create a dataset and give it a type
         // y轴的数据集合
-        LineDataSet lineDataSet = new LineDataSet(yValues, "测试折线图" /*显示在比例图上*/);
+        LineDataSet lineDataSet = generateLineDataSet(yValues, colorLine, "");
         // mLineDataSet.setFillAlpha(110);
         // mLineDataSet.setFillColor(Color.RED);
 
-        //用y轴的集合来设置参数
-        lineDataSet.setLineWidth(1.75f); // 线宽
-        lineDataSet.setCircleSize(3f);// 显示的圆形大小
-        lineDataSet.setColor(Color.WHITE);// 显示颜色
-        lineDataSet.setCircleColor(Color.WHITE);// 圆形的颜色
-        lineDataSet.setHighLightColor(Color.WHITE); // 高亮的线的颜色
 
         ArrayList<LineDataSet> lineDataSets = new ArrayList<LineDataSet>();
         lineDataSets.add(lineDataSet); // add the datasets
@@ -137,7 +183,33 @@ public class ChartFragment extends FrameLayout {
         // create a data object with the datasets
         LineData lineData = new LineData(xValues, lineDataSets);
 
-        return lineData;
+        mLineChart.setData(lineData);
+        refreshMarkerView();
+
+        mLineChart.invalidate();
     }
 
+    private LineDataSet generateLineDataSet(List<Entry> entries, int color, String label) {
+        LineDataSet set = new LineDataSet(entries, label);
+        set.setColor(color);
+        set.setLineWidth(1.0f);
+        set.setDrawCubic(false);//圆滑曲线
+        set.setDrawCircles(true);//设置有圆点
+        set.setDrawFilled(false);  //设置包括的范围区域填充颜色
+//        set.setFillColor(colorText);
+        set.setCubicIntensity(0.2f);
+//        set.setDrawCircleHole(false);
+        set.setDrawValues(true);
+        set.setCircleColorHole(Color.WHITE);
+        set.setValueTextColor(colorText);
+        set.setValueTextSize(11);
+        set.setCircleSize(5f);// 显示的圆形大小
+        set.setCircleColor(colorText);// 圆形的颜色
+        set.setDrawCircleHole(true);
+        set.setHighlightEnabled(true);
+        set.setHighLightColor(Color.rgb(204, 204, 204)); // 高亮的线的颜色
+        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+//        set.setHighLightColor(R.color.color_666666);
+        return set;
+    }
 }

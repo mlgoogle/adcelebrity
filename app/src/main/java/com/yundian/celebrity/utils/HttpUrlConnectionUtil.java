@@ -12,6 +12,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 import javax.net.ssl.HostnameVerifier;
+
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
@@ -29,7 +30,7 @@ public class HttpUrlConnectionUtil {
         URL url = null;
         HttpURLConnection con = null;
         try {
-            url = new URL(httpUrl);
+            url = new URL(null,httpUrl);
             try {
                 // trust all hosts
                 trustAllHosts();

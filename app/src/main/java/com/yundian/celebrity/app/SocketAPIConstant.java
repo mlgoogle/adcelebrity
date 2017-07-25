@@ -21,6 +21,9 @@ public interface SocketAPIConstant {
         byte Inquirylist = 12;
         byte Search = 13;
         byte BuyOrSell = 5;
+        byte StarIncome = 16;
+        byte CircleInfo = 15;
+
     }
 
     interface OperateCode {
@@ -107,6 +110,20 @@ public interface SocketAPIConstant {
         Short Update = 3033;
         Short CancelPay = 7055;
         Short saveDevice = 3035;
+        Short Income = 16001;
+        Short YesterdayIncome = 16003;
+        Short OrderList = 16007;
+        Short HaveOrderList = 16005;
+        Short UpdateType = 16011;
+        Short MeetOrderList = 16009;
+        Short AgreeMeet = 16013;
+        Short FansList = 16019;
+        Short UserAddComment = 15011; //用户评论或回复明星动态
+        Short PresenterStar = 15009;//用户点赞明星动态
+        Short CircleFrindInfo = 15003;  //获取某个明星的圈子信息
+        Short StarAddComment = 15013; //明星回复用户动态
+        Short Publish = 15005;  //明星发表动态
+//        15014   明星回复用户动态返回
 
 
 

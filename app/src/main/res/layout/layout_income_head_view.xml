@@ -49,7 +49,7 @@
                         android:layout_width="14dp"
                         android:layout_height="8dp"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/about_logo" />
+                        android:src="@drawable/arrow_up" />
 
                 </LinearLayout>
 
@@ -79,7 +79,7 @@
                         android:layout_width="14dp"
                         android:layout_height="8dp"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/about_logo" />
+                        android:src="@drawable/arrow_up" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -97,8 +97,8 @@
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
-
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/color_fafafa" />
 
         <!--<com.github.mikephil.charting.charts.LineChart-->
         <!--android:id="@+id/chart"-->

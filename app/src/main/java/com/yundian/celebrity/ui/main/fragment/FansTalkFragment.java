@@ -9,31 +9,33 @@ import android.view.ViewGroup;
 
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.netease.nim.uikit.NimUIKit;
+import com.netease.nim.uikit.session.SessionCustomization;
+
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.base.BaseFragment;
-import com.yundian.celebrity.bean.WithDrawCashHistoryBean;
+import com.yundian.celebrity.bean.HaveStarUsersBean;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.ui.main.adapter.FansTalkAdapter;
+import com.yundian.celebrity.ui.wangyi.session.activity.P2PMessageActivity;
 import com.yundian.celebrity.utils.LogUtils;
-import com.yundian.celebrity.utils.ToastUtils;
-import com.yundian.celebrity.widget.NormalTitleBar;
+import com.yundian.celebrity.utils.SharePrefUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * 粉丝聊天
  */
 
 public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
-    private NormalTitleBar ntTitle;
+
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout swipeLayout;
 
     private FansTalkAdapter fansTalkAdapter;
-    private List<WithDrawCashHistoryBean> dataList = new ArrayList<>();
+    private List<HaveStarUsersBean> dataList = new ArrayList<>();
     private int mCurrentCounter = 1;
     private static final int REQUEST_COUNT = 10;
 
@@ -47,8 +49,6 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
     public void initPresenter() {
     }
 
-
-
     @Override
     protected void initView() {
         initFindById();
@@ -57,7 +57,6 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
     }
 
     private void initFindById() {
-        ntTitle = (NormalTitleBar) rootView.findViewById(R.id.nt_title);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_list);
         swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeLayout);
     }
@@ -65,17 +64,19 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
     private void initAdapter() {
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         fansTalkAdapter = new FansTalkAdapter(R.layout.adapter_fans_talk_item, dataList);
         fansTalkAdapter.setOnLoadMoreListener(this, mRecyclerView);
-        fansTalkAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         mRecyclerView.setAdapter(fansTalkAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mCurrentCounter = fansTalkAdapter.getData().size();
         fansTalkAdapter.setEmptyView(R.layout.message_search_empty_view, (ViewGroup) mRecyclerView.getParent());
         fansTalkAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.showShort("条目被点击+：" + position);
+                HaveStarUsersBean haveStarUsersBean = fansTalkAdapter.getData().get(position);
+                SessionCustomization customization = NimUIKit.getCommonP2PSessionCustomization();
+                P2PMessageActivity.start(getActivity(), haveStarUsersBean.getFaccid(), haveStarUsersBean.getStarcode(),
+                        haveStarUsersBean.getNickname(), customization, null);
             }
         });
     }
@@ -93,11 +94,11 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
         swipeLayout.setEnabled(true);
     }
 
-    private void getData(final boolean isLoadMore, int start, int count) {
-        int status = 0;
-        NetworkAPIFactoryImpl.getDealAPI().cashList(status, start, count, new OnAPIListener<List<WithDrawCashHistoryBean>>() {
+    public void getData(final boolean isLoadMore, int start, int count) {
+        String starCode = SharePrefUtil.getInstance().getStarcode();
+        NetworkAPIFactoryImpl.getDealAPI().fansList(starCode, start, count, new OnAPIListener<List<HaveStarUsersBean>>() {
             @Override
-            public void onSuccess(List<WithDrawCashHistoryBean> listBeans) {
+            public void onSuccess(List<HaveStarUsersBean> listBeans) {
                 if (listBeans == null || listBeans.size() == 0) {
                     fansTalkAdapter.loadMoreEnd(true);  //显示"没有更多数据"
                     return;
@@ -122,9 +123,27 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
                     swipeLayout.setRefreshing(false);  //下拉刷新,应该显示空白页
                     fansTalkAdapter.setEnableLoadMore(true);
                 }
-                LogUtils.loge("提现记录失败---------------");
+                LogUtils.loge("粉丝列表失败-----------");
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        onHiddenChanged(getUserVisibleHint());
+    }
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        if (hidden) {
+            LogUtils.loge("粉丝聊天界面:onHiddenChanged-----------------------------刷新首页" + isVisible());
+        } else {
+            LogUtils.loge("bu可见------------------刷新");
+        }
+        super.onHiddenChanged(hidden);
+
     }
 
 }

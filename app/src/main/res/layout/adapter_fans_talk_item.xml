@@ -40,21 +40,21 @@
     <!--android:visibility="gone" />-->
 
     <!--<TextView-->
-        <!--android:id="@+id/have_talk"-->
-        <!--android:layout_width="@dimen/dp_70"-->
-        <!--android:layout_height="@dimen/dp_26"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:layout_marginRight="@dimen/dp_12"-->
-        <!--android:background="@drawable/bg_booking_star_talk"-->
-        <!--android:gravity="center"-->
-        <!--android:text="@string/have_talk"-->
-        <!--android:textColor="@color/color_8C0808"-->
-        <!--android:textSize="@dimen/dp_12"-->
-        <!--android:visibility="gone" />-->
+    <!--android:id="@+id/have_talk"-->
+    <!--android:layout_width="@dimen/dp_70"-->
+    <!--android:layout_height="@dimen/dp_26"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:layout_marginRight="@dimen/dp_12"-->
+    <!--android:background="@drawable/bg_booking_star_talk"-->
+    <!--android:gravity="center"-->
+    <!--android:text="@string/have_talk"-->
+    <!--android:textColor="@color/color_8C0808"-->
+    <!--android:textSize="@dimen/dp_12"-->
+    <!--android:visibility="gone" />-->
 
-    <RelativeLayout
-        android:layout_width="@dimen/dp_30"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
@@ -64,17 +64,34 @@
             android:id="@+id/iv_talk_icon"
             android:layout_width="@dimen/dp_29"
             android:layout_height="@dimen/dp_24"
-            android:src="@drawable/about_logo" />
+            android:layout_marginTop="@dimen/dp_10"
+            android:src="@drawable/talk_fans" />
 
         <TextView
             android:id="@+id/tv_talk_msg_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="666"
-            android:layout_alignParentRight="true"
             android:textColor="@color/color_8C0808"
             android:textSize="@dimen/text_size_12" />
-    </RelativeLayout>
+    </LinearLayout>
 
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_talk_icon"-->
+    <!--android:layout_width="@dimen/dp_29"-->
+    <!--android:layout_height="@dimen/dp_24"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_marginRight="@dimen/dp_50"-->
+    <!--android:src="@drawable/about_logo" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_talk_msg_count"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_marginRight="@dimen/dp_50"-->
+    <!--android:text="666"-->
+    <!--android:textColor="@color/color_8C0808"-->
+    <!--android:textSize="@dimen/text_size_12" />-->
 
 </RelativeLayout>

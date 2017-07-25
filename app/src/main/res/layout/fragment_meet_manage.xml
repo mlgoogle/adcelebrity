@@ -10,17 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="48dp" />
 
-    <LinearLayout
-        android:id="@+id/ll_user_money_bag"
-        style="@style/user_info_setting_style">
-
-        <TextView
-            style="@style/user_setting_text_style"
-            android:text="充值提现" />
-
-    </LinearLayout>
-
-
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_45"
