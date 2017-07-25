@@ -28,7 +28,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * 约见订单
  */
@@ -101,7 +100,7 @@ public class MeetingFansOrderFragment extends BaseFragment implements SwipeRefre
     }
 
 
-    private void getData(final boolean isLoadMore, int start, int count) {
+    public void getData(final boolean isLoadMore, int start, int count) {
         String starCode = SharePrefUtil.getInstance().getStarcode();
         NetworkAPIFactoryImpl.getDealAPI().meetOrderList(starCode, start, count, new OnAPIListener<List<MeetOrderListBean>>() {
             @Override

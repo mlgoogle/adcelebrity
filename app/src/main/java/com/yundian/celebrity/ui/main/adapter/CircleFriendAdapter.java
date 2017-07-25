@@ -2,16 +2,11 @@ package com.yundian.celebrity.ui.main.adapter;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -19,13 +14,11 @@ import com.yundian.celebrity.R;
 import com.yundian.celebrity.app.CommentConfig;
 import com.yundian.celebrity.bean.ActionItem;
 import com.yundian.celebrity.bean.CircleFriendBean;
-import com.yundian.celebrity.bean.WithDrawCashHistoryBean;
 import com.yundian.celebrity.ui.main.presenter.CirclePresenter;
 import com.yundian.celebrity.utils.ImageLoaderUtils;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.utils.TimeUtil;
-import com.yundian.celebrity.utils.ToastUtils;
 import com.yundian.celebrity.widget.CommentListView;
 import com.yundian.celebrity.widget.PraiseListView;
 import com.yundian.celebrity.widget.SnsPopupWindow;
@@ -74,7 +67,7 @@ public class CircleFriendAdapter extends BaseQuickAdapter<CircleFriendBean.Circl
 //        final CircleViewHolder circleViewHolder = (CircleViewHolder) holder;
         final CircleFriendBean.CircleListBean circleItem = item;
         final String content = circleItem.getContent();
-        LogUtils.loge("获取的content:"+content);
+        LogUtils.loge("获取的content:" + content);
         final List<CircleFriendBean.CircleListBean.ApproveListBean> favortDatas = circleItem.getApprove_list();
         final List<CircleFriendBean.CircleListBean.CommentListBean> commentsDatas = circleItem.getComment_list();
         boolean hasFavort = circleItem.hasFavort();
@@ -83,7 +76,7 @@ public class CircleFriendAdapter extends BaseQuickAdapter<CircleFriendBean.Circl
         ImageView headIv = holder.getView(R.id.headIv);
         ImageView img_back = holder.getView(R.id.img_back);
         ImageLoaderUtils.displaySmallPhoto(mContext, headIv, circleItem.getHead_url());
-
+        holder.addOnClickListener(R.id.img_back);
         holder.setText(R.id.nameTv, circleItem.getSymbol_name())
                 .setText(R.id.tv_time, TimeUtil.getfriendlyTime(circleItem.getCreate_time() * 1000));
 
@@ -126,7 +119,9 @@ public class CircleFriendAdapter extends BaseQuickAdapter<CircleFriendBean.Circl
                     @Override
                     public void onItemClick(int commentPosition) {
                         CircleFriendBean.CircleListBean.CommentListBean commentItem = commentsDatas.get(commentPosition);
-                        if (1 == commentItem.getDirection()) {//回复明星的评论
+                        LogUtils.loge("当前的ssss:" + commentItem.getDirection());
+                        if (0 == commentItem.getDirection()) {//只有是用户的评论明星才能回复
+                            LogUtils.loge("回复明星的评论");
                             if (presenter != null) {
                                 CommentConfig config = new CommentConfig();
                                 config.circlePosition = holder.getLayoutPosition();
@@ -135,6 +130,7 @@ public class CircleFriendAdapter extends BaseQuickAdapter<CircleFriendBean.Circl
                                 config.commentType = CommentConfig.Type.REPLY;
                                 config.symbol_name = circleItem.getSymbol_name();
                                 config.symbol_code = circleItem.getSymbol();
+                                config.uid = commentItem.getUid();  //回复对应的用户id
                                 presenter.showEditTextBody(config);
                             }
                         }
@@ -299,21 +295,21 @@ public class CircleFriendAdapter extends BaseQuickAdapter<CircleFriendBean.Circl
         @Override
         public void onItemClick(ActionItem actionitem, int position) {
             switch (position) {
-                case 0://点赞、取消点赞
-                    if (System.currentTimeMillis() - mLasttime < 700)//防止快速点击操作
-                        return;
-                    mLasttime = System.currentTimeMillis();
-                    if (presenter != null) {
-                        //判断是否已点赞
-                        int curUserFavortId = mCircleItem.getCurUserFavortId(SharePrefUtil.getInstance().getUserId());
-                        if ("赞".equals(actionitem.mTitle.toString()) && curUserFavortId != mFavorId) {
-                            presenter.addFavort(mCircleItem.getSymbol(), mCircleItem.getCircle_id(), SharePrefUtil.getInstance().getUserId(), mCirclePosition, mUserName);
-                        } else {//取消点赞
-                            //presenter.deleteFavort(mCirclePosition, mFavorId);
-                            ToastUtils.showShort("您已经赞过");
-                        }
-                    }
-                    break;
+//                case 0://点赞、取消点赞  用户点赞明星动态
+//                    if (System.currentTimeMillis() - mLasttime < 700)//防止快速点击操作
+//                        return;
+//                    mLasttime = System.currentTimeMillis();
+//                    if (presenter != null) {
+//                        //判断是否已点赞
+//                        int curUserFavortId = mCircleItem.getCurUserFavortId(SharePrefUtil.getInstance().getUserId());
+//                        if ("赞".equals(actionitem.mTitle.toString()) && curUserFavortId != mFavorId) {
+//                            presenter.addFavort(mCircleItem.getSymbol(), mCircleItem.getCircle_id(), SharePrefUtil.getInstance().getUserId(), mCirclePosition, mUserName);
+//                        } else {//取消点赞
+//                            //presenter.deleteFavort(mCirclePosition, mFavorId);
+//                            ToastUtils.showShort("您已经赞过");
+//                        }
+//                    }
+//                    break;
                 case 1://发布评论
                     if (presenter != null) {
                         CommentConfig config = new CommentConfig();

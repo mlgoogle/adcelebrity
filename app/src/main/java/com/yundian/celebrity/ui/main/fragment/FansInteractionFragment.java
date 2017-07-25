@@ -1,12 +1,14 @@
 package com.yundian.celebrity.ui.main.fragment;
 
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,8 +16,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-
+import android.widget.PopupWindow;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yundian.celebrity.R;
@@ -23,17 +24,16 @@ import com.yundian.celebrity.app.CommentConfig;
 import com.yundian.celebrity.base.BaseFragment;
 import com.yundian.celebrity.bean.CircleFriendBean;
 import com.yundian.celebrity.bean.EventBusMessage;
-import com.yundian.celebrity.bean.MoneyDetailListBean;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.ui.main.adapter.CircleFriendAdapter;
-import com.yundian.celebrity.ui.main.adapter.TestAdapter;
 import com.yundian.celebrity.ui.main.contract.CircleContract;
 import com.yundian.celebrity.ui.main.presenter.CirclePresenter;
+import com.yundian.celebrity.utils.ImageLoaderUtils;
 import com.yundian.celebrity.utils.KeyBordUtil;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.ToastUtils;
-import com.yundian.celebrity.widget.NormalTitleBar;
+import com.yundian.celebrity.widget.ZoomImageView;
 import com.yundian.celebrity.widget.emoji.EmotionKeyboard;
 import com.yundian.celebrity.widget.emoji.EmotionLayout;
 import com.yundian.celebrity.widget.emoji.IEmotionExtClickListener;
@@ -45,11 +45,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.Bind;
-
-import static com.yundian.celebrity.R.id.swipeLayout;
-
 
 /**
  * 粉丝互动
@@ -249,7 +244,7 @@ public class FansInteractionFragment extends BaseFragment implements CircleContr
     }
 
 
-    private void getData(final boolean isLoadMore, int start, int count) {
+    public void getData(final boolean isLoadMore, int start, int count) {
         NetworkAPIFactoryImpl.getDealAPI().getAllCircleInfo(start, count, new OnAPIListener<CircleFriendBean>() {
             @Override
             public void onError(Throwable ex) {
@@ -423,6 +418,33 @@ public class FansInteractionFragment extends BaseFragment implements CircleContr
                 mEtContent.setText("");
             }
         });
+
+        circleFriendAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                showPopupWindow(circleFriendAdapter.getData().get(position).getPic_url());
+            }
+        });
+    }
+
+    private void showPopupWindow(String prc_url) {
+        View popView = LayoutInflater.from(getActivity()).inflate(R.layout.popwindow_imegview, null);
+        ZoomImageView zoomImageView = (ZoomImageView) popView.findViewById(R.id.zoomimage);
+        final PopupWindow popupWindow = new PopupWindow(getActivity());
+        popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        popupWindow.setContentView(popView);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        popupWindow.setOutsideTouchable(false);
+        popupWindow.setFocusable(true);
+        ImageLoaderUtils.displayWithDefaultImg(getActivity(), zoomImageView, prc_url, R.drawable.infos_news_defolat);
+        zoomImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+        popupWindow.showAtLocation(rootView, Gravity.BOTTOM, 0, 0);
     }
 
 //    @Override

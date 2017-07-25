@@ -368,7 +368,7 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
     }
 
     @Override
-    public void getUserAddComment(String star_code, long circle_id, long uid, int direction, String content, OnAPIListener<ResultBeen> listener) {
+    public void starCommentUid(String star_code, long circle_id, long uid, int direction, String content, OnAPIListener<ResultBeen> listener) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("star_code", star_code);
         map.put("circle_id", circle_id);
@@ -396,6 +396,7 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         HashMap<String, Object> map = new HashMap<>();
         map.put("pos", pos);
         map.put("count", count);
+        map.put("star_code",SharePrefUtil.getInstance().getStarcode() );
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.CircleFrindInfo,
                 SocketAPIConstant.ReqeutType.CircleInfo, map);
         requestEntity(socketDataPacket,CircleFriendBean.class,listener);

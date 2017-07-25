@@ -324,7 +324,7 @@ public class InComeInfoFragment extends BaseFragment {
         picker.show();
     }
 
-    private void getData() {
+    public void getData() {
         String starCode = SharePrefUtil.getInstance().getStarcode();
         int endTime = Integer.parseInt(after_year7 + FormatUtil.formatDayOrMmonth(after_month7) + FormatUtil.formatDayOrMmonth(after_day7));
         int starTime = Integer.parseInt(start_year + FormatUtil.formatDayOrMmonth(start_month) + FormatUtil.formatDayOrMmonth(start_day));

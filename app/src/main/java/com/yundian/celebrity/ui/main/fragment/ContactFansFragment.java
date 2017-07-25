@@ -10,9 +10,6 @@ import com.yundian.celebrity.widget.NormalTitleBar;
 
 import butterknife.OnClick;
 
-
-import static com.yundian.celebrity.R.id.nt_title;
-
 /**
  * 联系粉丝
  */
@@ -56,7 +53,7 @@ public class ContactFansFragment extends BaseFragment {
     }
 
     private void initFindViewById() {
-        ntTitle = (NormalTitleBar) rootView.findViewById(nt_title);
+        ntTitle = (NormalTitleBar) rootView.findViewById(R.id.nt_title);
     }
 
     private void initFragment() {

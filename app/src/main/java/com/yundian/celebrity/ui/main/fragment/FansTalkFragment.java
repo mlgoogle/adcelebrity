@@ -21,13 +21,9 @@ import com.yundian.celebrity.ui.main.adapter.FansTalkAdapter;
 import com.yundian.celebrity.ui.wangyi.session.activity.P2PMessageActivity;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.SharePrefUtil;
-import com.yundian.celebrity.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.R.id.list;
-
 
 /**
  * 粉丝聊天
@@ -52,8 +48,6 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
     @Override
     public void initPresenter() {
     }
-
-
 
     @Override
     protected void initView() {
@@ -100,7 +94,7 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
         swipeLayout.setEnabled(true);
     }
 
-    private void getData(final boolean isLoadMore, int start, int count) {
+    public void getData(final boolean isLoadMore, int start, int count) {
         String starCode = SharePrefUtil.getInstance().getStarcode();
         NetworkAPIFactoryImpl.getDealAPI().fansList(starCode, start, count, new OnAPIListener<List<HaveStarUsersBean>>() {
             @Override
@@ -129,9 +123,27 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
                     swipeLayout.setRefreshing(false);  //下拉刷新,应该显示空白页
                     fansTalkAdapter.setEnableLoadMore(true);
                 }
-                LogUtils.loge("提现记录失败---------------");
+                LogUtils.loge("粉丝列表失败-----------");
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        onHiddenChanged(getUserVisibleHint());
+    }
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        if (hidden) {
+            LogUtils.loge("粉丝聊天界面:onHiddenChanged-----------------------------刷新首页" + isVisible());
+        } else {
+            LogUtils.loge("bu可见------------------刷新");
+        }
+        super.onHiddenChanged(hidden);
+
     }
 
 }

@@ -1,5 +1,7 @@
 package com.yundian.celebrity.ui.main.activity;
 
+import android.graphics.Color;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -32,13 +34,13 @@ import butterknife.Bind;
  * Created by sll on 2017/7/11.
  */
 
-public class AddMeetTypeActivity extends BaseActivity {
+public class AddMeetTypeActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
     @Bind(R.id.nt_title)
     NormalTitleBar ntTitle;
     @Bind(R.id.rv_list)
     RecyclerView mRecyclerView;
-//    @Bind(R.id.swipeLayout)
-//    SwipeRefreshLayout swipeLayout;
+    @Bind(R.id.swipeLayout)
+    SwipeRefreshLayout swipeLayout;
     private List<OrderListReturnBean> list = new ArrayList<>();
     private AddMeetTypeAdapter addMeetTypeAdapter;
 
@@ -58,8 +60,6 @@ public class AddMeetTypeActivity extends BaseActivity {
         initAdapter();
         getHaveOrderList();
         initListener();
-
-
     }
 
 
@@ -92,11 +92,14 @@ public class AddMeetTypeActivity extends BaseActivity {
             @Override
             public void onError(Throwable ex) {
                 LogUtils.loge("明星类型列表失败---------------");
+                swipeLayout.setRefreshing(false);
+                list.clear();
                 addMeetTypeAdapter.loadMoreEnd();
             }
 
             @Override
             public void onSuccess(List<OrderListReturnBean> orderListReturnBeen) {
+                swipeLayout.setRefreshing(false);
                 if (orderListReturnBeen == null || orderListReturnBeen.size() == 0) {
                     return;
                 }
@@ -127,6 +130,8 @@ public class AddMeetTypeActivity extends BaseActivity {
 
 
     private void initAdapter() {
+        swipeLayout.setOnRefreshListener(this);
+        swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         addMeetTypeAdapter = new AddMeetTypeAdapter(R.layout.item_add_meet_type, list);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mRecyclerView.setAdapter(addMeetTypeAdapter);
@@ -186,5 +191,10 @@ public class AddMeetTypeActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().post(new EventBusMessage(-77));
+    }
+
+    @Override
+    public void onRefresh() {
+        getData();
     }
 }

@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.base.BaseFragment;
 import com.yundian.celebrity.bean.EventBusMessage;
@@ -18,7 +17,6 @@ import com.yundian.celebrity.ui.main.activity.AddMeetTypeActivity;
 import com.yundian.celebrity.ui.main.adapter.MeetTypeAdapter;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.SharePrefUtil;
-import com.yundian.celebrity.utils.ToastUtils;
 import com.yundian.celebrity.widget.NormalTitleBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,7 +25,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * 约见类型
@@ -57,18 +54,17 @@ public class MeetingFansTypeFragment extends BaseFragment implements SwipeRefres
     @Override
     protected void initView() {
         initFindById();
-
         initAdapter();
         getData();
         initListener();
-
     }
 
-    private void getData() {
+    public void getData() {
         String starCode = SharePrefUtil.getInstance().getStarcode();
         NetworkAPIFactoryImpl.getDealAPI().orderList(starCode, new OnAPIListener<List<OrderListReturnBean>>() {
             @Override
             public void onError(Throwable ex) {
+                swipeLayout.setRefreshing(false);
             }
 
             @Override
@@ -76,15 +72,15 @@ public class MeetingFansTypeFragment extends BaseFragment implements SwipeRefres
                 if (list.size() > 0) {
                     list.clear();
                 }
-                list.addAll(orderListReturnBeen);
-                getHaveOrderList();
+//                list.addAll(orderListReturnBeen);
+                getHaveOrderList(orderListReturnBeen);
             }
         });
     }
 
 
-    private void getHaveOrderList() {
-        NetworkAPIFactoryImpl.getDealAPI().haveOrderType("1001", new OnAPIListener<List<OrderListReturnBean>>() {
+    private void getHaveOrderList(final List<OrderListReturnBean> orderListReturnBeen) {
+        NetworkAPIFactoryImpl.getDealAPI().haveOrderType(SharePrefUtil.getInstance().getStarcode(), new OnAPIListener<List<OrderListReturnBean>>() {
             @Override
             public void onError(Throwable ex) {
                 LogUtils.loge("拥有明星类型失败----------------------");
@@ -96,11 +92,11 @@ public class MeetingFansTypeFragment extends BaseFragment implements SwipeRefres
             public void onSuccess(List<OrderListReturnBean> beanList) {
                 LogUtils.loge("拥有明星类型成功----------------------");
                 swipeLayout.setRefreshing(false);
-                if (list.size() == 0) {
+                if (orderListReturnBeen == null || orderListReturnBeen.size() == 0) {
                     return;
                 }
 
-                for (OrderListReturnBean orderListReturnBean : list) {
+                for (OrderListReturnBean orderListReturnBean : orderListReturnBeen) {
                     for (OrderListReturnBean listReturnBean : beanList) {
                         if (listReturnBean.getMid() == orderListReturnBean.getMid()) {
                             listReturnBean.setShowpic_url(orderListReturnBean.getShowpic_url());

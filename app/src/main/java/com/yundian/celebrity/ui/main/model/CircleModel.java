@@ -6,9 +6,6 @@ import com.yundian.celebrity.bean.ResultBeen;
 import com.yundian.celebrity.listener.IDataRequestListener;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
-import com.yundian.celebrity.utils.SharePrefUtil;
-
-import static android.R.attr.type;
 
 public class CircleModel {
 	
@@ -56,9 +53,9 @@ public class CircleModel {
 //		}else{
 //			type = 1;
 //		}
-		int type = 1;
-		NetworkAPIFactoryImpl.getDealAPI().getUserAddComment(config.symbol_code, config.Circle_id,
-				SharePrefUtil.getInstance().getUserId(), type, content, new OnAPIListener<ResultBeen>() {
+		int type = 1;  //明星回复用户的评论
+		NetworkAPIFactoryImpl.getDealAPI().starCommentUid(config.symbol_code, config.Circle_id,
+				config.uid, type, content, new OnAPIListener<ResultBeen>() {
 					@Override
 					public void onError(Throwable ex) {
 

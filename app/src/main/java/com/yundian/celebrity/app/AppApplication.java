@@ -97,7 +97,7 @@ public class AppApplication extends BaseApplication {
 
     private void testProcress() {
         String processName = getProcessName(this);
-        initWangYiIM();
+//        initWangYiIM();
         LogUtils.loge("------------processName:"+processName);
         if (processName!= null) {
             if(processName.equals("com.yundian.celebrity")){
@@ -123,7 +123,7 @@ public class AppApplication extends BaseApplication {
 
             }
         }
-//        initWangYiIM();
+        initWangYiIM();
     }
 
     private String getProcessName(Context context) {
@@ -437,8 +437,8 @@ public class AppApplication extends BaseApplication {
         SharePrefUtil.getInstance().clearUserInfo();
         SharePrefUtil.getInstance().clearUserLoginInfo();
         Preferences.saveUserToken("");
-        LogoutHelper.logout();
-        SocketAPINettyBootstrap.getInstance().closeChannel();
+//        LogoutHelper.logout();   临时关闭
+//        SocketAPINettyBootstrap.getInstance().closeChannel();
 //      ChatRoomHelper.logout();
 //        DemoCache.clear();
 //        LoginSyncDataStatusObserver.getInstance().reset();

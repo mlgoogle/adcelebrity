@@ -105,7 +105,7 @@ public interface DealAPI {
     void meetOrderList(String starcode,int startPos, int count, OnAPIListener<List<MeetOrderListBean>> listener);  //约见订单列表
     void agreeMeet(String starcode,int meettype, int meetid, OnAPIListener<RequestResultBean> listener);  //约见订单列表
     void fansList(String starcode,int startPos, int count, OnAPIListener<List<HaveStarUsersBean>> listener);  //拥有明星用户
-    void getUserAddComment(String star_code,long circle_id,long uid,int direction,String content,OnAPIListener<ResultBeen> listener);
+    void starCommentUid(String star_code, long circle_id, long uid, int direction, String content, OnAPIListener<ResultBeen> listener);
     void getPraisestar(String star_code,long circle_id,long uid,OnAPIListener<ResultBeen> listener);
     void getAllCircleInfo(int pos,int count,OnAPIListener<CircleFriendBean> listener);
     void publishState(String content,String picurl,String star_code,OnAPIListener<RequestResultBean> listener);

@@ -54,11 +54,11 @@ public class MeetManageFragment extends BaseFragment {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         switch (type) {
             case 1:
-                transaction.replace(R.id.fl_container, meetingFansTypeFragment);
+                transaction.replace(R.id.fl_container, meetingFansTypeFragment,"meetingFansTypeFragment");
                 transaction.commit();
                 break;
             case 2:
-                transaction.replace(R.id.fl_container, meetingFansOrderFragment);
+                transaction.replace(R.id.fl_container, meetingFansOrderFragment,"meetingFansOrderFragment");
                 transaction.commit();
                 break;
         }

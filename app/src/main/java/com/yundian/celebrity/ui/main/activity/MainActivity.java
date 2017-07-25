@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -45,8 +46,12 @@ import com.yundian.celebrity.bean.TabEntity;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.ui.main.fragment.ContactFansFragment;
+import com.yundian.celebrity.ui.main.fragment.FansInteractionFragment;
+import com.yundian.celebrity.ui.main.fragment.FansTalkFragment;
 import com.yundian.celebrity.ui.main.fragment.InComeInfoFragment;
 import com.yundian.celebrity.ui.main.fragment.MeetManageFragment;
+import com.yundian.celebrity.ui.main.fragment.MeetingFansOrderFragment;
+import com.yundian.celebrity.ui.main.fragment.MeetingFansTypeFragment;
 import com.yundian.celebrity.ui.view.ForceUpdateDialog;
 import com.yundian.celebrity.ui.wangyi.chatroom.helper.ChatRoomHelper;
 import com.yundian.celebrity.ui.wangyi.config.preference.UserPreferences;
@@ -380,6 +385,17 @@ public class MainActivity extends BaseActivity {
                 requestBankInfo();  //更新银行卡信息
                 requestBalance();   //更新余额信息
                 tabLayout.setCurrentTab(0);
+                inComeInfoFragment.getData();
+                FansTalkFragment fansTalkFragment = (FansTalkFragment) contactFansFragment.getFragmentManager().findFragmentByTag("fansTalkFragment");
+                fansTalkFragment.getData(false, 1, 10);
+                FansInteractionFragment fansInteractionFragment = (FansInteractionFragment) contactFansFragment.getFragmentManager().findFragmentByTag("fansInteractionFragment");
+                fansInteractionFragment.getData(false, 0, 10);
+
+                MeetingFansTypeFragment meetingFansTypeFragment = (MeetingFansTypeFragment) meetManageFragment.getFragmentManager().findFragmentByTag("meetingFansTypeFragment");
+                meetingFansTypeFragment.getData();
+                MeetingFansOrderFragment meetingFansOrderFragment = (MeetingFansOrderFragment) meetManageFragment.getFragmentManager().findFragmentByTag("meetingFansOrderFragment");
+                meetingFansOrderFragment.getData(false, 0, 10);
+
                 break;
         }
     }
