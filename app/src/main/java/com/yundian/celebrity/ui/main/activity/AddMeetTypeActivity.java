@@ -105,6 +105,7 @@ public class AddMeetTypeActivity extends BaseActivity implements SwipeRefreshLay
                 }
                 for (OrderListReturnBean orderListReturnBean : list) {
                     for (OrderListReturnBean listReturnBean : orderListReturnBeen) {
+                        //mid为id唯一标示
                         if (listReturnBean.getMid() == orderListReturnBean.getMid()) {
                             listReturnBean.setCheck(true);
                         }
