@@ -54,8 +54,9 @@ public class CashHistoryActivity extends BaseActivity implements SwipeRefreshLay
     public void initView() {
         ntTitle.setTitleText(getResources().getString(R.string.cash_history));
         ntTitle.setTvLeftVisiable(true);
-
+        //初始化recycelview
         initAdapter();
+        //子线程里获取数据
         getData(false, 1, 10);
         setResult(RESULT_OK);
     }
