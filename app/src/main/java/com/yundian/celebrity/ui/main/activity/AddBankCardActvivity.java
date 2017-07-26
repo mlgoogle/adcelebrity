@@ -1,5 +1,6 @@
 package com.yundian.celebrity.ui.main.activity;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -90,7 +91,7 @@ public class AddBankCardActvivity extends BaseActivity {
         //判断手机格式是否符合格式
         if (checkHelper.checkMobile(etUserPhone.getText().toString(), exception)) {
 
-
+            LogUtils.loge("当前是手机号");
             String bankUsername = etUserName.getText().toString().trim();
             String account = etUserCardno.getText().toString().trim();
             String phone = etUserPhone.getText().toString().trim();
@@ -106,18 +107,19 @@ public class AddBankCardActvivity extends BaseActivity {
                 public void onSuccess(BankInfoBean bean) {
                     LogUtils.loge("绑定成功");
 //                    EventBus.getDefault().postSticky(new EventBusMessage(-3));  //传递消息
-                    if (bean.getBankName() != null && bean.getCardNO() != null && bean.getName() != null) {
-//                        把银行卡存一下
+                    if (!TextUtils.isEmpty(bean.getBankName()) && !TextUtils.isEmpty(bean.getCardNO()) && !TextUtils.isEmpty(bean.getName())) {
                         SharePrefUtil.getInstance().saveCardNo(bean.getCardNO());
                         ToastUtils.showStatusView("绑定成功", true);
 //                        AppManager.getAppManager().finishActivity(BankCardInfoActivity.class);
                         finish();
+                    }else{
+                        ToastUtils.showStatusView("绑定失败", false);
                     }
 
                 }
             });
         } else {
-            exception.getErrorMsg();
+            showShortToast(exception.getErrorMsg());
         }
     }
 

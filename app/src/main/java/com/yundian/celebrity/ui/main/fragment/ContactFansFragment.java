@@ -8,6 +8,7 @@ import android.view.View;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.base.BaseFragment;
 import com.yundian.celebrity.ui.main.activity.PublishStateActivity;
+import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.widget.NormalTitleBar;
 
 import butterknife.OnClick;
@@ -111,13 +112,26 @@ public class ContactFansFragment extends BaseFragment {
     public void loadData() {
 //        if (fansTalkFragment == null) {
 //            LogUtils.loge("登陆成功ssssssss-----------------------fansTalkFragment为null---");
-//            fansTalkFragment = (FansTalkFragment) getChildFragmentManager().findFragmentByTag("fansTalkFragment");
+//            fansTalkFragment = new FansTalkFragment();
+//            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+//            fansTalkFragment = new FansTalkFragment();
+//            fansInteractionFragment = new FansInteractionFragment();
+//            transaction.add(R.id.fl_container, fansTalkFragment, "fansTalkFragment");
+//            transaction.add(R.id.fl_container, fansInteractionFragment, "fansInteractionFragment");
+//            transaction.commit();
+////            fansTalkFragment = (FansTalkFragment) getChildFragmentManager().findFragmentByTag("fansTalkFragment");
 //        }
-        fansTalkFragment.getData(false, 1, 10);
+        if (fansTalkFragment != null){
+            fansTalkFragment.getData(false, 1, 10);
+        }
+
 //        if (fansInteractionFragment == null) {
 //            LogUtils.loge("登陆成功ssssssss-----------------------fansInteractionFragment为null---");
 //            fansInteractionFragment = (FansInteractionFragment) getChildFragmentManager().findFragmentByTag("fansInteractionFragment");
 //        }
-        fansInteractionFragment.getData(false, 0, 10);
+        if (fansInteractionFragment != null){
+            fansInteractionFragment.getData(false, 0, 10);
+
+        }
     }
 }

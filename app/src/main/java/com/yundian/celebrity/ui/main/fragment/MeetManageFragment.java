@@ -108,7 +108,21 @@ public class MeetManageFragment extends BaseFragment {
 
     public void loadData() {
         LogUtils.loge("登陆成功ssssssss-------------------------------------MeetManageFragment");
-        meetingFansTypeFragment.getData();
-        meetingFansOrderFragment.getData(false, 1, 10);
+//        if (meetingFansTypeFragment == null) {
+//            LogUtils.loge("登陆成功ssssssss-----------------------meetingFansTypeFragment为null---");
+//            meetingFansTypeFragment = (MeetingFansTypeFragment) getChildFragmentManager().findFragmentByTag("meetingFansTypeFragment");
+//        }
+        if (meetingFansTypeFragment != null){
+            meetingFansTypeFragment.getData();
+        }
+
+//        if (meetingFansOrderFragment == null) {
+//            LogUtils.loge("登陆成功ssssssss-----------------------meetingFansOrderFragment为null---");
+//            meetingFansOrderFragment = (MeetingFansOrderFragment) getChildFragmentManager().findFragmentByTag("meetingFansOrderFragment");
+//        }
+        if (meetingFansOrderFragment != null){
+            meetingFansOrderFragment.getData(false, 1, 10);
+        }
+
     }
 }
