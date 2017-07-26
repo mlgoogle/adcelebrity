@@ -72,6 +72,7 @@
     <dimen name="dp_152">152dp</dimen>
     <dimen name="dp_181">181dp</dimen>
     <dimen name="dp_243">243dp</dimen>
+    <dimen name="dp_283">283dp</dimen>
 
     <!-- font size start -->
     <dimen name="fontSize_6sp">6sp</dimen>

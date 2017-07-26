@@ -1,38 +1,38 @@
 [
     {
-        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\touch_bg.xml",
-        "source": "E:\\AdStar\\adcelebrity\\uikit\\res-ptr2\\drawable-v21\\touch_bg.xml"
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\avd_show_password.xml",
+        "source": "C:\\Users\\hank\\.android\\build-cache\\af19377e05ef9c4ac5d2837c34d8bfed701cf2fd\\output\\res\\drawable-v21\\avd_show_password.xml"
     },
     {
-        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\design_password_eye.xml",
-        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\7cd65f64088e751be8875f6e253ba6e6fd95aec1\\output\\res\\drawable-v21\\design_password_eye.xml"
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\design_password_eye.xml",
+        "source": "C:\\Users\\hank\\.android\\build-cache\\af19377e05ef9c4ac5d2837c34d8bfed701cf2fd\\output\\res\\drawable-v21\\design_password_eye.xml"
     },
     {
-        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_action_bar_item_background_material.xml",
-        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\drawable-v21\\abc_action_bar_item_background_material.xml"
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\avd_hide_password.xml",
+        "source": "C:\\Users\\hank\\.android\\build-cache\\af19377e05ef9c4ac5d2837c34d8bfed701cf2fd\\output\\res\\drawable-v21\\avd_hide_password.xml"
     },
     {
-        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_edit_text_material.xml",
-        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\drawable-v21\\abc_edit_text_material.xml"
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\hank\\.android\\build-cache\\16deeefc889515eeb38c4e158211c3c28831d9f8\\output\\res\\drawable-v21\\abc_btn_colored_material.xml"
     },
     {
-        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\avd_show_password.xml",
-        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\7cd65f64088e751be8875f6e253ba6e6fd95aec1\\output\\res\\drawable-v21\\avd_show_password.xml"
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\design_bottom_navigation_item_background.xml",
+        "source": "C:\\Users\\hank\\.android\\build-cache\\af19377e05ef9c4ac5d2837c34d8bfed701cf2fd\\output\\res\\drawable-v21\\design_bottom_navigation_item_background.xml"
     },
     {
-        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\notification_action_background.xml",
-        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\drawable-v21\\notification_action_background.xml"
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_action_bar_item_background_material.xml",
+        "source": "C:\\Users\\hank\\.android\\build-cache\\16deeefc889515eeb38c4e158211c3c28831d9f8\\output\\res\\drawable-v21\\abc_action_bar_item_background_material.xml"
     },
     {
-        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\design_bottom_navigation_item_background.xml",
-        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\7cd65f64088e751be8875f6e253ba6e6fd95aec1\\output\\res\\drawable-v21\\design_bottom_navigation_item_background.xml"
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\touch_bg.xml",
+        "source": "F:\\workspace\\adcelebrity\\uikit\\res-ptr2\\drawable-v21\\touch_bg.xml"
     },
     {
-        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_btn_colored_material.xml",
-        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\drawable-v21\\abc_btn_colored_material.xml"
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\notification_action_background.xml",
+        "source": "C:\\Users\\hank\\.android\\build-cache\\16deeefc889515eeb38c4e158211c3c28831d9f8\\output\\res\\drawable-v21\\notification_action_background.xml"
     },
     {
-        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\avd_hide_password.xml",
-        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\7cd65f64088e751be8875f6e253ba6e6fd95aec1\\output\\res\\drawable-v21\\avd_hide_password.xml"
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\hank\\.android\\build-cache\\16deeefc889515eeb38c4e158211c3c28831d9f8\\output\\res\\drawable-v21\\abc_edit_text_material.xml"
     }
 ]

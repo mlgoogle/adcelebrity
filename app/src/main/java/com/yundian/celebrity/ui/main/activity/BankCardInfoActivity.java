@@ -60,7 +60,7 @@ public class BankCardInfoActivity extends BaseActivity {
         requestBankCards();
         initListener();
     }
-
+    //请求当前所拥有的银行卡
     private void requestBankCards() {
         NetworkAPIFactoryImpl.getDealAPI().bankCardList(new OnAPIListener<BankCardBean>() {
             @Override
@@ -69,6 +69,7 @@ public class BankCardInfoActivity extends BaseActivity {
                 if (TextUtils.isEmpty(bankCardBeen.getCardNo()) || TextUtils.isEmpty(bankCardBeen.getBankUsername())) {
                     LogUtils.loge("银行卡列表失败----------------------------------------------");
                 } else {
+                    //
                     LogUtils.loge("银行卡列表----------------成功");
                     requestBankCardInfo(bankCardBeen);
                 }
@@ -85,7 +86,7 @@ public class BankCardInfoActivity extends BaseActivity {
             }
         });
     }
-
+    //根據銀行卡no，請求銀行卡的信息
     private void requestBankCardInfo(final BankCardBean bankCardBeen) {
         String cardNo = bankCardBeen.getCardNo();
         NetworkAPIFactoryImpl.getDealAPI().bankCardInfo(cardNo, new OnAPIListener<BankInfoBean>() {
@@ -97,6 +98,7 @@ public class BankCardInfoActivity extends BaseActivity {
                 } else {
                     LogUtils.loge("银行卡信息----------------成功");
                     bankView.setVisibility(View.VISIBLE);
+                    //把銀行卡的信息保存起來
                     SharePrefUtil.getInstance().saveCardNo(bankInfoBean.getCardNO());
                     titleView.setText(bankInfoBean.getBankName());
                     typeView.setText(bankInfoBean.getCardName());

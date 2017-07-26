@@ -62,7 +62,7 @@ public class FansInteractionFragment extends BaseFragment implements CircleContr
         return R.layout.fragment_fans_interaction;
     }
 
-
+    //
     private CirclePresenter presenter;
     private CircleFriendAdapter circleFriendAdapter;
 
@@ -93,6 +93,7 @@ public class FansInteractionFragment extends BaseFragment implements CircleContr
 
     @Override
     public void initView() {
+        //第一步，new 一个presenter
         presenter = new CirclePresenter(this);
         initEmoji();
         initAdapter();
@@ -141,6 +142,7 @@ public class FansInteractionFragment extends BaseFragment implements CircleContr
 
         circleFriendAdapter = new CircleFriendAdapter(R.layout.adapter_circle_item, dataList);
         circleFriendAdapter.setOnLoadMoreListener(this, lrv);
+        //把presenter设置到adapter中
         circleFriendAdapter.setCirclePresenter(presenter);
         lrv.setAdapter(circleFriendAdapter);
         lrv.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -240,7 +242,7 @@ public class FansInteractionFragment extends BaseFragment implements CircleContr
 
     @Override
     public void update2loadData(int loadType, List<CircleFriendBean.CircleListBean> datas) {
-
+        //具体的方法
     }
 
 

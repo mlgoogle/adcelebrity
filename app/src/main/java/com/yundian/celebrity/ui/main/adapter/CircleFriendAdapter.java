@@ -163,6 +163,7 @@ public class CircleFriendAdapter extends BaseQuickAdapter<CircleFriendBean.Circl
     }
 
     //    private Context context;
+    //从adapter传过来
     private CirclePresenter presenter;
 
     public void setCirclePresenter(CirclePresenter presenter) {
@@ -291,7 +292,7 @@ public class CircleFriendAdapter extends BaseQuickAdapter<CircleFriendBean.Circl
             this.mCircleItem = circleItem;
             this.mUserName = user_name;
         }
-
+        //在点击item的时候
         @Override
         public void onItemClick(ActionItem actionitem, int position) {
             switch (position) {
@@ -311,6 +312,7 @@ public class CircleFriendAdapter extends BaseQuickAdapter<CircleFriendBean.Circl
 //                    }
 //                    break;
                 case 1://发布评论
+                    //如果presenter不为空
                     if (presenter != null) {
                         CommentConfig config = new CommentConfig();
                         config.circlePosition = mCirclePosition;
@@ -318,6 +320,7 @@ public class CircleFriendAdapter extends BaseQuickAdapter<CircleFriendBean.Circl
                         config.Circle_id = mCircleItem.getCircle_id();
                         config.symbol_name = mCircleItem.getSymbol_name();
                         config.symbol_code = mCircleItem.getSymbol();
+                        //执行presenter的找个方法
                         presenter.showEditTextBody(config);
                     }
                     break;

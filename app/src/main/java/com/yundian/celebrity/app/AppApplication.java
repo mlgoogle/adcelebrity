@@ -68,7 +68,6 @@ import com.yundian.celebrity.ui.wangyi.config.preference.UserPreferences;
 import com.yundian.celebrity.ui.wangyi.contact.ContactHelper;
 import com.yundian.celebrity.ui.wangyi.event.DemoOnlineStateContentProvider;
 import com.yundian.celebrity.ui.wangyi.event.OnlineStateEventManager;
-import com.yundian.celebrity.ui.wangyi.login.LogoutHelper;
 import com.yundian.celebrity.ui.wangyi.rts.activity.RTSActivity;
 import com.yundian.celebrity.ui.wangyi.session.SessionHelper;
 import com.yundian.celebrity.utils.LogUtils;
@@ -98,9 +97,9 @@ public class AppApplication extends BaseApplication {
     private void testProcress() {
         String processName = getProcessName(this);
 //        initWangYiIM();
-        LogUtils.loge("------------processName:"+processName);
-        if (processName!= null) {
-            if(processName.equals("com.yundian.celebrity")){
+        LogUtils.loge("------------processName:" + processName);
+        if (processName != null) {
+            if (processName.equals("com.yundian.celebrity")) {
                 //Fabric.with(this, new Crashlytics());
                 //初始化logger
                 LogUtils.logInit(BuildConfig.LOG_DEBUG);
@@ -115,11 +114,11 @@ public class AppApplication extends BaseApplication {
                     return;
                 }
                 LeakCanary.install(this);
-            } else if(processName.equals("com.yundian.celebrity:core")){
+            } else if (processName.equals("com.yundian.celebrity:core")) {
 
-            }else if(processName.equals("com.yundian.celebrity:cosine")){
+            } else if (processName.equals("com.yundian.celebrity:cosine")) {
 
-            }else if (processName.equals("com.yundian.celebrity:pushservice")){
+            } else if (processName.equals("com.yundian.celebrity:pushservice")) {
 
             }
         }
@@ -143,12 +142,18 @@ public class AppApplication extends BaseApplication {
     }
 
     private void initEmoji() {
-        LQREmotionKit.init(this, Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "emoji", new IImageLoader() {
-            @Override
-            public void displayImage(Context context, String path, ImageView imageView) {
-                Glide.with(context).load(path).centerCrop().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
-            }
-        });
+        LQREmotionKit.init(this,
+                Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "emoji",
+                new IImageLoader() {
+                    @Override
+                    public void displayImage(Context context, String path, ImageView imageView) {
+                        Glide.with(context)
+                                .load(path)
+                                .centerCrop()
+                                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                                .into(imageView);
+                    }
+                });
     }
 
 
@@ -328,6 +333,7 @@ public class AppApplication extends BaseApplication {
             unregisterReceiver(localeReceiver);
         }
     }
+
     private void updateLocale() {
         NimStrings strings = new NimStrings();
         strings.status_bar_multi_messages_incoming = getString(R.string.nim_status_bar_multi_messages_incoming);
@@ -449,7 +455,7 @@ public class AppApplication extends BaseApplication {
     private void judgeIsLogin() {
         if (!TextUtils.isEmpty(SharePrefUtil.getInstance().getToken())) {
             LogUtils.loge("已经登录,开始校验token---------------------------------");
-            NetworkAPIFactoryImpl.getUserAPI().loginWithToken(SharePrefUtil.getInstance().getTokenTime(),new OnAPIListener<LoginReturnInfo>() {
+            NetworkAPIFactoryImpl.getUserAPI().loginWithToken(SharePrefUtil.getInstance().getTokenTime(), new OnAPIListener<LoginReturnInfo>() {
                 @Override
                 public void onError(Throwable ex) {
                     ex.printStackTrace();
@@ -459,8 +465,8 @@ public class AppApplication extends BaseApplication {
 
                 @Override
                 public void onSuccess(LoginReturnInfo loginReturnEntity) {
-                    LogUtils.loge("------------------======token登录成功，保存信息"+loginReturnEntity.toString());
-                    if (loginReturnEntity.getResult()==1){
+                    LogUtils.loge("------------------======token登录成功，保存信息" + loginReturnEntity.toString());
+                    if (loginReturnEntity.getResult() == 1) {
                         NetworkAPIFactoryImpl.getUserAPI().saveDevice(loginReturnEntity.getUserinfo().getId(), new OnAPIListener<Object>() {
                             @Override
                             public void onError(Throwable ex) {
@@ -474,19 +480,19 @@ public class AppApplication extends BaseApplication {
                         });
                         //服务器问题,先token登录不保存信息
                         //SharePrefUtil.getInstance().saveLoginUserInfo(loginReturnEntity);
-                        if (!TextUtils.isEmpty(loginReturnEntity.getToken())){
+                        if (!TextUtils.isEmpty(loginReturnEntity.getToken())) {
 //                        SharePrefUtil.getInstance().setToken(loginReturnEntity.getToken());
                             SharePrefUtil.getInstance().saveLoginUserInfo(loginReturnEntity);
                         }
                         EventBus.getDefault().postSticky(new EventBusMessage(1));  //登录成功消息
-                    }else {
+                    } else {
                         LogUtils.loge("----------------------登录失败.token已经失效");
                         logout();
                     }
                 }
             });
 
-        }else{
+        } else {
             LogUtils.logd("token为空-------------------");
         }
     }
@@ -523,7 +529,6 @@ public class AppApplication extends BaseApplication {
     }
 
 
-
     private void checkUpdate() {
         LogUtils.loge("检查更新----------");
         NetworkAPIFactoryImpl.getUserAPI().update(new OnAPIListener<CheckUpdateInfoEntity>() {
@@ -535,7 +540,7 @@ public class AppApplication extends BaseApplication {
 
             @Override
             public void onSuccess(CheckUpdateInfoEntity checkUpdateInfoEntity) {
-                SharePrefUtil.getInstance().setVersion( checkUpdateInfoEntity.getNewAppVersionName());
+                SharePrefUtil.getInstance().setVersion(checkUpdateInfoEntity.getNewAppVersionName());
                 LogUtils.loge("checkUpdateInfoEntity:" + checkUpdateInfoEntity.toString());
                 if (checkUpdateInfoEntity != null && checkUpdateInfoEntity.getNewAppVersionCode() > getVersionCode()) {
                     EventBusMessage msg = new EventBusMessage(-11);
@@ -547,6 +552,7 @@ public class AppApplication extends BaseApplication {
             }
         });
     }
+
     /**
      * 获取当前应用版本号
      */

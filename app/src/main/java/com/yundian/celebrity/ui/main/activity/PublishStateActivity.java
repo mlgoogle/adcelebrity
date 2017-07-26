@@ -23,7 +23,6 @@ import com.yundian.celebrity.bean.EventBusMessage;
 import com.yundian.celebrity.bean.QiNiuImageToken;
 import com.yundian.celebrity.bean.RequestResultBean;
 import com.yundian.celebrity.listener.OnAPIListener;
-import com.yundian.celebrity.networkapi.NetworkAPIConstant;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.ui.view.ValidationWatcher;
 import com.yundian.celebrity.utils.DisplayUtil;
@@ -141,7 +140,7 @@ public class PublishStateActivity extends BaseActivity {
         });
 
     }
-
+    //上传到自己的服务器里
     private void doSendContent(String imageUrl) {
         String s = feedbackContent.getText().toString();  //内容
         String starCode = SharePrefUtil.getInstance().getStarcode();

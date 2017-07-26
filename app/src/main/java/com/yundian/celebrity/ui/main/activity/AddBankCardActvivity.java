@@ -27,8 +27,9 @@ import butterknife.OnClick;
  */
 
 public class AddBankCardActvivity extends BaseActivity {
-
-
+    //conflict
+    //test
+    //测试 加个注释
     @Bind(R.id.nt_title)
     NormalTitleBar ntTitle;
     @Bind(R.id.et_user_name)
@@ -78,7 +79,7 @@ public class AddBankCardActvivity extends BaseActivity {
     }
 
     private void bindBankCard() {
-        //判断输入
+        //判断全部非空
         if (etUserName.getText().toString().trim().isEmpty() ||
                 etUserCardno.getText().toString().trim().isEmpty() ||
                 etUserPhone.getText().toString().trim().isEmpty() ||
@@ -88,6 +89,7 @@ public class AddBankCardActvivity extends BaseActivity {
         }
 
         CheckException exception = new CheckException();
+        //判断手机格式是否符合格式
         if (checkHelper.checkMobile(etUserPhone.getText().toString(), exception)) {
 
             LogUtils.loge("当前是手机号");

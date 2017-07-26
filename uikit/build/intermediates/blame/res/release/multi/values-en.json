@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-en\\values-en.xml",
+        "outputFile": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-en\\values-en.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 100
                 },
                 "from": {
-                    "file": "E:\\AdStar\\adcelebrity\\uikit\\res-ptr2\\values-en\\strings.xml",
+                    "file": "F:\\workspace\\adcelebrity\\uikit\\res-ptr2\\values-en\\strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -30,7 +30,7 @@
                     "endOffset": 157
                 },
                 "from": {
-                    "file": "E:\\AdStar\\adcelebrity\\uikit\\res-ptr2\\values-en\\strings.xml",
+                    "file": "F:\\workspace\\adcelebrity\\uikit\\res-ptr2\\values-en\\strings.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -49,7 +49,7 @@
                     "endOffset": 204
                 },
                 "from": {
-                    "file": "E:\\AdStar\\adcelebrity\\uikit\\res-ptr2\\values-en\\strings.xml",
+                    "file": "F:\\workspace\\adcelebrity\\uikit\\res-ptr2\\values-en\\strings.xml",
                     "position": {
                         "startLine": 1,
                         "startColumn": 4,
