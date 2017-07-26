@@ -27,6 +27,7 @@ import butterknife.OnClick;
  */
 
 public class AddBankCardActvivity extends BaseActivity {
+    //conflict
     //test
     //测试 加个注释
     @Bind(R.id.nt_title)
