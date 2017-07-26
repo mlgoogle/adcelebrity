@@ -77,7 +77,7 @@ public class AddBankCardActvivity extends BaseActivity {
     }
 
     private void bindBankCard() {
-        //判断输入
+        //判断全部非空
         if (etUserName.getText().toString().trim().isEmpty() ||
                 etUserCardno.getText().toString().trim().isEmpty() ||
                 etUserPhone.getText().toString().trim().isEmpty() ||
@@ -87,6 +87,7 @@ public class AddBankCardActvivity extends BaseActivity {
         }
 
         CheckException exception = new CheckException();
+        //判断手机格式是否符合格式
         if (checkHelper.checkMobile(etUserPhone.getText().toString(), exception)) {
 
 
@@ -106,6 +107,7 @@ public class AddBankCardActvivity extends BaseActivity {
                     LogUtils.loge("绑定成功");
 //                    EventBus.getDefault().postSticky(new EventBusMessage(-3));  //传递消息
                     if (bean.getBankName() != null && bean.getCardNO() != null && bean.getName() != null) {
+//                        把银行卡存一下
                         SharePrefUtil.getInstance().saveCardNo(bean.getCardNO());
                         ToastUtils.showStatusView("绑定成功", true);
 //                        AppManager.getAppManager().finishActivity(BankCardInfoActivity.class);

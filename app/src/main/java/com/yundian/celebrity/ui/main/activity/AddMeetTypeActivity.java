@@ -64,6 +64,7 @@ public class AddMeetTypeActivity extends BaseActivity implements SwipeRefreshLay
 
 
     private void getHaveOrderList() {
+        //获取到明星的code
         String starCode = SharePrefUtil.getInstance().getStarcode();
         NetworkAPIFactoryImpl.getDealAPI().haveOrderType(starCode, new OnAPIListener<List<OrderListReturnBean>>() {
             @Override
@@ -74,11 +75,12 @@ public class AddMeetTypeActivity extends BaseActivity implements SwipeRefreshLay
             @Override
             public void onSuccess(List<OrderListReturnBean> beanList) {
                 LogUtils.loge("拥有明星类型成功----------------------");
-
+                //如果當前list的size大於0，先清空一下
                 if (list.size() > 0) {
                     list.clear();
 
                 }
+                //然後加進去
                 list.addAll(beanList);
                 getData();
             }
@@ -129,7 +131,7 @@ public class AddMeetTypeActivity extends BaseActivity implements SwipeRefreshLay
 //        LogUtils.loge("--------------size:" + selectedItem.size());
 //    }
 
-
+    //初始化recycleview
     private void initAdapter() {
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
