@@ -27,7 +27,7 @@ import butterknife.OnClick;
  */
 
 public class AddBankCardActvivity extends BaseActivity {
-
+    //test
     //测试 加个注释
     @Bind(R.id.nt_title)
     NormalTitleBar ntTitle;
