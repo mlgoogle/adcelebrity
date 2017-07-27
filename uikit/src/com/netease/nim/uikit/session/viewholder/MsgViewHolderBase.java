@@ -271,16 +271,16 @@ public abstract class MsgViewHolderBase extends RecyclerViewHolder<BaseMultiItem
         });
 
         // 头像点击事件响应
-        if (NimUIKit.getSessionListener() != null) {
-            View.OnClickListener portraitListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    NimUIKit.getSessionListener().onAvatarClicked(context, message);
-                }
-            };
-            avatarLeft.setOnClickListener(portraitListener);
-            avatarRight.setOnClickListener(portraitListener);
-        }
+//        if (NimUIKit.getSessionListener() != null) {
+//            View.OnClickListener portraitListener = new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    NimUIKit.getSessionListener().onAvatarClicked(context, message);
+//                }
+//            };
+//            avatarLeft.setOnClickListener(portraitListener);
+//            avatarRight.setOnClickListener(portraitListener);
+//        }
     }
 
     /**

@@ -84,12 +84,12 @@
         "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\res\\drawable\\nim_picker_preview_btn_selector.xml"
     },
     {
-        "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_cameras_selector.xml",
-        "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\res\\drawable\\nim_cameras_selector.xml"
-    },
-    {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ratingbar_material.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\drawable\\abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_cameras_selector.xml",
+        "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\res\\drawable\\nim_cameras_selector.xml"
     },
     {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\design_bottom_navigation_item_background.xml",
@@ -140,12 +140,12 @@
         "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\res\\drawable\\nim_audio_animation_list_left.xml"
     },
     {
-        "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_track_material.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\drawable\\abc_seekbar_track_material.xml"
-    },
-    {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_voice_search_api_material.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\drawable\\abc_ic_voice_search_api_material.xml"
+    },
+    {
+        "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_track_material.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\drawable\\abc_seekbar_track_material.xml"
     },
     {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_bg_edittext_rectangle_focused.xml",
@@ -314,6 +314,10 @@
     {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_portrait_mask_round.xml",
         "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\res\\drawable\\nim_portrait_mask_round.xml"
+    },
+    {
+        "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\send_message_selecter_bg.xml",
+        "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\res\\drawable\\send_message_selecter_bg.xml"
     },
     {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_blue_edit_text_bg.xml",

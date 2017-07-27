@@ -4,16 +4,16 @@
         "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\res\\layout\\nim_user_profile_toggle_item.xml"
     },
     {
-        "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_preview_image_from_local_activity.xml",
-        "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\res\\layout\\nim_preview_image_from_local_activity.xml"
+        "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_message_item.xml",
+        "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\res\\layout\\nim_message_item.xml"
     },
     {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\design_bottom_sheet_dialog.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\091bd54b3b134add49b5931f8c43937d43af0bb4\\output\\res\\layout\\design_bottom_sheet_dialog.xml"
     },
     {
-        "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_message_item.xml",
-        "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\res\\layout\\nim_message_item.xml"
+        "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_preview_image_from_local_activity.xml",
+        "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\res\\layout\\nim_preview_image_from_local_activity.xml"
     },
     {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_advanced_team_nickname_activity.xml",
@@ -72,20 +72,20 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\layout\\abc_action_bar_title_item.xml"
     },
     {
-        "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\design_layout_tab_text.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\091bd54b3b134add49b5931f8c43937d43af0bb4\\output\\res\\layout\\design_layout_tab_text.xml"
-    },
-    {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\abc_activity_chooser_view.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\layout\\abc_activity_chooser_view.xml"
     },
     {
-        "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_message_item_picture.xml",
-        "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\res\\layout\\nim_message_item_picture.xml"
+        "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\design_layout_tab_text.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\091bd54b3b134add49b5931f8c43937d43af0bb4\\output\\res\\layout\\design_layout_tab_text.xml"
     },
     {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\abc_activity_chooser_view_list_item.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\layout\\abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_message_item_picture.xml",
+        "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\res\\layout\\nim_message_item_picture.xml"
     },
     {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_team_member_list_item.xml",
@@ -190,6 +190,10 @@
     {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\design_navigation_item.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\091bd54b3b134add49b5931f8c43937d43af0bb4\\output\\res\\layout\\design_navigation_item.xml"
+    },
+    {
+        "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\wangyi_message_button_layout.xml",
+        "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\res\\layout\\wangyi_message_button_layout.xml"
     },
     {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_picker_images_fragment.xml",

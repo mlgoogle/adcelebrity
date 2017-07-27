@@ -120,12 +120,12 @@
         "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\nim_actionbar_dark_back_icon.png"
     },
     {
-        "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\nim_cameras_hover.png",
-        "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\nim_cameras_hover.png"
-    },
-    {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_list_longpressed_holo.9.png",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\drawable-hdpi-v4\\abc_list_longpressed_holo.9.png"
+    },
+    {
+        "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\nim_cameras_hover.png",
+        "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\nim_cameras_hover.png"
     },
     {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\nim_cameras.png",
