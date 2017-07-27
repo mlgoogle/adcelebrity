@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/adcelebrity.iml" filepath="$PROJECT_DIR$/adcelebrity.iml" />
       <module fileurl="file://$PROJECT_DIR$/adcelebritysss.iml" filepath="$PROJECT_DIR$/adcelebritysss.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/uikit/uikit.iml" filepath="$PROJECT_DIR$/uikit/uikit.iml" />
