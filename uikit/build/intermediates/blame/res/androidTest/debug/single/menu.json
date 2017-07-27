@@ -2,5 +2,9 @@
     {
         "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\menu\\contacts_search_menu.xml",
         "source": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\bundles\\debug\\res\\menu\\contacts_search_menu.xml"
+    },
+    {
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\menu\\contacts_search_menu.xml",
+        "source": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\bundles\\debug\\res\\menu\\contacts_search_menu.xml"
     }
 ]

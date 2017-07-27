@@ -1,7 +1,15 @@
 [
     {
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xxhdpi-v17\\abc_spinner_mtrl_am_alpha.9.png",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\drawable-ldrtl-xxhdpi-v17\\abc_spinner_mtrl_am_alpha.9.png"
+    },
+    {
         "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xxhdpi-v17\\abc_spinner_mtrl_am_alpha.9.png",
         "source": "C:\\Users\\hank\\.android\\build-cache\\16deeefc889515eeb38c4e158211c3c28831d9f8\\output\\res\\drawable-ldrtl-xxhdpi-v17\\abc_spinner_mtrl_am_alpha.9.png"
+    },
+    {
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xxhdpi-v17\\abc_ic_menu_copy_mtrl_am_alpha.png",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\drawable-ldrtl-xxhdpi-v17\\abc_ic_menu_copy_mtrl_am_alpha.png"
     },
     {
         "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xxhdpi-v17\\abc_ic_menu_cut_mtrl_alpha.png",
@@ -10,5 +18,9 @@
     {
         "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xxhdpi-v17\\abc_ic_menu_copy_mtrl_am_alpha.png",
         "source": "C:\\Users\\hank\\.android\\build-cache\\16deeefc889515eeb38c4e158211c3c28831d9f8\\output\\res\\drawable-ldrtl-xxhdpi-v17\\abc_ic_menu_copy_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xxhdpi-v17\\abc_ic_menu_cut_mtrl_alpha.png",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\drawable-ldrtl-xxhdpi-v17\\abc_ic_menu_cut_mtrl_alpha.png"
     }
 ]
