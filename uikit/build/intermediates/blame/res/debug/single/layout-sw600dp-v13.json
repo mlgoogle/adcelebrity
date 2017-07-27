@@ -1,10 +1,15 @@
 [
     {
+<<<<<<< HEAD
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13\\design_layout_snackbar.xml",
         "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\7cd65f64088e751be8875f6e253ba6e6fd95aec1\\output\\res\\layout-sw600dp-v13\\design_layout_snackbar.xml"
     },
     {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13\\design_layout_snackbar.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\091bd54b3b134add49b5931f8c43937d43af0bb4\\output\\res\\layout-sw600dp-v13\\design_layout_snackbar.xml"
+=======
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13\\design_layout_snackbar.xml",
+        "source": "C:\\Users\\hank\\.android\\build-cache\\af19377e05ef9c4ac5d2837c34d8bfed701cf2fd\\output\\res\\layout-sw600dp-v13\\design_layout_snackbar.xml"
+>>>>>>> 158e8442967ba792f6fdf42431cd96d0d32d3ee6
     }
 ]

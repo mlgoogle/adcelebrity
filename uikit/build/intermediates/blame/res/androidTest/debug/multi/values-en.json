@@ -1,5 +1,6 @@
 [
     {
+<<<<<<< HEAD
         "outputFile": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-en\\values-en.xml",
         "map": [
             {
@@ -63,6 +64,9 @@
     },
     {
         "outputFile": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-en\\values-en.xml",
+=======
+        "outputFile": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-en\\values-en.xml",
+>>>>>>> 158e8442967ba792f6fdf42431cd96d0d32d3ee6
         "map": [
             {
                 "to": {
@@ -73,7 +77,7 @@
                     "endOffset": 100
                 },
                 "from": {
-                    "file": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -92,7 +96,7 @@
                     "endOffset": 157
                 },
                 "from": {
-                    "file": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -111,7 +115,7 @@
                     "endOffset": 204
                 },
                 "from": {
-                    "file": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "file": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,

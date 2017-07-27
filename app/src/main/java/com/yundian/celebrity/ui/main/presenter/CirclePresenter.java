@@ -18,6 +18,7 @@ public class CirclePresenter implements CircleContract.Presenter {
     private CircleContract.View view;
 
     public CirclePresenter(CircleContract.View view) {
+//        在构造presenter的时候把具体的那个frament对象传过来了
         circleModel = new CircleModel();
         this.view = view;
     }
@@ -26,6 +27,7 @@ public class CirclePresenter implements CircleContract.Presenter {
 
         List<CircleFriendBean.CircleListBean> datas = DatasUtil.createCircleDatas();
         if (view != null) {
+            //
             view.update2loadData(loadType, datas);
         }
     }
@@ -138,6 +140,7 @@ public class CirclePresenter implements CircleContract.Presenter {
     /**
      * @param commentConfig
      */
+    //在adapter中通过presenter调用这个方法时，会由具体的fragment来执行
     public void showEditTextBody(CommentConfig commentConfig) {
         if (view != null) {
             view.updateEditTextBodyVisible(View.VISIBLE, commentConfig);

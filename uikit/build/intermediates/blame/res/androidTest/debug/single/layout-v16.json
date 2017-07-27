@@ -1,10 +1,15 @@
 [
     {
+<<<<<<< HEAD
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v16\\notification_template_custom_big.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\b08164b18ccece6d9f274e3cd83808555b73ae5e\\output\\res\\layout-v16\\notification_template_custom_big.xml"
     },
     {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v16\\notification_template_custom_big.xml",
         "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\layout-v16\\notification_template_custom_big.xml"
+=======
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v16\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\hank\\.android\\build-cache\\16deeefc889515eeb38c4e158211c3c28831d9f8\\output\\res\\layout-v16\\notification_template_custom_big.xml"
+>>>>>>> 158e8442967ba792f6fdf42431cd96d0d32d3ee6
     }
 ]

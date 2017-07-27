@@ -1,5 +1,6 @@
 [
     {
+<<<<<<< HEAD
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-anydpi-v21\\design_ic_visibility_off.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\091bd54b3b134add49b5931f8c43937d43af0bb4\\output\\res\\drawable-anydpi-v21\\design_ic_visibility_off.xml"
     },
@@ -14,5 +15,13 @@
     {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-anydpi-v21\\design_ic_visibility.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\091bd54b3b134add49b5931f8c43937d43af0bb4\\output\\res\\drawable-anydpi-v21\\design_ic_visibility.xml"
+=======
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-anydpi-v21\\design_ic_visibility.xml",
+        "source": "C:\\Users\\hank\\.android\\build-cache\\af19377e05ef9c4ac5d2837c34d8bfed701cf2fd\\output\\res\\drawable-anydpi-v21\\design_ic_visibility.xml"
+    },
+    {
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-anydpi-v21\\design_ic_visibility_off.xml",
+        "source": "C:\\Users\\hank\\.android\\build-cache\\af19377e05ef9c4ac5d2837c34d8bfed701cf2fd\\output\\res\\drawable-anydpi-v21\\design_ic_visibility_off.xml"
+>>>>>>> 158e8442967ba792f6fdf42431cd96d0d32d3ee6
     }
 ]

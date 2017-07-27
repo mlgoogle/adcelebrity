@@ -1,10 +1,15 @@
 [
     {
+<<<<<<< HEAD
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\release\\menu\\contacts_search_menu.xml",
         "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\res\\menu\\contacts_search_menu.xml"
     },
     {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\menu\\contacts_search_menu.xml",
         "source": "E:\\AdStar\\adcelebrity\\uikit\\res\\menu\\contacts_search_menu.xml"
+=======
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\menu\\contacts_search_menu.xml",
+        "source": "F:\\workspace\\adcelebrity\\uikit\\res\\menu\\contacts_search_menu.xml"
+>>>>>>> 158e8442967ba792f6fdf42431cd96d0d32d3ee6
     }
 ]

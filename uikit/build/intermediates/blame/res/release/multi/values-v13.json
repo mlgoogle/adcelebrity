@@ -1,5 +1,6 @@
 [
     {
+<<<<<<< HEAD
         "outputFile": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-v13\\values-v13.xml",
         "map": [
             {
@@ -25,6 +26,9 @@
     },
     {
         "outputFile": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-v13\\values-v13.xml",
+=======
+        "outputFile": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-v13\\values-v13.xml",
+>>>>>>> 158e8442967ba792f6fdf42431cd96d0d32d3ee6
         "map": [
             {
                 "to": {
@@ -35,7 +39,7 @@
                     "endOffset": 109
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\values-v13\\values-v13.xml",
+                    "file": "C:\\Users\\hank\\.android\\build-cache\\16deeefc889515eeb38c4e158211c3c28831d9f8\\output\\res\\values-v13\\values-v13.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,

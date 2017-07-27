@@ -1,10 +1,15 @@
 [
     {
+<<<<<<< HEAD
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\audio_end_tip.wav",
         "source": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\bundles\\debug\\res\\raw\\audio_end_tip.wav"
     },
     {
         "merged": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\audio_end_tip.wav",
         "source": "E:\\star_mingxingduan\\adcelebritysss\\uikit\\build\\intermediates\\bundles\\debug\\res\\raw\\audio_end_tip.wav"
+=======
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\audio_end_tip.wav",
+        "source": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\bundles\\debug\\res\\raw\\audio_end_tip.wav"
+>>>>>>> 158e8442967ba792f6fdf42431cd96d0d32d3ee6
     }
 ]

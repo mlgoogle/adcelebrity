@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="E:\star_mingxingduan\adcelebritysss\uikit\src\main\shaders"/></dataSet><dataSet config="release"><source path="E:\star_mingxingduan\adcelebritysss\uikit\src\release\shaders"/></dataSet></merger>
+=======
+<merger version="3"><dataSet config="main"><source path="F:\workspace\adcelebrity\uikit\src\main\shaders"/></dataSet><dataSet config="release"><source path="F:\workspace\adcelebrity\uikit\src\release\shaders"/></dataSet></merger>
+>>>>>>> 158e8442967ba792f6fdf42431cd96d0d32d3ee6

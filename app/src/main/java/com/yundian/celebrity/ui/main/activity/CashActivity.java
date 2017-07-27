@@ -75,7 +75,7 @@ public class CashActivity extends BaseActivity {
         requestBalance();
         initListener();
     }
-
+//    從cash歷史頁面finish返回數據后
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -83,13 +83,15 @@ public class CashActivity extends BaseActivity {
             requestBalance();
         }
     }
-
+    //請求當前的余額
     private void requestBalance() {
         NetworkAPIFactoryImpl.getDealAPI().balance(new OnAPIListener<AssetDetailsBean>() {
             @Override
             public void onSuccess(AssetDetailsBean bean) {
                 LogUtils.loge("余额请求成功:" + bean.toString());
+                //如果成功，保存一下
                 SharePrefUtil.getInstance().putBalance(bean.getBalance());
+                //更新textview
                 userAvailableMoney.setText(String.format(getString(R.string.cash_available_money),
                         bean.getBalance()+""));
             }
@@ -107,11 +109,12 @@ public class CashActivity extends BaseActivity {
         ntTitle.setTitleText(getString(R.string.money_cash));
         ntTitle.setRightTitle(getString(R.string.cash_history));
         ntTitle.setRightTitleVisibility(true);
-
+        //設置輸入類型
         etInputCashMoney.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         NumberUtils.setEditTextPoint(etInputCashMoney, 2);  //设置输入 提现金额的小数位数
         userAvailableMoney.setText(String.format(getString(R.string.cash_available_money),
                 NumberUtils.halfAdjust2(Double.parseDouble(SharePrefUtil.getInstance().getBalance()))));
+        //button的工具类，全部填写后，button激活
         checkHelper.checkButtonState1(cash, etInputCashMoney);
     }
 
@@ -119,6 +122,7 @@ public class CashActivity extends BaseActivity {
         ntTitle.setOnRightTextListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //開啓cash歷史頁面
                 startActivityForResult(CashHistoryActivity.class, 100);
             }
         });
@@ -133,9 +137,10 @@ public class CashActivity extends BaseActivity {
             @Override
             public void checkError() {
             }
-
+            //输入完成后的迴調
             @Override
             public void checkSuccessPwd(String pwd) {
+                //子线程里开始提现
                 doCash(pwd);
                 passwordView.setVisibility(View.GONE);
             }
@@ -147,18 +152,24 @@ public class CashActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_cash_all_money:
+
                 if (SharePrefUtil.getInstance().getBalance() != null) {
+                    //直接把余额取出来四舍五入，设置回去
                     etInputCashMoney.setText(NumberUtils.halfAdjust2(Double.parseDouble(SharePrefUtil.getInstance().getBalance())));
                 }
 
                 break;
             case R.id.cash:
+                //先判斷有沒有設置過密碼
                 if (JudgeIsSetPayPwd.isSetPwd(this)) {
+                    //喚起鍵盤
                     requestCash();
                 }
                 break;
+
             case R.id.tv_forget_deal_pwd:
                 Bundle bundle = new Bundle();
+                //開啓重置密碼頁面
                 bundle.putString("resetPwd", Constant.PAY_PWD);
                 startActivity(ResetPayPwdActivity.class, bundle);
                 break;
@@ -172,16 +183,18 @@ public class CashActivity extends BaseActivity {
 
 
     private void requestBankInfo() {
+//        获取到用户银行银行卡号
         String cardNo = SharePrefUtil.getInstance().getCardNo();
         NetworkAPIFactoryImpl.getDealAPI().bankCardInfo(cardNo, new OnAPIListener<BankInfoBean>() {
             @Override
             public void onSuccess(BankInfoBean bankInfoBean) {
-
+                //
                 if (TextUtils.isEmpty(bankInfoBean.getCardNO()) || TextUtils.isEmpty(bankInfoBean.getBankName())) {
 //                    LogUtils.loge("银行卡列表失败----------------------------------------------");
 //                    ToastUtils.showShort("请先绑定银行卡");
 //                    startActivity(BankCardInfoActivity.class);
                 } else {
+                    //成功获取到的话设置回去
                     LogUtils.loge("银行卡信息----------------成功");
                     tvUserBankCssount.setText(String.format(getString(R.string.name_code), bankInfoBean.getBankName(), FormatUtil.getCardEnd(bankInfoBean.getCardNO())));
                 }
@@ -190,6 +203,7 @@ public class CashActivity extends BaseActivity {
 
             @Override
             public void onError(Throwable ex) {
+                //卡号有问题
                 LogUtils.loge("银行卡错误------------------------");
 //                ToastUtils.showShort("请先绑定银行卡");
 //                startActivity(BankCardInfoActivity.class);
@@ -198,6 +212,7 @@ public class CashActivity extends BaseActivity {
     }
 
     private void requestCash() {
+        //判斷一下金額有沒有問題
         inputPrice = Double.parseDouble(etInputCashMoney.getText().toString().trim());
         double balance = Double.parseDouble(SharePrefUtil.getInstance().getBalance());
         if (inputPrice > balance) {
@@ -216,12 +231,12 @@ public class CashActivity extends BaseActivity {
             ToastUtils.showShort("提现金额超出范围");
             return;
         }
-        //吊起支付
+        //調起支付
         passwordView.setVisibility(View.VISIBLE);
 
     }
 
-
+    //請求提現的接口
     private void doCash(String pwd) {
         startProgressDialog("正在处理...");
         NetworkAPIFactoryImpl.getDealAPI().cashOut(inputPrice, pwd, new OnAPIListener<WithDrawCashReturnBean>() {
@@ -234,8 +249,10 @@ public class CashActivity extends BaseActivity {
             @Override
             public void onSuccess(WithDrawCashReturnBean withDrawCashReturnBean) {
                 stopProgressDialog();
+                //如果result返回1
                 if (withDrawCashReturnBean.getResult() == 1) {
                     ToastUtils.showStatusView("提现成功", true);
+                    //延遲1秒
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -250,7 +267,7 @@ public class CashActivity extends BaseActivity {
             }
         });
     }
-
+    //點擊返回隱藏passwordview
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {

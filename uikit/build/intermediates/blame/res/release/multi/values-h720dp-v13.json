@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-h720dp-v13\\values-h720dp-v13.xml",
+        "outputFile": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-h720dp-v13\\values-h720dp-v13.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 117
                 },
                 "from": {
-                    "file": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\values-h720dp-v13\\values-h720dp-v13.xml",
+                    "file": "C:\\Users\\hank\\.android\\build-cache\\16deeefc889515eeb38c4e158211c3c28831d9f8\\output\\res\\values-h720dp-v13\\values-h720dp-v13.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
