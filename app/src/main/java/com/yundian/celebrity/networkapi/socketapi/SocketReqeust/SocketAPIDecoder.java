@@ -14,7 +14,7 @@ import io.netty.handler.codec.CorruptedFrameException;
  */
 
 public class SocketAPIDecoder extends ByteToMessageDecoder {
-
+    //用户自己定义的decode方法，用于将读取的byte类型的数据转化为用户自定义的类型,然后再将转化的结果放入到一个messagebuf
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         Object decoded = decode(ctx, in);
