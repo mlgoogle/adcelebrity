@@ -56,12 +56,12 @@
         "source": "F:\\workspace\\adcelebrity\\uikit\\res\\layout\\mass_message_activity.xml"
     },
     {
-        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\notification_action_tombstone.xml",
-        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\layout\\notification_action_tombstone.xml"
-    },
-    {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_recent_contact_list_item.xml",
         "source": "E:\\AdStar\\adcelebrity\\uikit\\res\\layout\\nim_recent_contact_list_item.xml"
+    },
+    {
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\layout\\notification_action_tombstone.xml"
     },
     {
         "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_contacts_abc_item.xml",
@@ -92,12 +92,12 @@
         "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\layout\\abc_dialog_title_material.xml"
     },
     {
-        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_radio.xml",
-        "source": "C:\\Users\\hank\\.android\\build-cache\\16deeefc889515eeb38c4e158211c3c28831d9f8\\output\\res\\layout\\abc_list_menu_item_radio.xml"
-    },
-    {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\design_layout_snackbar_include.xml",
         "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\7cd65f64088e751be8875f6e253ba6e6fd95aec1\\output\\res\\layout\\design_layout_snackbar_include.xml"
+    },
+    {
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_radio.xml",
+        "source": "C:\\Users\\hank\\.android\\build-cache\\16deeefc889515eeb38c4e158211c3c28831d9f8\\output\\res\\layout\\abc_list_menu_item_radio.xml"
     },
     {
         "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_sticker_picker_view.xml",
@@ -108,12 +108,12 @@
         "source": "E:\\AdStar\\adcelebrity\\uikit\\res\\layout\\nim_contact_loading_frame.xml"
     },
     {
-        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_message_item_video.xml",
-        "source": "F:\\workspace\\adcelebrity\\uikit\\res\\layout\\nim_message_item_video.xml"
-    },
-    {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_easy_alert_dialog_bottom_button.xml",
         "source": "E:\\AdStar\\adcelebrity\\uikit\\res\\layout\\nim_easy_alert_dialog_bottom_button.xml"
+    },
+    {
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_message_item_video.xml",
+        "source": "F:\\workspace\\adcelebrity\\uikit\\res\\layout\\nim_message_item_video.xml"
     },
     {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\abc_search_dropdown_item_icons_2line.xml",
@@ -152,12 +152,12 @@
         "source": "C:\\Users\\hank\\.android\\build-cache\\16deeefc889515eeb38c4e158211c3c28831d9f8\\output\\res\\layout\\select_dialog_multichoice_material.xml"
     },
     {
-        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_part_chronometer.xml",
-        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\layout\\notification_template_part_chronometer.xml"
-    },
-    {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_team_name_activity.xml",
         "source": "E:\\AdStar\\adcelebrity\\uikit\\res\\layout\\nim_team_name_activity.xml"
+    },
+    {
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_part_chronometer.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\layout\\notification_template_part_chronometer.xml"
     },
     {
         "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\notification_action_tombstone.xml",

@@ -72,12 +72,12 @@
         "source": "C:\\Users\\hank\\.android\\build-cache\\16deeefc889515eeb38c4e158211c3c28831d9f8\\output\\res\\drawable\\abc_ratingbar_indicator_material.xml"
     },
     {
-        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_easy_edit_text_dialog_bg.xml",
-        "source": "F:\\workspace\\adcelebrity\\uikit\\res\\drawable\\nim_easy_edit_text_dialog_bg.xml"
-    },
-    {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\touch_bg.xml",
         "source": "E:\\AdStar\\adcelebrity\\uikit\\res-ptr2\\drawable\\touch_bg.xml"
+    },
+    {
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_easy_edit_text_dialog_bg.xml",
+        "source": "F:\\workspace\\adcelebrity\\uikit\\res\\drawable\\nim_easy_edit_text_dialog_bg.xml"
     },
     {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_contact_list_item_selecter.xml",
@@ -108,12 +108,12 @@
         "source": "E:\\AdStar\\adcelebrity\\uikit\\res\\drawable\\nim_message_plus_location_selector.xml"
     },
     {
-        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_search_api_material.xml",
-        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\drawable\\abc_ic_search_api_material.xml"
-    },
-    {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_message_item_left_selector.xml",
         "source": "E:\\AdStar\\adcelebrity\\uikit\\res\\drawable\\nim_message_item_left_selector.xml"
+    },
+    {
+        "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_search_api_material.xml",
+        "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\drawable\\abc_ic_search_api_material.xml"
     },
     {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_align_bottom_green_btn_selector.xml",
@@ -128,12 +128,12 @@
         "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
     },
     {
-        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\sample_footer_loading_progress.xml",
-        "source": "F:\\workspace\\adcelebrity\\uikit\\res-ptr2\\drawable\\sample_footer_loading_progress.xml"
-    },
-    {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_bg_edittext_rectangle_focused.xml",
         "source": "E:\\AdStar\\adcelebrity\\uikit\\res\\drawable\\nim_bg_edittext_rectangle_focused.xml"
+    },
+    {
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\sample_footer_loading_progress.xml",
+        "source": "F:\\workspace\\adcelebrity\\uikit\\res-ptr2\\drawable\\sample_footer_loading_progress.xml"
     },
     {
         "merged": "E:\\AdStar\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_cab_background_internal_bg.xml",
@@ -144,16 +144,16 @@
         "source": "C:\\Users\\Administrator.PC-20161224HOPQ\\.android\\build-cache\\9b6f6c0bba600edd3ef7ebcfe56b063fdea4118f\\output\\res\\drawable\\abc_dialog_material_background.xml"
     },
     {
-        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_actionbar_nest_dark_logo.xml",
-        "source": "F:\\workspace\\adcelebrity\\uikit\\res\\drawable\\nim_actionbar_nest_dark_logo.xml"
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_item_background_holo_light.xml",
+        "source": "C:\\Users\\hank\\.android\\build-cache\\16deeefc889515eeb38c4e158211c3c28831d9f8\\output\\res\\drawable\\abc_item_background_holo_light.xml"
     },
     {
         "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\design_password_eye.xml",
         "source": "C:\\Users\\hank\\.android\\build-cache\\af19377e05ef9c4ac5d2837c34d8bfed701cf2fd\\output\\res\\drawable\\design_password_eye.xml"
     },
     {
-        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_item_background_holo_light.xml",
-        "source": "C:\\Users\\hank\\.android\\build-cache\\16deeefc889515eeb38c4e158211c3c28831d9f8\\output\\res\\drawable\\abc_item_background_holo_light.xml"
+        "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_actionbar_nest_dark_logo.xml",
+        "source": "F:\\workspace\\adcelebrity\\uikit\\res\\drawable\\nim_actionbar_nest_dark_logo.xml"
     },
     {
         "merged": "F:\\workspace\\adcelebrity\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_play_btn_select.xml",
