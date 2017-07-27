@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 /**
@@ -67,7 +68,10 @@ public class InComeInfoFragment extends BaseFragment {
     private NormalTitleBar nt_title;
     private ChartFragment chartFragment;
     private DatePicker picker;
-
+    private DatePicker startPicker;
+    int choosed_year7;
+    int choosed_month7;
+    int choosed_day7;
     @Override
     protected int getLayoutResource() {
         return R.layout.fragment_income_info;
@@ -117,8 +121,13 @@ public class InComeInfoFragment extends BaseFragment {
 
         after_year7 = current_end_year;
         after_month7 = current_end_month;
+
+        choosed_year7=after_year7;
+        choosed_month7=after_month7;
+
         String after_month7_tes = FormatUtil.formatDayOrMmonth(current_end_month);
         after_day7 = current_end_day;
+        choosed_day7=after_day7;
         String after_day7_tes = FormatUtil.formatDayOrMmonth(current_end_day);
         tv_end_time.setText(current_end_year + "-" + after_month7_tes + "-" + after_day7_tes);
 
@@ -235,29 +244,12 @@ public class InComeInfoFragment extends BaseFragment {
     }
 
     private void onYearMonthEndTime() {
-        if(picker==null){
+
             picker = new DatePicker(getActivity());
+            LogUtils.loge(picker.hashCode()+"");
             picker.setCanceledOnTouchOutside(true);
             picker.setUseWeight(true);
             picker.setTopPadding(DisplayUtil.dip2px(20));
-
-            //设置结束的时间必须是开始时间 7天之后的
-            picker.setRangeEnd(after_year7, after_month7, after_day7);  //结束  最大
-            picker.setRangeStart(start_year, start_month, start_day);    //开始日期
-            picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
-                @Override
-                public void onDatePicked(String year, String month, String day) {
-                    tv_end_time.setText(year + "-" + month + "-" + day);
-
-                    LogUtils.loge(year + "-" + month + "-" + day);
-                    after_year7 = Integer.valueOf(year).intValue();
-                    after_month7 = Integer.valueOf(month).intValue();
-                    after_day7 = Integer.valueOf(day).intValue();
-
-                    getData();
-                }
-            });
-
             picker.setOnWheelListener(new DatePicker.OnWheelListener() {
                 @Override
                 public void onYearWheeled(int index, String year) {
@@ -274,24 +266,48 @@ public class InComeInfoFragment extends BaseFragment {
                     picker.setTitleText(picker.getSelectedYear() + "-" + picker.getSelectedMonth() + "-" + day);
                 }
             });
+
+
+            picker.setRangeStart(start_year, start_month, start_day);
+        //设置结束的时间必须是开始时间 7天之后的
+            picker.setRangeEnd(after_year7, after_month7, after_day7);  //结束  最大
+              //开始日期
+            picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
+                @Override
+                public void onDatePicked(String year, String month, String day) {
+                    tv_end_time.setText(year + "-" + month + "-" + day);
+
+//                    LogUtils.loge(year + "-" + month + "-" + day);
+                    choosed_year7 = Integer.valueOf(year).intValue();
+                    choosed_month7 = Integer.valueOf(month).intValue();
+                    choosed_day7 = Integer.valueOf(day).intValue();
+
+                    getData();
+                }
+            });
+        if(isStartDateChanged){
+            picker.setSelectedItem(after_year7,after_month7,after_day7);
+            isStartDateChanged=false;
+        }else{
+            picker.setSelectedItem(choosed_year7,choosed_month7,choosed_day7);
         }
-
-        picker.setSelectedItem(after_year7, after_month7, after_day7);
-
-
         picker.show();
     }
-
+    private boolean isStartDateChanged=false;
     public void onYearMonthStartTime() {
-        final DatePicker picker = new DatePicker(getActivity());
-        picker.setCanceledOnTouchOutside(true);
-        picker.setUseWeight(true);
-        picker.setTopPadding(DisplayUtil.dip2px(20));
+
+
+        startPicker = new DatePicker(getActivity());
+        LogUtils.loge(startPicker.hashCode()+"");
+        startPicker.setCanceledOnTouchOutside(true);
+        startPicker.setUseWeight(true);
+        startPicker.setTopPadding(DisplayUtil.dip2px(20));
         //设置开始的时间必须是7天之内的
-        picker.setRangeStart(2017, 1, 1);
-        picker.setSelectedItem(start_year, start_month, start_day);
-        picker.setRangeEnd(current_end_year, current_end_month, current_end_day);  //结束  最大
-        picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
+        startPicker.setRangeStart(2017, 1, 1);
+
+        startPicker.setRangeEnd(current_end_year, current_end_month, current_end_day);  //结束  最大
+        startPicker.setSelectedItem(start_year, start_month, start_day);
+        startPicker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
             @Override
             public void onDatePicked(String year, String month, String day) {
                 LogUtils.loge(year + "-" + month + "-" + day);
@@ -311,25 +327,26 @@ public class InComeInfoFragment extends BaseFragment {
                 tv_end_time.setText(after_year7 + "-" + after_month7 + "-" + after_day7);
 
                 getData();
+                isStartDateChanged=true;
             }
         });
-        picker.setOnWheelListener(new DatePicker.OnWheelListener() {
+        startPicker.setOnWheelListener(new DatePicker.OnWheelListener() {
             @Override
             public void onYearWheeled(int index, String year) {
-                picker.setTitleText(year + "-" + picker.getSelectedMonth() + "-" + picker.getSelectedDay());
+                startPicker.setTitleText(year + "-" + startPicker.getSelectedMonth() + "-" + startPicker.getSelectedDay());
             }
 
             @Override
             public void onMonthWheeled(int index, String month) {
-                picker.setTitleText(picker.getSelectedYear() + "-" + month + "-" + picker.getSelectedDay());
+                startPicker.setTitleText(startPicker.getSelectedYear() + "-" + month + "-" + startPicker.getSelectedDay());
             }
 
             @Override
             public void onDayWheeled(int index, String day) {
-                picker.setTitleText(picker.getSelectedYear() + "-" + picker.getSelectedMonth() + "-" + day);
+                startPicker.setTitleText(startPicker.getSelectedYear() + "-" + startPicker.getSelectedMonth() + "-" + day);
             }
         });
-        picker.show();
+        startPicker.show();
     }
 
     public void getData() {
