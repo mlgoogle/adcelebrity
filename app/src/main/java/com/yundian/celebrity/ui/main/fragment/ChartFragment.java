@@ -18,6 +18,7 @@ import com.yundian.celebrity.bean.IncomeReturnBean;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.TimeUtil;
 import com.yundian.celebrity.wxapi.LineMarkerView;
+import com.yundian.celebrity.wxapi.RadiusMarkerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +31,9 @@ public class ChartFragment extends FrameLayout {
     private View chatView;
     private Context context;
     private int colorLine;
+    private int littleColorLine;
     private int colorText;
-    private LineMarkerView mvLine;
+    private RadiusMarkerView mvLine;
     private LineChart mLineChart;
     private List<IncomeReturnBean> lineEntities;
 
@@ -67,6 +69,7 @@ public class ChartFragment extends FrameLayout {
         colorText = context.getResources().getColor(R.color.color_FB9938);
         //条目
         colorLine = context.getResources().getColor(R.color.color_FB9938);
+        littleColorLine = context.getResources().getColor(R.color.color_FAD3AC);
         mLineChart.setNoDataTextDescription("当前时间段没有收益数据");
         mLineChart.setDescription("");//描述信息
         mLineChart.setDrawGridBackground(false); //是否显示表格颜色
@@ -93,19 +96,24 @@ public class ChartFragment extends FrameLayout {
         mLineChart.setExtraRightOffset(10);
         XAxis xAxis = mLineChart.getXAxis();
 
+        xAxis.setAxisLineColor(colorDivide);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
+        xAxis.enableGridDashedLine(10,10,0);
         xAxis.setGridColor(colorLine);
         xAxis.setTextColor(Color.rgb(102, 102, 102));
         xAxis.setTextSize(14);
+        xAxis.setSpaceBetweenLabels(1);
 //        xAxis.setSpaceBetweenLabels(4);// 轴刻度间的宽度，默认值是4
         xAxis.resetLabelsToSkip();
 
         xAxis.setEnabled(true);
         xAxis.setAvoidFirstLastClipping(true);
 
+        //获取到左边y轴
         YAxis leftAxis = mLineChart.getAxisLeft();
         leftAxis.setLabelCount(6, false);
+        leftAxis.enableGridDashedLine(10,10,0);
 
         leftAxis.setGridColor(colorDivide);
         leftAxis.setTextColor(colorLine);
@@ -115,10 +123,10 @@ public class ChartFragment extends FrameLayout {
 //        leftAxis.setDrawAxisLine(true); //是否绘制坐标轴的线，即含有坐标的那条线，默认是true
 
         //rightAxis.setAxisMinValue(0);此方法虽然可以设置最小值为0，但是起点都会从0开始
-        leftAxis.setStartAtZero(false);
+        leftAxis.setStartAtZero(true);
         leftAxis.setDrawGridLines(true);
         leftAxis.setDrawLabels(true);  //显示刻度
-
+        leftAxis.setAxisLineColor(colorDivide);
         YAxis rightAxis = mLineChart.getAxisRight();
         rightAxis.setEnabled(false);
         refreshMarkerView();
@@ -132,8 +140,10 @@ public class ChartFragment extends FrameLayout {
                 if (lineEntities == null) {
                     return;
                 }
+                //选中后的点的大小 无法控制 除非依赖源码
                 entry.setData(lineEntities.get(entry.getXIndex()).getOrderdate());
                 mvLine.refreshContent(entry, highlight);
+
             }
 
             @Override
@@ -143,7 +153,8 @@ public class ChartFragment extends FrameLayout {
     }
 
     public void refreshMarkerView() {
-        mvLine = new LineMarkerView(getContext(), R.layout.ly_marker_line);
+        mvLine = new RadiusMarkerView(getContext(), R.layout.ly_marker_view);
+//        mvLine.setChartView(mLineChart); // For bounds control
         mLineChart.setMarkerView(mvLine);
     }
 
@@ -166,7 +177,7 @@ public class ChartFragment extends FrameLayout {
         }
 
         // y轴的数据
-        List<Entry> yValues = new ArrayList<Entry>();
+        List<Entry> yValues = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             float value = (float) (dataList.get(i).getOrder_count());
             yValues.add(new Entry(value, i));
@@ -199,15 +210,19 @@ public class ChartFragment extends FrameLayout {
 //        set.setFillColor(colorText);
         set.setCubicIntensity(0.2f);
 //        set.setDrawCircleHole(false);
-        set.setDrawValues(true);
-        set.setCircleColorHole(Color.WHITE);
+        set.setDrawValues(false);
+
         set.setValueTextColor(colorText);
         set.setValueTextSize(11);
         set.setCircleSize(5f);// 显示的圆形大小
-        set.setCircleColor(colorText);// 圆形的颜色
+        set.setCircleColor(littleColorLine);// 圆形的颜色
+
         set.setDrawCircleHole(true);
-        set.setHighlightEnabled(true);
-        set.setHighLightColor(Color.rgb(204, 204, 204)); // 高亮的线的颜色
+        set.setCircleColorHole(colorLine);
+//        set.setHighlightEnabled(true);
+        set.setDrawHighlightIndicators(false);
+//        set.enableDashedLine(2,2,0);
+//        set.setHighLightColor(Color.rgb(204, 204, 204)); // 高亮的线的颜色
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
 //        set.setHighLightColor(R.color.color_666666);
         return set;
