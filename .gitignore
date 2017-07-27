@@ -50,3 +50,4 @@ captures/
 .externalNativeBuild
 # ignore idea
 .idea
+uikit/build
