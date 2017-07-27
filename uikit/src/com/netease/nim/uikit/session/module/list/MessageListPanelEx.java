@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
@@ -40,11 +39,9 @@ import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.RequestCallbackWrapper;
 import com.netease.nimlib.sdk.ResponseCode;
-import com.netease.nimlib.sdk.avchat.model.AVChatAttachment;
 import com.netease.nimlib.sdk.msg.MessageBuilder;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
-import com.netease.nimlib.sdk.msg.attachment.AudioAttachment;
 import com.netease.nimlib.sdk.msg.attachment.FileAttachment;
 import com.netease.nimlib.sdk.msg.constant.AttachStatusEnum;
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
@@ -366,10 +363,6 @@ public class MessageListPanelEx {
             IMMessage item = items.get(index);
             item.setStatus(message.getStatus());
             item.setAttachStatus(message.getAttachStatus());
-            if (item.getAttachment() instanceof AVChatAttachment
-                    || item.getAttachment() instanceof AudioAttachment) {
-                item.setAttachment(message.getAttachment());
-            }
 
             // resend的的情况，可能时间已经变化了，这里要重新检查是否要显示时间
             List<IMMessage> msgList = new ArrayList<>(1);
