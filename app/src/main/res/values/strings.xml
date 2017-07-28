@@ -176,6 +176,7 @@
     <string name="make_sure">确定</string>
     <string name="spend_times">消耗时间 %1$s 秒</string>
     <string name="meeting_manager">约见管理1</string>
+    <string name="time_address_manager">地址时间管理</string>
     <string name="star_meet_type">%1$s ,%2$s</string>
     <string name="star_meet_detail">约见详情</string>
 
