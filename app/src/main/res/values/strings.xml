@@ -136,6 +136,8 @@
     <string name="meeting_type">约见类型</string>
     <string name="meeting_order">约见订单</string>
     <string name="meeting_type_tips">Tips：未确认的都将视为不同意此约见类型，否则粉丝无法正常约见您。</string>
+    <string name="meeting_address_time_tips">Tips：约见时间最长不能超过今年。例如不能超出起始2017-01-01结束2017-12-31的范围。</string>
+    <string name="meeting_time">%1$s-%2$s-%3$s</string>
     <string name="meeting_detail_time">时间:  %1$s</string>
     <string name="meeting_detail_please">地点:  %1$s</string>
     <string name="meeting_detail_type">约见类型:  %1$s</string>

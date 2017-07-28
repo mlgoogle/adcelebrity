@@ -16,6 +16,7 @@ import com.yundian.celebrity.bean.OrderListReturnBean;
 import com.yundian.celebrity.bean.RequestResultBean;
 import com.yundian.celebrity.bean.ResultBeen;
 import com.yundian.celebrity.bean.ResultCodeBeen;
+import com.yundian.celebrity.bean.SubmitAddressTimeInfo;
 import com.yundian.celebrity.bean.WXPayReturnEntity;
 import com.yundian.celebrity.bean.WithDrawCashHistoryBean;
 import com.yundian.celebrity.bean.WithDrawCashReturnBean;
@@ -109,5 +110,5 @@ public interface DealAPI {
     void getPraisestar(String star_code,long circle_id,long uid,OnAPIListener<ResultBeen> listener);
     void getAllCircleInfo(int pos,int count,OnAPIListener<CircleFriendBean> listener);
     void publishState(String content,String picurl,String star_code,OnAPIListener<RequestResultBean> listener);
-
+    void submitAddressTimeInfo(String address,String startdate,String enddate,OnAPIListener<SubmitAddressTimeInfo> listener);
 }

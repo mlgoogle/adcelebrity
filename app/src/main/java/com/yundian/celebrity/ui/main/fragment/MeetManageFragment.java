@@ -64,6 +64,7 @@ public class MeetManageFragment extends BaseFragment {
         ntTitle.setTitleText(getContext().getResources().getString(R.string.meeting_manager));
         ntTitle.setTvLeftVisiable(false);
         ntTitle.setRightTitle(getContext().getResources().getString(R.string.time_address_manager));
+        ntTitle.setRightTitleVisibility(true);
         initFragment();
         switchTo(1);
         initListener();

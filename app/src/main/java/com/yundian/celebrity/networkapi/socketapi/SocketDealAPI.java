@@ -17,6 +17,7 @@ import com.yundian.celebrity.bean.OrderListReturnBean;
 import com.yundian.celebrity.bean.RequestResultBean;
 import com.yundian.celebrity.bean.ResultBeen;
 import com.yundian.celebrity.bean.ResultCodeBeen;
+import com.yundian.celebrity.bean.SubmitAddressTimeInfo;
 import com.yundian.celebrity.bean.WXPayReturnEntity;
 import com.yundian.celebrity.bean.WithDrawCashHistoryBean;
 import com.yundian.celebrity.bean.WithDrawCashReturnBean;
@@ -411,5 +412,19 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.Publish,
                 SocketAPIConstant.ReqeutType.CircleInfo, map);
         requestEntity(socketDataPacket,RequestResultBean.class,listener);
+    }
+
+    @Override
+    public void submitAddressTimeInfo(String address, String startDate, String endDate, OnAPIListener<SubmitAddressTimeInfo> listener) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", SharePrefUtil.getInstance().getUserId());
+        map.put("starcode", SharePrefUtil.getInstance().getStarcode());
+        map.put("token", SharePrefUtil.getInstance().getToken());
+        map.put("meet_city", address);
+        map.put("startdate", startDate);
+        map.put("enddate", endDate);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.AddressTimeManage,
+                SocketAPIConstant.ReqeutType.StarIncome, map);
+        requestEntity(socketDataPacket, SubmitAddressTimeInfo.class, listener);
     }
 }
