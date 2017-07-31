@@ -62,8 +62,8 @@ public enum Host {
 //        return "61.147.114.87";
 //        return "139.224.34.22";  //开发
 //        return "122.144.169.214"; //测试
-        return "139.224.34.22"; //本地
-//        return "tapi.smartdata-x.com"
+//        return "139.224.34.22"; //本地
+        return "tapi.smartdata-x.com";
 //        return "192.168.8.131";
     }
 
@@ -72,9 +72,9 @@ public enum Host {
 //        return (short) 12300 ;
           //return (short) 16104 ;
 //         return (short) 16006; //用户端
-//         return (short) 16016;  //明星端
+         return (short) 16016;  //明星端
 
-         return (short) 16060;  //本地明星端
+//         return (short) 16060;  //本地明星端
 
         //return (short) 16115 ;
         //return (short) 16008 ;
