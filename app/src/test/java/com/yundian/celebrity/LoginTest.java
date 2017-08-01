@@ -1,4 +1,4 @@
-//package com.yundian.celebrity;
+//package com.yundian.celebrity;//package com.yundian.celebrity;
 //
 //import android.view.View;
 //
@@ -11,11 +11,15 @@
 //import org.junit.Before;
 //import org.junit.Test;
 //import org.junit.runner.RunWith;
-//import org.mockito.Mock;
+//
 //import org.mockito.Mockito;
 //
-//import org.robolectric.RobolectricGradleTestRunner;
 //import org.robolectric.annotation.Config;
+//import org.robolectric.shadows.ShadowLog;
+////
+////import org.robolectric.RobolectricGradleTestRunner;
+////import org.robolectric.annotation.Config;
+////import org.robolectric.shadows.ShadowLog;
 //
 //
 //import static org.mockito.Matchers.anyString;
@@ -25,8 +29,9 @@
 // *
 // * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
 // */
-//@RunWith(RobolectricGradleTestRunner.class)
-//@Config(constants = BuildConfig.class, sdk = 21)
+//@RunWith(CustomTestRunner.class)
+//@Config(shadows = {ShadowLog.class},constants = BuildConfig.class, sdk = 21,application = TestAppliction.class)
+//
 //public class LoginTest {
 //    //    @Test
 ////    public void addition_isCorrect() throws Exception {
@@ -41,8 +46,8 @@
 //    @Test
 //    @Spec(desc = "should loging use CheckHelper")
 //    public void testCheck() {
-////        LoginActivity mockLoginActivity = Mockito.spy(LoginActivity.class);
-////        CheckHelper checkHelper=new CheckHelper();
+//        LoginActivity mockLoginActivity = Mockito.spy(LoginActivity.class);
+//        CheckHelper checkHelper=new CheckHelper();
 //        CheckHelper mockCheckHelper = Mockito.mock(CheckHelper.class);
 //        //把这个mock出来的对象用set方法设置进去
 ////        mockLoginActivity.set
