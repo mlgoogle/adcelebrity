@@ -3,6 +3,7 @@ package com.yundian.celebrity.ui.main.activity;
 import android.graphics.Point;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -19,12 +20,16 @@ import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.app.AppApplication;
 import com.yundian.celebrity.base.BaseActivity;
+import com.yundian.celebrity.bean.CircleFriendBean;
 import com.yundian.celebrity.bean.EventBusMessage;
 import com.yundian.celebrity.bean.LoginReturnInfo;
 import com.yundian.celebrity.bean.RegisterReturnWangYiBeen;
 import com.yundian.celebrity.helper.CheckHelper;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
+import com.yundian.celebrity.ui.main.contract.LoginContract;
+import com.yundian.celebrity.ui.main.presenter.CirclePresenter;
+import com.yundian.celebrity.ui.main.presenter.LoginPresenter;
 import com.yundian.celebrity.ui.wangyi.DemoCache;
 import com.yundian.celebrity.ui.wangyi.config.preference.Preferences;
 import com.yundian.celebrity.ui.wangyi.config.preference.UserPreferences;
@@ -46,7 +51,7 @@ import butterknife.OnClick;
  * 登录
  */
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     private CheckHelper checkHelper = new CheckHelper();
     private AbortableFuture<LoginInfo> loginRequest;
@@ -58,6 +63,7 @@ public class LoginActivity extends BaseActivity {
     private TextView registerText;
     private TextView tv_retrieve_password;
     private TextView tv_weixin_login;
+    private LoginPresenter presenter;
 
     @Override
     public int getLayoutId() {
@@ -71,6 +77,9 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        //第一步，new 一个presenter
+        presenter = new LoginPresenter(this);
+
         initFindById();
         //      if (flag) {
         //          EventBus.getDefault().register(this); // EventBus注册广播()
@@ -102,65 +111,44 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.loginButton)
     public void loging() {
-        if (isOnClicked) {
-            return;
+
+        if(presenter!=null){
+
+            if (isOnClicked) {
+                return;
+            }
+            isOnClicked = true;
+            //ViewConcurrencyUtils.preventConcurrency();  //防止并发
+            CheckException exception = new CheckException();
+            LogUtils.loge(MD5Util.MD5(passwordEditText.getEditTextString()));
+            String username = userNameEditText.getEditTextString();
+            String password=passwordEditText.getEditTextString();
+            if (checkHelper.checkMobile(username, exception)
+                    && checkHelper.checkPassword(password, exception)) {
+
+                presenter.login(username,password);
+
+                //lggin结束false
+            } else {
+                isOnClicked = false;
+                showLongToast(exception.getErrorMsg());
+            }
         }
-        isOnClicked = true;
-        //ViewConcurrencyUtils.preventConcurrency();  //防止并发
-        CheckException exception = new CheckException();
-        LogUtils.loge(MD5Util.MD5(passwordEditText.getEditTextString()));
-        if (checkHelper.checkMobile(userNameEditText.getEditTextString(), exception)
-                && checkHelper.checkPassword(passwordEditText.getEditTextString(), exception)) {
-            NetworkAPIFactoryImpl.getUserAPI().login(userNameEditText.getEditTextString(), MD5Util.MD5(passwordEditText.getEditTextString()), new OnAPIListener<LoginReturnInfo>() {
-                @Override
-                public void onError(Throwable ex) {
-                    isOnClicked = false;
-                    LogUtils.logd("登录失败_____" + ex.toString());
-                    ToastUtils.showShort("登录失败");
-                }
-
-                @Override
-                public void onSuccess(final LoginReturnInfo loginReturnInfo) {
-                    isOnClicked = false;
-                    if (loginReturnInfo.getResult() == -301) {
-                        ToastUtils.showShort("用户不存在,请先注册");
-                        return;
-                    } else if (loginReturnInfo.getResult() == -302) {
-                        ToastUtils.showShort("账号或密码错误");
-                        return;
-                    } else if (loginReturnInfo.getResult() == -303) {
-                        ToastUtils.showShort("登录信息失效，请重新登录");
-                        return;
-                    } else if (loginReturnInfo.getResult() == -304) {
-                        ToastUtils.showShort("用户已存在");
-                        return;
-                    } else if (loginReturnInfo != null && loginReturnInfo.getUserinfo() != null) {
-                        LogUtils.logd("登录成功" + loginReturnInfo.toString());
-                        //网易云注册   usertype  : 0普通用户 1,明星
-                        NetworkAPIFactoryImpl.getUserAPI().registerWangYi(0, userNameEditText.getEditTextString(), userNameEditText.getEditTextString(), loginReturnInfo.getUserinfo().getId(), new OnAPIListener<RegisterReturnWangYiBeen>() {
-                            @Override
-                            public void onError(Throwable ex) {
-                                LogUtils.logd("网易云注册失败" + ex.toString());
-                                ToastUtils.showShort("网易云注册失败");
-                            }
-
-                            @Override
-                            public void onSuccess(RegisterReturnWangYiBeen registerReturnWangYiBeen) {
-                                LogUtils.logd("网易云注册成功" + registerReturnWangYiBeen.getResult_value() + "网易云token" + registerReturnWangYiBeen.getToken_value());
-                                loginWangYi(loginReturnInfo, registerReturnWangYiBeen);
-                            }
-                        });
-                    }
-
-                }
-            });
-        } else {
-            isOnClicked = false;
-            showLongToast(exception.getErrorMsg());
-        }
-
-
     }
+
+    @Override
+    public void update2Login() {
+        if (addItem != null) {
+            CircleFriendBean.CircleListBean item = (CircleFriendBean.CircleListBean) circleFriendAdapter.getData().get(circlePosition);
+            item.getComment_list().add(addItem);
+            circleFriendAdapter.notifyDataSetChanged();
+            ToastUtils.showShort("评论发布成功");
+            //circleAdapter.notifyItemChanged(circlePosition+1);
+        }
+        //清空评论文本
+        updateEditTextBodyVisible(View.GONE, null);
+    }
+
 
     private void loginWangYi(final LoginReturnInfo loginReturnInfos, RegisterReturnWangYiBeen registerReturnWangYiBeen) {
         LogUtils.logd(loginReturnInfos.getUserinfo().getPhone() + "..." + registerReturnWangYiBeen.getToken_value());

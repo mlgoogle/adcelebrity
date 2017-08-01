@@ -10,4 +10,5 @@ package com.yundian.celebrity.listener;
 public interface IDataRequestListener {
 
 	public void loadSuccess(Object object);
+	public void loadFail(Object object);
 }
