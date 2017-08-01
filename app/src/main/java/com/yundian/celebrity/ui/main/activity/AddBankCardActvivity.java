@@ -10,6 +10,7 @@ import com.yundian.celebrity.base.BaseActivity;
 import com.yundian.celebrity.bean.BankInfoBean;
 import com.yundian.celebrity.bean.RegisterVerifyCodeBeen;
 import com.yundian.celebrity.helper.CheckInfoHelper;
+import com.yundian.celebrity.helper.CheckViewHelper;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIException;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
@@ -47,7 +48,8 @@ public class AddBankCardActvivity extends BaseActivity {
     Button btnGetCode;
     @Bind(R.id.btn_bind_bank)
     Button btnBindBank;
-    private CheckInfoHelper checkHelper = new CheckInfoHelper();
+    private CheckViewHelper checkHelper = new CheckViewHelper();
+    private CheckInfoHelper checkInfoHelper = new CheckInfoHelper();
 
     @Override
     public int getLayoutId() {
@@ -103,7 +105,7 @@ public class AddBankCardActvivity extends BaseActivity {
 
         CheckException exception = new CheckException();
         //判断手机格式是否符合格式
-        if (checkHelper.checkMobile(etUserPhone.getText().toString(), exception)) {
+        if (checkInfoHelper.checkMobile(etUserPhone.getText().toString(), exception)) {
 
             LogUtils.loge("当前是手机号");
             String bankUsername = etUserName.getText().toString().trim();

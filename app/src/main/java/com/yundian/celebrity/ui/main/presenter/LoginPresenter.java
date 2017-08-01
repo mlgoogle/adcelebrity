@@ -24,30 +24,6 @@ public class LoginPresenter implements LoginContract.Presenter {
         this.view = view;
     }
 
-
-//
-//    public void loadData(int loadType) {
-//
-//        List<CircleFriendBean.CircleListBean> datas = DatasUtil.createCircleDatas();
-//        if (view != null) {
-//            //
-//            view.update2loadData(loadType, datas);
-//        }
-//    }
-
-//    @Override
-//    public void addFavort(String symbol, long circle_id,final int uid, final int circlePosition,final String user_name) {
-//        circleModel.addFavort(symbol, circle_id, uid, new IDataRequestListener() {
-//
-//            @Override
-//            public void loadSuccess(Object object) {
-//                CircleFriendBean.CircleListBean.ApproveListBean item = DatasUtil.createFavortItem(uid, user_name);
-//                if (view != null) {
-//                    view.update2AddFavorite(circlePosition, item);
-//                }
-//            }
-//        });
-//    }
     private boolean isOnClicked = false;
     @Override
     public void login(String userName, String password) {
@@ -90,7 +66,6 @@ public class LoginPresenter implements LoginContract.Presenter {
             }
         }
     }
-
 
     private void initNotificationConfig() {
         // 初始化消息提醒

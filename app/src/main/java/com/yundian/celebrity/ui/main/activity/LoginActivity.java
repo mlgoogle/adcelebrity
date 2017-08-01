@@ -13,7 +13,7 @@ import com.yundian.celebrity.R;
 import com.yundian.celebrity.app.AppApplication;
 import com.yundian.celebrity.base.BaseActivity;
 import com.yundian.celebrity.bean.EventBusMessage;
-import com.yundian.celebrity.helper.CheckInfoHelper;
+
 import com.yundian.celebrity.helper.CheckViewHelper;
 import com.yundian.celebrity.ui.main.contract.LoginContract;
 import com.yundian.celebrity.ui.main.presenter.LoginPresenter;
@@ -94,23 +94,12 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
         if(presenter!=null){
             //ViewConcurrencyUtils.preventConcurrency();  //防止并发
-
 //            LogUtils.loge(MD5Util.MD5(passwordEditText.getEditTextString()));
             String username = userNameEditText.getEditTextString();
             String password=passwordEditText.getEditTextString();
 
             presenter.login(username,password);
 
-//            if (checkHelper.checkMobile(username, exception)
-//                    && checkHelper.checkPassword(password, exception)) {
-//
-//                presenter.login(username,password);
-//
-//
-//            } else {
-//                isOnClicked = false;
-//                showLongToast(exception.getErrorMsg());
-//            }
         }
     }
 

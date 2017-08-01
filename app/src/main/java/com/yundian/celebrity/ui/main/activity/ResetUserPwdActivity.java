@@ -13,6 +13,7 @@ import com.yundian.celebrity.base.BaseActivity;
 import com.yundian.celebrity.bean.RegisterReturnBeen;
 import com.yundian.celebrity.bean.RegisterVerifyCodeBeen;
 import com.yundian.celebrity.helper.CheckInfoHelper;
+import com.yundian.celebrity.helper.CheckViewHelper;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIException;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
@@ -49,7 +50,8 @@ public class ResetUserPwdActivity extends BaseActivity {
 
     private RegisterVerifyCodeBeen verifyCodeBeen;
 
-    private CheckInfoHelper checkHelper = new CheckInfoHelper();
+    private CheckViewHelper checkHelper = new CheckViewHelper();
+    private CheckInfoHelper checkInfoHelper = new CheckInfoHelper();
 
     @Override
     public int getLayoutId() {
@@ -101,10 +103,10 @@ public class ResetUserPwdActivity extends BaseActivity {
     public void okButton() {
         LogUtils.logd("此时网络的连接状态是:" + SocketAPINettyBootstrap.getInstance().isOpen());
         CheckException exception = new CheckException();
-        if (checkHelper.checkMobile(phoneEditText.getEditTextString(), exception)
-                && checkHelper.checkMobile(phoneEditText.getEditTextString(), exception)
-                && checkHelper.checkPassword(pwdEditText1.getEditTextString(), exception)
-                && checkHelper.checkPassword2(pwdEditText1.getEditTextString(), pwdEditText2.getEditTextString(), exception)) {
+        if (checkInfoHelper.checkMobile(phoneEditText.getEditTextString(), exception)
+                && checkInfoHelper.checkMobile(phoneEditText.getEditTextString(), exception)
+                && checkInfoHelper.checkPassword(pwdEditText1.getEditTextString(), exception)
+                && checkInfoHelper.checkPassword2(pwdEditText1.getEditTextString(), pwdEditText2.getEditTextString(), exception)) {
             resetUserPwd();
 
         } else {
