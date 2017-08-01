@@ -9,7 +9,7 @@ import com.yundian.celebrity.R;
 import com.yundian.celebrity.base.BaseActivity;
 import com.yundian.celebrity.bean.BankInfoBean;
 import com.yundian.celebrity.bean.RegisterVerifyCodeBeen;
-import com.yundian.celebrity.helper.CheckHelper;
+import com.yundian.celebrity.helper.CheckInfoHelper;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIException;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
@@ -47,7 +47,7 @@ public class AddBankCardActvivity extends BaseActivity {
     Button btnGetCode;
     @Bind(R.id.btn_bind_bank)
     Button btnBindBank;
-    private CheckHelper checkHelper = new CheckHelper();
+    private CheckInfoHelper checkHelper = new CheckInfoHelper();
 
     @Override
     public int getLayoutId() {
@@ -157,7 +157,7 @@ public class AddBankCardActvivity extends BaseActivity {
         LogUtils.logd("请求网络获取短信验证码------------------------------");
         CheckException exception = new CheckException();
         String phoneEdit = etUserPhone.getText().toString().trim();
-        if (new CheckHelper().checkMobile(phoneEdit, exception)) {
+        if (new CheckInfoHelper().checkMobile(phoneEdit, exception)) {
             //Utils.closeSoftKeyboard(view);
             NetworkAPIFactoryImpl.getUserAPI().verifyCode(phoneEdit, new OnAPIListener<RegisterVerifyCodeBeen>() {
                 @Override

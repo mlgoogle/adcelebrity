@@ -19,7 +19,7 @@ import com.yundian.celebrity.bean.AssetDetailsBean;
 import com.yundian.celebrity.bean.BankInfoBean;
 import com.yundian.celebrity.bean.OrderReturnBeen;
 import com.yundian.celebrity.bean.WithDrawCashReturnBean;
-import com.yundian.celebrity.helper.CheckHelper;
+import com.yundian.celebrity.helper.CheckInfoHelper;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.utils.FormatUtil;
@@ -56,7 +56,7 @@ public class CashActivity extends BaseActivity {
     PasswordView passwordView;
     private boolean flag = true;
     private double inputPrice;
-    private CheckHelper checkHelper = new CheckHelper();
+    private CheckInfoHelper checkHelper = new CheckInfoHelper();
 
     @Override
     public int getLayoutId() {

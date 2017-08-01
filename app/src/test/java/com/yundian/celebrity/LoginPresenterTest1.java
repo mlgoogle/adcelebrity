@@ -44,7 +44,7 @@
 //    public void testLogin_EmptyPassword() throws Exception {
 //        presenter.login("13913391521", "");
 //
-//        verify(view).showTip("密码不能为空");
+////        verify(view).showTip("密码不能为空");
 //    }
 //
 //    @Test

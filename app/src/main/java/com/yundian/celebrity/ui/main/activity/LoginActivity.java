@@ -3,42 +3,23 @@ package com.yundian.celebrity.ui.main.activity;
 import android.graphics.Point;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.netease.nim.uikit.NimUIKit;
-import com.netease.nim.uikit.cache.DataCacheManager;
-import com.netease.nimlib.sdk.AbortableFuture;
-import com.netease.nimlib.sdk.NIMClient;
-import com.netease.nimlib.sdk.RequestCallback;
-import com.netease.nimlib.sdk.StatusBarNotificationConfig;
-import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.app.AppApplication;
 import com.yundian.celebrity.base.BaseActivity;
-import com.yundian.celebrity.bean.CircleFriendBean;
 import com.yundian.celebrity.bean.EventBusMessage;
-import com.yundian.celebrity.bean.LoginReturnInfo;
-import com.yundian.celebrity.bean.RegisterReturnWangYiBeen;
-import com.yundian.celebrity.helper.CheckHelper;
-import com.yundian.celebrity.listener.OnAPIListener;
-import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
+import com.yundian.celebrity.helper.CheckInfoHelper;
+import com.yundian.celebrity.helper.CheckViewHelper;
 import com.yundian.celebrity.ui.main.contract.LoginContract;
-import com.yundian.celebrity.ui.main.presenter.CirclePresenter;
 import com.yundian.celebrity.ui.main.presenter.LoginPresenter;
-import com.yundian.celebrity.ui.wangyi.DemoCache;
-import com.yundian.celebrity.ui.wangyi.config.preference.Preferences;
-import com.yundian.celebrity.ui.wangyi.config.preference.UserPreferences;
-import com.yundian.celebrity.utils.LogUtils;
-import com.yundian.celebrity.utils.MD5Util;
 import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.utils.ToastUtils;
 import com.yundian.celebrity.utils.ViewConcurrencyUtils;
-import com.yundian.celebrity.widget.CheckException;
 import com.yundian.celebrity.widget.WPEditText;
 
 
@@ -53,7 +34,7 @@ import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity implements LoginContract.View {
 
-    private CheckHelper checkHelper = new CheckHelper();
+    private CheckViewHelper checkViewHelper = new CheckViewHelper();
 
     private long exitNow;
     boolean flag = true;
@@ -72,13 +53,12 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     public void initPresenter() {
-
+        //第一步，new 一个presenter
+        presenter = new LoginPresenter(this);
     }
 
     @Override
     public void initView() {
-        //第一步，new 一个presenter
-        presenter = new LoginPresenter(this);
 
         initFindById();
         //      if (flag) {
@@ -91,7 +71,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         p.width = (int) (size.x * 0.85);
         getWindow().setAttributes(p); // 设置生效
         userNameEditText.setInputType(EditorInfo.TYPE_CLASS_PHONE);
-        checkHelper.checkButtonState(loginButton, userNameEditText, passwordEditText);
+        checkViewHelper.checkButtonState(loginButton, userNameEditText, passwordEditText);
         String phoneNum = SharePrefUtil.getInstance().getLoginPhone();
         if (!TextUtils.isEmpty(phoneNum)) {
             userNameEditText.getEditText().setText(phoneNum);
@@ -113,15 +93,13 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     public void loging() {
 
         if(presenter!=null){
-
-
             //ViewConcurrencyUtils.preventConcurrency();  //防止并发
 
 //            LogUtils.loge(MD5Util.MD5(passwordEditText.getEditTextString()));
             String username = userNameEditText.getEditTextString();
             String password=passwordEditText.getEditTextString();
 
-            presenter.login(username,password,checkHelper);
+            presenter.login(username,password);
 
 //            if (checkHelper.checkMobile(username, exception)
 //                    && checkHelper.checkPassword(password, exception)) {
@@ -148,7 +126,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     public void update2LoginFail() {
             ToastUtils.showShort("登录失败");
-
+    }
+    @Override
+    public void update2LoginFail(String msg) {
+            ToastUtils.showShort(msg);
     }
 
     @OnClick(R.id.registerText)

@@ -17,7 +17,7 @@ import com.yundian.celebrity.base.BaseActivity;
 import com.yundian.celebrity.bean.RegisterReturnBeen;
 import com.yundian.celebrity.bean.RegisterVerifyCodeBeen;
 import com.yundian.celebrity.bean.RequestResultBean;
-import com.yundian.celebrity.helper.CheckHelper;
+import com.yundian.celebrity.helper.CheckInfoHelper;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIException;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
@@ -55,7 +55,7 @@ public class ResetPayPwdActivity extends BaseActivity {
 
     private RegisterVerifyCodeBeen verifyCodeBeen;
 
-    private CheckHelper checkHelper = new CheckHelper();
+    private CheckInfoHelper checkHelper = new CheckInfoHelper();
     private boolean isResetPayPwd = false;
 
     @Override
@@ -179,7 +179,7 @@ public class ResetPayPwdActivity extends BaseActivity {
         LogUtils.logd("请求网络获取短信验证码------------------------------");
         CheckException exception = new CheckException();
         String phoneEdit = phoneEditText.getEditTextString();
-        if (new CheckHelper().checkMobile(phoneEdit, exception)) {
+        if (new CheckInfoHelper().checkMobile(phoneEdit, exception)) {
             //Utils.closeSoftKeyboard(view);
             startProgressDialog();
             NetworkAPIFactoryImpl.getUserAPI().verifyCode(phoneEdit, new OnAPIListener<RegisterVerifyCodeBeen>() {
@@ -249,7 +249,7 @@ public class ResetPayPwdActivity extends BaseActivity {
         startProgressDialog();
         CheckException exception = new CheckException();
         String phoneEdit = phoneEditText.getEditTextString();
-        if (new CheckHelper().checkMobile(phoneEdit, exception)) {
+        if (new CheckInfoHelper().checkMobile(phoneEdit, exception)) {
             NetworkAPIFactoryImpl.getUserAPI().isRegisted(phoneEdit, new OnAPIListener<RegisterReturnBeen>() {
                 @Override
                 public void onError(Throwable ex) {

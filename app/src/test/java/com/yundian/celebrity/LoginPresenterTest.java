@@ -2,25 +2,16 @@ package com.yundian.celebrity;
 
 
 
-import android.os.UserManager;
-import android.text.Editable;
-import android.view.View;
-
-import com.yundian.celebrity.helper.CheckHelper;
+import com.yundian.celebrity.helper.CheckInfoHelper;
 import com.yundian.celebrity.ui.main.activity.LoginActivity;
 import com.yundian.celebrity.widget.CheckException;
-import com.yundian.celebrity.widget.WPEditText;
-
-import junit.framework.Assert;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-import org.mockito.stubbing.Answer;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -37,7 +28,7 @@ public class LoginPresenterTest {
     LoginActivity loginActivity;
 
     @Mock
-    CheckHelper checkHelper;
+    CheckInfoHelper checkHelper;
 
     @Mock
     CheckException checkException;
