@@ -54,7 +54,7 @@ import butterknife.OnClick;
 public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     private CheckHelper checkHelper = new CheckHelper();
-    private AbortableFuture<LoginInfo> loginRequest;
+
     private long exitNow;
     boolean flag = true;
     private WPEditText userNameEditText;
@@ -138,67 +138,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     public void update2Login() {
-        if (addItem != null) {
-            CircleFriendBean.CircleListBean item = (CircleFriendBean.CircleListBean) circleFriendAdapter.getData().get(circlePosition);
-            item.getComment_list().add(addItem);
-            circleFriendAdapter.notifyDataSetChanged();
-            ToastUtils.showShort("评论发布成功");
-            //circleAdapter.notifyItemChanged(circlePosition+1);
-        }
-        //清空评论文本
-        updateEditTextBodyVisible(View.GONE, null);
+        ToastUtils.showShort("登录成功");
     }
-
-
-    private void loginWangYi(final LoginReturnInfo loginReturnInfos, RegisterReturnWangYiBeen registerReturnWangYiBeen) {
-        LogUtils.logd(loginReturnInfos.getUserinfo().getPhone() + "..." + registerReturnWangYiBeen.getToken_value());
-        // 登录
-        loginRequest = NimUIKit.doLogin(new LoginInfo(loginReturnInfos.getUserinfo().getPhone(), registerReturnWangYiBeen.getToken_value()), new RequestCallback<LoginInfo>() {
-            @Override
-            public void onSuccess(LoginInfo param) {
-                NetworkAPIFactoryImpl.getUserAPI().saveDevice(loginReturnInfos.getUserinfo().getId(), new OnAPIListener<Object>() {
-                    @Override
-                    public void onError(Throwable ex) {
-                        LogUtils.logd("上传设备id和类型失败:" + ex.toString());
-                    }
-
-                    @Override
-                    public void onSuccess(Object o) {
-                        LogUtils.logd("上传设备id和类型成功:" + o.toString());
-                    }
-                });
-                LogUtils.logd("网易云登录成功:" + param.toString());
-                ToastUtils.showStatusView("登录成功", true);
-                DemoCache.setAccount(param.getAccount());
-                saveLoginInfo(param.getAccount(), param.getToken());
-                // 初始化消息提醒配置
-                initNotificationConfig();
-                // 构建缓存
-                DataCacheManager.buildDataCacheAsync();
-                SharePrefUtil.getInstance().saveLoginUserInfo(loginReturnInfos);
-                SharePrefUtil.getInstance().putTokenTime(loginReturnInfos.getToken_time());
-                SharePrefUtil.getInstance().putLoginPhone(loginReturnInfos.getUserinfo().getPhone());
-                EventBus.getDefault().postSticky(new EventBusMessage(1));  //登录成功消息
-                LoginActivity.this.finish();
-                LoginActivity.this.overridePendingTransition(0, R.anim.activity_off_top_out);
-            }
-
-            @Override
-            public void onFailed(int code) {
-                if (code == 302 || code == 404) {
-                    LogUtils.logd("网易云登录失败" + R.string.login_failed);
-                } else {
-                    LogUtils.logd("网易云登录失败" + code);
-                }
-            }
-
-            @Override
-            public void onException(Throwable exception) {
-                LogUtils.logd("网易云登录失败" + R.string.login_exception);
-            }
-        });
-    }
-
 
     @OnClick(R.id.registerText)
     public void doingReregister() {
@@ -222,24 +163,24 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         return super.onKeyDown(keyCode, event);
     }
 
-    private void saveLoginInfo(final String account, final String token) {
-        Preferences.saveUserAccount(account);
-        Preferences.saveUserToken(token);
-    }
+//    private void saveLoginInfo(final String account, final String token) {
+//        Preferences.saveUserAccount(account);
+//        Preferences.saveUserToken(token);
+//    }
 
-    private void initNotificationConfig() {
-        // 初始化消息提醒
-        NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
-
-        // 加载状态栏配置
-        StatusBarNotificationConfig statusBarNotificationConfig = UserPreferences.getStatusConfig();
-        if (statusBarNotificationConfig == null) {
-            statusBarNotificationConfig = DemoCache.getNotificationConfig();
-            UserPreferences.setStatusConfig(statusBarNotificationConfig);
-        }
-        // 更新配置
-        NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig);
-    }
+//    private void initNotificationConfig() {
+//        // 初始化消息提醒
+//        NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
+//
+//        // 加载状态栏配置
+//        StatusBarNotificationConfig statusBarNotificationConfig = UserPreferences.getStatusConfig();
+//        if (statusBarNotificationConfig == null) {
+//            statusBarNotificationConfig = DemoCache.getNotificationConfig();
+//            UserPreferences.setStatusConfig(statusBarNotificationConfig);
+//        }
+//        // 更新配置
+//        NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig);
+//    }
 
     @OnClick(R.id.tv_weixin_login)
     public void weixinLogin() {
