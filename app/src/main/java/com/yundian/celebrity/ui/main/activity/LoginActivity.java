@@ -107,38 +107,48 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         tv_weixin_login = (TextView) findViewById(R.id.tv_weixin_login);
     }
 
-    private boolean isOnClicked = false;
+
 
     @OnClick(R.id.loginButton)
     public void loging() {
 
         if(presenter!=null){
 
-            if (isOnClicked) {
-                return;
-            }
-            isOnClicked = true;
+
             //ViewConcurrencyUtils.preventConcurrency();  //防止并发
-            CheckException exception = new CheckException();
-            LogUtils.loge(MD5Util.MD5(passwordEditText.getEditTextString()));
+
+//            LogUtils.loge(MD5Util.MD5(passwordEditText.getEditTextString()));
             String username = userNameEditText.getEditTextString();
             String password=passwordEditText.getEditTextString();
-            if (checkHelper.checkMobile(username, exception)
-                    && checkHelper.checkPassword(password, exception)) {
 
-                presenter.login(username,password);
+            presenter.login(username,password,checkHelper);
 
-                //lggin结束false
-            } else {
-                isOnClicked = false;
-                showLongToast(exception.getErrorMsg());
-            }
+//            if (checkHelper.checkMobile(username, exception)
+//                    && checkHelper.checkPassword(password, exception)) {
+//
+//                presenter.login(username,password);
+//
+//
+//            } else {
+//                isOnClicked = false;
+//                showLongToast(exception.getErrorMsg());
+//            }
         }
     }
 
     @Override
-    public void update2Login() {
-        ToastUtils.showShort("登录成功");
+    public void update2LoginSuccess() {
+            ToastUtils.showShort("登录成功");
+            //lggin结束false
+
+            this.finish();
+            this.overridePendingTransition(0, R.anim.activity_off_top_out);
+
+    }
+    @Override
+    public void update2LoginFail() {
+            ToastUtils.showShort("登录失败");
+
     }
 
     @OnClick(R.id.registerText)
@@ -163,25 +173,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         return super.onKeyDown(keyCode, event);
     }
 
-//    private void saveLoginInfo(final String account, final String token) {
-//        Preferences.saveUserAccount(account);
-//        Preferences.saveUserToken(token);
-//    }
-
-//    private void initNotificationConfig() {
-//        // 初始化消息提醒
-//        NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
-//
-//        // 加载状态栏配置
-//        StatusBarNotificationConfig statusBarNotificationConfig = UserPreferences.getStatusConfig();
-//        if (statusBarNotificationConfig == null) {
-//            statusBarNotificationConfig = DemoCache.getNotificationConfig();
-//            UserPreferences.setStatusConfig(statusBarNotificationConfig);
-//        }
-//        // 更新配置
-//        NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig);
-//    }
-
     @OnClick(R.id.tv_weixin_login)
     public void weixinLogin() {
         ViewConcurrencyUtils.preventConcurrency();  //防止并发
@@ -199,6 +190,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     protected void onDestroy() {
+        if (presenter != null) {
+            presenter.recycle();
+        }
+
         //EventBus.getDefault().removeAllStickyEvents();
         //EventBus.getDefault().unregister(this);
         super.onDestroy();

@@ -4,6 +4,7 @@ package com.yundian.celebrity.ui.main.contract;
 
 import com.yundian.celebrity.app.CommentConfig;
 import com.yundian.celebrity.bean.CircleFriendBean;
+import com.yundian.celebrity.helper.CheckHelper;
 
 import java.util.List;
 
@@ -15,7 +16,8 @@ public interface LoginContract {
 
     interface View  {
 //
-        void update2Login();
+        void update2LoginSuccess();
+        void update2LoginFail();
 //        void update2DeleteCircle(String circleId);
 //        void update2AddFavorite(int circlePosition, CircleFriendBean.CircleListBean.ApproveListBean addItem);
 //        void update2DeleteFavort(int circlePosition, String favortId);
@@ -26,7 +28,7 @@ public interface LoginContract {
     }
 
     interface Presenter {
-        void login(String userName,String password);
+        void login(String userName,String password,CheckHelper checkHelper);
 //        void loadData(int loadType);
 //        void deleteCircle(final String circleId);
 //        void addFavort(String symbol, long circle_id, int uid, final int circlePosition, String user_name);

@@ -2,11 +2,16 @@ package com.yundian.celebrity.ui.main.presenter;
 
 import android.view.View;
 
+import com.netease.nim.uikit.cache.DataCacheManager;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
+import com.yundian.celebrity.R;
 import com.yundian.celebrity.app.CommentConfig;
 import com.yundian.celebrity.bean.CircleFriendBean;
+import com.yundian.celebrity.bean.EventBusMessage;
+import com.yundian.celebrity.helper.CheckHelper;
 import com.yundian.celebrity.listener.IDataRequestListener;
+import com.yundian.celebrity.ui.main.activity.LoginActivity;
 import com.yundian.celebrity.ui.main.contract.CircleContract;
 import com.yundian.celebrity.ui.main.contract.LoginContract;
 import com.yundian.celebrity.ui.main.model.CircleModel;
@@ -15,6 +20,10 @@ import com.yundian.celebrity.ui.wangyi.DemoCache;
 import com.yundian.celebrity.ui.wangyi.config.preference.Preferences;
 import com.yundian.celebrity.ui.wangyi.config.preference.UserPreferences;
 import com.yundian.celebrity.utils.DatasUtil;
+import com.yundian.celebrity.utils.SharePrefUtil;
+import com.yundian.celebrity.widget.CheckException;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -28,6 +37,8 @@ public class LoginPresenter implements LoginContract.Presenter {
         loginModel = new LoginModel();
         this.view = view;
     }
+
+
 //
 //    public void loadData(int loadType) {
 //
@@ -51,31 +62,52 @@ public class LoginPresenter implements LoginContract.Presenter {
 //            }
 //        });
 //    }
-
+    private boolean isOnClicked = false;
     @Override
-    public void login(String userName,String password){
+    public void login(String userName, String password,CheckHelper checkHelper) {
 //        if (config == null) {
 //            return;
 //        }
-        loginModel.login(userName, password, new IDataRequestListener() {
-            @Override
-            public void loadSuccess(Object object) {
-                if(view!=null){
-                    view.update2Login();
+        if (isOnClicked) {
+            return;
+        }
+        isOnClicked = true;
+        CheckException exception = new CheckException();
+        if (checkHelper.checkMobile(userName, exception)
+                && checkHelper.checkPassword(password, exception)) {
+
+            loginModel.login(userName, password, new IDataRequestListener() {
+                @Override
+                public void loadSuccess(Object object) {
+                    // 初始化消息提醒配置
+                    initNotificationConfig();
+                    EventBus.getDefault().postSticky(new EventBusMessage(1));  //登录成功消息
+
+                    isOnClicked=false;
+                    if (view != null) {
+                        view.update2LoginSuccess();
+                    }
                 }
-            }
 
-            @Override
-            public void loadFail(Object object) {
+                @Override
+                public void loadFail(Object object) {
+                    isOnClicked=false;
+                    if (view != null) {
+                        view.update2LoginFail();
+                    }
+                }
 
+            });
+
+        } else {
+            exception.getMessage();
+            isOnClicked = false;
+            if (view != null) {
+                view.update2LoginFail();
             }
-        });
+        }
     }
 
-    private void saveLoginInfo(final String account, final String token) {
-        Preferences.saveUserAccount(account);
-        Preferences.saveUserToken(token);
-    }
 
     private void initNotificationConfig() {
         // 初始化消息提醒
@@ -90,6 +122,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         // 更新配置
         NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig);
     }
+
     /**
      * 清除对外部对象的引用，反正内存泄露。
      */
