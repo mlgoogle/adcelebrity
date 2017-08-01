@@ -24,6 +24,7 @@ import com.yundian.celebrity.bean.QiNiuImageToken;
 import com.yundian.celebrity.bean.RequestResultBean;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
+import com.yundian.celebrity.ui.view.MyProgressView;
 import com.yundian.celebrity.ui.view.ValidationWatcher;
 import com.yundian.celebrity.utils.DisplayUtil;
 import com.yundian.celebrity.utils.FormatUtil;
@@ -105,6 +106,8 @@ public class PublishStateActivity extends BaseActivity {
     private UploadManager uploadManager = new UploadManager();
 
     private void publishState() {
+        startProgressDialog();
+
         HttpUtils.doGetAsyn(Constant.QI_NIU_TOKEN_URL, new HttpUtils.CallBack() {
             @Override
             public void onRequestComplete(String result) {
@@ -148,6 +151,9 @@ public class PublishStateActivity extends BaseActivity {
             @Override
             public void onError(Throwable ex) {
                 LogUtils.loge("发布失败");
+                ToastUtils.showShort("发布失败");
+                stopProgressDialog();
+
             }
 
             @Override
@@ -155,7 +161,11 @@ public class PublishStateActivity extends BaseActivity {
 
                 if (requestResultBean.getCircle_id() != -1) {
                     EventBus.getDefault().post(new EventBusMessage(-65));
+                    ToastUtils.showShort("发布成功");
+
                     finish();
+                    stopProgressDialog();
+
                 }
             }
         });

@@ -10,8 +10,15 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.netease.nim.uikit.NimUIKit;
+import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.session.SessionCustomization;
 
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.Observer;
+import com.netease.nimlib.sdk.RequestCallbackWrapper;
+import com.netease.nimlib.sdk.msg.MsgService;
+import com.netease.nimlib.sdk.msg.MsgServiceObserve;
+import com.netease.nimlib.sdk.msg.model.RecentContact;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.base.BaseFragment;
 import com.yundian.celebrity.bean.HaveStarUsersBean;
@@ -21,6 +28,7 @@ import com.yundian.celebrity.ui.main.adapter.FansTalkAdapter;
 import com.yundian.celebrity.ui.wangyi.session.activity.P2PMessageActivity;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.SharePrefUtil;
+import com.yundian.celebrity.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +46,7 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
     private List<HaveStarUsersBean> dataList = new ArrayList<>();
     private int mCurrentCounter = 1;
     private static final int REQUEST_COUNT = 10;
+    private List<RecentContact> recentContacts=new ArrayList<>();
 
 
     @Override
@@ -54,7 +63,53 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
         initFindById();
         initAdapter();
         getData(false, 1, 10);
+
+        getRecentContacts();
+        registerObservers(true);
     }
+
+    /**
+     * ********************** 收消息，处理状态变化 ************************
+     */
+    private void registerObservers(boolean register) {
+        MsgServiceObserve service = NIMClient.getService(MsgServiceObserve.class);
+        service.observeRecentContact(messageObserver, register);
+    }
+
+    Observer<List<RecentContact>> messageObserver = new Observer<List<RecentContact>>() {
+        @Override
+        public void onEvent(List<RecentContact> recentContacts) {
+//            checkunReadMsg();
+
+//            int unreadNum = NIMClient.getService(MsgService.class).getTotalUnreadCount();
+//            ToastUtils.showShort(unreadNum);
+
+            if(recentContacts!=null&&!recentContacts.isEmpty()){
+                recentContacts = recentContacts;
+
+//                            fansTalkAdapter.setRecentContacts(recentContacts);
+            }
+        }
+    };
+
+    public void getRecentContacts(){
+        NIMClient.getService(MsgService.class).queryRecentContacts()
+                .setCallback(new RequestCallbackWrapper<List<RecentContact>>() {
+                    @Override
+                    public void onResult(int code, List<RecentContact> recents, Throwable e) {
+                        // recents参数即为最近联系人列表（最近会话列表）
+//                        ToastUtils.showShort();
+                        LogUtils.loge(recents+"");
+                        if(recents!=null&&!recents.isEmpty()){
+
+                            recentContacts = recents;
+
+//                            fansTalkAdapter.setRecentContacts(recentContacts);
+                        }
+                    }
+                });
+    }
+
 
     private void initFindById() {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_list);
@@ -64,7 +119,7 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
     private void initAdapter() {
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
-        fansTalkAdapter = new FansTalkAdapter(R.layout.adapter_fans_talk_item, dataList);
+        fansTalkAdapter = new FansTalkAdapter(R.layout.adapter_fans_talk_item, dataList,recentContacts);
         fansTalkAdapter.setOnLoadMoreListener(this, mRecyclerView);
         mRecyclerView.setAdapter(fansTalkAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

@@ -239,7 +239,7 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         map.put("starcode", starcode);
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.HaveOrderList,
                 SocketAPIConstant.ReqeutType.StarIncome, map);
-        requestEntitys(socketDataPacket, "OrderList",OrderListReturnBean.class, listener);
+        requestEntitys(socketDataPacket, "OrderList",OrderListReturnBean.class, listener,"result");
     }
 
     @Override

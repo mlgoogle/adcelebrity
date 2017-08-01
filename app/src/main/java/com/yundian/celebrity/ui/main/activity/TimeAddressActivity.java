@@ -155,8 +155,10 @@ public class TimeAddressActivity extends BaseActivity {
 //                    EventBus.getDefault().post(new EventBusMessage(-65));
 //                    finish();
 //                }
-                if(submitAddressTimeInfo.getResult()==""+1){
+                if(submitAddressTimeInfo.getResult().equals(""+1)){
                     ToastUtils.showShort("修改成功");
+                }else{
+                    ToastUtils.showShort("修改异常");
                 }
 
             }

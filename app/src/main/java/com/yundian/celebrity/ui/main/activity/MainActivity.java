@@ -101,6 +101,13 @@ public class MainActivity extends BaseActivity {
         }
     };
 
+    Runnable runnableCheckLogin = new Runnable() {
+        @Override
+        public void run() {
+            checkLogin();
+        }
+    };
+
 
     @Override
     public int getLayoutId() {
@@ -115,8 +122,9 @@ public class MainActivity extends BaseActivity {
     public void initView() {
         initTab();
         checkunReadMsg();
-        handler.postDelayed(runnablePermission, 1000);
-        checkLogin();
+        handler.postDelayed(runnablePermission, 2000);
+        handler.postDelayed(runnableCheckLogin,1000);
+
     }
 
     private void checkLogin() {

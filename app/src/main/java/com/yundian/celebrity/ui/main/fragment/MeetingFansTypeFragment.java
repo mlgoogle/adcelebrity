@@ -83,9 +83,19 @@ public class MeetingFansTypeFragment extends BaseFragment implements SwipeRefres
         NetworkAPIFactoryImpl.getDealAPI().haveOrderType(SharePrefUtil.getInstance().getStarcode(), new OnAPIListener<List<OrderListReturnBean>>() {
             @Override
             public void onError(Throwable ex) {
-                LogUtils.loge("拥有明星类型失败----------------------");
-                meetTypeAdapter.loadMoreEnd();
-                swipeLayout.setRefreshing(false);
+
+                if(ex instanceof NullPointerException&&ex.getMessage().contains("starlists")){
+                    list.clear();
+//                    meetTypeAdapter.loadMoreEnd();
+//                    meetTypeAdapter.loadMoreFail();
+                    meetTypeAdapter.setNewData(list);
+                    swipeLayout.setRefreshing(false);
+
+                }else{
+                    LogUtils.loge("拥有明星类型失败----------------------");
+                    meetTypeAdapter.loadMoreEnd();
+                    swipeLayout.setRefreshing(false);
+                }
             }
 
             @Override
@@ -95,8 +105,9 @@ public class MeetingFansTypeFragment extends BaseFragment implements SwipeRefres
                 if (orderListReturnBeen == null || orderListReturnBeen.size() == 0) {
                     return;
                 }
-
+                //orderListReturnBeen:全部约见类型
                 for (OrderListReturnBean orderListReturnBean : orderListReturnBeen) {
+                    //beanList:当前明星拥有的约见类型
                     for (OrderListReturnBean listReturnBean : beanList) {
                         if (listReturnBean.getMid() == orderListReturnBean.getMid()) {
                             listReturnBean.setShowpic_url(orderListReturnBean.getShowpic_url());
@@ -108,7 +119,8 @@ public class MeetingFansTypeFragment extends BaseFragment implements SwipeRefres
                 meetTypeAdapter.setNewData(beanList);
                 if (list.size() > 0) {
                     list.clear();
-                    list = beanList;
+//                    list.addAll(beanList);
+                    list=beanList;
                 }
             }
         });

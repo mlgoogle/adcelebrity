@@ -70,6 +70,10 @@ public class AddMeetTypeActivity extends BaseActivity implements SwipeRefreshLay
             @Override
             public void onError(Throwable ex) {
                 LogUtils.loge("拥有明星类型失败----------------------");
+
+                if(ex instanceof NullPointerException){
+                    getData();
+                }
             }
 
             @Override

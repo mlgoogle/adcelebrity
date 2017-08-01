@@ -218,7 +218,9 @@ public class CashActivity extends BaseActivity {
         if (inputPrice > balance) {
             ToastUtils.showShort("余额不足");
             return;
-        } else if (inputPrice <= 0) {
+        }
+
+        else if (inputPrice <= 0) {
             ToastUtils.showShort("输入金额有误");
             return;
         }
