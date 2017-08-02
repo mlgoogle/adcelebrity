@@ -8,6 +8,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.app.AppApplication;
@@ -17,6 +19,8 @@ import com.yundian.celebrity.bean.EventBusMessage;
 import com.yundian.celebrity.helper.CheckViewHelper;
 import com.yundian.celebrity.ui.main.contract.LoginContract;
 import com.yundian.celebrity.ui.main.presenter.LoginPresenter;
+import com.yundian.celebrity.ui.wangyi.DemoCache;
+import com.yundian.celebrity.ui.wangyi.config.preference.UserPreferences;
 import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.utils.ToastUtils;
 import com.yundian.celebrity.utils.ViewConcurrencyUtils;
@@ -107,11 +111,28 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     public void update2LoginSuccess() {
             ToastUtils.showShort("登录成功");
             //lggin结束false
-
+            // 初始化消息提醒配置
+            initNotificationConfig();
+            EventBus.getDefault().postSticky(new EventBusMessage(1));  //登录成功消息
             this.finish();
             this.overridePendingTransition(0, R.anim.activity_off_top_out);
 
     }
+
+    private void initNotificationConfig() {
+        // 初始化消息提醒
+        NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
+
+        // 加载状态栏配置
+        StatusBarNotificationConfig statusBarNotificationConfig = UserPreferences.getStatusConfig();
+        if (statusBarNotificationConfig == null) {
+            statusBarNotificationConfig = DemoCache.getNotificationConfig();
+            UserPreferences.setStatusConfig(statusBarNotificationConfig);
+        }
+        // 更新配置
+        NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig);
+    }
+
     @Override
     public void update2LoginFail() {
             ToastUtils.showShort("登录失败");

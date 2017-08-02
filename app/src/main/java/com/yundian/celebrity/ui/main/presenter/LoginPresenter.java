@@ -15,6 +15,7 @@ import org.greenrobot.eventbus.EventBus;
 
 
 public class LoginPresenter implements LoginContract.Presenter {
+
     private LoginModel loginModel;
     private LoginContract.View view;
     CheckInfoHelper checkInfoHelper=new CheckInfoHelper();
@@ -22,6 +23,10 @@ public class LoginPresenter implements LoginContract.Presenter {
 //        在构造presenter的时候把具体的那个frament对象传过来了
         loginModel = new LoginModel();
         this.view = view;
+    }
+
+    public void setLoginModel(LoginModel loginModel) {
+        this.loginModel = loginModel;
     }
 
     private boolean isOnClicked = false;
@@ -41,9 +46,6 @@ public class LoginPresenter implements LoginContract.Presenter {
             loginModel.login(userName, password, new IDataRequestListener() {
                 @Override
                 public void loadSuccess(Object object) {
-                    // 初始化消息提醒配置
-                    initNotificationConfig();
-                    EventBus.getDefault().postSticky(new EventBusMessage(1));  //登录成功消息
 
                     isOnClicked=false;
                     if (view != null) {
@@ -67,19 +69,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         }
     }
 
-    private void initNotificationConfig() {
-        // 初始化消息提醒
-        NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
 
-        // 加载状态栏配置
-        StatusBarNotificationConfig statusBarNotificationConfig = UserPreferences.getStatusConfig();
-        if (statusBarNotificationConfig == null) {
-            statusBarNotificationConfig = DemoCache.getNotificationConfig();
-            UserPreferences.setStatusConfig(statusBarNotificationConfig);
-        }
-        // 更新配置
-        NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig);
-    }
 
     /**
      * 清除对外部对象的引用，反正内存泄露。

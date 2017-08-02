@@ -1,8 +1,11 @@
 package com.yundian.celebrity.ui.main.model;
 
 
+import android.os.Looper;
+
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.cache.DataCacheManager;
+import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.auth.LoginInfo;
@@ -15,6 +18,8 @@ import com.yundian.celebrity.bean.ResultBeen;
 import com.yundian.celebrity.listener.IDataRequestListener;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
+import com.yundian.celebrity.networkapi.UserAPI;
+import com.yundian.celebrity.networkapi.socketapi.SocketUserAPI;
 import com.yundian.celebrity.ui.main.activity.LoginActivity;
 import com.yundian.celebrity.ui.wangyi.DemoCache;
 import com.yundian.celebrity.ui.wangyi.config.preference.Preferences;
@@ -35,9 +40,22 @@ public class LoginModel {
 	public LoginModel(){
 		//
 	}
+//	Looper myLooper=Looper.getMainLooper();
+
+
 
 	public void login(final String userName, String password, final IDataRequestListener listener){
-		NetworkAPIFactoryImpl.getUserAPI().login(userName, MD5Util.MD5(password), new OnAPIListener<LoginReturnInfo>() {
+		UserAPI userAPI = NetworkAPIFactoryImpl.getUserAPI();
+
+
+//		UserAPI userAPI = NetworkAPIFactoryImpl.getUserAPI();
+//		SocketUserAPI socketUserAPI=(SocketUserAPI)userAPI;
+//		socketUserAPI.setLooper(Looper.myLooper());
+
+
+
+		userAPI
+				.login(userName, MD5Util.MD5(password), new OnAPIListener<LoginReturnInfo>() {
 			@Override
 			public void onError(Throwable ex) {
 				requestError(listener);
@@ -74,6 +92,8 @@ public class LoginModel {
 
 			}
 		});
+
+		LogUtils.logi("");
 	}
 
 
