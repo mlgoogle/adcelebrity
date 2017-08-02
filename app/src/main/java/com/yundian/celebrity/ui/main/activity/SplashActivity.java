@@ -8,7 +8,10 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 
+import com.testin.agent.Bugout;
+import com.testin.agent.BugoutConfig;
 import com.yundian.celebrity.R;
+import com.yundian.celebrity.app.AppApplication;
 
 /**
  * Created by Administrator on 2017/5/5.
@@ -43,8 +46,8 @@ public class SplashActivity extends Activity {
 
 
     public void initView() {
-    //  Bugout.init(this, "1664ea921dcbe122834e440f7f584e2e", "yingyongbao");
-    //  initBugOut();
+        Bugout.init(this, "1664ea921dcbe122834e440f7f584e2e", "yingyongbao");
+        initBugOut();
         initGeTui();
         mHandler.sendEmptyMessageDelayed(1,2000);
 //        PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat("alpha", 0.3f, 1f);
@@ -84,22 +87,22 @@ public class SplashActivity extends Activity {
     }
 
     private void initBugOut() {
-//        BugoutConfig config = new BugoutConfig.Builder(this)
-//                //.withAppKey(a15147f843a6cdb414b8a61b6f5191b8)     // 您的应用的项目ID,如果已经在 Manifest 中配置则此处可略
-//                //  .withAppChannel(cnl)     // 发布应用的渠道,如果已经在 Manifest 中配置则此处可略
-//                .withUserInfo(AppApplication.getAndroidId())    // 用户信息-崩溃分析根据用户记录崩溃信息
-//                .withDebugModel(true)    // 输出更多SDK的debug信息
-//                .withErrorActivity(true)    // 发生崩溃时采集Activity信息
-//                .withCollectNDKCrash(true) //  收集NDK崩溃信息
-//                .withOpenCrash(true)    // 收集崩溃信息开关
-//                .withOpenEx(true)     // 是否收集异常信息
-//                .withReportOnlyWifi(true)    // 仅在 WiFi 下上报崩溃信息
-//                .withReportOnBack(true)    // 当APP在后台运行时,是否采集信息
-//                .withQAMaster(true)    // 是否收集摇一摇反馈
-//                .withCloseOption(false)   // 是否在摇一摇菜单展示‘关闭摇一摇选项’
-//                .withLogCat(true)  // 是否系统操作信息
-//                .build();
-//        Bugout.init(config);
+        BugoutConfig config = new BugoutConfig.Builder(this)
+                //.withAppKey(a15147f843a6cdb414b8a61b6f5191b8)     // 您的应用的项目ID,如果已经在 Manifest 中配置则此处可略
+                //  .withAppChannel(cnl)     // 发布应用的渠道,如果已经在 Manifest 中配置则此处可略
+                .withUserInfo(AppApplication.getAndroidId())    // 用户信息-崩溃分析根据用户记录崩溃信息
+                .withDebugModel(true)    // 输出更多SDK的debug信息
+                .withErrorActivity(true)    // 发生崩溃时采集Activity信息
+                .withCollectNDKCrash(true) //  收集NDK崩溃信息
+                .withOpenCrash(true)    // 收集崩溃信息开关
+                .withOpenEx(true)     // 是否收集异常信息
+                .withReportOnlyWifi(true)    // 仅在 WiFi 下上报崩溃信息
+                .withReportOnBack(true)    // 当APP在后台运行时,是否采集信息
+                .withQAMaster(true)    // 是否收集摇一摇反馈
+                .withCloseOption(false)   // 是否在摇一摇菜单展示‘关闭摇一摇选项’
+                .withLogCat(true)  // 是否系统操作信息
+                .build();
+        Bugout.init(config);
     }
 
     private void initGeTui() {
@@ -114,21 +117,21 @@ public class SplashActivity extends Activity {
     protected void onResume() {
         super.onResume();
         //* 注：回调 1
-      // Bugout.onResume(this);
+       Bugout.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         //* 注：回调 2
-     // Bugout.onPause(this);
+      Bugout.onPause(this);
 
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         //* 注：回调 3
-     // Bugout.onDispatchTouchEvent(this, event);
+      Bugout.onDispatchTouchEvent(this, event);
         return super.dispatchTouchEvent(event);
     }
 
