@@ -1,4 +1,4 @@
-package com.yundian.celebrity;
+package com.yundian.celebrity.common;
 
 /**
  * Created by sll on 2017/7/31.

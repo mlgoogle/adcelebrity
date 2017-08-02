@@ -1,14 +1,13 @@
-package com.yundian.celebrity;
-
-import android.os.UserManager;
+package com.yundian.celebrity.LoginUnitTest.presenter;
 
 
+import com.yundian.celebrity.common.Spec;
 import com.yundian.celebrity.listener.IDataRequestListener;
+import com.yundian.celebrity.networkapi.socketapi.SocketUserAPI;
 import com.yundian.celebrity.ui.main.contract.LoginContract;
 import com.yundian.celebrity.ui.main.model.LoginModel;
 import com.yundian.celebrity.ui.main.presenter.LoginPresenter;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -16,12 +15,10 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.powermock.api.mockito.PowerMockito;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * 接口部分使用真实数据，只进行了view的mock测试，验证各种数据返回后的view的处理是否符合预期
@@ -77,7 +74,7 @@ public class LoginPresenterTest1 {
 
         presenter.login(phone, password);
 
-        Mockito.verify(loginModel).login(anyString(), anyString(),any(IDataRequestListener.class));
+        Mockito.verify(loginModel).login(anyString(), anyString(),any(SocketUserAPI.class),any(IDataRequestListener.class));
     }
 
     @Test
@@ -90,11 +87,11 @@ public class LoginPresenterTest1 {
                 //这里可以获得传给performLogin的参数
                 Object[] arguments = invocation.getArguments();
 
-                IDataRequestListener callback = (IDataRequestListener) arguments[2];
+                IDataRequestListener callback = (IDataRequestListener) arguments[3];
                 callback.loadFail("1");
                 return 500; //对于如果mock的是非void方法来说，这个将作为目标方法的返回值
             }
-        }).when(loginModel).login(anyString(), anyString(), any(IDataRequestListener.class));
+        }).when(loginModel).login(anyString(), anyString(), any(SocketUserAPI.class),any(IDataRequestListener.class));
 
         presenter.login(phone, password);
         verify(view).update2LoginFail();
@@ -111,11 +108,11 @@ public class LoginPresenterTest1 {
                 //这里可以获得传给performLogin的参数
                 Object[] arguments = invocation.getArguments();
 
-                IDataRequestListener callback = (IDataRequestListener) arguments[2];
+                IDataRequestListener callback = (IDataRequestListener) arguments[3];
                 callback.loadSuccess("1");
                 return 500; //对于如果mock的是非void方法来说，这个将作为目标方法的返回值
             }
-        }).when(loginModel).login(anyString(), anyString(), any(IDataRequestListener.class));
+        }).when(loginModel).login(anyString(), anyString(),any(SocketUserAPI.class), any(IDataRequestListener.class));
 
         presenter.login(phone, password);
 

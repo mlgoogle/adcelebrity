@@ -44,14 +44,7 @@ public class LoginModel {
 
 
 
-	public void login(final String userName, String password, final IDataRequestListener listener){
-		UserAPI userAPI = NetworkAPIFactoryImpl.getUserAPI();
-
-
-//		UserAPI userAPI = NetworkAPIFactoryImpl.getUserAPI();
-//		SocketUserAPI socketUserAPI=(SocketUserAPI)userAPI;
-//		socketUserAPI.setLooper(Looper.myLooper());
-
+	public void login(final String userName, String password,UserAPI userAPI, final IDataRequestListener listener){
 
 
 		userAPI
@@ -238,11 +231,11 @@ public class LoginModel {
 	* @return void    返回类型 
 	* @throws
 	 */
-	private void requestServer(final IDataRequestListener listener) {
+	public void requestServer(final IDataRequestListener listener) {
 				listener.loadSuccess(1);
 	}
 
-	private void requestError(final IDataRequestListener listener) {
+	public void requestError(final IDataRequestListener listener) {
 				listener.loadFail(1);
 	}
 }

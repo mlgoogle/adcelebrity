@@ -55,16 +55,16 @@ public class SocketBaseAPI {
         }
     }
 
-    Looper myLooper = Looper.getMainLooper();
+//    public Looper myLooper = Looper.getMainLooper();
 
     //用于单元测试,解决异步问题
-    public void setLooper(Looper myLooper){
-        this.myLooper=myLooper;
-    }
+//    public void setLooper(Looper myLooper){
+//        this.myLooper=myLooper;
+//    }
 
     protected void onSuccess(final OnAPIListener listener, final Object object) {
         if( listener != null ) {
-            new Handler(myLooper).post(new Runnable() {
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
                     LogUtils.logi("进来没有");

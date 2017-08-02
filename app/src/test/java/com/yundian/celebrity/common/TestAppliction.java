@@ -1,4 +1,4 @@
-package com.yundian.celebrity;
+package com.yundian.celebrity.common;
 
 import android.app.Application;
 import android.text.TextUtils;
@@ -21,6 +21,7 @@ public class TestAppliction extends Application {
         checkNet();
         initNetworkAPIConfig();
     }
+    //初始化网络链接
     private void initNetworkAPIConfig() {
         NetworkAPIConfig networkAPIConfig = new NetworkAPIConfig();
         networkAPIConfig.setContext(getApplicationContext());

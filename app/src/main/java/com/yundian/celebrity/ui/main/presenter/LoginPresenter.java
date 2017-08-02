@@ -5,6 +5,8 @@ import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.yundian.celebrity.bean.EventBusMessage;
 import com.yundian.celebrity.helper.CheckInfoHelper;
 import com.yundian.celebrity.listener.IDataRequestListener;
+import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
+import com.yundian.celebrity.networkapi.UserAPI;
 import com.yundian.celebrity.ui.main.contract.LoginContract;
 import com.yundian.celebrity.ui.main.model.LoginModel;
 import com.yundian.celebrity.ui.wangyi.DemoCache;
@@ -42,8 +44,9 @@ public class LoginPresenter implements LoginContract.Presenter {
         CheckException exception = new CheckException();
         if (checkInfoHelper.checkMobile(userName, exception)
                 && checkInfoHelper.checkPassword(password, exception)) {
-
-            loginModel.login(userName, password, new IDataRequestListener() {
+            //注入进来比较好,由外部presenter持有
+            UserAPI userAPI = NetworkAPIFactoryImpl.getUserAPI();
+            loginModel.login(userName, password,userAPI, new IDataRequestListener() {
                 @Override
                 public void loadSuccess(Object object) {
 
@@ -68,8 +71,6 @@ public class LoginPresenter implements LoginContract.Presenter {
             }
         }
     }
-
-
 
     /**
      * 清除对外部对象的引用，反正内存泄露。
