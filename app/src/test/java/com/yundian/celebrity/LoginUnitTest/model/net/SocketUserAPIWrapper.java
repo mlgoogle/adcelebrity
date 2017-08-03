@@ -42,8 +42,16 @@ public class SocketUserAPIWrapper extends SocketBaseAPIWrapper implements UserAP
     }
 
     @Override
-    public void registerWangYi(int user_type, String phone, String name, long uid, OnAPIListener<RegisterReturnWangYiBeen> listener) {
-        LogUtils.logd("");
+    public void registerWangYi(int user_type,String phone, String name_value, long uid, OnAPIListener<RegisterReturnWangYiBeen> listener) {
+        isNetBreak();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("phone", phone);
+        map.put("uid", uid);
+        map.put("user_type", user_type);
+        map.put("name_value", name_value);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.WangYi,
+                SocketAPIConstant.ReqeutType.Wangyi, map);
+        requestEntity(socketDataPacket, RegisterReturnWangYiBeen.class, listener);
     }
 
     @Override

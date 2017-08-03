@@ -129,20 +129,23 @@ dependencies {
     compile 'com.qiniu:qiniu-android-sdk:7.3.+'  //qiniu
 
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.10.19'
+
+
     testCompile 'org.robolectric:robolectric:3.0'
     testCompile "org.robolectric:shadows-multidex:3.0"
     // required if you want to use Powermock for unit tests
+//    testCompile 'org.mockito:mockito-core:1.9.5'
 //    testCompile 'org.powermock:powermock-module-junit4:1.5.6'
-    //    testCompile 'org.powermock:powermock-module-junit4-rule:1.5.6'
+//        testCompile 'org.powermock:powermock-module-junit4-rule:1.5.6'
 //    testCompile 'org.powermock:powermock-api-mockito:1.5.6'
+//        testCompile 'org.powermock:powermock-classloading-xstream:1.5.6'
 
-    testCompile 'org.powermock:powermock-module-junit4:1.6.5'
 
-    testCompile 'org.powermock:powermock-module-junit4-rule:1.6.5'
-
-    testCompile 'org.powermock:powermock-api-mockito:1.6.5'
-    testCompile 'org.powermock:powermock-classloading-xstream:1.6.5'
+    testCompile 'org.mockito:mockito-core:1.10.9'
+    testCompile 'org.powermock:powermock-module-junit4:1.6.2'
+    testCompile 'org.powermock:powermock-module-junit4-rule:1.6.2'
+    testCompile 'org.powermock:powermock-api-mockito:1.6.2'
+    testCompile 'org.powermock:powermock-classloading-xstream:1.6.2'
 
 //    compile 'com.google.dagger:dagger:2.0.2'
     compile 'javax.annotation:jsr250-api:1.0'

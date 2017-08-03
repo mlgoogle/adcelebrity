@@ -1,9 +1,16 @@
 package com.yundian.celebrity.LoginUnitTest.model.net;
 
+import com.netease.nim.uikit.NimUIKit;
+import com.netease.nimlib.sdk.AbortableFuture;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.auth.LoginInfo;
+import com.yundian.celebrity.R;
 import com.yundian.celebrity.bean.LoginReturnInfo;
+import com.yundian.celebrity.bean.RegisterReturnWangYiBeen;
 import com.yundian.celebrity.listener.IDataRequestListener;
 import com.yundian.celebrity.listener.OnAPIListener;
 
+import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.networkapi.socketapi.SocketUserAPI;
 import com.yundian.celebrity.ui.main.model.LoginModel;
 import com.yundian.celebrity.utils.LogUtils;
@@ -15,9 +22,9 @@ import com.yundian.celebrity.utils.ToastUtils;
  */
 
 public class LoginModelWrapper extends LoginModel {
-    public SocketUserAPI socketUserAPI;
-    public void setSocketUserAPI(SocketUserAPI socketUserAPI){
-        this.socketUserAPI=socketUserAPI;
+    public SocketUserAPIWrapper mockSocketUserAPI;
+    public void setSocketUserAPI(SocketUserAPIWrapper mockSocketUserAPI){
+        this.mockSocketUserAPI=mockSocketUserAPI;
     }
 //    因为要用自己的UserAPIWrapper
     public void login(final String userName, String password,SocketUserAPIWrapper userAPI, final IDataRequestListener listener){
@@ -59,7 +66,7 @@ public class LoginModelWrapper extends LoginModel {
 
                             LogUtils.logd("登录成功" + loginReturnInfo.toString());
 
-                            wangyiRegister(userName,loginReturnInfo,listener);
+                            wangyiRegister(userName,loginReturnInfo,mockSocketUserAPI,listener);
 //                            requestServer(listener);
                         }
 
@@ -67,5 +74,50 @@ public class LoginModelWrapper extends LoginModel {
                 });
 
         LogUtils.logi("");
+    }
+
+    public void wangyiRegister(String userName, final LoginReturnInfo loginReturnInfo,SocketUserAPIWrapper userAPI, final IDataRequestListener listener){
+        //网易云注册   usertype  : 0普通用户 1,明星
+        userAPI.registerWangYi(0, userName, userName, loginReturnInfo.getUserinfo().getId(), new OnAPIListener<RegisterReturnWangYiBeen>() {
+            @Override
+            public void onError(Throwable ex) {
+                requestError(listener);
+                LogUtils.logd("网易云注册失败" + ex.toString());
+                ToastUtils.showShort("网易云注册失败");
+            }
+
+            @Override
+            public void onSuccess(RegisterReturnWangYiBeen registerReturnWangYiBeen) {
+
+                LogUtils.logd("网易云注册成功" + registerReturnWangYiBeen.getResult_value() + "网易云token" + registerReturnWangYiBeen.getToken_value());
+                loginWangYi(loginReturnInfo, registerReturnWangYiBeen,listener);
+            }
+        });
+    }
+    private AbortableFuture<LoginInfo> loginRequest;
+    private void loginWangYi(final LoginReturnInfo loginReturnInfos, RegisterReturnWangYiBeen registerReturnWangYiBeen ,final IDataRequestListener listener) {
+        LogUtils.logd(loginReturnInfos.getUserinfo().getPhone() + "..." + registerReturnWangYiBeen.getToken_value());
+        // 登录
+        loginRequest = NimUIKit.doLogin(new LoginInfo(loginReturnInfos.getUserinfo().getPhone(), registerReturnWangYiBeen.getToken_value()), new RequestCallback<LoginInfo>() {
+            @Override
+            public void onSuccess(LoginInfo param) {
+                saveDevice(loginReturnInfos,param,listener);
+            }
+
+            @Override
+            public void onFailed(int code) {
+                requestError(listener);
+                if (code == 302 || code == 404) {
+                    LogUtils.logd("网易云登录失败" + R.string.login_failed);
+                } else {
+                    LogUtils.logd("网易云登录失败" + code);
+                }
+            }
+
+            @Override
+            public void onException(Throwable exception) {
+                LogUtils.logd("网易云登录失败" + R.string.login_exception);
+            }
+        });
     }
 }
