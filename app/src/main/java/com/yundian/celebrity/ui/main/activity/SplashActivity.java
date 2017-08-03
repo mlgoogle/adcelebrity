@@ -88,7 +88,7 @@ public class SplashActivity extends Activity {
 
     private void initBugOut() {
         BugoutConfig config = new BugoutConfig.Builder(this)
-                //.withAppKey(a15147f843a6cdb414b8a61b6f5191b8)     // 您的应用的项目ID,如果已经在 Manifest 中配置则此处可略
+                .withAppKey("1664ea921dcbe122834e440f7f584e2e")     // 您的应用的项目ID,如果已经在 Manifest 中配置则此处可略
                 //  .withAppChannel(cnl)     // 发布应用的渠道,如果已经在 Manifest 中配置则此处可略
                 .withUserInfo(AppApplication.getAndroidId())    // 用户信息-崩溃分析根据用户记录崩溃信息
                 .withDebugModel(true)    // 输出更多SDK的debug信息

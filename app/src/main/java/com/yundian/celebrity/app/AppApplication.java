@@ -93,7 +93,7 @@ public class AppApplication extends BaseApplication {
                 LogUtils.logInit(BuildConfig.LOG_DEBUG);
 //                initWangYiIM();
                 // TODO: 2017/8/2  
-//                checkNet();
+                checkNet();
                 initNetworkAPIConfig();
                 registerToWx();   //注册微信
                 UMShareAPI.get(this);//初始化友盟

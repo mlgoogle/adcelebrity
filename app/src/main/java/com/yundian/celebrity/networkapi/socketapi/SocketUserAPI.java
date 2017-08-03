@@ -134,7 +134,7 @@ public class SocketUserAPI extends SocketBaseAPI implements UserAPI {
     @Override
     public void update(OnAPIListener<CheckUpdateInfoEntity> listener) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("ttype", 1);
+        map.put("ttype", 3);
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.Update,
                 SocketAPIConstant.ReqeutType.User, map);
         requestEntity(socketDataPacket, CheckUpdateInfoEntity.class, listener);
