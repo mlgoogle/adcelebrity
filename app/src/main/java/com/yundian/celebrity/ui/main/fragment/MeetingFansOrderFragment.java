@@ -22,6 +22,7 @@ import com.yundian.celebrity.ui.main.adapter.MeetingFansOrderAdapter;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.SharePrefUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -52,6 +53,7 @@ public class MeetingFansOrderFragment extends BaseFragment implements SwipeRefre
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this); // EventBus注册广播()
         initFindById();
         initAdapter();
         getData(false, 1, REQUEST_COUNT);
@@ -67,6 +69,7 @@ public class MeetingFansOrderFragment extends BaseFragment implements SwipeRefre
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         meetingFansOrderAdapter = new MeetingFansOrderAdapter(R.layout.adapter_fans_meet_order_item, dataList);
+
         meetingFansOrderAdapter.setOnLoadMoreListener(this, mRecyclerView);
         mRecyclerView.setAdapter(meetingFansOrderAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -83,6 +86,7 @@ public class MeetingFansOrderFragment extends BaseFragment implements SwipeRefre
                 startActivity(intent);
             }
         });
+//        meetingFansOrderAdapter.bindToRecyclerView(mRecyclerView);
     }
 
     @Override
@@ -115,6 +119,7 @@ public class MeetingFansOrderFragment extends BaseFragment implements SwipeRefre
 
             @Override
             public void onSuccess(List<MeetOrderListBean> meetOrderListBeen) {
+//                 #'1-待确认 2-已拒绝 3-已完成 4-已同意；',
                 if (meetOrderListBeen == null || meetOrderListBeen.size() == 0) {
                     meetingFansOrderAdapter.loadMoreEnd();  //没有更多数据     显示"没有更多数据"
                     LogUtils.loge("-------------显示没有更多数据");
@@ -127,9 +132,16 @@ public class MeetingFansOrderFragment extends BaseFragment implements SwipeRefre
                     meetingFansOrderAdapter.loadMoreComplete();
                 } else {  //下拉刷新  成功获取数据
                     meetingFansOrderAdapter.setNewData(meetOrderListBeen);
+//                    meetingFansOrderAdapter.disableLoadMoreIfNotFullPage();
+                    if(meetOrderListBeen.size()<REQUEST_COUNT){
+                        meetingFansOrderAdapter.setEnableLoadMore(false);
+                    }else{
+                        meetingFansOrderAdapter.setEnableLoadMore(true);
+                    }
                     mCurrentCounter = meetOrderListBeen.size();
                     swipeLayout.setRefreshing(false);
-                    meetingFansOrderAdapter.setEnableLoadMore(true);
+
+//                    meetingFansOrderAdapter.setEnableLoadMore(true);
                 }
             }
         });
@@ -138,6 +150,7 @@ public class MeetingFansOrderFragment extends BaseFragment implements SwipeRefre
     //接收消息
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = false)
     public void ReciveMessageEventBus(final EventBusMessage eventBusMessage) {
+        LogUtils.logd("从修改类型界面过来");
         switch (eventBusMessage.Message) {
             case -76:  //修改类型后
                 LogUtils.loge("从修改类型界面过来------------------");

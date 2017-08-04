@@ -1,6 +1,8 @@
 package com.yundian.celebrity.ui.main.activity;
 
 import android.content.Intent;
+import android.icu.math.BigDecimal;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
@@ -91,9 +93,31 @@ public class CashActivity extends BaseActivity {
                 LogUtils.loge("余额请求成功:" + bean.toString());
                 //如果成功，保存一下
                 SharePrefUtil.getInstance().putBalance(bean.getBalance());
+
+//                BigDecimal bigDecimal = new BigDecimal(0);
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                    BigDecimal bigDecimal = BigDecimal.valueOf(bean.getBalance());
+//                    userAvailableMoney.setText(String.format(getString(R.string.cash_available_money),
+//                            bigDecimal+""));
+//
+//                }else{
+//                    double balance=bean.getBalance();
+//                    String s = String.valueOf(balance);
+//
+//                    String bb = s.substring(0, s.lastIndexOf(".")+3<s.length()?s.length():s.lastIndexOf(".")+3);
+//                    //更新textview
+//                    userAvailableMoney.setText(String.format(getString(R.string.cash_available_money),
+//                            bb));
+//
+//                }
+
+                double balance=bean.getBalance();
+                String s = String.valueOf(balance);
+                int endIndex = s.indexOf(".") + 3 < s.length() ? s.indexOf(".")+3: s.length();
+                String bb = s.substring(0, endIndex);
                 //更新textview
                 userAvailableMoney.setText(String.format(getString(R.string.cash_available_money),
-                        bean.getBalance()+""));
+                            bb));
             }
 
             @Override

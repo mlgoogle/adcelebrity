@@ -29,6 +29,7 @@ import com.yundian.celebrity.utils.SharePrefUtil;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by yaowang on 2017/2/20.
@@ -202,7 +203,7 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         map.put("enddate", enddate);
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.Income,
                 SocketAPIConstant.ReqeutType.StarIncome, map);
-        requestEntitys(socketDataPacket, "OrderList", IncomeReturnBean.class, listener);
+        requestEntitys(socketDataPacket, "OrderList", IncomeReturnBean.class, listener,"result");
     }
 
     @Override
@@ -350,6 +351,7 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         map.put("starcode", starcode);
         map.put("meettype", meettype);
         map.put("meetid", meetid);
+        LogUtils.logd("agreeMeet"+map.toString());
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.AgreeMeet,
                 SocketAPIConstant.ReqeutType.StarIncome, map);
         requestEntity(socketDataPacket, RequestResultBean.class, listener);

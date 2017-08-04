@@ -2,6 +2,7 @@ package com.yundian.celebrity.ui.main.adapter;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -29,11 +30,25 @@ public class FansTalkAdapter extends BaseQuickAdapter<HaveStarUsersBean, BaseVie
 
     @Override
     protected void convert(BaseViewHolder helper, HaveStarUsersBean item) {
-        for(RecentContact recent:recentContacts){
-            if(String.valueOf(item.getUid()).equals(recent.getContactId())){
-                helper.setText(R.id.tv_talk_msg_count, recent.getUnreadCount());
+        helper.setText(R.id.tv_talk_msg_count, 0+"");
+//        helper.setVisible(R.id.tv_talk_msg_count,false);
+        for (int i = 0; i <recentContacts.size() ; i++) {
+            RecentContact recentContact = recentContacts.get(i);
+            String contactId = recentContact.getContactId();
+//            String FromAccount = recent.getFromAccount();
+            //item当前这个条目的id
+//            contactId刚发送消息的那个人的id
+            String faccid = item.getFaccid();
+            if(String.valueOf(faccid).equals(contactId)){
+                helper.setText(R.id.tv_talk_msg_count, recentContact.getUnreadCount()+"");
+//                helper.setVisible(R.id.tv_talk_msg_count,true);
             }
+//            else{
+//                helper.setText(R.id.tv_talk_msg_count, 0+"");
+//            }
         }
+
+
         ImageView headView = helper.getView(R.id.iv_star_head);
         ImageLoaderUtils.display(mContext, headView, item.getHead_url());
         helper.setText(R.id.tv_star_name, item.getNickname());
@@ -42,5 +57,6 @@ public class FansTalkAdapter extends BaseQuickAdapter<HaveStarUsersBean, BaseVie
 
     public void setRecentContacts(List<RecentContact> recentContacts){
         this.recentContacts=recentContacts;
+        this.notifyDataSetChanged();
     }
 }

@@ -31,6 +31,7 @@ import com.yundian.celebrity.utils.FormatUtil;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.utils.TimeUtil;
+import com.yundian.celebrity.utils.ToastUtils;
 import com.yundian.celebrity.utils.timeselectutils.DatePicker;
 import com.yundian.celebrity.widget.NormalTitleBar;
 
@@ -356,17 +357,24 @@ public class InComeInfoFragment extends BaseFragment {
         NetworkAPIFactoryImpl.getDealAPI().requestIncome(starCode, starTime, endTime, new OnAPIListener<List<IncomeReturnBean>>() {
             @Override
             public void onError(Throwable ex) {
-                LogUtils.loge("收益请求失败----------------");
-                list.clear();
+                if(ex instanceof  NullPointerException){
+                    ToastUtils.showShort("数据为空");
+                    list.clear();
+                    inComeInfoAdapter.getData().clear();
+                    inComeInfoAdapter.notifyDataSetChanged();
+                    chartFragment.loadChartData(null);
+                }else{
+                    LogUtils.loge("收益请求失败----------------");
+                    list.clear();
 //                inComeInfoAdapter.loadMoreEnd();
 //                inComeInfoAdapter.loadMoreEnd(true);
-                inComeInfoAdapter.getData().clear();
+                    inComeInfoAdapter.getData().clear();
 //                inComeInfoAdapter.loadMoreEnd();
-                inComeInfoAdapter.notifyDataSetChanged();
+                    inComeInfoAdapter.notifyDataSetChanged();
 //                inComeInfoAdapter.loadMoreComplete();
-                chartFragment.loadChartData(null);
+                    chartFragment.loadChartData(null);
+                }
 //                inComeInfoAdapter.setNewData(incomeReturnBeen);
-
             }
 
             @Override

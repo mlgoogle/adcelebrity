@@ -132,6 +132,7 @@ public class SocketBaseAPI {
         SocketAPIRequestManage.getInstance().startJsonRequest(socketDataPacket, new OnAPIListener<SocketAPIResponse>() {
             @Override
             public void onError(Throwable ex) {
+
                 SocketBaseAPI.this.onError(listener,ex);
             }
 

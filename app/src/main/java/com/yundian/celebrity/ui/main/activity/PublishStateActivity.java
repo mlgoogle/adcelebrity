@@ -106,42 +106,46 @@ public class PublishStateActivity extends BaseActivity {
     private UploadManager uploadManager = new UploadManager();
 
     private void publishState() {
-        startProgressDialog();
 
-        HttpUtils.doGetAsyn(Constant.QI_NIU_TOKEN_URL, new HttpUtils.CallBack() {
-            @Override
-            public void onRequestComplete(String result) {
-                LogUtils.loge("请求到的http数据:" + result);
-                final QiNiuImageToken tokenEntity = JSON.parseObject(result, QiNiuImageToken.class);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        LogUtils.loge("生成的图片名称是:" + FormatUtil.createImageName());
-                        uploadManager.put(pathUrl, FormatUtil.createImageName(), tokenEntity.getImageToken(),
-                                new UpCompletionHandler() {
-                                    @Override
-                                    public void complete(String key, ResponseInfo info, JSONObject response) {
-                                        //res包含hash、key等信息，具体字段取决于上传策略的设置
-                                        if (info.isOK()) {
-                                            Log.i("qiniu", "Upload Success");
 
-                                            //拿到上传的图片地址,请求自己的服务器
-                                            String imageUrl = Constant.QI_NIU_BASE_URL + key;
-                                            LogUtils.loge("获取的图片地址:" + imageUrl);
-                                            doSendContent(imageUrl);
-                                        } else {
-                                            Log.i("qiniu", "Upload Fail");
-                                            //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
+        if(!TextUtils.isEmpty(pathUrl)){
+            startProgressDialog();
+            HttpUtils.doGetAsyn(Constant.QI_NIU_TOKEN_URL, new HttpUtils.CallBack() {
+                @Override
+                public void onRequestComplete(String result) {
+                    LogUtils.loge("请求到的http数据:" + result);
+                    final QiNiuImageToken tokenEntity = JSON.parseObject(result, QiNiuImageToken.class);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            LogUtils.loge("生成的图片名称是:" + FormatUtil.createImageName());
+                            uploadManager.put(pathUrl, FormatUtil.createImageName(), tokenEntity.getImageToken(),
+                                    new UpCompletionHandler() {
+                                        @Override
+                                        public void complete(String key, ResponseInfo info, JSONObject response) {
+                                            //res包含hash、key等信息，具体字段取决于上传策略的设置
+                                            if (info.isOK()) {
+                                                Log.i("qiniu", "Upload Success");
+
+                                                //拿到上传的图片地址,请求自己的服务器
+                                                String imageUrl = Constant.QI_NIU_BASE_URL + key;
+                                                LogUtils.loge("获取的图片地址:" + imageUrl);
+                                                doSendContent(imageUrl);
+                                            } else {
+                                                Log.i("qiniu", "Upload Fail");
+                                                //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
+                                            }
+                                            Log.i("qiniu", key + ",\r\n " + info + ",\r\n " + response);
+
                                         }
-                                        Log.i("qiniu", key + ",\r\n " + info + ",\r\n " + response);
-
-                                    }
-                                }, null);
-                    }
-                });
-            }
-        });
-
+                                    }, null);
+                        }
+                    });
+                }
+            });
+        }else{
+            ToastUtils.showShort("请选择一张图片");
+        }
     }
     //上传到自己的服务器里
     private void doSendContent(String imageUrl) {

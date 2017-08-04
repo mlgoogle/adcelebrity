@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.common.util.log.LogUtil;
+import com.netease.nim.uikit.recent.AitHelper;
 import com.netease.nim.uikit.session.SessionCustomization;
 
 import com.netease.nimlib.sdk.NIMClient;
@@ -18,6 +19,7 @@ import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.RequestCallbackWrapper;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.base.BaseFragment;
@@ -85,12 +87,35 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
 //            ToastUtils.showShort(unreadNum);
 
             if(recentContacts!=null&&!recentContacts.isEmpty()){
-                recentContacts = recentContacts;
+                FansTalkFragment.this.recentContacts = recentContacts;
+                // TODO: 2017/8/3
+                fansTalkAdapter.setRecentContacts(recentContacts);
 
-//                            fansTalkAdapter.setRecentContacts(recentContacts);
+
             }
         }
     };
+
+
+//    private void onRecentContactChanged(List<RecentContact> recentContacts) {
+//        int index;
+//        for (RecentContact r : recentContacts) {
+//            index = -1;
+//            for (int i = 0; i < dataList.size(); i++) {
+//                if (r.getContactId().equals(dataList.get(i).getFaccid())
+//                       ) {
+//                    index = i;
+//                    break;
+//                }
+//            }
+//
+//            if (index >= 0) {
+//                dataList.remove(index);
+//            }
+//            dataList.add(r);
+//        }
+//        refreshMessages(true);
+//    }
 
     public void getRecentContacts(){
         NIMClient.getService(MsgService.class).queryRecentContacts()
@@ -102,9 +127,8 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
                         LogUtils.loge(recents+"");
                         if(recents!=null&&!recents.isEmpty()){
 
-                            recentContacts = recents;
-
-//                            fansTalkAdapter.setRecentContacts(recentContacts);
+                            FansTalkFragment.this.recentContacts = recents;
+                            fansTalkAdapter.setRecentContacts(recentContacts);
                         }
                     }
                 });
@@ -121,19 +145,24 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
         swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         fansTalkAdapter = new FansTalkAdapter(R.layout.adapter_fans_talk_item, dataList,recentContacts);
         fansTalkAdapter.setOnLoadMoreListener(this, mRecyclerView);
+
         mRecyclerView.setAdapter(fansTalkAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mCurrentCounter = fansTalkAdapter.getData().size();
         fansTalkAdapter.setEmptyView(R.layout.message_search_empty_view, (ViewGroup) mRecyclerView.getParent());
+
         fansTalkAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 HaveStarUsersBean haveStarUsersBean = fansTalkAdapter.getData().get(position);
+                LogUtils.logd("Faccid"+haveStarUsersBean.getFaccid()+"");
+
                 SessionCustomization customization = NimUIKit.getCommonP2PSessionCustomization();
                 P2PMessageActivity.start(getActivity(), haveStarUsersBean.getFaccid(), haveStarUsersBean.getStarcode(),
                         haveStarUsersBean.getNickname(), customization, null);
             }
         });
+//        fansTalkAdapter.bindToRecyclerView(mRecyclerView);
     }
 
     @Override
@@ -166,7 +195,13 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
                     fansTalkAdapter.setNewData(listBeans);
                     mCurrentCounter = listBeans.size();
                     swipeLayout.setRefreshing(false);
-                    fansTalkAdapter.setEnableLoadMore(true);
+//                    fansTalkAdapter.disableLoadMoreIfNotFullPage();
+
+                    if(listBeans.size()<REQUEST_COUNT){
+                        fansTalkAdapter.setEnableLoadMore(false);
+                    }else{
+                        fansTalkAdapter.setEnableLoadMore(true);
+                    }
                 }
             }
 

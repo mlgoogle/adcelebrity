@@ -25,6 +25,7 @@ import com.yundian.celebrity.networkapi.socketapi.SocketReqeust.SocketAPINettyBo
 import com.yundian.celebrity.utils.CountUtil;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.MD5Util;
+import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.utils.ToastUtils;
 import com.yundian.celebrity.widget.CheckException;
 import com.yundian.celebrity.widget.NormalTitleBar;
@@ -71,6 +72,11 @@ public class ResetPayPwdActivity extends BaseActivity {
     @Override
     public void initView() {
         initData();
+        String loginPhone = SharePrefUtil.getInstance().getLoginPhone();
+        phoneEditText.setEditTextString(loginPhone);
+        phoneEditText.setEditTextdisable();
+        phoneEditText.setClearIconGone();
+
         checkHelper.checkButtonState(okButton, phoneEditText, msgEditText, pwdEditText1, pwdEditText2);
         checkHelper.checkVerificationCode(msgEditText.getRightText(), phoneEditText);
         msgEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
