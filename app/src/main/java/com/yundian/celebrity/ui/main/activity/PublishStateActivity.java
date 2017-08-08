@@ -186,6 +186,8 @@ public class PublishStateActivity extends BaseActivity {
     @OnClick({R.id.iv_add_pic, R.id.iv_clear})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+
+            //#11
             case R.id.iv_add_pic:
                 ToastUtils.showShort("添加图片...");
                 showSelector(R.string.add_pic, 4);

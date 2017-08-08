@@ -44,6 +44,7 @@ import java.util.logging.Logger;
 
 /**
  * 收益详情
+ * #10
  */
 
 public class InComeInfoFragment extends BaseFragment {
@@ -123,12 +124,12 @@ public class InComeInfoFragment extends BaseFragment {
         after_year7 = current_end_year;
         after_month7 = current_end_month;
 
-        choosed_year7=after_year7;
-        choosed_month7=after_month7;
+//        choosed_year7=after_year7;
+//        choosed_month7=after_month7;
 
         String after_month7_tes = FormatUtil.formatDayOrMmonth(current_end_month);
         after_day7 = current_end_day;
-        choosed_day7=after_day7;
+//        choosed_day7=after_day7;
         String after_day7_tes = FormatUtil.formatDayOrMmonth(current_end_day);
         tv_end_time.setText(current_end_year + "-" + after_month7_tes + "-" + after_day7_tes);
 
@@ -327,8 +328,12 @@ public class InComeInfoFragment extends BaseFragment {
                 after_day7 = c2.get(Calendar.DAY_OF_MONTH);
                 tv_end_time.setText(after_year7 + "-" + after_month7 + "-" + after_day7);
 
-                getData();
+                getData(start_year,start_month,start_day,after_year7,after_month7,after_day7);
                 isStartDateChanged=true;
+
+                choosed_day7=0;
+                choosed_month7=0;
+                choosed_year7=0;
             }
         });
         startPicker.setOnWheelListener(new DatePicker.OnWheelListener() {
@@ -350,9 +355,54 @@ public class InComeInfoFragment extends BaseFragment {
         startPicker.show();
     }
 
-    public void getData() {
+    public void getData(int start_year,int start_month,int start_day,int after_year7,int after_month7,int after_day7) {
         String starCode = SharePrefUtil.getInstance().getStarcode();
         int endTime = Integer.parseInt(after_year7 + FormatUtil.formatDayOrMmonth(after_month7) + FormatUtil.formatDayOrMmonth(after_day7));
+        int starTime = Integer.parseInt(start_year + FormatUtil.formatDayOrMmonth(start_month) + FormatUtil.formatDayOrMmonth(start_day));
+        NetworkAPIFactoryImpl.getDealAPI().requestIncome(starCode, starTime, endTime, new OnAPIListener<List<IncomeReturnBean>>() {
+            @Override
+            public void onError(Throwable ex) {
+                if(ex instanceof  NullPointerException){
+                    ToastUtils.showShort("数据为空");
+                    list.clear();
+                    inComeInfoAdapter.getData().clear();
+                    inComeInfoAdapter.notifyDataSetChanged();
+                    chartFragment.loadChartData(null);
+                }else{
+                    LogUtils.loge("收益请求失败----------------");
+                    list.clear();
+//                inComeInfoAdapter.loadMoreEnd();
+//                inComeInfoAdapter.loadMoreEnd(true);
+                    inComeInfoAdapter.getData().clear();
+//                inComeInfoAdapter.loadMoreEnd();
+                    inComeInfoAdapter.notifyDataSetChanged();
+//                inComeInfoAdapter.loadMoreComplete();
+                    chartFragment.loadChartData(null);
+                }
+//                inComeInfoAdapter.setNewData(incomeReturnBeen);
+            }
+
+            @Override
+            public void onSuccess(List<IncomeReturnBean> incomeReturnBeen) {
+                LogUtils.loge("收益请求成功----------------");
+
+                if (incomeReturnBeen == null || incomeReturnBeen.size() == 0){
+                 return;
+                }
+                inComeInfoAdapter.setNewData(incomeReturnBeen);
+                chartFragment.loadChartData(incomeReturnBeen);
+//                getMonthAndDayWithPoint
+            }
+        });
+    }
+
+    public void getData() {
+        String starCode = SharePrefUtil.getInstance().getStarcode();
+        choosed_year7=choosed_year7==0?after_year7:choosed_year7;
+        choosed_month7=choosed_month7==0?after_month7:choosed_month7;
+        choosed_day7=choosed_day7==0?after_day7:choosed_day7;
+
+        int endTime = Integer.parseInt(choosed_year7 + FormatUtil.formatDayOrMmonth(choosed_month7) + FormatUtil.formatDayOrMmonth(choosed_day7));
         int starTime = Integer.parseInt(start_year + FormatUtil.formatDayOrMmonth(start_month) + FormatUtil.formatDayOrMmonth(start_day));
         NetworkAPIFactoryImpl.getDealAPI().requestIncome(starCode, starTime, endTime, new OnAPIListener<List<IncomeReturnBean>>() {
             @Override

@@ -77,7 +77,7 @@ public class CashActivity extends BaseActivity {
         requestBalance();
         initListener();
     }
-//    從cash歷史頁面finish返回數據后
+//    從cash歷史頁面finish返回數據后,重新请求余额
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -113,11 +113,18 @@ public class CashActivity extends BaseActivity {
 
                 double balance=bean.getBalance();
                 String s = String.valueOf(balance);
-                int endIndex = s.indexOf(".") + 3 < s.length() ? s.indexOf(".")+3: s.length();
-                String bb = s.substring(0, endIndex);
-                //更新textview
-                userAvailableMoney.setText(String.format(getString(R.string.cash_available_money),
+                //如果包括小数点才执行
+                if (s.contains(".")) {
+                    int endIndex = s.indexOf(".") + 3 < s.length() ? s.indexOf(".") + 3 : s.length();
+                    String bb = s.substring(0, endIndex);
+                    //更新textview
+                    userAvailableMoney.setText(String.format(getString(R.string.cash_available_money),
                             bb));
+                }else{
+                    //更新textview
+                    userAvailableMoney.setText(String.format(getString(R.string.cash_available_money),
+                            s));
+                }
             }
 
             @Override
@@ -197,8 +204,9 @@ public class CashActivity extends BaseActivity {
                 bundle.putString("resetPwd", Constant.PAY_PWD);
                 startActivity(ResetPayPwdActivity.class, bundle);
                 break;
+//            #11
             case R.id.tv_user_bank_cssount:  //模拟测试数据
-                ToastUtils.showShort("测试数据");
+//                ToastUtils.showShort("测试数据");
                 startActivity(CashHistoryActivity_Test.class);
 
                 break;

@@ -153,9 +153,11 @@ public class ChartFragment extends FrameLayout {
     }
 
     public void refreshMarkerView() {
-        mvLine = new RadiusMarkerView(getContext(), R.layout.ly_marker_view);
+//        mvLine = new RadiusMarkerView(getContext(), R.layout.ly_marker_view);
+        mvLine = new RadiusMarkerView(mLineChart,getContext(), R.layout.ly_marker_view);
 //        mvLine.setChartView(mLineChart); // For bounds control
         mLineChart.setMarkerView(mvLine);
+
     }
 
 

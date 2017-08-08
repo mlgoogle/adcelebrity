@@ -46,6 +46,7 @@ import static com.yundian.celebrity.utils.TimeUtil.getStringByFormat;
 /**
  * 时间地址管理
  * Created by wuruirui on 2017/7/28.
+ * #10
  */
 
 public class TimeAddressActivity extends BaseActivity {
@@ -248,11 +249,9 @@ public class TimeAddressActivity extends BaseActivity {
         startPicker.setCanceledOnTouchOutside(true);
         startPicker.setUseWeight(true);
         startPicker.setTopPadding(DisplayUtil.dip2px(20));
-        //设置开始的时间必须是7天之内的
-//        startPicker.setRangeStart(2017, 1, 1);
+
 
         Calendar calTomorrow = getCalendar(tomorrowDate);
-
         int startYear = calTomorrow.get(Calendar.YEAR);
         int startMonth = calTomorrow.get(Calendar.MONTH)+1;
         int startDay = calTomorrow.get(Calendar.DAY_OF_MONTH);

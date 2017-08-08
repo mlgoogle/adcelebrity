@@ -1,9 +1,11 @@
 package com.yundian.celebrity.wxapi;
 
 import android.content.Context;
+import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
@@ -14,10 +16,12 @@ import com.yundian.celebrity.utils.DisplayUtil;
  * Created by Administrator on 2017/3/20.
  */
 public class RadiusMarkerView extends MarkerView {
+    private LineChart mLineChart;
     private Context context;
     private TextView currentPrice;
 //    private TextView time;
     private LinearLayout markerView;
+//    private ViewParent parent;
 
     public RadiusMarkerView(Context context, int layoutResource) {
         super(context, layoutResource);
@@ -25,6 +29,11 @@ public class RadiusMarkerView extends MarkerView {
 //        time = (TextView) findViewById(R.id.time);
         markerView = (LinearLayout) findViewById(R.id.ll_marker_line);
         this.context = context;
+    }
+
+    public RadiusMarkerView(LineChart mLineChart, Context context, int ly_marker_view) {
+        this(context,ly_marker_view);
+        this.mLineChart=mLineChart;
     }
 
     @Override
@@ -37,14 +46,13 @@ public class RadiusMarkerView extends MarkerView {
 //            time.setText(entry.getData() + "");
         }
 
+//        parent = getParent();
+
     }
 
     @Override
     public int getXOffset(float xpos) {
-        if (xpos < DisplayUtil.getScreenWidth(context) / 2) {
-            return -(getWidth()/2);
-        }
-        return -(getWidth()/2);
+        return -(getWidth() /2);
     }
 
     @Override
@@ -52,14 +60,4 @@ public class RadiusMarkerView extends MarkerView {
         int px = DisplayUtil.dip2px(10);
         return -getHeight()-px;
     }
-
-//    @Override
-//    public void draw(Canvas canvas, float posx, float posy) {
-//        if (posx > DisplayUtil.getScreenWidth(context) / 2) {
-//            canvas.translate(0, 0);
-//        } else {
-//            canvas.translate(DisplayUtil.getScreenWidth(context) - getWidth(), 0);
-//        }
-//        draw(canvas);
-//    }
 }

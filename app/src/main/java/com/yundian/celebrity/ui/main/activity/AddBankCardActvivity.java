@@ -27,12 +27,10 @@ import butterknife.OnClick;
 
 /**
  * Created by sll on 2017/7/5.
+ *
  */
-
 public class AddBankCardActvivity extends BaseActivity {
-    //conflict
-    //test
-    //测试 加个注释
+
     @Bind(R.id.nt_title)
     NormalTitleBar ntTitle;
     @Bind(R.id.et_user_name)

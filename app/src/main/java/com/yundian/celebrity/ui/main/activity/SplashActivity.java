@@ -13,30 +13,56 @@ import com.testin.agent.BugoutConfig;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.app.AppApplication;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by Administrator on 2017/5/5.
+ * #12
  */
 
 public class SplashActivity extends Activity {
+
+    private MyHandler mHandler;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         initView();
     }
+//
+//    private Handler mHandler = new Handler(){
+//        @Override
+//        public void handleMessage(Message msg) {
+//            switch (msg.what){
+//                case 1 :
+//                    startNextAct();
+//                    break;
+//            }
+//        }
+//
+//
+//    };
 
-    private Handler mHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what){
-                case 1 :
-                    startNextAct();
-                    break;
-            }
+    private static class MyHandler extends Handler{
+        private final WeakReference<SplashActivity> mActivity;
+        private MyHandler(SplashActivity splashActivity) {
+            mActivity = new WeakReference<>(splashActivity);
         }
 
+        @Override
+        public void handleMessage(Message msg) {
+            SplashActivity activity = mActivity.get();
+            if(activity!=null){
+                switch (msg.what){
+                    case 1 :
+                        activity.startNextAct();
+                        break;
+                }
+            }
+        }
+    }
 
-    };
     private void startNextAct() {
         startActivity(new Intent(this,MainActivity.class));
         overridePendingTransition(R.anim.act_in_from_right, R.anim.act_out_from_left);
@@ -46,6 +72,7 @@ public class SplashActivity extends Activity {
 
 
     public void initView() {
+        mHandler = new MyHandler(this);
         Bugout.init(this, "1664ea921dcbe122834e440f7f584e2e", "yingyongbao");
         initBugOut();
         initGeTui();

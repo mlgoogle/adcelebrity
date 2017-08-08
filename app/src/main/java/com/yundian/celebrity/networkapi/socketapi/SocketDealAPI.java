@@ -194,7 +194,6 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
 
     @Override
     public void requestIncome(String starcode, int stardate, int enddate, OnAPIListener<List<IncomeReturnBean>> listener) {
-        LogUtils.loge("提现列表请求网络---------");
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", SharePrefUtil.getInstance().getUserId());
         map.put("token", SharePrefUtil.getInstance().getToken());
@@ -203,6 +202,8 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         map.put("enddate", enddate);
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.Income,
                 SocketAPIConstant.ReqeutType.StarIncome, map);
+        LogUtils.loge(map.toString());
+
         requestEntitys(socketDataPacket, "OrderList", IncomeReturnBean.class, listener,"result");
     }
 
