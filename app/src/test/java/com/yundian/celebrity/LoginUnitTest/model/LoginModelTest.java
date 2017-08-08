@@ -110,7 +110,6 @@ public class LoginModelTest {
     //    private LoginModelWrapper loginModel;
 //    LoginModelWrapper loginModel;
     @Before
-
     public void setupMocksAndView() {
         // Mockito has a very convenient way to inject mocks by using the @Mock annotation. To
         // inject the mocks in the test the initMocks method needs to be called.
