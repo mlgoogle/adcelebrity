@@ -31,6 +31,7 @@ import com.yundian.celebrity.utils.FormatUtil;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.utils.TimeUtil;
+import com.yundian.celebrity.utils.ToastUtils;
 import com.yundian.celebrity.utils.timeselectutils.DatePicker;
 import com.yundian.celebrity.widget.NormalTitleBar;
 
@@ -38,10 +39,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 /**
  * 收益详情
+ * #10
  */
 
 public class InComeInfoFragment extends BaseFragment {
@@ -66,7 +69,11 @@ public class InComeInfoFragment extends BaseFragment {
     private View head_view;
     private NormalTitleBar nt_title;
     private ChartFragment chartFragment;
-
+    private DatePicker picker;
+    private DatePicker startPicker;
+    int choosed_year7;
+    int choosed_month7;
+    int choosed_day7;
     @Override
     protected int getLayoutResource() {
         return R.layout.fragment_income_info;
@@ -116,8 +123,13 @@ public class InComeInfoFragment extends BaseFragment {
 
         after_year7 = current_end_year;
         after_month7 = current_end_month;
+
+//        choosed_year7=after_year7;
+//        choosed_month7=after_month7;
+
         String after_month7_tes = FormatUtil.formatDayOrMmonth(current_end_month);
         after_day7 = current_end_day;
+//        choosed_day7=after_day7;
         String after_day7_tes = FormatUtil.formatDayOrMmonth(current_end_day);
         tv_end_time.setText(current_end_year + "-" + after_month7_tes + "-" + after_day7_tes);
 
@@ -234,57 +246,70 @@ public class InComeInfoFragment extends BaseFragment {
     }
 
     private void onYearMonthEndTime() {
-        final DatePicker picker = new DatePicker(getActivity());
-        picker.setCanceledOnTouchOutside(true);
-        picker.setUseWeight(true);
-        picker.setTopPadding(DisplayUtil.dip2px(20));
 
+            picker = new DatePicker(getActivity());
+            LogUtils.loge(picker.hashCode()+"");
+            picker.setCanceledOnTouchOutside(true);
+            picker.setUseWeight(true);
+            picker.setTopPadding(DisplayUtil.dip2px(20));
+            picker.setOnWheelListener(new DatePicker.OnWheelListener() {
+                @Override
+                public void onYearWheeled(int index, String year) {
+                    picker.setTitleText(year + "-" + picker.getSelectedMonth() + "-" + picker.getSelectedDay());
+                }
+
+                @Override
+                public void onMonthWheeled(int index, String month) {
+                    picker.setTitleText(picker.getSelectedYear() + "-" + month + "-" + picker.getSelectedDay());
+                }
+
+                @Override
+                public void onDayWheeled(int index, String day) {
+                    picker.setTitleText(picker.getSelectedYear() + "-" + picker.getSelectedMonth() + "-" + day);
+                }
+            });
+
+
+            picker.setRangeStart(start_year, start_month, start_day);
         //设置结束的时间必须是开始时间 7天之后的
-        picker.setRangeEnd(after_year7, after_month7, after_day7);  //结束  最大
-        picker.setRangeStart(start_year, start_month, start_day);    //开始日期
-        picker.setSelectedItem(after_year7, after_month7, after_day7);
-        picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
-            @Override
-            public void onDatePicked(String year, String month, String day) {
-                tv_end_time.setText(year + "-" + month + "-" + day);
+            picker.setRangeEnd(after_year7, after_month7, after_day7);  //结束  最大
+              //开始日期
+            picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
+                @Override
+                public void onDatePicked(String year, String month, String day) {
+                    tv_end_time.setText(year + "-" + month + "-" + day);
 
-                LogUtils.loge(year + "-" + month + "-" + day);
-                after_year7 = Integer.valueOf(year).intValue();
-                after_month7 = Integer.valueOf(month).intValue();
-                after_day7 = Integer.valueOf(day).intValue();
+//                    LogUtils.loge(year + "-" + month + "-" + day);
+                    choosed_year7 = Integer.valueOf(year).intValue();
+                    choosed_month7 = Integer.valueOf(month).intValue();
+                    choosed_day7 = Integer.valueOf(day).intValue();
 
-                getData();
-            }
-        });
-        picker.setOnWheelListener(new DatePicker.OnWheelListener() {
-            @Override
-            public void onYearWheeled(int index, String year) {
-                picker.setTitleText(year + "-" + picker.getSelectedMonth() + "-" + picker.getSelectedDay());
-            }
-
-            @Override
-            public void onMonthWheeled(int index, String month) {
-                picker.setTitleText(picker.getSelectedYear() + "-" + month + "-" + picker.getSelectedDay());
-            }
-
-            @Override
-            public void onDayWheeled(int index, String day) {
-                picker.setTitleText(picker.getSelectedYear() + "-" + picker.getSelectedMonth() + "-" + day);
-            }
-        });
+                    getData();
+                }
+            });
+        if(isStartDateChanged){
+            picker.setSelectedItem(after_year7,after_month7,after_day7);
+            isStartDateChanged=false;
+        }else{
+            picker.setSelectedItem(choosed_year7,choosed_month7,choosed_day7);
+        }
         picker.show();
     }
-
+    private boolean isStartDateChanged=false;
     public void onYearMonthStartTime() {
-        final DatePicker picker = new DatePicker(getActivity());
-        picker.setCanceledOnTouchOutside(true);
-        picker.setUseWeight(true);
-        picker.setTopPadding(DisplayUtil.dip2px(20));
+
+
+        startPicker = new DatePicker(getActivity());
+        LogUtils.loge(startPicker.hashCode()+"");
+        startPicker.setCanceledOnTouchOutside(true);
+        startPicker.setUseWeight(true);
+        startPicker.setTopPadding(DisplayUtil.dip2px(20));
         //设置开始的时间必须是7天之内的
-        picker.setRangeStart(2017, 1, 1);
-        picker.setSelectedItem(start_year, start_month, start_day);
-        picker.setRangeEnd(current_end_year, current_end_month, current_end_day);  //结束  最大
-        picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
+        startPicker.setRangeStart(2017, 1, 1);
+
+        startPicker.setRangeEnd(current_end_year, current_end_month, current_end_day);  //结束  最大
+        startPicker.setSelectedItem(start_year, start_month, start_day);
+        startPicker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
             @Override
             public void onDatePicked(String year, String month, String day) {
                 LogUtils.loge(year + "-" + month + "-" + day);
@@ -303,46 +328,103 @@ public class InComeInfoFragment extends BaseFragment {
                 after_day7 = c2.get(Calendar.DAY_OF_MONTH);
                 tv_end_time.setText(after_year7 + "-" + after_month7 + "-" + after_day7);
 
-                getData();
+                getData(start_year,start_month,start_day,after_year7,after_month7,after_day7);
+                isStartDateChanged=true;
+
+                choosed_day7=0;
+                choosed_month7=0;
+                choosed_year7=0;
             }
         });
-        picker.setOnWheelListener(new DatePicker.OnWheelListener() {
+        startPicker.setOnWheelListener(new DatePicker.OnWheelListener() {
             @Override
             public void onYearWheeled(int index, String year) {
-                picker.setTitleText(year + "-" + picker.getSelectedMonth() + "-" + picker.getSelectedDay());
+                startPicker.setTitleText(year + "-" + startPicker.getSelectedMonth() + "-" + startPicker.getSelectedDay());
             }
 
             @Override
             public void onMonthWheeled(int index, String month) {
-                picker.setTitleText(picker.getSelectedYear() + "-" + month + "-" + picker.getSelectedDay());
+                startPicker.setTitleText(startPicker.getSelectedYear() + "-" + month + "-" + startPicker.getSelectedDay());
             }
 
             @Override
             public void onDayWheeled(int index, String day) {
-                picker.setTitleText(picker.getSelectedYear() + "-" + picker.getSelectedMonth() + "-" + day);
+                startPicker.setTitleText(startPicker.getSelectedYear() + "-" + startPicker.getSelectedMonth() + "-" + day);
             }
         });
-        picker.show();
+        startPicker.show();
     }
 
-    public void getData() {
+    public void getData(int start_year,int start_month,int start_day,int after_year7,int after_month7,int after_day7) {
         String starCode = SharePrefUtil.getInstance().getStarcode();
         int endTime = Integer.parseInt(after_year7 + FormatUtil.formatDayOrMmonth(after_month7) + FormatUtil.formatDayOrMmonth(after_day7));
         int starTime = Integer.parseInt(start_year + FormatUtil.formatDayOrMmonth(start_month) + FormatUtil.formatDayOrMmonth(start_day));
         NetworkAPIFactoryImpl.getDealAPI().requestIncome(starCode, starTime, endTime, new OnAPIListener<List<IncomeReturnBean>>() {
             @Override
             public void onError(Throwable ex) {
-                LogUtils.loge("收益请求失败----------------");
-                list.clear();
+                if(ex instanceof  NullPointerException){
+                    ToastUtils.showShort("数据为空");
+                    list.clear();
+                    inComeInfoAdapter.getData().clear();
+                    inComeInfoAdapter.notifyDataSetChanged();
+                    chartFragment.loadChartData(null);
+                }else{
+                    LogUtils.loge("收益请求失败----------------");
+                    list.clear();
 //                inComeInfoAdapter.loadMoreEnd();
 //                inComeInfoAdapter.loadMoreEnd(true);
-                inComeInfoAdapter.getData().clear();
+                    inComeInfoAdapter.getData().clear();
 //                inComeInfoAdapter.loadMoreEnd();
-                inComeInfoAdapter.notifyDataSetChanged();
+                    inComeInfoAdapter.notifyDataSetChanged();
 //                inComeInfoAdapter.loadMoreComplete();
-                chartFragment.loadChartData(null);
+                    chartFragment.loadChartData(null);
+                }
 //                inComeInfoAdapter.setNewData(incomeReturnBeen);
+            }
 
+            @Override
+            public void onSuccess(List<IncomeReturnBean> incomeReturnBeen) {
+                LogUtils.loge("收益请求成功----------------");
+
+                if (incomeReturnBeen == null || incomeReturnBeen.size() == 0){
+                 return;
+                }
+                inComeInfoAdapter.setNewData(incomeReturnBeen);
+                chartFragment.loadChartData(incomeReturnBeen);
+//                getMonthAndDayWithPoint
+            }
+        });
+    }
+
+    public void getData() {
+        String starCode = SharePrefUtil.getInstance().getStarcode();
+        choosed_year7=choosed_year7==0?after_year7:choosed_year7;
+        choosed_month7=choosed_month7==0?after_month7:choosed_month7;
+        choosed_day7=choosed_day7==0?after_day7:choosed_day7;
+
+        int endTime = Integer.parseInt(choosed_year7 + FormatUtil.formatDayOrMmonth(choosed_month7) + FormatUtil.formatDayOrMmonth(choosed_day7));
+        int starTime = Integer.parseInt(start_year + FormatUtil.formatDayOrMmonth(start_month) + FormatUtil.formatDayOrMmonth(start_day));
+        NetworkAPIFactoryImpl.getDealAPI().requestIncome(starCode, starTime, endTime, new OnAPIListener<List<IncomeReturnBean>>() {
+            @Override
+            public void onError(Throwable ex) {
+                if(ex instanceof  NullPointerException){
+                    ToastUtils.showShort("数据为空");
+                    list.clear();
+                    inComeInfoAdapter.getData().clear();
+                    inComeInfoAdapter.notifyDataSetChanged();
+                    chartFragment.loadChartData(null);
+                }else{
+                    LogUtils.loge("收益请求失败----------------");
+                    list.clear();
+//                inComeInfoAdapter.loadMoreEnd();
+//                inComeInfoAdapter.loadMoreEnd(true);
+                    inComeInfoAdapter.getData().clear();
+//                inComeInfoAdapter.loadMoreEnd();
+                    inComeInfoAdapter.notifyDataSetChanged();
+//                inComeInfoAdapter.loadMoreComplete();
+                    chartFragment.loadChartData(null);
+                }
+//                inComeInfoAdapter.setNewData(incomeReturnBeen);
             }
 
             @Override

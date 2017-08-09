@@ -33,7 +33,7 @@ public class WPEditText extends BaseLinearLayout {
     @Bind(R.id.editEye)
     protected ImageView editEye;
     @Bind(R.id.editText)
-    protected EditText editText;
+    protected ClearEditText editText;
     @Bind(R.id.rightText)
     protected Button rightText;
     @Bind(R.id.leftText)
@@ -139,6 +139,12 @@ public class WPEditText extends BaseLinearLayout {
         return "";
     }
 
+    public void setEditTextString(String text) {
+        if (editText != null) {
+            editText.setText(text);
+        }
+    }
+
     public Button getRightText() {
         return rightText;
     }
@@ -156,5 +162,12 @@ public class WPEditText extends BaseLinearLayout {
         if (editText != null) {
             editText.setInputType(type);
         }
+    }
+
+    public void setEditTextdisable(){
+        editText.setKeyListener(null);
+    }
+    public void setClearIconGone(){
+        editText.setEditable(false);
     }
 }

@@ -1,6 +1,8 @@
 package com.yundian.celebrity.networkapi;
 
 
+import com.yundian.celebrity.BuildConfig;
+
 /**
  * Created by wsz on 2016/4/27.
  */
@@ -58,10 +60,18 @@ public enum Host {
         //测试环境
 //          return "dapi.star.smartdata-x.com";
         //正式环境
-       // return "api.star.smartdata-x.com";
+//        return "api.star.smartdata-x.com";
 //        return "61.147.114.87";
 //        return "139.224.34.22";  //开发
-        return "122.144.169.214"; //测试
+//        return "122.144.169.214"; //测试
+        return "tapi.smartdata-x.com";//线上正式
+//        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//        if(BuildConfig.DEBUG){
+//            return "139.224.34.22"; //本地
+//        }else{
+//            return "tapi.smartdata-x.com";//线上正式
+//        }
+
 //        return "192.168.8.131";
     }
 
@@ -70,7 +80,17 @@ public enum Host {
 //        return (short) 12300 ;
           //return (short) 16104 ;
 //         return (short) 16006; //用户端
-         return (short) 16016;  //明星端
+
+
+//         return (short) 16060;  //本地明星端
+
+        return (short) 16016;  //明星端
+//        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//        if(BuildConfig.DEBUG){
+//            return (short) 16060;  //本地明星端
+//        }else{
+//            return (short) 16016;  //明星端
+//        }
         //return (short) 16115 ;
         //return (short) 16008 ;
 

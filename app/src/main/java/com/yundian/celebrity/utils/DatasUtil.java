@@ -293,7 +293,7 @@ public class DatasUtil {
 //
 	public static CircleFriendBean.CircleListBean.CommentListBean createReplyComment(String content,String Symbol_name){
 		CircleFriendBean.CircleListBean.CommentListBean item = new CircleFriendBean.CircleListBean.CommentListBean();
-		item.setDirection(2);
+		item.setDirection(1);
 		item.setUser_name(SharePrefUtil.getInstance().getUserNickName());
 		item.setUid(SharePrefUtil.getInstance().getUserId());
 		item.setSymbol_name(Symbol_name);

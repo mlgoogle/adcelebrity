@@ -247,6 +247,8 @@ public class FansInteractionFragment extends BaseFragment implements CircleContr
 
 
     public void getData(final boolean isLoadMore, int start, int count) {
+
+
         NetworkAPIFactoryImpl.getDealAPI().getAllCircleInfo(start, count, new OnAPIListener<CircleFriendBean>() {
             @Override
             public void onError(Throwable ex) {

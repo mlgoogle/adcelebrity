@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">星悦-明星端</string>
+    <string name="app_name">星享-明星端</string>
     <string name="net_error">网络访问错误，请稍后再试</string>
     <string name="empty">还没有数据哦</string>
     <string name="loading">请稍后...</string>
@@ -105,7 +105,7 @@
     <string name="loging">现在登录</string>
     <string name="other_login">第三方登录</string>
     <string name="wei_xin_login">微信登录</string>
-    <string name="title_welcome_1">星悦，</string>
+    <string name="title_welcome_1">星享，</string>
     <string name="title_welcome_2">你与明星零距离</string>
     <string name="news_info_title">资讯</string>
     <string name="sample_heard_layout">头布局</string>
@@ -136,6 +136,8 @@
     <string name="meeting_type">约见类型</string>
     <string name="meeting_order">约见订单</string>
     <string name="meeting_type_tips">Tips：未确认的都将视为不同意此约见类型，否则粉丝无法正常约见您。</string>
+    <string name="meeting_address_time_tips">Tips：约见时间最长不能超过今年。例如不能超出起始2017-01-01结束2017-12-31的范围。</string>
+    <string name="meeting_time">%1$s-%2$s-%3$s</string>
     <string name="meeting_detail_time">时间:  %1$s</string>
     <string name="meeting_detail_please">地点:  %1$s</string>
     <string name="meeting_detail_type">约见类型:  %1$s</string>
@@ -175,7 +177,8 @@
     <string name="recharge_info">充值方式</string>
     <string name="make_sure">确定</string>
     <string name="spend_times">消耗时间 %1$s 秒</string>
-    <string name="meeting_manager">约见管理1</string>
+    <string name="meeting_manager">约见管理</string>
+    <string name="time_address_manager">地址时间管理</string>
     <string name="star_meet_type">%1$s ,%2$s</string>
     <string name="star_meet_detail">约见详情</string>
 

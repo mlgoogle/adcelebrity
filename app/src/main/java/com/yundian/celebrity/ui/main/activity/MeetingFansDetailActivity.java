@@ -47,6 +47,12 @@ public class MeetingFansDetailActivity extends BaseActivity {
     Button btnAgree;
     private MeetOrderListBean bean;
 
+    public static final int UNCERTAIN = 1;
+    public static final int DENY = 2;
+    public static final int COMPLETE = 3;
+    public static final int AGREE = 4;
+
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_meet_fans_detail;
@@ -93,7 +99,7 @@ public class MeetingFansDetailActivity extends BaseActivity {
             return;
         }
 
-        NetworkAPIFactoryImpl.getDealAPI().agreeMeet(bean.getStarcode(), bean.getMeet_type(), bean.getMid(), new OnAPIListener<RequestResultBean>() {
+        NetworkAPIFactoryImpl.getDealAPI().agreeMeet(bean.getStarcode(),AGREE, bean.getId(), new OnAPIListener<RequestResultBean>() {
             @Override
             public void onError(Throwable ex) {
                 LogUtils.loge("同意约见失败-------------------");
@@ -106,6 +112,8 @@ public class MeetingFansDetailActivity extends BaseActivity {
                 if (requestResultBean.getResult() == 1) {
                     ToastUtils.showStatusView("成功约见", true);
                     EventBus.getDefault().post(new EventBusMessage(-76));
+
+
                 }
             }
         });

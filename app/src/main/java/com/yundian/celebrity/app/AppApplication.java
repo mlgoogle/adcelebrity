@@ -92,6 +92,7 @@ public class AppApplication extends BaseApplication {
                 //初始化logger
                 LogUtils.logInit(BuildConfig.LOG_DEBUG);
 //                initWangYiIM();
+                // TODO: 2017/8/2  
                 checkNet();
                 initNetworkAPIConfig();
                 registerToWx();   //注册微信
@@ -472,7 +473,7 @@ public class AppApplication extends BaseApplication {
                 LogUtils.logd("检测到连接成功-------------------");
                 //token交易暂时关闭
                 judgeIsLogin();
-                // checkUpdate();
+                checkUpdate();
             }
 
             @Override

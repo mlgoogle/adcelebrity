@@ -126,6 +126,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_weixin_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

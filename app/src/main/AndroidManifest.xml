@@ -126,6 +126,8 @@
             android:name="com.umeng.socialize.editorpage.ShareActivity"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.UMDefault" />
+
+
         <!--友盟sdk-->
         <meta-data
             android:name="UMENG_APPKEY"
@@ -316,6 +318,13 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
+        <activity
+            android:name=".ui.main.activity.TimeAddressActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
         <!-- 全局搜索 -->
         <activity
             android:name=".ui.wangyi.main.activity.GlobalSearchActivity"
@@ -465,15 +474,15 @@
             </intent-filter>
         </receiver>
 
-        <!-- 申明白板会话的广播接收器，第三方APP集成时，action中的com.netease.nim.demo请替换为自己的包名 -->
-        <receiver
-            android:name="com.netease.nimlib.receiver.RTSBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.yundian.celebrity.ACTION.RECEIVE_RTS_NOTIFICATION" />
-            </intent-filter>
-        </receiver>
+        <!--&lt;!&ndash; 申明白板会话的广播接收器，第三方APP集成时，action中的com.netease.nim.demo请替换为自己的包名 &ndash;&gt;-->
+        <!--<receiver-->
+            <!--android:name="com.netease.nimlib.receiver.RTSBroadcastReceiver"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="false">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.yundian.celebrity.ACTION.RECEIVE_RTS_NOTIFICATION" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <!-- 申明本地电话状态（通话状态）的广播接收器，第三方APP集成时音视频模块时，如果需要在App中处理网络通话与本地电话的交互请加上此接收器 -->
         <!-- 在Demo的示例代码中是在Application进行了网络通话与本地电话的互斥处理 -->
@@ -492,15 +501,26 @@
             android:name="com.netease.cosine.target.receiver"
             android:value="com.netease.nimlib.service.NimReceiver" />
 
+        <!--<provider-->
+            <!--android:name="android.support.v4.content.FileProvider"-->
+            <!--android:authorities="${applicationId}.provider"-->
+            <!--android:exported="false"-->
+            <!--android:grantUriPermissions="true">-->
+            <!--<meta-data-->
+                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+                <!--android:resource="@xml/filepaths" />-->
+        <!--</provider>-->
+
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.provider"
+            android:authorities="com.yundian.celebrity"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths" />
+                android:resource="@xml/checkupdatelibrary_uri_grant"/>
         </provider>
+
         <!--三方-->
 
         <!--支付宝等三方-->

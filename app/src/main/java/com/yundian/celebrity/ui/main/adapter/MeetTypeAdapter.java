@@ -6,11 +6,13 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.loadmore.LoadMoreView;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.bean.OrderListReturnBean;
 import com.yundian.celebrity.utils.ImageLoaderUtils;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,9 +28,24 @@ public class MeetTypeAdapter extends BaseQuickAdapter<OrderListReturnBean, BaseV
 
     @Override
     protected void convert(final BaseViewHolder holder, final OrderListReturnBean item) {
+
+
+
         holder.setText(R.id.tv_content, item.getName())
                 .setText(R.id.tv_price,item.getPrice() + "秒");
         ImageView imageView = holder.getView(R.id.imagview);
         ImageLoaderUtils.display(mContext, imageView, item.getShowpic_url());
     }
+
+//    public void setNewData(@Nullable List<OrderListReturnBean> data) {
+//        this.mData = data == null ? new ArrayList<OrderListReturnBean>() : data;
+//        if (mRequestLoadMoreListener != null) {
+//            mNextLoadEnable = true;
+//            mLoadMoreEnable = true;
+//            mLoading = false;
+//            mLoadMoreView.setLoadMoreStatus(LoadMoreView.STATUS_DEFAULT);
+//        }
+//        mLastPosition = -1;
+//        notifyDataSetChanged();
+//    }
 }

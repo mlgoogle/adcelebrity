@@ -11,6 +11,7 @@ import com.yundian.celebrity.networkapi.socketapi.SocketReqeust.SocketDataPacket
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -111,6 +112,50 @@ public class SocketBaseAPI {
                         JSONArray jsonArray = socketAPIResponse.jsonObject().getJSONArray(listName);
                         List list = JSON.parseArray(jsonArray.toString(), cls);
                         SocketBaseAPI.this.onSuccess(listener,list);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        onError(e);
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * socket请求返回 List<cls Entity?
+     * @param socketDataPacket
+     * @param listName 列表字段名
+     * @param cls
+     * @param listener
+     */
+    public void requestEntitys(SocketDataPacket socketDataPacket, final String listName, final Class<?> cls, final OnAPIListener listener, final String resultCode) {
+        SocketAPIRequestManage.getInstance().startJsonRequest(socketDataPacket, new OnAPIListener<SocketAPIResponse>() {
+            @Override
+            public void onError(Throwable ex) {
+
+                SocketBaseAPI.this.onError(listener,ex);
+            }
+
+            @Override
+            public void onSuccess(SocketAPIResponse socketAPIResponse) {
+                if( listener != null ) {
+                    try {
+                        String  jsonResult = socketAPIResponse.jsonObject().toString();
+
+//                        JSONObject jsonObject1 = jsonObject.getJSONObject(resultCode);
+//                        String string = jsonObject.getString(resultCode);
+//                        socketAPIResponse.jsonObject().
+//                        jsonObject
+                        if(!jsonResult.contains("-658")){
+                            //ResultCodeUtil.showEeorMsg(socketAPIResponse);
+                            JSONArray jsonArray = socketAPIResponse.jsonObject().getJSONArray(listName);
+                            List list = JSON.parseArray(jsonArray.toString(), cls);
+                            SocketBaseAPI.this.onSuccess(listener,list);
+                        }else {
+                            NullPointerException nullPointerException = new NullPointerException("starlists is null");
+                            onError(nullPointerException);
+                        }
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                         onError(e);

@@ -70,6 +70,10 @@ public class AddMeetTypeActivity extends BaseActivity implements SwipeRefreshLay
             @Override
             public void onError(Throwable ex) {
                 LogUtils.loge("拥有明星类型失败----------------------");
+
+                if(ex instanceof NullPointerException){
+                    getData();
+                }
             }
 
             @Override
@@ -157,7 +161,8 @@ public class AddMeetTypeActivity extends BaseActivity implements SwipeRefreshLay
         addMeetTypeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.showShort("选中了checkBox");
+                // #11
+//                ToastUtils.showShort("选中了checkBox");
                 CheckBox checkBox = (CheckBox) view;
                 LogUtils.loge("当前选中的状态:" + checkBox.isChecked());
 

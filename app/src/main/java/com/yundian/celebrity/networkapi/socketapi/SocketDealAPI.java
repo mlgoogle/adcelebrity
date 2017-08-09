@@ -17,6 +17,7 @@ import com.yundian.celebrity.bean.OrderListReturnBean;
 import com.yundian.celebrity.bean.RequestResultBean;
 import com.yundian.celebrity.bean.ResultBeen;
 import com.yundian.celebrity.bean.ResultCodeBeen;
+import com.yundian.celebrity.bean.SubmitAddressTimeInfo;
 import com.yundian.celebrity.bean.WXPayReturnEntity;
 import com.yundian.celebrity.bean.WithDrawCashHistoryBean;
 import com.yundian.celebrity.bean.WithDrawCashReturnBean;
@@ -28,6 +29,7 @@ import com.yundian.celebrity.utils.SharePrefUtil;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by yaowang on 2017/2/20.
@@ -192,7 +194,6 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
 
     @Override
     public void requestIncome(String starcode, int stardate, int enddate, OnAPIListener<List<IncomeReturnBean>> listener) {
-        LogUtils.loge("提现列表请求网络---------");
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", SharePrefUtil.getInstance().getUserId());
         map.put("token", SharePrefUtil.getInstance().getToken());
@@ -201,7 +202,9 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         map.put("enddate", enddate);
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.Income,
                 SocketAPIConstant.ReqeutType.StarIncome, map);
-        requestEntitys(socketDataPacket, "OrderList", IncomeReturnBean.class, listener);
+        LogUtils.loge(map.toString());
+
+        requestEntitys(socketDataPacket, "OrderList", IncomeReturnBean.class, listener,"result");
     }
 
     @Override
@@ -238,7 +241,7 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         map.put("starcode", starcode);
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.HaveOrderList,
                 SocketAPIConstant.ReqeutType.StarIncome, map);
-        requestEntitys(socketDataPacket, "OrderList",OrderListReturnBean.class, listener);
+        requestEntitys(socketDataPacket, "OrderList",OrderListReturnBean.class, listener,"result");
     }
 
     @Override
@@ -349,6 +352,7 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         map.put("starcode", starcode);
         map.put("meettype", meettype);
         map.put("meetid", meetid);
+        LogUtils.logd("agreeMeet"+map.toString());
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.AgreeMeet,
                 SocketAPIConstant.ReqeutType.StarIncome, map);
         requestEntity(socketDataPacket, RequestResultBean.class, listener);
@@ -411,5 +415,19 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.Publish,
                 SocketAPIConstant.ReqeutType.CircleInfo, map);
         requestEntity(socketDataPacket,RequestResultBean.class,listener);
+    }
+
+    @Override
+    public void submitAddressTimeInfo(String address, String startDate, String endDate, OnAPIListener<SubmitAddressTimeInfo> listener) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", SharePrefUtil.getInstance().getUserId());
+        map.put("starcode", SharePrefUtil.getInstance().getStarcode());
+        map.put("token", SharePrefUtil.getInstance().getToken());
+        map.put("meet_city", address);
+        map.put("startdate", startDate);
+        map.put("enddate", endDate);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.AddressTimeManage,
+                SocketAPIConstant.ReqeutType.StarIncome, map);
+        requestEntity(socketDataPacket, SubmitAddressTimeInfo.class, listener);
     }
 }

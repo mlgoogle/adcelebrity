@@ -99,9 +99,20 @@ public class ClearEditText extends android.support.v7.widget.AppCompatEditText i
      * @param visible
      */
     protected void setClearIconVisible(boolean visible) {
-        Drawable right = visible ? mClearDrawable : null;
-        setCompoundDrawables(getCompoundDrawables()[0],
-                getCompoundDrawables()[1], right, getCompoundDrawables()[3]);
+        if(getEditable()){
+            Drawable right = visible ? mClearDrawable : null;
+            setCompoundDrawables(getCompoundDrawables()[0],
+                    getCompoundDrawables()[1], right, getCompoundDrawables()[3]);
+        }
+
+    }
+    private boolean mEditable;
+    public boolean getEditable(){
+        return mEditable;
+    }
+
+    public void setEditable(boolean mEditable){
+        this.mEditable= mEditable;
     }
 
     /**

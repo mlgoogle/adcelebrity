@@ -26,6 +26,8 @@ import com.yundian.celebrity.widget.emoji.MoonUtils;
 
 import java.util.List;
 
+import static com.yundian.celebrity.R.id.commentList;
+
 
 //package com.yundian.celebrity.ui.main.adapter;
 //
@@ -77,8 +79,9 @@ public class CircleFriendAdapter extends BaseQuickAdapter<CircleFriendBean.Circl
         ImageView img_back = holder.getView(R.id.img_back);
         ImageLoaderUtils.displaySmallPhoto(mContext, headIv, circleItem.getHead_url());
         holder.addOnClickListener(R.id.img_back);
+        long createTime = circleItem.getCreate_time() * 1000;
         holder.setText(R.id.nameTv, circleItem.getSymbol_name())
-                .setText(R.id.tv_time, TimeUtil.getfriendlyTime(circleItem.getCreate_time() * 1000));
+                .setText(R.id.tv_time, TimeUtil.getfriendlyTime(createTime));
 
         if (TextUtils.isEmpty(circleItem.getPic_url())) {
             img_back.setVisibility(View.GONE);
@@ -95,7 +98,7 @@ public class CircleFriendAdapter extends BaseQuickAdapter<CircleFriendBean.Circl
 
 
         PraiseListView praiseListView = holder.getView(R.id.praiseListView);
-        CommentListView commentList = holder.getView(R.id.commentList);
+        CommentListView commentListView = holder.getView(commentList);
         LinearLayout digCommentBody = holder.getView(R.id.digCommentBody);
         ImageView snsBtn = holder.getView(R.id.snsBtn);
         View digLine = holder.getView(R.id.lin_dig);
@@ -115,7 +118,7 @@ public class CircleFriendAdapter extends BaseQuickAdapter<CircleFriendBean.Circl
             }
 
             if (hasComment) {//处理评论列表
-                commentList.setOnItemClickListener(new CommentListView.OnItemClickListener() {
+                commentListView.setOnItemClickListener(new CommentListView.OnItemClickListener() {
                     @Override
                     public void onItemClick(int commentPosition) {
                         CircleFriendBean.CircleListBean.CommentListBean commentItem = commentsDatas.get(commentPosition);
@@ -137,11 +140,11 @@ public class CircleFriendAdapter extends BaseQuickAdapter<CircleFriendBean.Circl
                     }
                 });
 
-                commentList.setDatas(commentsDatas, circleItem.getSymbol_name());
-                commentList.setVisibility(View.VISIBLE);
+                commentListView.setDatas(commentsDatas, circleItem.getSymbol_name());
+                commentListView.setVisibility(View.VISIBLE);
 
             } else {
-                commentList.setVisibility(View.GONE);
+                commentListView.setVisibility(View.GONE);
             }
             digCommentBody.setVisibility(View.VISIBLE);
         } else {

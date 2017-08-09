@@ -101,6 +101,13 @@ public class MainActivity extends BaseActivity {
         }
     };
 
+    Runnable runnableCheckLogin = new Runnable() {
+        @Override
+        public void run() {
+            checkLogin();
+        }
+    };
+
 
     @Override
     public int getLayoutId() {
@@ -115,8 +122,9 @@ public class MainActivity extends BaseActivity {
     public void initView() {
         initTab();
         checkunReadMsg();
-        handler.postDelayed(runnablePermission, 1000);
-        checkLogin();
+        handler.postDelayed(runnablePermission, 2000);
+        handler.postDelayed(runnableCheckLogin,1000);
+
     }
 
     private void checkLogin() {
@@ -372,7 +380,7 @@ public class MainActivity extends BaseActivity {
             case -11:
                 if (eventBusMessage.getCheckUpdateInfoEntity().getIsForceUpdate() == 0) {
                     forceUpdateDialog(eventBusMessage.getCheckUpdateInfoEntity());
-                } else {  //非强制更新
+                } else if (eventBusMessage.getCheckUpdateInfoEntity().getIsForceUpdate() == 1){  //非强制更新
                     updateDialog(eventBusMessage.getCheckUpdateInfoEntity());
                 }
                 break;

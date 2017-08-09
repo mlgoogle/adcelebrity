@@ -8,11 +8,14 @@ import android.widget.EditText;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.base.BaseActivity;
 import com.yundian.celebrity.bean.BankInfoBean;
+import com.yundian.celebrity.bean.RegisterVerifyCodeBeen;
 import com.yundian.celebrity.helper.CheckHelper;
 import com.yundian.celebrity.listener.OnAPIListener;
+import com.yundian.celebrity.networkapi.NetworkAPIException;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.utils.CountUtil;
 import com.yundian.celebrity.utils.LogUtils;
+import com.yundian.celebrity.utils.MD5Util;
 import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.utils.ToastUtils;
 import com.yundian.celebrity.widget.CheckException;
@@ -24,12 +27,10 @@ import butterknife.OnClick;
 
 /**
  * Created by sll on 2017/7/5.
+ *
  */
-
 public class AddBankCardActvivity extends BaseActivity {
-    //conflict
-    //test
-    //测试 加个注释
+
     @Bind(R.id.nt_title)
     NormalTitleBar ntTitle;
     @Bind(R.id.et_user_name)
@@ -88,6 +89,16 @@ public class AddBankCardActvivity extends BaseActivity {
             return;
         }
 
+        //本地校验验证码   MD5(yd1742653sd + code_time + rand_code + phone)
+        if (verifyCodeBeen == null || TextUtils.isEmpty(verifyCodeBeen.getVToken())) {
+            ToastUtils.showShort("无效验证码");
+            return;
+        }
+        if (!verifyCodeBeen.getVToken().equals(MD5Util.MD5("yd1742653sd" + verifyCodeBeen.getTimeStamp() + etCodeMsg.getText().toString() + etUserPhone.getText().toString()))) {
+            ToastUtils.showShort("验证码错误,请重新输入");
+            return;
+        }
+
         CheckException exception = new CheckException();
         //判断手机格式是否符合格式
         if (checkHelper.checkMobile(etUserPhone.getText().toString(), exception)) {
@@ -108,7 +119,7 @@ public class AddBankCardActvivity extends BaseActivity {
                 public void onSuccess(BankInfoBean bean) {
                     LogUtils.loge("绑定成功");
 //                    EventBus.getDefault().postSticky(new EventBusMessage(-3));  //传递消息
-                    if (!TextUtils.isEmpty(bean.getBankName()) && !TextUtils.isEmpty(bean.getCardNO()) && !TextUtils.isEmpty(bean.getName())) {
+                    if (bean.getBankName() != null && bean.getCardNO() != null && bean.getName() != null) {
                         SharePrefUtil.getInstance().saveCardNo(bean.getCardNO());
                         ToastUtils.showStatusView("绑定成功", true);
 //                        AppManager.getAppManager().finishActivity(BankCardInfoActivity.class);
@@ -131,8 +142,37 @@ public class AddBankCardActvivity extends BaseActivity {
             ToastUtils.showShort("输入不能为空");
             return;
         }
-        new CountUtil(btnGetCode).start();   //收到回调才开启计时
+//        new CountUtil(btnGetCode).start();   //收到回调才开启计时
         //获取验证码
 
+        getCode();
+    }
+
+
+
+    private RegisterVerifyCodeBeen verifyCodeBeen;
+    private void getCode() {
+        LogUtils.logd("请求网络获取短信验证码------------------------------");
+        CheckException exception = new CheckException();
+        String phoneEdit = etUserPhone.getText().toString().trim();
+        if (new CheckHelper().checkMobile(phoneEdit, exception)) {
+            //Utils.closeSoftKeyboard(view);
+            NetworkAPIFactoryImpl.getUserAPI().verifyCode(phoneEdit, new OnAPIListener<RegisterVerifyCodeBeen>() {
+                @Override
+                public void onError(Throwable ex) {
+                    ex.printStackTrace();
+                    LogUtils.logd("验证码请求网络错误------------------" + ((NetworkAPIException) ex).getErrorCode());
+                }
+
+                @Override
+                public void onSuccess(RegisterVerifyCodeBeen o) {
+                    verifyCodeBeen = o;
+                    new CountUtil(btnGetCode).start();   //收到回调才开启计时
+                    LogUtils.logd("获取到--注册短信验证码,时间戳是:" + o.toString());
+                }
+            });
+        } else {
+            ToastUtils.showShort(exception.getErrorMsg());
+        }
     }
 }

@@ -125,7 +125,7 @@ public interface SocketAPIConstant {
         Short Publish = 15005;  //明星发表动态
 //        15014   明星回复用户动态返回
 
-
+        Short AddressTimeManage = 16021;
 
     }
 }

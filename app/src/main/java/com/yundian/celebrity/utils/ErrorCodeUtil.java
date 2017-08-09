@@ -65,9 +65,9 @@ public class ErrorCodeUtil {
 //            case -607:
 //                msg = "没有历史交易数据";
 //                break;
-//            case -658:
-//                msg = "没有历史明星数据";
-//                break;
+            case -658:
+                msg = "没有历史明星数据";
+                break;
 //            case -700:
 //                msg = "数据库错误";
 //                break;

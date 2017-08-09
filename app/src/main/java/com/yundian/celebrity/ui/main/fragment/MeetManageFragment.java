@@ -8,6 +8,8 @@ import android.view.View;
 
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.base.BaseFragment;
+import com.yundian.celebrity.ui.main.activity.PublishStateActivity;
+import com.yundian.celebrity.ui.main.activity.TimeAddressActivity;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.widget.NormalTitleBar;
 
@@ -61,8 +63,20 @@ public class MeetManageFragment extends BaseFragment {
         initFindViewById();
         ntTitle.setTitleText(getContext().getResources().getString(R.string.meeting_manager));
         ntTitle.setTvLeftVisiable(false);
+        ntTitle.setRightTitle(getContext().getResources().getString(R.string.time_address_manager));
+        ntTitle.setRightTitleVisibility(true);
         initFragment();
         switchTo(1);
+        initListener();
+    }
+
+    private void initListener() {
+        ntTitle.setOnRightTextListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(TimeAddressActivity.class);
+            }
+        });
     }
 
     private void initFindViewById() {

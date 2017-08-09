@@ -71,7 +71,7 @@
             android:id="@+id/tv_talk_msg_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="666"
+
             android:textColor="@color/color_8C0808"
             android:textSize="@dimen/text_size_12" />
     </LinearLayout>

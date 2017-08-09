@@ -1,6 +1,8 @@
 package com.yundian.celebrity.ui.main.activity;
 
 import android.content.Intent;
+import android.icu.math.BigDecimal;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
@@ -75,7 +77,7 @@ public class CashActivity extends BaseActivity {
         requestBalance();
         initListener();
     }
-//    從cash歷史頁面finish返回數據后
+//    從cash歷史頁面finish返回數據后,重新请求余额
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -91,9 +93,38 @@ public class CashActivity extends BaseActivity {
                 LogUtils.loge("余额请求成功:" + bean.toString());
                 //如果成功，保存一下
                 SharePrefUtil.getInstance().putBalance(bean.getBalance());
-                //更新textview
-                userAvailableMoney.setText(String.format(getString(R.string.cash_available_money),
-                        bean.getBalance()+""));
+
+//                BigDecimal bigDecimal = new BigDecimal(0);
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                    BigDecimal bigDecimal = BigDecimal.valueOf(bean.getBalance());
+//                    userAvailableMoney.setText(String.format(getString(R.string.cash_available_money),
+//                            bigDecimal+""));
+//
+//                }else{
+//                    double balance=bean.getBalance();
+//                    String s = String.valueOf(balance);
+//
+//                    String bb = s.substring(0, s.lastIndexOf(".")+3<s.length()?s.length():s.lastIndexOf(".")+3);
+//                    //更新textview
+//                    userAvailableMoney.setText(String.format(getString(R.string.cash_available_money),
+//                            bb));
+//
+//                }
+
+                double balance=bean.getBalance();
+                String s = String.valueOf(balance);
+                //如果包括小数点才执行
+                if (s.contains(".")) {
+                    int endIndex = s.indexOf(".") + 3 < s.length() ? s.indexOf(".") + 3 : s.length();
+                    String bb = s.substring(0, endIndex);
+                    //更新textview
+                    userAvailableMoney.setText(String.format(getString(R.string.cash_available_money),
+                            bb));
+                }else{
+                    //更新textview
+                    userAvailableMoney.setText(String.format(getString(R.string.cash_available_money),
+                            s));
+                }
             }
 
             @Override
@@ -173,8 +204,9 @@ public class CashActivity extends BaseActivity {
                 bundle.putString("resetPwd", Constant.PAY_PWD);
                 startActivity(ResetPayPwdActivity.class, bundle);
                 break;
+//            #11
             case R.id.tv_user_bank_cssount:  //模拟测试数据
-                ToastUtils.showShort("测试数据");
+//                ToastUtils.showShort("测试数据");
                 startActivity(CashHistoryActivity_Test.class);
 
                 break;
@@ -218,7 +250,9 @@ public class CashActivity extends BaseActivity {
         if (inputPrice > balance) {
             ToastUtils.showShort("余额不足");
             return;
-        } else if (inputPrice <= 0) {
+        }
+
+        else if (inputPrice <= 0) {
             ToastUtils.showShort("输入金额有误");
             return;
         }
