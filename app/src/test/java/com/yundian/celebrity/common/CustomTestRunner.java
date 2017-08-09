@@ -1,4 +1,4 @@
-package com.yundian.celebrity;
+package com.yundian.celebrity.common;
 
 import org.junit.runners.model.InitializationError;
 import org.robolectric.RobolectricTestRunner;
@@ -11,7 +11,7 @@ import org.robolectric.res.Fs;
 /**
  * Created by sll on 2017/7/31.
  */
-
+//解决找不到manifest
 public class CustomTestRunner extends RobolectricTestRunner {
 
 //    E:\AdStar\adcelebrity\app\build\intermediates\manifests\full\debug\AndroidManifest.xml

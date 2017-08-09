@@ -35,7 +35,7 @@ public class SocketUserAPI extends SocketBaseAPI implements UserAPI {
         HashMap<String, Object> map = new HashMap<>();
         map.put("phone", phone);
         map.put("pwd", password);
-        map.put("deviceId", AppApplication.getAndroidId());
+        map.put("deviceId",1+"");
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.Login,
                 SocketAPIConstant.ReqeutType.User, map);
         requestEntity(socketDataPacket, LoginReturnInfo.class, listener);
