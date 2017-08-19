@@ -137,4 +137,18 @@ public class ImageLoaderUtils {
                 .crossFade().into(imageView);
     }
 
+    //预览图
+    public static void displayWithPreviewImg(Context context, final ImageView imageView, String url,int resurce) {
+        if (imageView == null) {
+            throw new IllegalArgumentException("argument error");
+        }
+        Glide.with(context)
+                .load(url)
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .placeholder(R.drawable.edit_cursor)
+                .error(resurce)
+                .into(imageView);
+    }
+
 }

@@ -76,7 +76,7 @@ public class LoginModel {
 					ToastUtils.showShort("用户已存在");
 					requestError(listener);
 					return;
-				} else if (loginReturnInfo != null && loginReturnInfo.getUserinfo() != null) {
+				} else if (loginReturnInfo != null && loginReturnInfo.getUserinfo() != null&&loginReturnInfo.getUserinfo().getStarcode()!=null) {
 //					requestServer(listener);
 
 					LogUtils.logd("登录成功" + loginReturnInfo.toString());
