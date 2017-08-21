@@ -77,7 +77,7 @@ public class PublishStateActivity extends BaseActivity {
     public void initView() {
         ntTitle.setRightTitleVisibility(true);
         ntTitle.setRightTitle("发布");
-        ntTitle.setRightTitleColor(R.color.color_8C0808);
+        ntTitle.setRightTitleColor(R.color.color_185CA5);
 
         ntTitle.setLeftTitle("取消");
         ntTitle.setTvLeftVisiable(true);
