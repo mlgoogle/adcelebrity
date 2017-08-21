@@ -77,16 +77,16 @@ public class CircleFriendAdapter extends BaseQuickAdapter<CircleFriendBean.Circl
 
         ImageView headIv = holder.getView(R.id.headIv);
         ImageView img_back = holder.getView(R.id.img_back);
-        ImageLoaderUtils.displaySmallPhoto(mContext, headIv, circleItem.getHead_url());
+        ImageLoaderUtils.displaySmallPhoto(mContext, headIv, circleItem.getHead_url_tail());
         holder.addOnClickListener(R.id.img_back);
         long createTime = circleItem.getCreate_time() * 1000;
         holder.setText(R.id.nameTv, circleItem.getSymbol_name())
                 .setText(R.id.tv_time, TimeUtil.getfriendlyTime(createTime));
 
-        if (TextUtils.isEmpty(circleItem.getPic_url())) {
+        if (TextUtils.isEmpty(circleItem.getPic_url_tail())) {
             img_back.setVisibility(View.GONE);
         } else {
-            ImageLoaderUtils.display(mContext, img_back, circleItem.getPic_url());
+            ImageLoaderUtils.display(mContext, img_back, circleItem.getPic_url_tail());
         }
         EditText contentTv = holder.getView(R.id.contentTv);
         if (!TextUtils.isEmpty(content)) {

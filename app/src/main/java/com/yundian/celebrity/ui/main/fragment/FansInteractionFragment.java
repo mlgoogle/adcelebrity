@@ -426,7 +426,7 @@ public class FansInteractionFragment extends BaseFragment implements CircleContr
         circleFriendAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                showPopupWindow(circleFriendAdapter.getData().get(position).getPic_url());
+                showPopupWindow(circleFriendAdapter.getData().get(position).getPic_url_tail());
             }
         });
     }

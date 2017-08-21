@@ -16,6 +16,7 @@ import com.yundian.celebrity.listener.OnAPIListener;
  */
 
 public interface UserAPI {
+    // TODO: 2017/8/21
     void login(String phone, String password, OnAPIListener<LoginReturnInfo> listener);
 
     void registerWangYi(int user_type,String phone, String name, long uid, OnAPIListener<RegisterReturnWangYiBeen> listener);
