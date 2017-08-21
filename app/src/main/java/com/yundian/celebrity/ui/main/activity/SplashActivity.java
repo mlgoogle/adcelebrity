@@ -6,12 +6,20 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 
 import com.testin.agent.Bugout;
 import com.testin.agent.BugoutConfig;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.app.AppApplication;
+import com.yundian.celebrity.app.AppConfig;
+import com.yundian.celebrity.bean.MyAddressBean;
+import com.yundian.celebrity.bean.QiNiuAdressBean;
+import com.yundian.celebrity.listener.OnAPIListener;
+import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
+import com.yundian.celebrity.utils.GetIPAddressUtils;
+import com.yundian.celebrity.utils.LogUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -77,6 +85,42 @@ public class SplashActivity extends Activity {
         initBugOut();
         initGeTui();
         mHandler.sendEmptyMessageDelayed(1,2000);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final MyAddressBean ipAddress = GetIPAddressUtils.getIpAddress();
+                if (ipAddress.getData()==null){
+                    return;
+                }
+                AppConfig.AREA_ID = Long.valueOf(ipAddress.getData().getArea_id());
+                AppConfig.AREA = ipAddress.getData().getArea();
+                AppConfig.ISP_ID = Long.valueOf(ipAddress.getData().getIsp_id());
+                AppConfig.ISP = ipAddress.getData().getIsp();
+                NetworkAPIFactoryImpl.getUserAPI().getQiNiuPicDress(new OnAPIListener<QiNiuAdressBean>() {
+                    @Override
+                    public void onError(Throwable ex) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(QiNiuAdressBean o) {
+                        LogUtils.loge("ysl_七牛"+o.toString());
+                        String area = ipAddress.getData().getArea();
+                        if ("华东".equals(area)&& !TextUtils.isEmpty(o.getQINIU_URL_HUADONG())){
+                            AppConfig.QI_NIU_PIC_ADRESS = o.getQINIU_URL_HUADONG();
+                            LogUtils.loge("ysl_七牛"+"华东");
+                        }else if ("华北".equals(area)&& !TextUtils.isEmpty(o.getQINIU_URL_HUABEI())){
+                            AppConfig.QI_NIU_PIC_ADRESS = o.getQINIU_URL_HUABEI();
+                            LogUtils.loge("ysl_七牛"+"华北");
+                        }else if ("华南".equals(area)&& !TextUtils.isEmpty(o.getQINIU_URL_HUANAN())){
+                            AppConfig.QI_NIU_PIC_ADRESS = o.getQINIU_URL_HUANAN();
+                            LogUtils.loge("ysl_七牛"+"华南");
+                        }
+                    }
+                });
+            }
+        }).start();
 //        PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat("alpha", 0.3f, 1f);
 //        PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat("scaleX", 0.3f, 1f);
 //        PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat("scaleY", 0.3f, 1f);

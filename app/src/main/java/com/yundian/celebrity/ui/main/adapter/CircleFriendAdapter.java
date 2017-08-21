@@ -86,7 +86,7 @@ public class CircleFriendAdapter extends BaseQuickAdapter<CircleFriendBean.Circl
         if (TextUtils.isEmpty(circleItem.getPic_url())) {
             img_back.setVisibility(View.GONE);
         } else {
-            ImageLoaderUtils.displaySmallPhoto(mContext, img_back, circleItem.getPic_url());
+            ImageLoaderUtils.display(mContext, img_back, circleItem.getPic_url());
         }
         EditText contentTv = holder.getView(R.id.contentTv);
         if (!TextUtils.isEmpty(content)) {

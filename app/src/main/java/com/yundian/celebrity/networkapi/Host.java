@@ -64,13 +64,14 @@ public enum Host {
 //        return "61.147.114.87";
 //        return "139.224.34.22";  //开发
 //        return "122.144.169.214"; //测试
-        return "tapi.smartdata-x.com";//线上正式
+//        return "tapi.smartdata-x.com";//线上正式
 //        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//        if(BuildConfig.DEBUG){
+        if(BuildConfig.DEBUG){
 //            return "139.224.34.22"; //本地
-//        }else{
-//            return "tapi.smartdata-x.com";//线上正式
-//        }
+            return "122.144.169.214"; //测试
+        }else{
+            return "tapi.smartdata-x.com";//线上正式
+        }
 
 //        return "192.168.8.131";
     }

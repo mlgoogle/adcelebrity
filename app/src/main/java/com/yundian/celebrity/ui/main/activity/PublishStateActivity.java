@@ -10,25 +10,24 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.netease.nim.uikit.common.media.picker.PickImageHelper;
 import com.netease.nim.uikit.session.constant.Extras;
+import com.qiniu.android.common.Zone;
 import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.Configuration;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
 import com.yundian.celebrity.R;
-import com.yundian.celebrity.app.Constant;
+import com.yundian.celebrity.app.AppConfig;
 import com.yundian.celebrity.base.BaseActivity;
 import com.yundian.celebrity.bean.EventBusMessage;
-import com.yundian.celebrity.bean.QiNiuImageToken;
 import com.yundian.celebrity.bean.RequestResultBean;
+import com.yundian.celebrity.bean.UptokenBean;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
-import com.yundian.celebrity.ui.view.MyProgressView;
 import com.yundian.celebrity.ui.view.ValidationWatcher;
 import com.yundian.celebrity.utils.DisplayUtil;
 import com.yundian.celebrity.utils.FormatUtil;
-import com.yundian.celebrity.utils.HttpUtils;
 import com.yundian.celebrity.utils.ImageLoaderUtils;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.SharePrefUtil;
@@ -61,6 +60,7 @@ public class PublishStateActivity extends BaseActivity {
     @Bind(R.id.iv_clear)
     ImageView ivClear;
     private String pathUrl = "";
+    private UploadManager uploadManager;
 
 
     @Override
@@ -72,7 +72,7 @@ public class PublishStateActivity extends BaseActivity {
     public void initPresenter() {
 
     }
-
+    Zone zone=Zone.zone0;
     @Override
     public void initView() {
         ntTitle.setRightTitleVisibility(true);
@@ -85,7 +85,26 @@ public class PublishStateActivity extends BaseActivity {
 
         initListener();
 
+        setZone();
+
         feedbackContent.addTextChangedListener(mValidationWatcher);
+    }
+
+    private void setZone() {
+        if ("华东".equals(AppConfig.AREA)){
+            zone= Zone.zone0;
+        }else if("华南".equals(AppConfig.AREA)){
+            zone=Zone.zone2;
+        }else if("华北".equals(AppConfig.AREA)){
+            zone=Zone.zone1;
+        }
+
+        Configuration config = new Configuration.Builder()
+                .zone(zone) // 设置区域，指定不同区域的上传域名、备用域名、备用IP。
+                .build();
+
+        uploadManager = new UploadManager(config);
+//        uploadManager = new UploadManager();
     }
 
     private void initListener() {
@@ -103,23 +122,31 @@ public class PublishStateActivity extends BaseActivity {
 
     }
 
-    private UploadManager uploadManager = new UploadManager();
+
+//    private UploadManager uploadManager = new UploadManager();
 
     private void publishState() {
 
 
         if(!TextUtils.isEmpty(pathUrl)){
             startProgressDialog();
-            HttpUtils.doGetAsyn(Constant.QI_NIU_TOKEN_URL, new HttpUtils.CallBack() {
+            NetworkAPIFactoryImpl.getUserAPI().getQiNiuToken(new OnAPIListener<UptokenBean>() {
                 @Override
-                public void onRequestComplete(String result) {
-                    LogUtils.loge("请求到的http数据:" + result);
-                    final QiNiuImageToken tokenEntity = JSON.parseObject(result, QiNiuImageToken.class);
+                public void onError(Throwable ex) {
+
+                }
+
+                @Override
+                public void onSuccess(final UptokenBean uptokenBean) {
+                    LogUtils.loge("请求到的http数据:" + uptokenBean);
+//                    final QiNiuImageToken tokenEntity = JSON.parseObject(uptokenBean, QiNiuImageToken.class);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             LogUtils.loge("生成的图片名称是:" + FormatUtil.createImageName());
-                            uploadManager.put(pathUrl, FormatUtil.createImageName(), tokenEntity.getImageToken(),
+                            String extName = getExtName(pathUrl, '.');
+
+                            uploadManager.put(pathUrl, FormatUtil.createImageName()+extName, uptokenBean.getUptoken(),
                                     new UpCompletionHandler() {
                                         @Override
                                         public void complete(String key, ResponseInfo info, JSONObject response) {
@@ -128,11 +155,13 @@ public class PublishStateActivity extends BaseActivity {
                                                 Log.i("qiniu", "Upload Success");
 
                                                 //拿到上传的图片地址,请求自己的服务器
-                                                String imageUrl = Constant.QI_NIU_BASE_URL + key;
+//                                                String imageUrl = Constant.QI_NIU_BASE_URL + key;
+                                                String imageUrl = key;
                                                 LogUtils.loge("获取的图片地址:" + imageUrl);
                                                 doSendContent(imageUrl);
                                             } else {
                                                 Log.i("qiniu", "Upload Fail");
+                                                stopProgressDialog();
                                                 //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
                                             }
                                             Log.i("qiniu", key + ",\r\n " + info + ",\r\n " + response);
@@ -143,9 +172,54 @@ public class PublishStateActivity extends BaseActivity {
                     });
                 }
             });
+
+
+//            HttpUtils.doGetAsyn(Constant.QI_NIU_TOKEN_URL, new HttpUtils.CallBack() {
+//                @Override
+//                public void onRequestComplete(String result) {
+//                    LogUtils.loge("请求到的http数据:" + result);
+//                    final QiNiuImageToken tokenEntity = JSON.parseObject(result, QiNiuImageToken.class);
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            LogUtils.loge("生成的图片名称是:" + FormatUtil.createImageName());
+//                            String extName = getExtName(pathUrl, '.');
+//
+//                            uploadManager.put(pathUrl, FormatUtil.createImageName()+extName, tokenEntity.getImageToken(),
+//                                    new UpCompletionHandler() {
+//                                        @Override
+//                                        public void complete(String key, ResponseInfo info, JSONObject response) {
+//                                            //res包含hash、key等信息，具体字段取决于上传策略的设置
+//                                            if (info.isOK()) {
+//                                                Log.i("qiniu", "Upload Success");
+//
+//                                                //拿到上传的图片地址,请求自己的服务器
+////                                                String imageUrl = Constant.QI_NIU_BASE_URL + key;
+//                                                String imageUrl = key;
+//                                                LogUtils.loge("获取的图片地址:" + imageUrl);
+//                                                doSendContent(imageUrl);
+//                                            } else {
+//                                                Log.i("qiniu", "Upload Fail");
+//                                                //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
+//                                            }
+//                                            Log.i("qiniu", key + ",\r\n " + info + ",\r\n " + response);
+//
+//                                        }
+//                                    }, null);
+//                        }
+//                    });
+//                }
+//            });
         }else{
             ToastUtils.showShort("请选择一张图片");
         }
+    }
+
+    private String getExtName(String s, char split) {
+        int i = s.lastIndexOf(split);
+        int leg = s.length();
+        String s1 = i > 0 ? (i + 1) == leg ? " " : s.substring(i, s.length()) : " ";
+        return s1;
     }
     //上传到自己的服务器里
     private void doSendContent(String imageUrl) {
@@ -238,7 +312,7 @@ public class PublishStateActivity extends BaseActivity {
             return;
         }
         LogUtils.loge("获取到上传的图片的地址:" + path);
-        ImageLoaderUtils.display(mContext, ivAddPic, path);
+        ImageLoaderUtils.display(mContext, ivAddPic, file);
         pathUrl = path;
         ivClear.setVisibility(View.VISIBLE);
     }

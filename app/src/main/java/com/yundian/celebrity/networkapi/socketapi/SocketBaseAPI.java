@@ -12,7 +12,6 @@ import com.yundian.celebrity.utils.LogUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -91,7 +90,7 @@ public class SocketBaseAPI {
             @Override
             public void onSuccess(SocketAPIResponse socketAPIResponse) {
                 if( listener != null ) {
-                    //LogUtils.loge("解析"+socketAPIResponse.jsonObject().toString());
+                    LogUtils.loge("解析"+socketAPIResponse.jsonObject().toString());
                     Object object = JSON.parseObject(socketAPIResponse.jsonObject().toString(),cls);
                     SocketBaseAPI.this.onSuccess(listener,object);
 
