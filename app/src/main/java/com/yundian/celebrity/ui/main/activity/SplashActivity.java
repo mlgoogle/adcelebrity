@@ -107,6 +107,7 @@ public class SplashActivity extends Activity {
                     public void onSuccess(QiNiuAdressBean o) {
                         LogUtils.loge("ysl_七牛"+o.toString());
                         String area = ipAddress.getData().getArea();
+                        AppConfig.HUANAN_QI_NIU_PIC_ADRESS = o.getQINIU_URL_HUANAN();
                         if ("华东".equals(area)&& !TextUtils.isEmpty(o.getQINIU_URL_HUADONG())){
                             AppConfig.QI_NIU_PIC_ADRESS = o.getQINIU_URL_HUADONG();
                             LogUtils.loge("ysl_七牛"+"华东");
@@ -115,6 +116,7 @@ public class SplashActivity extends Activity {
                             LogUtils.loge("ysl_七牛"+"华北");
                         }else if ("华南".equals(area)&& !TextUtils.isEmpty(o.getQINIU_URL_HUANAN())){
                             AppConfig.QI_NIU_PIC_ADRESS = o.getQINIU_URL_HUANAN();
+
                             LogUtils.loge("ysl_七牛"+"华南");
                         }
                     }

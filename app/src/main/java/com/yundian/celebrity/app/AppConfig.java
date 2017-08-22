@@ -12,6 +12,7 @@ public class AppConfig {
     public static String APP_ID = "";
 
     public static String QI_NIU_PIC_ADRESS = "http://ouim6qew1.bkt.clouddn.com/";
+    public static String HUANAN_QI_NIU_PIC_ADRESS ;
     public static long AREA_ID = 0;
     public static String AREA = "";
     public static long ISP_ID = 0;

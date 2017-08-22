@@ -156,7 +156,8 @@ public class PublishStateActivity extends BaseActivity {
 
                                                 //拿到上传的图片地址,请求自己的服务器
 //                                                String imageUrl = Constant.QI_NIU_BASE_URL + key;
-                                                String imageUrl = key;
+                                                //星享要拼接区域
+                                                String imageUrl =AppConfig.HUANAN_QI_NIU_PIC_ADRESS+ key;
                                                 LogUtils.loge("获取的图片地址:" + imageUrl);
                                                 doSendContent(imageUrl);
                                             } else {
