@@ -22,8 +22,8 @@ public class UserinfoBean implements Parcelable {
     private String phone;
     private int type;
     private String agentName;
-//    private String avatar_Large;
-    private String avatar_Large_tail;
+    private String avatar_Large;
+//    private String avatar_Large_tail;
     private String channel;
     private String starcode; //明星code
 
@@ -83,21 +83,21 @@ public class UserinfoBean implements Parcelable {
         this.agentName = agentName;
     }
 
-//    public String getAvatar_Large() {
-//        return avatar_Large;
-//    }
-
-    public String getAvatar_Large_Tail() {
-        return avatar_Large_tail;
+    public String getAvatar_Large() {
+        return avatar_Large;
     }
 
-//    public void setAvatar_Large(String avatar_Large) {
-//        this.avatar_Large = avatar_Large;
+//    public String getAvatar_Large_Tail() {
+//        return avatar_Large_tail;
 //    }
 
-    public void setAvatar_avatar_Large_Tail(String avatar_Large) {
-        this.avatar_Large_tail = avatar_Large;
+    public void setAvatar_Large(String avatar_Large) {
+        this.avatar_Large = avatar_Large;
     }
+
+//    public void setAvatar_avatar_Large_Tail(String avatar_Large) {
+//        this.avatar_Large_tail = avatar_Large;
+//    }
 
     @Override
     public String toString() {
@@ -107,7 +107,7 @@ public class UserinfoBean implements Parcelable {
                 ", phone='" + phone + '\'' +
                 ", type=" + type +
                 ", agentName='" + agentName + '\'' +
-                ", avatar_Large_tail='" + avatar_Large_tail + '\'' +
+                ", avatar_Largel='" + avatar_Large + '\'' +
                 ", channel='" + channel + '\'' +
                 ", starcode='" + starcode + '\'' +
                 '}';
@@ -126,7 +126,7 @@ public class UserinfoBean implements Parcelable {
         dest.writeInt(this.type);
         dest.writeString(this.agentName);
 //        dest.writeString(this.avatar_Large);
-        dest.writeString(this.avatar_Large_tail);
+        dest.writeString(this.avatar_Large);
         dest.writeString(this.channel);
         dest.writeString(this.starcode);
     }
@@ -140,7 +140,7 @@ public class UserinfoBean implements Parcelable {
         this.phone = in.readString();
         this.type = in.readInt();
         this.agentName = in.readString();
-        this.avatar_Large_tail = in.readString();
+        this.avatar_Large = in.readString();
         this.channel = in.readString();
         this.starcode = in.readString();
     }

@@ -100,7 +100,7 @@ public class PublishStateActivity extends BaseActivity {
         }
 
         Configuration config = new Configuration.Builder()
-                .zone(zone) // 设置区域，指定不同区域的上传域名、备用域名、备用IP。
+                .zone(Zone.zone2) // 设置区域，指定不同区域的上传域名、备用域名、备用IP。
                 .build();
 
         uploadManager = new UploadManager(config);

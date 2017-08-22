@@ -45,7 +45,7 @@ public class SharePrefUtil {
         sp.edit().putString("token", user.getToken()).apply();
         sp.edit().putInt("userId", user.getUserinfo().getId()).apply();
         sp.edit().putString("starcode", user.getUserinfo().getStarcode()).apply();
-        sp.edit().putString("headurl", user.getUserinfo().getAvatar_Large_Tail()).apply();
+        sp.edit().putString("headurl", user.getUserinfo().getAvatar_Large()).apply();
         sp.edit().putString("channel", user.getUserinfo().getChannel()).apply();
         sp.edit().putString("nickName", user.getUserinfo().getAgentName()).apply(); //昵称
 //        sp.edit().putString("balance", user.getUserinfo().getBalance() + "").apply();  //当前余额不准确,请求余额需要到请求余额的接口

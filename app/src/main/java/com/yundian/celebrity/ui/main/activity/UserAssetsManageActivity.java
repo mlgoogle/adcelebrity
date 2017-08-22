@@ -13,13 +13,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.base.BaseActivity;
 import com.yundian.celebrity.bean.AssetDetailsBean;
 import com.yundian.celebrity.bean.BankCardBean;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
-import com.yundian.celebrity.utils.JudgeIsSetPayPwd;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.widget.NormalTitleBar;
@@ -207,9 +207,9 @@ public class UserAssetsManageActivity extends BaseActivity implements View.OnCli
                 if (bean.getIs_setpwd() != -100) {
                     SharePrefUtil.getInstance().saveAssetInfo(bean);
                 }
-                if (!TextUtils.isEmpty(bean.getHead_url()) && !TextUtils.isEmpty(bean.getNick_name())) {
+                if (!TextUtils.isEmpty(bean.getHead_url_tail()) && !TextUtils.isEmpty(bean.getNick_name())) {
                     SharePrefUtil.getInstance().putUserNickName(bean.getNick_name());
-                    SharePrefUtil.getInstance().putUserPhotoUrl(bean.getHead_url());
+                    SharePrefUtil.getInstance().putUserPhotoUrl(bean.getHead_url_tail());
                 }
             }
 

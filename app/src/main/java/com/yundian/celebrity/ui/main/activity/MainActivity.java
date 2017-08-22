@@ -9,7 +9,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -429,9 +428,9 @@ public class MainActivity extends BaseActivity {
                 if (bean.getIs_setpwd() != -100) {
                     SharePrefUtil.getInstance().saveAssetInfo(bean);
                 }
-                if (!TextUtils.isEmpty(bean.getHead_url()) && !TextUtils.isEmpty(bean.getNick_name())) {
+                if (!TextUtils.isEmpty(bean.getHead_url_tail()) && !TextUtils.isEmpty(bean.getNick_name())) {
                     SharePrefUtil.getInstance().putUserNickName(bean.getNick_name());
-                    SharePrefUtil.getInstance().putUserPhotoUrl(bean.getHead_url());
+                    SharePrefUtil.getInstance().putUserPhotoUrl(bean.getHead_url_tail());
                 }
 
                 // SharePrefUtil.getInstance().saveAssetInfo(bean);

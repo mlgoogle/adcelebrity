@@ -2,21 +2,19 @@ package com.yundian.celebrity.LoginUnitTest.model.net;
 
 
 
-import com.yundian.celebrity.common.SocketBaseAPIWrapper;
 import com.yundian.celebrity.app.SocketAPIConstant;
 import com.yundian.celebrity.bean.CheckUpdateInfoEntity;
 import com.yundian.celebrity.bean.LoginReturnInfo;
+import com.yundian.celebrity.bean.QiNiuAdressBean;
 import com.yundian.celebrity.bean.RegisterReturnBeen;
 import com.yundian.celebrity.bean.RegisterReturnWangYiBeen;
 import com.yundian.celebrity.bean.RegisterVerifyCodeBeen;
+import com.yundian.celebrity.bean.UptokenBean;
 import com.yundian.celebrity.bean.WXinLoginReturnBeen;
+import com.yundian.celebrity.common.SocketBaseAPIWrapper;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.UserAPI;
-import com.yundian.celebrity.networkapi.socketapi.SocketReqeust.SocketAPINettyBootstrap;
 import com.yundian.celebrity.networkapi.socketapi.SocketReqeust.SocketDataPacket;
-
-import com.yundian.celebrity.utils.LogUtils;
-import com.yundian.celebrity.utils.ToastUtils;
 
 import java.util.HashMap;
 
@@ -91,6 +89,16 @@ public class SocketUserAPIWrapper extends SocketBaseAPIWrapper implements UserAP
 
     @Override
     public void saveDevice(long uid, OnAPIListener<Object> listener) {
+
+    }
+
+    @Override
+    public void getQiNiuPicDress(OnAPIListener<QiNiuAdressBean> listener) {
+
+    }
+
+    @Override
+    public void getQiNiuToken(OnAPIListener<UptokenBean> listener) {
 
     }
 
