@@ -4,5 +4,5 @@
     android:layout_width="match_parent"
     android:layout_height="0.5dp"
     android:layout_marginLeft="@dimen/dp_12"
-    android:background="@color/font_999999"
+    android:background="@color/color_e5e5e5"
     tools:showIn="@layout/activity_add_bank_card" />

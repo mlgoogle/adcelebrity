@@ -100,7 +100,7 @@ public class PublishStateActivity extends BaseActivity {
         }
 
         Configuration config = new Configuration.Builder()
-                .zone(zone) // 设置区域，指定不同区域的上传域名、备用域名、备用IP。
+                .zone(Zone.zone2) // 设置区域，指定不同区域的上传域名、备用域名、备用IP。
                 .build();
 
         uploadManager = new UploadManager(config);
@@ -162,6 +162,7 @@ public class PublishStateActivity extends BaseActivity {
                                             } else {
                                                 Log.i("qiniu", "Upload Fail");
                                                 stopProgressDialog();
+                                                ToastUtils.showShort("上传失败"+info.error);
                                                 //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
                                             }
                                             Log.i("qiniu", key + ",\r\n " + info + ",\r\n " + response);

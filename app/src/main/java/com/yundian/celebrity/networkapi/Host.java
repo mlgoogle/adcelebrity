@@ -85,7 +85,7 @@ public enum Host {
 
 //         return (short) 16060;  //本地明星端
 
-        return (short) 16016;  //明星端
+        return (short) 17004;  //明星端
 //        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //        if(BuildConfig.DEBUG){
 //            return (short) 16060;  //本地明星端

@@ -7,19 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.netease.nim.uikit.NimUIKit;
-import com.netease.nim.uikit.common.util.log.LogUtil;
-import com.netease.nim.uikit.recent.AitHelper;
 import com.netease.nim.uikit.session.SessionCustomization;
-
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.RequestCallbackWrapper;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
-import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.base.BaseFragment;
@@ -30,7 +25,6 @@ import com.yundian.celebrity.ui.main.adapter.FansTalkAdapter;
 import com.yundian.celebrity.ui.wangyi.session.activity.P2PMessageActivity;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.SharePrefUtil;
-import com.yundian.celebrity.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +64,8 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
         registerObservers(true);
     }
 
+
+
     /**
      * ********************** 收消息，处理状态变化 ************************
      */
@@ -90,8 +86,6 @@ public class FansTalkFragment extends BaseFragment implements SwipeRefreshLayout
                 FansTalkFragment.this.recentContacts = recentContacts;
                 // TODO: 2017/8/3
                 fansTalkAdapter.setRecentContacts(recentContacts);
-
-
             }
         }
     };

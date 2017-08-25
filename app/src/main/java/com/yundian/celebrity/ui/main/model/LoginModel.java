@@ -1,38 +1,26 @@
 package com.yundian.celebrity.ui.main.model;
 
 
-import android.os.Looper;
+import android.text.TextUtils;
 
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.cache.DataCacheManager;
-import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.yundian.celebrity.R;
-import com.yundian.celebrity.app.CommentConfig;
-import com.yundian.celebrity.bean.EventBusMessage;
 import com.yundian.celebrity.bean.LoginReturnInfo;
 import com.yundian.celebrity.bean.RegisterReturnWangYiBeen;
-import com.yundian.celebrity.bean.ResultBeen;
 import com.yundian.celebrity.listener.IDataRequestListener;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.networkapi.UserAPI;
-import com.yundian.celebrity.networkapi.socketapi.SocketUserAPI;
-import com.yundian.celebrity.ui.main.activity.LoginActivity;
 import com.yundian.celebrity.ui.wangyi.DemoCache;
 import com.yundian.celebrity.ui.wangyi.config.preference.Preferences;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.utils.MD5Util;
 import com.yundian.celebrity.utils.SharePrefUtil;
 import com.yundian.celebrity.utils.ToastUtils;
-
-import org.greenrobot.eventbus.EventBus;
-
-import static com.yundian.celebrity.R.id.passwordEditText;
-import static com.yundian.celebrity.R.id.userNameEditText;
-import static com.yundian.celebrity.app.SocketAPIConstant.OperateCode.saveDevice;
 
 public class LoginModel {
 
@@ -76,7 +64,7 @@ public class LoginModel {
 					ToastUtils.showShort("用户已存在");
 					requestError(listener);
 					return;
-				} else if (loginReturnInfo != null && loginReturnInfo.getUserinfo() != null&&loginReturnInfo.getUserinfo().getStarcode()!=null) {
+				} else if (loginReturnInfo != null && loginReturnInfo.getUserinfo() != null&&loginReturnInfo.getUserinfo().getStarcode()!=null&&!TextUtils.isEmpty(loginReturnInfo.getUserinfo().getStarcode())) {
 //					requestServer(listener);
 
 					LogUtils.logd("登录成功" + loginReturnInfo.toString());
@@ -92,7 +80,7 @@ public class LoginModel {
 
 	public void wangyiRegister(String userName, final LoginReturnInfo loginReturnInfo, final IDataRequestListener listener){
 		//网易云注册   usertype  : 0普通用户 1,明星
-		NetworkAPIFactoryImpl.getUserAPI().registerWangYi(0, userName, userName, loginReturnInfo.getUserinfo().getId(), new OnAPIListener<RegisterReturnWangYiBeen>() {
+		NetworkAPIFactoryImpl.getUserAPI().registerWangYi(1, userName, userName, loginReturnInfo.getUserinfo().getId(), new OnAPIListener<RegisterReturnWangYiBeen>() {
 			@Override
 			public void onError(Throwable ex) {
 				requestError(listener);
