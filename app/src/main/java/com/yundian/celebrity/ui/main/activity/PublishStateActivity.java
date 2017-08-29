@@ -138,6 +138,7 @@ public class PublishStateActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(final UptokenBean uptokenBean) {
+//                    4jvwuLa_Xcux7WQ40KMO89DfinEuI3zXizMpwnc7:FBbisviRf9c80e6NBxrlA3CWW88=:eyJzY29wZSI6InN0YXJzaGFyZWltYWdlIiwiZGVhZGxpbmUiOjE1MDM2NDI1MTR9
                     LogUtils.loge("请求到的http数据:" + uptokenBean);
 //                    final QiNiuImageToken tokenEntity = JSON.parseObject(uptokenBean, QiNiuImageToken.class);
                     runOnUiThread(new Runnable() {
