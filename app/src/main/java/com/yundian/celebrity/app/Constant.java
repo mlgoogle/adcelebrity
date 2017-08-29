@@ -4,11 +4,11 @@ import com.yundian.celebrity.R;
 
 public interface Constant {
 
-    String[] mTitles = {"收益情况", "联系粉丝", "约见管理"};
+    String[] mTitles = {"收益情况", "联系粉丝", "约见管理","粉丝问答"};
     int[] mIconUnselectIds = {
-            R.drawable.market_no_ok, R.drawable.differ_answer_no_ok, R.drawable.icon_manager_normal};
+            R.drawable.market_no_ok, R.drawable.differ_answer_no_ok, R.drawable.icon_manager_normal,R.drawable.icon_manager_normal};
     int[] mIconSelectIds = {
-            R.drawable.market_ok, R.drawable.differ_answer_ok, R.drawable.icon_manager_sel};
+            R.drawable.market_ok, R.drawable.differ_answer_ok, R.drawable.icon_manager_sel,R.drawable.icon_manager_sel};
 
     String[] rechargeType = new String[]{"微信支付", "支付宝支付"};
     String[] handleText = new String[]{" 未操作 ", " 双倍返还 ", " 货运 ", " 退舱 "};

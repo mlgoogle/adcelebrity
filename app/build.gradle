@@ -141,4 +141,5 @@ dependencies {
     testCompile 'com.github.fabioCollini:DaggerMock:0.6.1'
     androidTestCompile 'com.github.fabioCollini:DaggerMock:0.6.1'
     compile project(':qAMasterSDK')
+    compile project(path: ':library')
 }

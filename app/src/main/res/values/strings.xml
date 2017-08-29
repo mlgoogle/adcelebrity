@@ -131,8 +131,11 @@
     <string name="user_buyed_star">已购明星</string>
     <string name="end_times">距离结束还有</string>
     <string name="fans_talk">粉丝聊天</string>
+    <string name="custom_audio_talk">定制语音</string>
     <string name="fans_interaction">粉丝互动</string>
+    <string name="video_fans_ask">视频问答</string>
     <string name="contact_fans">联系粉丝</string>
+    <string name="ask_fans">粉丝问答</string>
     <string name="meeting_type">约见类型</string>
     <string name="meeting_order">约见订单</string>
     <string name="meeting_type_tips">Tips：未确认的都将视为不同意此约见类型，否则粉丝无法正常约见您。</string>

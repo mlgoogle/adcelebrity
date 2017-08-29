@@ -68,6 +68,12 @@
         <attr name="textColor" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="CaptureButtonView">
+        <attr name="captureButtonSize" format="dimension" />
+        <attr name="captureButtonColor" format="dimension" />
+
+    </declare-styleable>
+
     <declare-styleable name="RoundImageView">
         <attr name="roundWidth" format="dimension" />
         <attr name="roundHeight" format="dimension" />
@@ -90,4 +96,5 @@
         <attr name="item_color" format="color"/>
         <attr name="item_selector_color" format="color"/>
     </declare-styleable>
+
 </resources>

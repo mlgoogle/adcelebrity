@@ -29,7 +29,6 @@ import com.yundian.celebrity.utils.SharePrefUtil;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created by yaowang on 2017/2/20.
@@ -366,6 +365,19 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         map.put("starcode", starcode);
         map.put("starPos", startPos);
         map.put("count", count);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.FansList,
+                SocketAPIConstant.ReqeutType.StarIncome, map);
+        requestEntitys(socketDataPacket,"OrderList", HaveStarUsersBean.class, listener);
+    }
+
+    @Override
+    public void fanAskList(int pos, int count, OnAPIListener<List<HaveStarUsersBean>> listener) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("starcode", SharePrefUtil.getInstance().getUserId());
+        map.put("token", SharePrefUtil.getInstance().getToken());
+
+        map.put("count", count);
+        map.put("pos", pos);
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.FansList,
                 SocketAPIConstant.ReqeutType.StarIncome, map);
         requestEntitys(socketDataPacket,"OrderList", HaveStarUsersBean.class, listener);

@@ -117,6 +117,9 @@ public class PagerSlidingTabStrip extends HorizontalScrollView implements OnPage
 
     public PagerSlidingTabStrip(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
+//        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PagerSlidingTabStrip);
+//        indicatorHeight = a
+//                .getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pstsCheckedTextColor, indicatorHeight);
     }
 
     public PagerSlidingTabStrip(Context context, AttributeSet attrs, int defStyle) {
