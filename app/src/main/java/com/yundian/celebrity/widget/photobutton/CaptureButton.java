@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import com.yundian.celebrity.R;
+import com.yundian.celebrity.utils.DisplayUtil;
 import com.yundian.celebrity.widget.photobutton.lisenter.CaptureLisenter;
 
 
@@ -59,39 +60,41 @@ public class CaptureButton extends View {
     private ValueAnimator record_anim = ValueAnimator.ofFloat(0, 362);
 
     //当前按钮状态
-    private int state;
+    protected int state;
 
 
-    private Paint mPaint;
+    protected Paint mPaint;
     //进度条宽度
-    private float strokeWidth;
+    protected float strokeWidth;
     //长按外圆半径变大的Size
     private int outside_add_size;
     //长安内圆缩小的Size
     private int inside_reduce_size;
 
     //中心坐标
-    private float center_X;
-    private float center_Y;
+    protected float center_X;
+    protected float center_Y;
 
     //按钮半径
-    private float button_radius;
+    protected float button_radius;
 
     //外圆半径
-    private float button_outside_radius;
+    protected float button_outside_radius;
     //内圆半径
-    private float button_inside_radius;
+    protected float button_inside_radius;
 
     //按钮大小
     private int button_size;
     //录制视频的进度
-    private float progress;
-    private RectF rectF;
+    protected float progress;
+    protected RectF rectF;
     //录制视频最大时间长度
     private int duration;
 
     //按钮回调接口
     private CaptureLisenter captureLisenter;
+    private int size;
+    private boolean hasShortLimit=false;
 
 //    private boolean hasWindowFocus = true;
 
@@ -101,8 +104,9 @@ public class CaptureButton extends View {
 
     public CaptureButton(Context context,AttributeSet attrs) {
         super(context);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CaptureButtonView);
-        int size = a.getDimensionPixelSize(R.styleable.CaptureButtonView_captureButtonSize, 0);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CaptureButton);
+        int i = DisplayUtil.dip2px(70);
+        size = a.getDimensionPixelSize(R.styleable.CaptureButton_captureButtonSize, i);
 
         this.button_size = size;
         button_radius = size / 2.0f;
@@ -111,8 +115,9 @@ public class CaptureButton extends View {
         button_inside_radius = button_radius * 0.75f;
 
         strokeWidth = size / 15;
-        outside_add_size = size / 5;
-        inside_reduce_size = size / 8;
+        // TODO: 2017/8/29
+        outside_add_size = 0;
+        inside_reduce_size = 0;
 
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -149,8 +154,9 @@ public class CaptureButton extends View {
         button_inside_radius = button_radius * 0.75f;
 
         strokeWidth = size / 15;
-        outside_add_size = size / 5;
-        inside_reduce_size = size / 8;
+        // TODO: 2017/8/29
+        outside_add_size = size / 8;
+        inside_reduce_size = size / 9;
 
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -203,6 +209,8 @@ public class CaptureButton extends View {
             mPaint.setStrokeWidth(strokeWidth);
             canvas.drawArc(rectF, -90, progress, false, mPaint);
         }
+
+
     }
 
     //Touch_Event_Down时候记录的Y值
@@ -357,13 +365,14 @@ public class CaptureButton extends View {
         state = STATE_UNPRESS_LONG_CLICK;
         if (captureLisenter != null) {
             //录制时间小于一秒时候则提示录制时间过短
-            if (record_anim.getCurrentPlayTime() < 3000 && !finish) {
+            if (record_anim.getCurrentPlayTime() < 3000 && !finish&&hasShortLimit) {
                 captureLisenter.recordShort(record_anim.getCurrentPlayTime());
             } else {
                 if (finish) {
                     captureLisenter.recordEnd(duration);
                 } else {
-                    captureLisenter.recordEnd(record_anim.getCurrentPlayTime());
+                    long millitime=record_anim.getCurrentPlayTime();
+                    captureLisenter.recordEnd(millitime);
                 }
             }
         }

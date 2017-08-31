@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:starshare="http://schemas.android.com/apk/res/com.yundian.celebrity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.yundian.celebrity.widget.NormalTitleBar
+        android:id="@+id/nt_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/color_FB9938" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_ask_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nt_title"
+        android:paddingBottom="39dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="1"
+                android:text="小姜"
+                android:textColor="@color/color_black_333333"
+                android:textSize="@dimen/fontSize_14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:text="2017/8/16"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/fontSize_14sp" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_ask_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="5dp"
+            android:text="今天朋友生日希望得到偶像祝福"
+            android:textColor="@color/color_black_333333"
+            android:textSize="@dimen/fontSize_16sp" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_below="@id/ll_ask_content">
+
+
+
+        <com.yundian.celebrity.widget.EasySwitchButton
+            android:id="@+id/esb_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="13dp"
+            starshare:isOpened="true"
+            starshare:switch_off="@drawable/open_questions_off"
+            starshare:switch_on="@drawable/open_questions_oppen" />
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/esb_button"
+            android:layout_marginRight="14dp"
+            android:text="语音公开" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tip"
+        android:layout_below="@id/rl_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="35dp"
+        android:text="Tips:仅能提交一条视频，可删除后重新录制。可选择公开 或者私密，公开的视频能被其他用户所见。"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/fontSize_14sp" />
+    <RelativeLayout
+        android:layout_below="@id/tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="108dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginRight="26dp">
+
+        <ImageView
+            android:id="@+id/frame"
+            android:layout_width="151dp"
+            android:layout_height="201dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="61dp"
+            android:layout_toRightOf="@id/frame" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_video_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+    <RelativeLayout
+        android:id="@+id/audio_layout"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/mic_bg"
+        android:visibility="gone">
+
+        <Chronometer
+            android:id="@+id/time_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/mic_icon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/mic_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mic_icon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.base.BaseFragment;
+import com.yundian.celebrity.ui.main.activity.RecordVideoActivity1;
 import com.yundian.celebrity.ui.main.adapter.VideoAskAdapter;
 import com.yundian.celebrity.utils.LogUtils;
+import com.yundian.celebrity.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +61,13 @@ public class VideoAskFragment extends BaseFragment implements SwipeRefreshLayout
     private void initAdapter() {
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
-        videoAskAdapter = new VideoAskAdapter(R.layout.adapter_video_custom, dataList);
+        videoAskAdapter = new VideoAskAdapter(R.layout.adapter_video_custom, dataList, new VideoAskAdapter.OnAdapterCallBack() {
+            @Override
+            public void onGoRecordVideo() {
+                ToastUtils.showShort("dianjirecord");
+                startActivity(RecordVideoActivity1.class);
+            }
+        });
         videoAskAdapter.setOnLoadMoreListener(this, mRecyclerView);
 
         mRecyclerView.setAdapter(videoAskAdapter);

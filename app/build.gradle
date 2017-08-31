@@ -26,8 +26,8 @@ android {
     defaultConfig {
         applicationId "com.yundian.celebrity"
         minSdkVersion 16
-        targetSdkVersion 25
-        versionCode 20170808
+        targetSdkVersion 22
+        versionCode 20170830
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "GIT_REVISION", "\"${getGitVersion()}\""
@@ -83,6 +83,9 @@ android {
 //
  repositories {
     jcenter()
+     flatDir {
+         dirs 'libs'
+     }
     maven { url 'https://jitpack.io' }
 }
 
@@ -142,4 +145,27 @@ dependencies {
     androidTestCompile 'com.github.fabioCollini:DaggerMock:0.6.1'
     compile project(':qAMasterSDK')
     compile project(path: ':library')
+
+
+    testCompile 'org.powermock:powermock-module-junit4:1.6.2'
+    testCompile 'org.powermock:powermock-module-junit4-rule:1.6.2'
+    testCompile 'org.powermock:powermock-api-mockito:1.6.2'
+    testCompile 'org.powermock:powermock-classloading-xstream:1.6.2'
+
+    compile files('libs/pldroid-shortvideo-1.2.1.jar')
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.qiniu:qiniu-android-sdk:7.3.3'
+    compile(name: 'kw-filter', ext: 'aar')
+    compile(name: 'kw-tracker', ext: 'aar')
+    compile 'com.qiniu:happy-dns:0.2.+'
+
+    compile 'com.shuyu:gsyVideoPlayer-java:2.0.5'
+
+//根据你的需求
+    compile 'com.shuyu:gsyVideoPlayer-armv5:2.0.5'
+    compile 'com.shuyu:gsyVideoPlayer-armv7a:2.0.5'
+    compile 'com.shuyu:gsyVideoPlayer-arm64:2.0.5'
+    compile 'com.shuyu:gsyVideoPlayer-x64:2.0.5'
+    compile 'com.shuyu:gsyVideoPlayer-x86:2.0.5'
+
 }

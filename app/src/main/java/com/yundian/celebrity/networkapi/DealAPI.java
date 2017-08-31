@@ -7,6 +7,7 @@ import com.yundian.celebrity.bean.BankCardBean;
 import com.yundian.celebrity.bean.BankInfoBean;
 import com.yundian.celebrity.bean.BookingStarListBean;
 import com.yundian.celebrity.bean.CircleFriendBean;
+import com.yundian.celebrity.bean.FansAskBean;
 import com.yundian.celebrity.bean.HaveStarUsersBean;
 import com.yundian.celebrity.bean.IdentityInfoBean;
 import com.yundian.celebrity.bean.IncomeReturnBean;
@@ -106,10 +107,11 @@ public interface DealAPI {
     void meetOrderList(String starcode,int startPos, int count, OnAPIListener<List<MeetOrderListBean>> listener);  //约见订单列表
     void agreeMeet(String starcode,int meettype, int meetid, OnAPIListener<RequestResultBean> listener);  //约见订单列表
     void fansList(String starcode,int startPos, int count, OnAPIListener<List<HaveStarUsersBean>> listener);  //拥有明星用户
-    void fanAskList(int pos,int count, OnAPIListener<List<HaveStarUsersBean>> listener);  //拥有明星用户
+    void fanAskList(String starCode,int pos,int count,int type,int pType, OnAPIListener<List<FansAskBean>> listener);  //拥有明星用户
     void starCommentUid(String star_code, long circle_id, long uid, int direction, String content, OnAPIListener<ResultBeen> listener);
     void getPraisestar(String star_code,long circle_id,long uid,OnAPIListener<ResultBeen> listener);
     void getAllCircleInfo(int pos,int count,OnAPIListener<CircleFriendBean> listener);
     void publishState(String content,String picurl,String star_code,OnAPIListener<RequestResultBean> listener);
+    void publishAnswer(int questionId , int pType,String Answer,   OnAPIListener<RequestResultBean> listener);
     void submitAddressTimeInfo(String address,String startdate,String enddate,OnAPIListener<SubmitAddressTimeInfo> listener);
 }

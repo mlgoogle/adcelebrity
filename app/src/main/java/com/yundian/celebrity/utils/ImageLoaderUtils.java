@@ -26,8 +26,23 @@ public class ImageLoaderUtils {
                 .error(error).crossFade().into(imageView);
     }
 
+
+
     public static void display(Context context, ImageView imageView, String url) {
         url = AppConfig.QI_NIU_PIC_ADRESS+url;
+        LogUtils.loge("ysl_url"+url);
+        if (imageView == null) {
+            throw new IllegalArgumentException("argument error");
+        }
+        Glide.with(context).load(url)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .centerCrop()
+                .error(R.drawable.ic_empty_picture)
+                .crossFade().into(imageView);
+    }
+
+    public static void displayUrl(Context context, ImageView imageView, String url) {
+
         LogUtils.loge("ysl_url"+url);
         if (imageView == null) {
             throw new IllegalArgumentException("argument error");

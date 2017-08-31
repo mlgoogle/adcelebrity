@@ -23,6 +23,8 @@ import com.yundian.celebrity.utils.LogUtils;
 
 import java.lang.ref.WeakReference;
 
+import static com.yundian.celebrity.app.AppConfig.QI_NIU_PIC_ADRESS;
+
 /**
  * Created by Administrator on 2017/5/5.
  * #12
@@ -90,7 +92,7 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 final MyAddressBean ipAddress = GetIPAddressUtils.getIpAddress();
-                if (ipAddress.getData()==null){
+                if (ipAddress!=null&&ipAddress.getData()==null){
                     return;
                 }
                 AppConfig.AREA_ID = Long.valueOf(ipAddress.getData().getArea_id());
@@ -100,7 +102,8 @@ public class SplashActivity extends Activity {
                 NetworkAPIFactoryImpl.getUserAPI().getQiNiuPicDress(new OnAPIListener<QiNiuAdressBean>() {
                     @Override
                     public void onError(Throwable ex) {
-
+                        LogUtils.loge("ysl_七牛error");
+//                        AppConfig.HUANAN_QI_NIU_PIC_ADRESS =AppConfig.QI_NIU_PIC_ADRESS;
                     }
 
                     @Override
@@ -109,13 +112,13 @@ public class SplashActivity extends Activity {
                         String area = ipAddress.getData().getArea();
                         AppConfig.HUANAN_QI_NIU_PIC_ADRESS = o.getQINIU_URL_HUANAN();
                         if ("华东".equals(area)&& !TextUtils.isEmpty(o.getQINIU_URL_HUADONG())){
-                            AppConfig.QI_NIU_PIC_ADRESS = o.getQINIU_URL_HUADONG();
+                            QI_NIU_PIC_ADRESS = o.getQINIU_URL_HUANAN();
                             LogUtils.loge("ysl_七牛"+"华东");
                         }else if ("华北".equals(area)&& !TextUtils.isEmpty(o.getQINIU_URL_HUABEI())){
-                            AppConfig.QI_NIU_PIC_ADRESS = o.getQINIU_URL_HUABEI();
+                            QI_NIU_PIC_ADRESS = o.getQINIU_URL_HUANAN();
                             LogUtils.loge("ysl_七牛"+"华北");
                         }else if ("华南".equals(area)&& !TextUtils.isEmpty(o.getQINIU_URL_HUANAN())){
-                            AppConfig.QI_NIU_PIC_ADRESS = o.getQINIU_URL_HUANAN();
+                            QI_NIU_PIC_ADRESS = o.getQINIU_URL_HUANAN();
 
                             LogUtils.loge("ysl_七牛"+"华南");
                         }
