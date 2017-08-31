@@ -113,5 +113,6 @@ public interface DealAPI {
     void getAllCircleInfo(int pos,int count,OnAPIListener<CircleFriendBean> listener);
     void publishState(String content,String picurl,String star_code,OnAPIListener<RequestResultBean> listener);
     void publishAnswer(int questionId , int pType,String Answer,   OnAPIListener<RequestResultBean> listener);
+    void publishVideoAnswer(int questionId , int pType,String Answer,String frameImg,   OnAPIListener<RequestResultBean> listener);
     void submitAddressTimeInfo(String address,String startdate,String enddate,OnAPIListener<SubmitAddressTimeInfo> listener);
 }

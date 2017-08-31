@@ -13,6 +13,7 @@
     <string name="start_verification">开始验证</string>
     <string name="about">关于</string>
     <string name="heard_num">听过 %1$d</string>
+    <string name="look_num">观看 %1$d</string>
     <string name="main_tab_session">会话</string>
     <string name="main_tab_contact">通讯录</string>
     <string name="user_profile">个人名片</string>

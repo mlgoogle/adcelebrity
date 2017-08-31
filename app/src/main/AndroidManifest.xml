@@ -617,6 +617,11 @@
             android:name=".ui.main.activity.RecordVideoActivity1"
             android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.main.activity.PlayActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

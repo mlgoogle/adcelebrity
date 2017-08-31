@@ -450,6 +450,20 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
     }
 
     @Override
+    public void publishVideoAnswer(int questionId , int pType,String Answer,String frameImg,   OnAPIListener<RequestResultBean> listener) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", questionId);
+        map.put("token", SharePrefUtil.getInstance().getToken());
+        map.put("pType", pType);
+        map.put("sanswer", Answer);
+        map.put("thumbnailS", frameImg);
+
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.PublishAnswer,
+                SocketAPIConstant.ReqeutType.CircleInfo, map);
+        requestEntity(socketDataPacket,RequestResultBean.class,listener);
+    }
+
+    @Override
     public void submitAddressTimeInfo(String address, String startDate, String endDate, OnAPIListener<SubmitAddressTimeInfo> listener) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", SharePrefUtil.getInstance().getUserId());

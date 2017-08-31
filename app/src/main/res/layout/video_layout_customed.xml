@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/action_bar_black_title_1f1f1f"
+    >
+
+    <RelativeLayout
+        android:id="@+id/surface_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:gravity="center">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+
+        android:id="@+id/thumb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+
+        android:scaleType="fitCenter" />
+
+    <RelativeLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/iv_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_ask_normal"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_above="@id/iv_question"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/ask_content_shape"
+            android:padding="14dp"
+            >
+            <ImageView
+                android:id="@+id/iv_head"
+                android:layout_width="26dp"
+
+                android:layout_height="26dp" />
+            <TextView
+                android:id="@id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/iv_head"
+                android:layout_marginLeft="6dp"
+                android:textSize="14sp"
+
+                android:text="小姜"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_head"
+                android:text="女神,你在爱情邮局片场中有什么趣事吗"
+                android:layout_marginTop="12dp"
+
+                android:textSize="16sp"
+                android:layout_alignLeft="@id/tv_name"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+
+
+    <ImageView
+        android:id="@+id/back_tiny"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="6dp"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:background="@drawable/video_title_bg"
+        android:gravity="center_vertical">
+        <ProgressBar
+            android:id="@+id/top_progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:max="100"
+            android:progressDrawable="@drawable/video_play_progress" />
+
+        <ImageView
+            android:id="@+id/close"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_below="@id/top_progressbar"
+            android:src="@drawable/icon_ask_normal"
+            android:layout_alignRight="@id/top_progressbar"
+            />
+        <ImageView
+
+            android:id="@+id/back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:paddingLeft="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/video_back" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+
+    <ProgressBar
+        android:id="@+id/loading"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/start"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/video_click_play_selector" />
+
+
+    <ImageView
+        android:id="@+id/small_close"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/video_small_close"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/lock_screen"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="50dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/unlock"
+        android:visibility="gone" />
+
+</RelativeLayout>

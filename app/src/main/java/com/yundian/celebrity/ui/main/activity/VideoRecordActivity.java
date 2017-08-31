@@ -2,6 +2,8 @@ package com.yundian.celebrity.ui.main.activity;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -25,6 +27,11 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.qiniu.android.common.Zone;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.Configuration;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
 import com.qiniu.pili.droid.shortvideo.PLAudioEncodeSetting;
 import com.qiniu.pili.droid.shortvideo.PLCameraSetting;
 import com.qiniu.pili.droid.shortvideo.PLErrorCode;
@@ -34,13 +41,21 @@ import com.qiniu.pili.droid.shortvideo.PLMicrophoneSetting;
 import com.qiniu.pili.droid.shortvideo.PLRecordSetting;
 import com.qiniu.pili.droid.shortvideo.PLRecordStateListener;
 import com.qiniu.pili.droid.shortvideo.PLShortVideoRecorder;
+import com.qiniu.pili.droid.shortvideo.PLShortVideoTrimmer;
 import com.qiniu.pili.droid.shortvideo.PLShortVideoUploader;
 import com.qiniu.pili.droid.shortvideo.PLUploadProgressListener;
 import com.qiniu.pili.droid.shortvideo.PLUploadResultListener;
 import com.qiniu.pili.droid.shortvideo.PLUploadSetting;
 import com.qiniu.pili.droid.shortvideo.PLVideoEncodeSetting;
+import com.qiniu.pili.droid.shortvideo.PLVideoFrame;
 import com.qiniu.pili.droid.shortvideo.PLVideoSaveListener;
 import com.yundian.celebrity.R;
+import com.yundian.celebrity.app.AppConfig;
+import com.yundian.celebrity.bean.UptokenBean;
+import com.yundian.celebrity.listener.OnAPIListener;
+import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
+import com.yundian.celebrity.ui.main.fragment.VideoAskFragment;
+import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.widget.photobutton.CaptureLayout;
 import com.yundian.celebrity.widget.photobutton.lisenter.CaptureLisenter;
 import com.yundian.celebrity.widget.photobutton.lisenter.TypeLisenter;
@@ -51,8 +66,12 @@ import com.yundian.celebrity.widget.videorecorder.RecordSettings;
 import com.yundian.celebrity.widget.videorecorder.ToastUtils;
 import com.yundian.celebrity.widget.videorecorder.render.GLRenderer;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
 
@@ -61,9 +80,12 @@ import static android.view.View.VISIBLE;
 
 
 public class VideoRecordActivity extends Activity implements PLRecordStateListener, PLVideoSaveListener, PLFocusListener, PLUploadProgressListener, PLUploadResultListener {
-    private static final String PREVIEW="preview";
-    private static final String PLAYBACK="play_back";
-
+    private static final String PREVIEW = "preview";
+    private static final String PLAYBACK = "play_back";
+    protected static final String FRAMEPATH = "framePath";
+    protected static final String FRAMENAME = "frameName";
+    protected static final String VIDEOPATH = "videoPath";
+    protected static final String VIDEONAME = "videoName";
     private static final String TAG = "VideoRecordActivity";
     /**
      * NOTICE: KIWI needs extra cost
@@ -119,6 +141,10 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
     private boolean mIsUpload = false;
     private CustomProgressDialog mProcessingDialog;
     private CaptureLayout mCaptureLayout;
+    private UploadManager uploadManager;
+    private String bitmapPath;
+    private String imageName;
+    private String uptoken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +157,7 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
         rootView = (ViewGroup) inflater.inflate(R.layout.activity_record, null);
 
         setContentView(rootView);
-
+        getToken();
         //预览区
 
         container = (FrameLayout) findViewById(R.id.glsurface_container);
@@ -139,7 +165,11 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
 
 
         mCaptureLayout = (CaptureLayout) findViewById(R.id.layout_capture);
-        mCaptureLayout.setDuration(10 * 1000);
+
+        int duration = getIntent().getIntExtra(VideoAskFragment.DURATION, 15);
+
+
+        mCaptureLayout.setDuration(duration * 1000);
 
         mCaptureLayout.setEnabled(false);
 
@@ -221,10 +251,10 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
                 // TODO: 2017/8/22
 
 
-                if(View.GONE==container.findViewWithTag(PREVIEW).getVisibility()){
+                if (View.GONE == container.findViewWithTag(PREVIEW).getVisibility()) {
                     container.findViewWithTag(PREVIEW).setVisibility(View.VISIBLE);
                 }
-                if(container.findViewWithTag(PLAYBACK)!=null){
+                if (container.findViewWithTag(PLAYBACK) != null) {
                     container.removeView(container.findViewWithTag(PLAYBACK));
                 }
 
@@ -263,11 +293,11 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
 //                play_back.setVisibility(View.GONE);
 //                preview.setVisibility(View.VISIBLE);
 
-                if(GONE==container.findViewWithTag(PREVIEW).getVisibility()){
+                if (GONE == container.findViewWithTag(PREVIEW).getVisibility()) {
                     container.findViewWithTag(PREVIEW).setVisibility(View.VISIBLE);
 
                 }
-                if(container.findViewWithTag(PLAYBACK)!=null){
+                if (container.findViewWithTag(PLAYBACK) != null) {
                     container.removeView(container.findViewWithTag(PLAYBACK));
                 }
 
@@ -280,9 +310,9 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
                 stopping = false;
                 isBorrow = false;
 
-                isRecording=false;
+                isRecording = false;
 
-                if(filePath!=null&&!TextUtils.isEmpty(filePath)){
+                if (filePath != null && !TextUtils.isEmpty(filePath)) {
                     showChooseDialog();
                 }
                 progressBar.setVisibility(View.GONE);
@@ -310,6 +340,7 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
         //焦点的监听
         mShortVideoRecorder.setFocusListener(this);
 
+
         int previewSizeRatio = getIntent().getIntExtra("PreviewSizeRatio", 0);
         int previewSizeLevel = getIntent().getIntExtra("PreviewSizeLevel", 0);
         int encodingSizeLevel = getIntent().getIntExtra("EncodingSizeLevel", 0);
@@ -323,7 +354,7 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
         mCameraSetting.setCameraId(facingId);
         //把camera拍到的内容显示在preview上的一些设置
         mCameraSetting.setCameraPreviewSizeRatio(getPreviewSizeRatio(0));
-        mCameraSetting.setCameraPreviewSizeLevel(getPreviewSizeLevel(6));
+        mCameraSetting.setCameraPreviewSizeLevel(getPreviewSizeLevel(7));
 
         //麦克风的设置
         PLMicrophoneSetting microphoneSetting = new PLMicrophoneSetting();
@@ -331,7 +362,7 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
         //video编码的设置
         PLVideoEncodeSetting videoEncodeSetting = new PLVideoEncodeSetting(this);
         videoEncodeSetting.setEncodingSizeLevel(getEncodingSizeLevel(17));
-        videoEncodeSetting.setEncodingBitrate(getEncodingBitrateLevel(6));
+        videoEncodeSetting.setEncodingBitrate(getEncodingBitrateLevel(7));
 
         //音频的设置
         PLAudioEncodeSetting audioEncodeSetting = new PLAudioEncodeSetting();
@@ -341,8 +372,8 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
         recordSetting.setMaxRecordDuration(RecordSettings.DEFAULT_MAX_RECORD_DURATION);
         recordSetting.setVideoCacheDir(Config.VIDEO_STORAGE_DIR);
 
-        String fileName = createFileName();
-        recordSetting.setVideoFilepath(Config.RECORD_FILE_PATH+fileName);
+        String fileName = createFileName() + "record.mp4";
+        recordSetting.setVideoFilepath(Config.RECORD_FILE_PATH + fileName);
 
         //美颜的设置
         PLFaceBeautySetting faceBeautySetting = new PLFaceBeautySetting(1.0f, 0.5f, 0.5f);
@@ -575,6 +606,20 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
 //        }
     }
 
+    public void getToken() {
+        NetworkAPIFactoryImpl.getUserAPI().getQiNiuToken(new OnAPIListener<UptokenBean>() {
+            @Override
+            public void onError(Throwable ex) {
+
+            }
+
+            @Override
+            public void onSuccess(UptokenBean uptokenBean) {
+                VideoRecordActivity.this.uptoken = uptokenBean.getUptoken();
+            }
+        });
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -663,7 +708,7 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
         Log.i(TAG, "thread: " + thread);
 
 //        mIsEditVideo = false;
-        if(!isTooShort){
+        if (!isTooShort) {
             mShortVideoRecorder.concatSections(VideoRecordActivity.this);
         }
 //        mSectionProgressBar.setCurrentState(SectionProgressBar.State.PAUSE);
@@ -717,14 +762,12 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
 
     private Handler handleProgress = new Handler() {
         public void handleMessage(Message msg) {
-            switch (msg.what)
-            {
+            switch (msg.what) {
                 case 0://更新进度条
 
-                    if(mediaPlayer!=null){
+                    if (mediaPlayer != null) {
                         int position = mediaPlayer.getCurrentPosition();
-                        if (position >= 0)
-                        {
+                        if (position >= 0) {
                             progressBar.setProgress(position);
 //                        String cur = UIUtils.getShowTime(position);
 //                        currTimeText.setText(cur);
@@ -741,16 +784,17 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
 //        mProcessingDialog.dismiss();
     }
 
-    public String createFileName(){
-         Random random = new Random();
+    public long createFileName() {
+        Random random = new Random();
         long number = System.currentTimeMillis() + random.nextInt(999999999);
-        return number+ "record.mp4";
+        return number;
     }
+
     //保存成功
     @Override
     public void onSaveVideoSuccess(final String filePath) {
 
-        this.filePath=filePath;
+        this.filePath = filePath;
         Log.i(TAG, "concat sections success filePath: " + filePath);
         runOnUiThread(new Runnable() {
             @Override
@@ -759,7 +803,7 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
 //                play_back.setVisibility(View.VISIBLE);
 //                preview.setVisibility(View.GONE);
 
-                if(container.findViewWithTag(PLAYBACK)==null){
+                if (container.findViewWithTag(PLAYBACK) == null) {
                     GLSurfaceView play_back = new GLSurfaceView(VideoRecordActivity.this);
 
                     FrameLayout.LayoutParams playBackParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
@@ -769,19 +813,19 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
                     play_back.setEGLContextClientVersion(2);
                     container.addView(play_back);
                 }
-                if(container.findViewWithTag(PREVIEW)!=null&&View.VISIBLE==container.findViewWithTag(PREVIEW).getVisibility()){
+                if (container.findViewWithTag(PREVIEW) != null && View.VISIBLE == container.findViewWithTag(PREVIEW).getVisibility()) {
                     //                    七牛还在用,不能释放
 //                    container.removeView(container.findViewWithTag("preview"));
                     container.findViewWithTag(PREVIEW).setVisibility(View.GONE);
                 }
 
-                if(glRenderer == null){
+                if (glRenderer == null) {
                     glRenderer = new GLRenderer(VideoRecordActivity.this);
 
                     glRenderer.setPlayerCallback(new GLRenderer.PlayerCallback() {
                         @Override
                         public void updateProgress() {
-                            if(glRenderer.getMediaPlayer()!=null){
+                            if (glRenderer.getMediaPlayer() != null) {
                                 handleProgress.sendEmptyMessage(0);
                             }
                         }
@@ -799,14 +843,14 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
                     GLSurfaceView play_back = (GLSurfaceView) container.findViewWithTag(PLAYBACK);
                     play_back.setRenderer(glRenderer);
                     play_back.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
-                }else{
+                } else {
                     // TODO: 2017/8/22  
                     GLSurfaceView play_back = (GLSurfaceView) container.findViewWithTag(PLAYBACK);
                     play_back.setRenderer(glRenderer);
                     play_back.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
                 }
 
-                if(mediaPlayer==null){
+                if (mediaPlayer == null) {
                     mediaPlayer = new MediaPlayer();
 
                     try {
@@ -871,31 +915,15 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
         builder.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//           mIsEditVideo = true;
-
-                if (!mIsUpload) {
-                    Toast.makeText(VideoRecordActivity.this,"开始上传",Toast.LENGTH_SHORT).show();
-                    mVideoUploadManager.startUpload(filePath, Config.TOKEN);
-
-
-                    //进行处理的对话框
-                    mProcessingDialog.show();
-                    // TODO: 2017/8/15
-//                    showBitmap();
-//                    mProgressBarDeterminate.setVisibility(View.VISIBLE);
-//                    mUploadBtn.setText(R.string.cancel_upload);
-                    mIsUpload = true;
-                } else {
-                    Toast.makeText(VideoRecordActivity.this,"当前正在上传",Toast.LENGTH_SHORT).show();
-                }
-//                mShortVideoRecorder.concatSections(VideoRecordActivity.this);
+                upLoadVideo();
+                upLoadCover();
             }
         });
         builder.setNegativeButton("否", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 //                mIsEditVideo = false;
-                Toast.makeText(VideoRecordActivity.this,"不上传",Toast.LENGTH_SHORT).show();
+                Toast.makeText(VideoRecordActivity.this, "不上传", Toast.LENGTH_SHORT).show();
 //                mShortVideoRecorder.concatSections(VideoRecordActivity.this);
             }
         });
@@ -904,6 +932,112 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
         builder.setCancelable(false);
         builder.create().show();
     }
+
+    private void upLoadVideo() {
+        //进行处理的对话框
+        mProcessingDialog.show();
+//        NetworkAPIFactoryImpl.getUserAPI().getQiNiuToken(new OnAPIListener<UptokenBean>() {
+//            @Override
+//            public void onError(Throwable ex) {
+//                ToastUtils.showShort("获取七牛token异常");
+//            }
+//
+//            @Override
+//            public void onSuccess(UptokenBean uptokenBean) {
+//
+//            }
+//        });
+
+        if (!mIsUpload) {
+            if (uptoken != null && !TextUtils.isEmpty(uptoken)) {
+                Toast.makeText(VideoRecordActivity.this, "开始上传", Toast.LENGTH_SHORT).show();
+                mVideoUploadManager.startUpload(filePath, uptoken);
+                mIsUpload = true;
+            }
+        } else {
+            Toast.makeText(VideoRecordActivity.this, "当前正在上传", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void upLoadCover() {
+        if (uploadManager == null) {
+            Configuration config = new Configuration.Builder()
+                    .zone(Zone.zone2) // 设置区域，指定不同区域的上传域名、备用域名、备用IP。
+                    .build();
+            uploadManager = new UploadManager(config);
+        }
+
+        final String fileName = createFileName() + "frame.jpg";
+        bitmapPath = getBitmap(fileName);
+
+        if (uptoken == null && TextUtils.isEmpty(uptoken)) {
+            com.yundian.celebrity.utils.ToastUtils.showShort("七牛token为空");
+            return;
+        }
+
+        // TODO: 2017/8/25
+        uploadManager.put(bitmapPath, fileName, uptoken,
+                new UpCompletionHandler() {
+                    @Override
+                    public void complete(String key, ResponseInfo info, JSONObject response) {
+                        //res包含hash、key等信息，具体字段取决于上传策略的设置
+                        if (info.isOK()) {
+                            Log.i("qiniu", "Upload Success");
+
+                            //拿到上传的图片地址,请求自己的服务器
+//                                                String imageUrl = Constant.QI_NIU_BASE_URL + key;
+                            imageName = key;
+                            LogUtils.loge("获取的图片地址:" + imageName);
+//                            doSendContent(imageUrl);
+                        } else {
+                            Log.i("qiniu", "Upload Fail");
+
+                            com.yundian.celebrity.utils.ToastUtils.showShort("缩略图上传失败" + info.error);
+                            //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
+                        }
+                        Log.i("qiniu", key + ",\r\n " + info + ",\r\n " + response);
+
+                    }
+                }, null);
+    }
+
+
+    private String getBitmap(String fileName) {
+        // TODO: 2017/8/15
+        PLShortVideoTrimmer mShortVideoTrimmer = new PLShortVideoTrimmer(VideoRecordActivity.this, filePath, AppConfig.TRIM_STORAGE_DIR);
+
+//        long srcDurationMs = mShortVideoTrimmer.getSrcDurationMs();
+        int videoFrameCount = mShortVideoTrimmer.getVideoFrameCount(true);
+        PLVideoFrame videoFrame = mShortVideoTrimmer.getVideoFrameByIndex(0, true);
+        Bitmap bitmap = videoFrame.toBitmap();
+
+        try {
+
+            //转为bitmap保存起来
+            FileOutputStream fos = new FileOutputStream(AppConfig.TRIM_STORAGE_DIR + "/" + fileName);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.close();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    com.yundian.celebrity.utils.ToastUtils.showShort("截帧已保存到路径：" + AppConfig.TRIM_STORAGE_DIR);
+                }
+            });
+            bitmap.recycle();
+//            bitmap=null;
+            return AppConfig.TRIM_STORAGE_DIR + "/" + fileName;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+//        Drawable drawable =new BitmapDrawable(bitmap);
+
+    }
+
 
     @Override
     public void onManualFocusStart(boolean result) {
@@ -957,6 +1091,15 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
         ToastUtils.l(this, "文件上传成功，" + fileName + "已复制到粘贴板");
         mProcessingDialog.dismiss();
         mIsUpload = false;
+
+        Intent intent = new Intent();
+        intent.putExtra(FRAMEPATH, bitmapPath);
+        intent.putExtra(FRAMENAME, imageName);
+        intent.putExtra(VIDEOPATH, filePath);
+        intent.putExtra(VIDEONAME, fileName);
+
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     @Override
