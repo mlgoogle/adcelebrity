@@ -70,7 +70,8 @@ public interface Constant {
     String MEET_TYPE = "MEET_TYPE";
     String MEET_TYPE_DETAIL = "MEET_TYPE_DETAIL";
     String QI_NIU_TOKEN_URL = "http://122.144.169.219:3378/imageToken";
-    String QI_NIU_BASE_URL = "http://ot81955n7.bkt.clouddn.com/";
+//    String QI_NIU_BASE_URL = "http://ot81955n7.bkt.clouddn.com/";
+    String QI_NIU_BASE_URL = "http://ouim6qew1.bkt.clouddn.com/";
 
 
 }

@@ -22,7 +22,7 @@
         tl:tl_iconHeight="24dp"
         tl:tl_iconMargin="@dimen/dp_5"
         tl:tl_iconWidth="24dp"
-        tl:tl_textSelectColor="@color/color_8D0809"
+        tl:tl_textSelectColor="@color/color_185CA5"
         tl:tl_textUnselectColor="@color/color_C2CFD8"
         tl:tl_textsize="@dimen/fontSize_10sp"
         tl:tl_underline_height="0dp" />

@@ -40,6 +40,7 @@ public class CirclePresenter implements CircleContract.Presenter {
      * @Title: deleteCircle
      * @Description: 删除动态
      */
+
     public void deleteCircle(final String circleId) {
         circleModel.deleteCircle(new IDataRequestListener() {
 
@@ -48,6 +49,11 @@ public class CirclePresenter implements CircleContract.Presenter {
                 if (view != null) {
                     view.update2DeleteCircle(circleId);
                 }
+            }
+
+            @Override
+            public void loadFail(Object object) {
+
             }
         });
     }
@@ -62,6 +68,11 @@ public class CirclePresenter implements CircleContract.Presenter {
                 if (view != null) {
                     view.update2AddFavorite(circlePosition, item);
                 }
+            }
+
+            @Override
+            public void loadFail(Object object) {
+
             }
         });
     }
@@ -83,6 +94,11 @@ public class CirclePresenter implements CircleContract.Presenter {
                 if (view != null) {
                     view.update2DeleteFavort(circlePosition, favortId);
                 }
+            }
+
+            @Override
+            public void loadFail(Object object) {
+
             }
         });
     }
@@ -113,7 +129,12 @@ public class CirclePresenter implements CircleContract.Presenter {
                         }
 
                     }
-                });
+
+            @Override
+            public void loadFail(Object object) {
+
+            }
+        });
     }
 
     /**
@@ -132,6 +153,11 @@ public class CirclePresenter implements CircleContract.Presenter {
                 if (view != null) {
                     view.update2DeleteComment(circlePosition, commentId);
                 }
+            }
+
+            @Override
+            public void loadFail(Object object) {
+
             }
 
         });

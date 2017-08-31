@@ -24,6 +24,7 @@ public interface SocketAPIConstant {
         byte StarIncome = 16;
         byte CircleInfo = 15;
 
+
     }
 
     interface OperateCode {
@@ -127,5 +128,7 @@ public interface SocketAPIConstant {
 
         Short AddressTimeManage = 16021;
 
+        Short getQiniu = 4015;
+        Short getQiniuToken = 15029;
     }
 }

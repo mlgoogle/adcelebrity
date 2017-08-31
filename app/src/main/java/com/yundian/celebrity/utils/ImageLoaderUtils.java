@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yundian.celebrity.R;
+import com.yundian.celebrity.app.AppConfig;
 
 import java.io.File;
 
@@ -16,6 +17,8 @@ import java.io.File;
 public class ImageLoaderUtils {
 
     public static void display(Context context, ImageView imageView, String url, int placeholder, int error) {
+        url = AppConfig.QI_NIU_PIC_ADRESS+url;
+        LogUtils.loge("ysl_url"+url);
         if (imageView == null) {
             throw new IllegalArgumentException("argument error");
         }
@@ -24,6 +27,8 @@ public class ImageLoaderUtils {
     }
 
     public static void display(Context context, ImageView imageView, String url) {
+        url = AppConfig.QI_NIU_PIC_ADRESS+url;
+        LogUtils.loge("ysl_url"+url);
         if (imageView == null) {
             throw new IllegalArgumentException("argument error");
         }
@@ -53,6 +58,9 @@ public class ImageLoaderUtils {
      * @param url
      */
     public static void displaySmallPhoto(Context context, ImageView imageView, String url) {
+        url = AppConfig.QI_NIU_PIC_ADRESS+url;
+        LogUtils.loge("ysl_url"+url);
+
         if (imageView == null) {
             throw new IllegalArgumentException("argument error");
         }
@@ -85,6 +93,7 @@ public class ImageLoaderUtils {
                 .into(imageView);
     }
     public static void displayBigPhoto(Context context, ImageView imageView, String url) {
+        url = AppConfig.QI_NIU_PIC_ADRESS+url;
         if (imageView == null) {
             throw new IllegalArgumentException("argument error");
         }
@@ -107,6 +116,7 @@ public class ImageLoaderUtils {
                 .crossFade().into(imageView);
     }
     public static void displayRound(Context context, ImageView imageView, String url) {
+        url = AppConfig.QI_NIU_PIC_ADRESS+url;
         if (imageView == null) {
             throw new IllegalArgumentException("argument error");
         }
@@ -126,6 +136,8 @@ public class ImageLoaderUtils {
     }
 
     public static void displayWithDefaultImg(Context context, ImageView imageView, String url,int resurce) {
+        url = AppConfig.QI_NIU_PIC_ADRESS+url;
+        LogUtils.loge("ysl_url"+url);
         if (imageView == null) {
             throw new IllegalArgumentException("argument error");
         }
@@ -135,6 +147,22 @@ public class ImageLoaderUtils {
                 .placeholder(R.drawable.edit_cursor)
                 .error(resurce)
                 .crossFade().into(imageView);
+    }
+
+    //预览图
+    public static void displayWithPreviewImg(Context context, final ImageView imageView, String url,int resurce) {
+        url = AppConfig.QI_NIU_PIC_ADRESS+url;
+        LogUtils.loge("ysl_url"+url);
+        if (imageView == null) {
+            throw new IllegalArgumentException("argument error");
+        }
+        Glide.with(context)
+                .load(url)
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .placeholder(R.drawable.edit_cursor)
+                .error(resurce)
+                .into(imageView);
     }
 
 }
