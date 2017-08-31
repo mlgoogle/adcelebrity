@@ -8,10 +8,10 @@ import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.socketapi.SocketReqeust.SocketAPIRequestManage;
 import com.yundian.celebrity.networkapi.socketapi.SocketReqeust.SocketAPIResponse;
 import com.yundian.celebrity.networkapi.socketapi.SocketReqeust.SocketDataPacket;
+import com.yundian.celebrity.utils.LogUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -54,14 +54,23 @@ public class SocketBaseAPI {
         }
     }
 
+//    public Looper myLooper = Looper.getMainLooper();
+
+    //用于单元测试,解决异步问题
+//    public void setLooper(Looper myLooper){
+//        this.myLooper=myLooper;
+//    }
+
     protected void onSuccess(final OnAPIListener listener, final Object object) {
         if( listener != null ) {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
+                    LogUtils.logi("进来没有");
                     listener.onSuccess(object);
                 }
             });
+            LogUtils.logi("过来没有");
         }
     }
 
@@ -81,7 +90,7 @@ public class SocketBaseAPI {
             @Override
             public void onSuccess(SocketAPIResponse socketAPIResponse) {
                 if( listener != null ) {
-                    //LogUtils.loge("解析"+socketAPIResponse.jsonObject().toString());
+                    LogUtils.loge("解析"+socketAPIResponse.jsonObject().toString());
                     Object object = JSON.parseObject(socketAPIResponse.jsonObject().toString(),cls);
                     SocketBaseAPI.this.onSuccess(listener,object);
 

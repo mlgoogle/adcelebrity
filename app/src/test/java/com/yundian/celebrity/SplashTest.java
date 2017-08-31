@@ -50,7 +50,7 @@
 //    }
 //
 //    @Test
-//    @Spec(desc = "should loging use CheckHelper")
+//    @Spec(desc = "should loging use CheckInfoHelper")
 //    public void testLogin() {
 //
 ////        SplashActivity splashActivity = PowerMockito.spy(SplashActivity.class);

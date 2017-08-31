@@ -426,7 +426,7 @@ public class FansInteractionFragment extends BaseFragment implements CircleContr
         circleFriendAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                showPopupWindow(circleFriendAdapter.getData().get(position).getPic_url());
+                showPopupWindow(circleFriendAdapter.getData().get(position).getPic_url_tail());
             }
         });
     }
@@ -441,7 +441,7 @@ public class FansInteractionFragment extends BaseFragment implements CircleContr
         popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
         popupWindow.setOutsideTouchable(false);
         popupWindow.setFocusable(true);
-        ImageLoaderUtils.displayWithDefaultImg(getActivity(), zoomImageView, prc_url, R.drawable.infos_news_defolat);
+        ImageLoaderUtils.displayWithPreviewImg(getActivity(), zoomImageView, prc_url, R.drawable.infos_news_defolat);
         zoomImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

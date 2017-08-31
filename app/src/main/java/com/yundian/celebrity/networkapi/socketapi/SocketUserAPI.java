@@ -1,12 +1,15 @@
 package com.yundian.celebrity.networkapi.socketapi;
 
 import com.yundian.celebrity.app.AppApplication;
+import com.yundian.celebrity.app.AppConfig;
 import com.yundian.celebrity.app.SocketAPIConstant;
 import com.yundian.celebrity.bean.CheckUpdateInfoEntity;
 import com.yundian.celebrity.bean.LoginReturnInfo;
+import com.yundian.celebrity.bean.QiNiuAdressBean;
 import com.yundian.celebrity.bean.RegisterReturnBeen;
 import com.yundian.celebrity.bean.RegisterReturnWangYiBeen;
 import com.yundian.celebrity.bean.RegisterVerifyCodeBeen;
+import com.yundian.celebrity.bean.UptokenBean;
 import com.yundian.celebrity.bean.WXinLoginReturnBeen;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.UserAPI;
@@ -35,7 +38,13 @@ public class SocketUserAPI extends SocketBaseAPI implements UserAPI {
         HashMap<String, Object> map = new HashMap<>();
         map.put("phone", phone);
         map.put("pwd", password);
-        map.put("deviceId", AppApplication.getAndroidId());
+        map.put("deviceId",1+"");
+
+        map.put("area_id", AppConfig.AREA_ID);
+        map.put("area", AppConfig.AREA);
+        map.put("isp_id", AppConfig.ISP_ID);
+        map.put("isp", AppConfig.ISP);
+
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.Login,
                 SocketAPIConstant.ReqeutType.User, map);
         requestEntity(socketDataPacket, LoginReturnInfo.class, listener);
@@ -149,6 +158,25 @@ public class SocketUserAPI extends SocketBaseAPI implements UserAPI {
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.saveDevice,
                 SocketAPIConstant.ReqeutType.User, map);
         requestJsonObject(socketDataPacket, listener);
+    }
+
+    @Override
+    public void getQiNiuPicDress(OnAPIListener<QiNiuAdressBean> listener) {
+        HashMap<String, Object> map = new HashMap<>();
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.getQiniu,
+                SocketAPIConstant.ReqeutType.Time, map);
+        requestEntity(socketDataPacket,QiNiuAdressBean.class, listener);
+    }
+
+    @Override
+    public void getQiNiuToken(OnAPIListener<UptokenBean> listener) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("uid", SharePrefUtil.getInstance().getUserId());
+        map.put("token", SharePrefUtil.getInstance().getToken());
+
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.getQiniuToken,
+                SocketAPIConstant.ReqeutType.CircleInfo, map);
+        requestEntity(socketDataPacket,UptokenBean.class, listener);
     }
 
 }

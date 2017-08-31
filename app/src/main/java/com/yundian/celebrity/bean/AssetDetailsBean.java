@@ -8,11 +8,13 @@ import android.os.Parcelable;
  */
 
 public class AssetDetailsBean implements Parcelable {
+    // TODO: 2017/8/21
     private double balance;
     private double market_cap;  //市值
     private double total_amt;   //总资产
     private int is_setpwd = -100;  //是否需要设置支付密码 ：0-否,1-是
-    private String head_url;  //头像
+//    private String head_url;  //头像
+    private String head_url_tail;  //头像
     private String nick_name;  //昵称
 
     public double getBalance() {
@@ -47,12 +49,20 @@ public class AssetDetailsBean implements Parcelable {
         this.is_setpwd = is_setpwd;
     }
 
-    public String getHead_url() {
-        return head_url;
+//    public String getHead_url() {
+//        return head_url;
+//    }
+
+    public String getHead_url_tail() {
+        return head_url_tail;
     }
 
-    public void setHead_url(String head_url) {
-        this.head_url = head_url;
+//    public void setHead_url(String head_url) {
+//        this.head_url = head_url;
+//    }
+
+    public void setHead_url_tail(String head_url) {
+        this.head_url_tail = head_url;
     }
 
     public String getNick_name() {
@@ -74,7 +84,8 @@ public class AssetDetailsBean implements Parcelable {
         dest.writeDouble(this.market_cap);
         dest.writeDouble(this.total_amt);
         dest.writeInt(this.is_setpwd);
-        dest.writeString(this.head_url);
+//        dest.writeString(this.head_url);
+        dest.writeString(this.head_url_tail);
         dest.writeString(this.nick_name);
     }
 
@@ -86,7 +97,7 @@ public class AssetDetailsBean implements Parcelable {
         this.market_cap = in.readDouble();
         this.total_amt = in.readDouble();
         this.is_setpwd = in.readInt();
-        this.head_url = in.readString();
+        this.head_url_tail = in.readString();
         this.nick_name = in.readString();
     }
 
@@ -109,7 +120,7 @@ public class AssetDetailsBean implements Parcelable {
                 ", market_cap=" + market_cap +
                 ", total_amt=" + total_amt +
                 ", is_setpwd=" + is_setpwd +
-                ", head_url='" + head_url + '\'' +
+                ", head_url_tail='" + head_url_tail + '\'' +
                 ", nick_name='" + nick_name + '\'' +
                 '}';
     }

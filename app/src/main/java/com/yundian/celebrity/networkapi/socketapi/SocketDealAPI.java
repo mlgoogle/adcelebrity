@@ -8,6 +8,7 @@ import com.yundian.celebrity.bean.BankCardBean;
 import com.yundian.celebrity.bean.BankInfoBean;
 import com.yundian.celebrity.bean.BookingStarListBean;
 import com.yundian.celebrity.bean.CircleFriendBean;
+import com.yundian.celebrity.bean.FansAskBean;
 import com.yundian.celebrity.bean.HaveStarUsersBean;
 import com.yundian.celebrity.bean.IdentityInfoBean;
 import com.yundian.celebrity.bean.IncomeReturnBean;
@@ -29,7 +30,6 @@ import com.yundian.celebrity.utils.SharePrefUtil;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created by yaowang on 2017/2/20.
@@ -372,6 +372,25 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
     }
 
     @Override
+    public void fanAskList(String starCode,int pos, int count,int type,int pType, OnAPIListener<List<FansAskBean>> listener) {
+        HashMap<String, Object> map = new HashMap<>();
+        int userId = SharePrefUtil.getInstance().getUserId();
+
+        map.put("starcode", starCode);
+//        map.put("starcode", userId);
+        map.put("token", SharePrefUtil.getInstance().getToken());
+
+        map.put("count", count);
+        map.put("uid", userId);
+        map.put("aType", type);
+        map.put("pType", pType);
+        map.put("pos", pos);
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.FansAskList,
+                SocketAPIConstant.ReqeutType.CircleInfo, map);
+        requestEntitys(socketDataPacket,"circle_list", FansAskBean.class, listener);
+    }
+
+    @Override
     public void starCommentUid(String star_code, long circle_id, long uid, int direction, String content, OnAPIListener<ResultBeen> listener) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("star_code", star_code);
@@ -413,6 +432,33 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
         map.put("picurl", picurl);
         map.put("star_code", star_code);
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.Publish,
+                SocketAPIConstant.ReqeutType.CircleInfo, map);
+        requestEntity(socketDataPacket,RequestResultBean.class,listener);
+    }
+
+    @Override
+    public void publishAnswer(int questionId , int pType,String Answer,   OnAPIListener<RequestResultBean> listener) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", questionId);
+        map.put("token", SharePrefUtil.getInstance().getToken());
+        map.put("pType", pType);
+        map.put("sanswer", Answer);
+
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.PublishAnswer,
+                SocketAPIConstant.ReqeutType.CircleInfo, map);
+        requestEntity(socketDataPacket,RequestResultBean.class,listener);
+    }
+
+    @Override
+    public void publishVideoAnswer(int questionId , int pType,String Answer,String frameImg,   OnAPIListener<RequestResultBean> listener) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", questionId);
+        map.put("token", SharePrefUtil.getInstance().getToken());
+        map.put("pType", pType);
+        map.put("sanswer", Answer);
+        map.put("thumbnailS", frameImg);
+
+        SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.PublishAnswer,
                 SocketAPIConstant.ReqeutType.CircleInfo, map);
         requestEntity(socketDataPacket,RequestResultBean.class,listener);
     }

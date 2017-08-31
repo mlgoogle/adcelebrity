@@ -3,7 +3,7 @@
 //import android.view.View;
 //
 //import com.netease.nim.uikit.common.util.C;
-//import com.yundian.celebrity.helper.CheckHelper;
+//import com.yundian.celebrity.helper.CheckInfoHelper;
 //import com.yundian.celebrity.ui.main.activity.LoginActivity;
 //import com.yundian.celebrity.widget.CheckException;
 //import com.yundian.celebrity.widget.WPEditText;
@@ -44,11 +44,11 @@
 //    }
 //
 //    @Test
-//    @Spec(desc = "should loging use CheckHelper")
+//    @Spec(desc = "should loging use CheckInfoHelper")
 //    public void testCheck() {
 //        LoginActivity mockLoginActivity = Mockito.spy(LoginActivity.class);
-//        CheckHelper checkHelper=new CheckHelper();
-//        CheckHelper mockCheckHelper = Mockito.mock(CheckHelper.class);
+//        CheckInfoHelper checkHelper=new CheckInfoHelper();
+//        CheckInfoHelper mockCheckHelper = Mockito.mock(CheckInfoHelper.class);
 //        //把这个mock出来的对象用set方法设置进去
 ////        mockLoginActivity.set
 ////        CheckException checkException = new CheckException();

@@ -599,6 +599,29 @@
             android:name=".ui.main.activity.CashHistoryActivity_Test"
             android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.main.activity.RecordAudioActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.RecordAudioActivity1"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.main.activity.VideoRecordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.RecordVideoActivity1"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.main.activity.PlayActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -3,9 +3,11 @@ package com.yundian.celebrity.networkapi;
 
 import com.yundian.celebrity.bean.CheckUpdateInfoEntity;
 import com.yundian.celebrity.bean.LoginReturnInfo;
+import com.yundian.celebrity.bean.QiNiuAdressBean;
 import com.yundian.celebrity.bean.RegisterReturnBeen;
 import com.yundian.celebrity.bean.RegisterReturnWangYiBeen;
 import com.yundian.celebrity.bean.RegisterVerifyCodeBeen;
+import com.yundian.celebrity.bean.UptokenBean;
 import com.yundian.celebrity.bean.WXinLoginReturnBeen;
 import com.yundian.celebrity.listener.OnAPIListener;
 
@@ -14,6 +16,7 @@ import com.yundian.celebrity.listener.OnAPIListener;
  */
 
 public interface UserAPI {
+    // TODO: 2017/8/21
     void login(String phone, String password, OnAPIListener<LoginReturnInfo> listener);
 
     void registerWangYi(int user_type,String phone, String name, long uid, OnAPIListener<RegisterReturnWangYiBeen> listener);
@@ -44,4 +47,7 @@ public interface UserAPI {
     void isRegisted(String phone, OnAPIListener<RegisterReturnBeen> listener);
     void update(OnAPIListener<CheckUpdateInfoEntity> listener);
     void saveDevice(long uid, OnAPIListener<Object> listener);
+
+    void getQiNiuPicDress(OnAPIListener<QiNiuAdressBean> listener);
+    void getQiNiuToken(OnAPIListener<UptokenBean> listener);
 }

@@ -9,7 +9,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -46,6 +45,7 @@ import com.yundian.celebrity.bean.TabEntity;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.ui.main.fragment.ContactFansFragment;
+import com.yundian.celebrity.ui.main.fragment.FanAskFragment;
 import com.yundian.celebrity.ui.main.fragment.InComeInfoFragment;
 import com.yundian.celebrity.ui.main.fragment.MeetManageFragment;
 import com.yundian.celebrity.ui.view.ForceUpdateDialog;
@@ -107,6 +107,7 @@ public class MainActivity extends BaseActivity {
             checkLogin();
         }
     };
+    private FanAskFragment fanAskFragment;
 
 
     @Override
@@ -168,14 +169,19 @@ public class MainActivity extends BaseActivity {
             inComeInfoFragment = (InComeInfoFragment) getSupportFragmentManager().findFragmentByTag("InComeInfoFragment");
             contactFansFragment = (ContactFansFragment) getSupportFragmentManager().findFragmentByTag("ContactFansFragment");
             meetManageFragment = (MeetManageFragment) getSupportFragmentManager().findFragmentByTag("MeetManageFragment");
+
+            fanAskFragment = (FanAskFragment) getSupportFragmentManager().findFragmentByTag("FanAskFragment");
+
             currentTabPosition = savedInstanceState.getInt(AppConstant.HOME_CURRENT_TAB_POSITION);
         } else {
             inComeInfoFragment = new InComeInfoFragment();
             contactFansFragment = new ContactFansFragment();
             meetManageFragment = new MeetManageFragment();
+            fanAskFragment = new FanAskFragment();
             transaction.add(R.id.fl_main, inComeInfoFragment, "InComeInfoFragment");
             transaction.add(R.id.fl_main, contactFansFragment, "ContactFansFragment");
             transaction.add(R.id.fl_main, meetManageFragment, "MeetManageFragment");
+            transaction.add(R.id.fl_main, fanAskFragment, "FanAskFragment");
         }
         transaction.commit();
         SwitchTo(currentTabPosition);
@@ -237,12 +243,14 @@ public class MainActivity extends BaseActivity {
             case 0:
                 transaction.hide(contactFansFragment);
                 transaction.hide(meetManageFragment);
+                transaction.hide(fanAskFragment);
                 transaction.show(inComeInfoFragment);
                 transaction.commitAllowingStateLoss();
                 break;
             case 1:
                 transaction.hide(inComeInfoFragment);
                 transaction.hide(meetManageFragment);
+                transaction.hide(fanAskFragment);
                 transaction.show(contactFansFragment);
                 transaction.commitAllowingStateLoss();
                 break;
@@ -250,7 +258,16 @@ public class MainActivity extends BaseActivity {
 //                CheckLoginUtil.checkLogin(this);
                 transaction.hide(contactFansFragment);
                 transaction.hide(inComeInfoFragment);
+                transaction.hide(fanAskFragment);
                 transaction.show(meetManageFragment);
+                transaction.commitAllowingStateLoss();
+                break;
+            case 3:
+//                CheckLoginUtil.checkLogin(this);
+                transaction.hide(contactFansFragment);
+                transaction.hide(inComeInfoFragment);
+                transaction.hide(meetManageFragment);
+                transaction.show(fanAskFragment);
                 transaction.commitAllowingStateLoss();
                 break;
             default:
@@ -429,9 +446,9 @@ public class MainActivity extends BaseActivity {
                 if (bean.getIs_setpwd() != -100) {
                     SharePrefUtil.getInstance().saveAssetInfo(bean);
                 }
-                if (!TextUtils.isEmpty(bean.getHead_url()) && !TextUtils.isEmpty(bean.getNick_name())) {
+                if (!TextUtils.isEmpty(bean.getHead_url_tail()) && !TextUtils.isEmpty(bean.getNick_name())) {
                     SharePrefUtil.getInstance().putUserNickName(bean.getNick_name());
-                    SharePrefUtil.getInstance().putUserPhotoUrl(bean.getHead_url());
+                    SharePrefUtil.getInstance().putUserPhotoUrl(bean.getHead_url_tail());
                 }
 
                 // SharePrefUtil.getInstance().saveAssetInfo(bean);
