@@ -43,6 +43,8 @@ public class FansAskBean implements Parcelable {
     private String uask;
     private int uid;
     private String video_url;
+    private String thumbnail;  //提问缩略图
+    private String thumbnailS; //回答缩略图
 
     public int getA_type() {
         return a_type;
@@ -164,6 +166,21 @@ public class FansAskBean implements Parcelable {
         this.video_url = video_url;
     }
 
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getThumbnailS() {
+        return thumbnailS;
+    }
+
+    public void setThumbnailS(String thumbnailS) {
+        this.thumbnailS = thumbnailS;
+    }
 
     @Override
     public int describeContents() {
@@ -187,6 +204,8 @@ public class FansAskBean implements Parcelable {
         dest.writeString(this.uask);
         dest.writeInt(this.uid);
         dest.writeString(this.video_url);
+        dest.writeString(this.thumbnail);
+        dest.writeString(this.thumbnailS);
     }
 
     public FansAskBean() {
@@ -208,6 +227,8 @@ public class FansAskBean implements Parcelable {
         this.uask = in.readString();
         this.uid = in.readInt();
         this.video_url = in.readString();
+        this.thumbnail = in.readString();
+        this.thumbnailS = in.readString();
     }
 
     public static final Parcelable.Creator<FansAskBean> CREATOR = new Parcelable.Creator<FansAskBean>() {

@@ -2,8 +2,8 @@ package com.yundian.celebrity.ui.main.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -35,6 +35,9 @@ import java.io.File;
 
 import butterknife.Bind;
 
+import static com.yundian.celebrity.ui.main.fragment.VideoAskFragment.FANS_ASK_BEAN;
+import static com.yundian.celebrity.ui.main.fragment.VideoAskFragment.FANS_ASK_BUNDLE;
+
 
 /**
  * 定制视频
@@ -46,7 +49,7 @@ public class RecordVideoActivity1 extends BaseActivity {
     @Bind(R.id.nt_title)
     NormalTitleBar ntTitle;
     @Bind(R.id.btn_video_record)
-    Button videoRecord;
+    ImageView videoRecord;
 
     @Bind(R.id.rl_frame)
     RelativeLayout rl_frame;
@@ -110,14 +113,18 @@ public class RecordVideoActivity1 extends BaseActivity {
     @Override
     public void initView() {
 
-        Bundle bundle = getIntent().getBundleExtra(VideoAskFragment.FANS_ASK_BUNDLE);
+        Bundle bundle = getIntent().getBundleExtra(FANS_ASK_BUNDLE);
         position = getIntent().getIntExtra(VideoAskFragment.POSITION,-1);
         duration = getIntent().getIntExtra(VideoAskFragment.DURATION,-1);
 
         if (bundle != null) {
             fansAskBean = (FansAskBean) bundle.getParcelable(CustomAudioFragment.FANS_ASK_BEAN);
             tvName.setText(fansAskBean.getNickName());
-            video_url = AppConfig.QI_NIU_PIC_ADRESS+fansAskBean.getVideo_url();
+            video_url = fansAskBean.getVideo_url();
+
+            if(TextUtils.isEmpty(video_url)){
+                tvAskVideo.setVisibility(View.INVISIBLE);
+            }
 
             if (fansAskBean.getC_type() == 0) {
                 tvCustomTime.setText("15s定制");
@@ -199,6 +206,11 @@ public class RecordVideoActivity1 extends BaseActivity {
 
                 Intent intent = new Intent(RecordVideoActivity1.this,VideoRecordActivity.class);
                 intent.putExtra(VideoAskFragment.DURATION,duration);
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(FANS_ASK_BEAN,fansAskBean);
+                intent.putExtra(FANS_ASK_BUNDLE,bundle);
+                intent.putExtra(VideoAskFragment.DURATION,duration);
                 startActivityForResult(intent, 170);
 
             }
@@ -219,10 +231,14 @@ public class RecordVideoActivity1 extends BaseActivity {
         tvAskVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(video_url!=null){
+                if(!TextUtils.isEmpty(video_url)){
 
                     Intent intent = new Intent(RecordVideoActivity1.this,PlayActivity.class);
-                    intent.putExtra("playUrl",video_url);
+                    intent.putExtra("playUrl",AppConfig.QI_NIU_PIC_ADRESS+video_url);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(FANS_ASK_BEAN,fansAskBean);
+                    intent.putExtra(FANS_ASK_BUNDLE,bundle);
+
                     startActivity(intent);
                 }else{
                     ToastUtils.showShort("视频为空");
@@ -345,7 +361,6 @@ public class RecordVideoActivity1 extends BaseActivity {
                 LogUtils.loge("发布失败");
                 ToastUtils.showShort("发布失败");
                 stopProgressDialog();
-
             }
 
             @Override
@@ -362,7 +377,7 @@ public class RecordVideoActivity1 extends BaseActivity {
 
                 if(requestResultBean.getResult()==0){
                     ToastUtils.showShort("发布成功");
-                    EventBus.getDefault().post(new VideoMessageEvent(position,videoName));
+                    EventBus.getDefault().post(new VideoMessageEvent(position,videoName,frameName));
                     finish();
 
                 }

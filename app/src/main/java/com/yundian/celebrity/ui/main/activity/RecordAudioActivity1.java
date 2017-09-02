@@ -205,7 +205,7 @@ public class RecordAudioActivity1 extends BaseActivity implements View.OnClickLi
         layout_height = button_size + (button_size / 5) * 2 + 100;
 
         button_size = (int) (layout_width / 4.5f);
-        capture_button = new AudioRecordButton(this, button_size);
+        capture_button = new AudioRecordButton(this, button_size,R.drawable.audio);
         FrameLayout.LayoutParams btn_capture_param = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
 //        btn_capture_param.addRule(CENTER_IN_PARENT, TRUE);
         btn_capture_param.gravity = Gravity.BOTTOM;

@@ -35,8 +35,7 @@ public class CaptureButton extends View {
     public static final int BUTTON_STATE_ONLY_RECORDER = 0x102;
     //两者都可以
     public static final int BUTTON_STATE_BOTH = 0x103;
-
-
+    protected int bitmapRes=R.drawable.audio;
 
 
     //按钮可执行的功能状态
@@ -145,9 +144,10 @@ public class CaptureButton extends View {
     }
 
     //customize construction method
-    public CaptureButton(Context context, int size) {
+    public CaptureButton(Context context, int size,int bitmapRes) {
         super(context);
         this.button_size = size;
+        this.bitmapRes = bitmapRes;
         button_radius = size / 2.0f;
 
         button_outside_radius = button_radius;

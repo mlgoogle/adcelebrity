@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 
-import com.yundian.celebrity.R;
 import com.yundian.celebrity.widget.photobutton.CaptureButton;
 
 /**
@@ -23,8 +22,8 @@ public class AudioRecordButton extends CaptureButton{
         super(context, attrs);
     }
 
-    public AudioRecordButton(Context context, int size) {
-        super(context, size);
+    public AudioRecordButton(Context context, int size,int bitmapRes) {
+        super(context, size,bitmapRes);
     }
 
     @Override
@@ -48,7 +47,7 @@ public class AudioRecordButton extends CaptureButton{
             canvas.drawArc(rectF, -90, progress, false, mPaint);
         }
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.audio);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), bitmapRes);
 
         canvas.drawBitmap(bitmap,center_X-bitmap.getWidth()/2,center_Y-bitmap.getHeight()/2,null);
     }

@@ -92,7 +92,7 @@
         android:id="@+id/rl_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="15dp"
         android:layout_below="@id/ll_ask_content">
 
 
@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/esb_button"
             android:layout_marginRight="14dp"
-            android:text="语音公开" />
+            android:text="视频公开" />
     </RelativeLayout>
 
 
@@ -139,8 +139,8 @@
 
         <ImageView
             android:id="@+id/frame"
-            android:layout_width="151dp"
-            android:layout_height="151dp"
+            android:layout_width="131dp"
+            android:layout_height="131dp"
            android:layout_centerInParent="true"/>
 
         <ImageView
@@ -154,12 +154,24 @@
              />
     </RelativeLayout>
 
-    <Button
-        android:background="@drawable/dialog_identity"
-        android:id="@+id/btn_video_record"
+    <TextView
+        android:id="@+id/desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp"
+        android:textSize="14sp"
+        android:textColor="#333333"
+        android:text="点击录制"/>
+    <ImageView
+        android:clickable="true"
+        android:src="@drawable/video_btn"
+        android:id="@+id/btn_video_record"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/desc"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
