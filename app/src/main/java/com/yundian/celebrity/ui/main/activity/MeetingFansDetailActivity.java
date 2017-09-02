@@ -73,7 +73,7 @@ public class MeetingFansDetailActivity extends BaseActivity {
         if (bundle != null) {
             bean = (MeetOrderListBean) bundle.getParcelable(Constant.MEET_TYPE_DETAIL);
 
-            ImageLoaderUtils.display(this, headImage, bean.getHeadurl());
+            ImageLoaderUtils.displayUrl(this, headImage, bean.getHeadurl());
             tvPetname.setText(bean.getNickname());
             tvMeetingDetailTime.setText(String.format(getString(R.string.meeting_detail_time), bean.getOrder_time()));
             tvMeetingDetailPlace.setText(String.format(getString(R.string.meeting_detail_please), bean.getMeet_city()));

@@ -151,7 +151,7 @@ public class ImageLoaderUtils {
     }
 
     public static void displayWithDefaultImg(Context context, ImageView imageView, String url,int resurce) {
-        url = AppConfig.QI_NIU_PIC_ADRESS+url;
+//        url = AppConfig.QI_NIU_PIC_ADRESS+url;
         LogUtils.loge("ysl_url"+url);
         if (imageView == null) {
             throw new IllegalArgumentException("argument error");
@@ -166,7 +166,7 @@ public class ImageLoaderUtils {
 
     //预览图
     public static void displayWithPreviewImg(Context context, final ImageView imageView, String url,int resurce) {
-        url = AppConfig.QI_NIU_PIC_ADRESS+url;
+//        url = AppConfig.QI_NIU_PIC_ADRESS+url;
         LogUtils.loge("ysl_url"+url);
         if (imageView == null) {
             throw new IllegalArgumentException("argument error");

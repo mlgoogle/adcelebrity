@@ -75,7 +75,7 @@ public class AddMeetTypeAdapter extends BaseQuickAdapter<OrderListReturnBean, Ba
         LogUtils.loge("----------选中状态:" + item.isCheck());
         checkBox.setChecked(item.isCheck());
         ImageView icon = helper.getView(R.id.iv_meet_type);
-        ImageLoaderUtils.display(mContext, icon, item.getShowpic_url());
+        ImageLoaderUtils.displayUrl(mContext, icon, item.getShowpic_url());
 
         helper.setText(R.id.tv_meet_des, item.getName()).
                 setText(R.id.tv_spend_time, String.format(mContext.getResources().getString(R.string.spend_times), item.getPrice() + ""))

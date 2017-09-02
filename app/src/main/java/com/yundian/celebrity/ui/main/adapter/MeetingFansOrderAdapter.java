@@ -26,7 +26,7 @@ public class MeetingFansOrderAdapter extends BaseQuickAdapter<MeetOrderListBean,
     @Override
     protected void convert(BaseViewHolder helper, MeetOrderListBean item) {
         ImageView iconView = helper.getView(R.id.iv_meet_type);
-        ImageLoaderUtils.display(mContext, iconView, item.getHeadurl());
+        ImageLoaderUtils.displayUrl(mContext, iconView, item.getHeadurl());
         helper.setText(R.id.tv_meet_des, item.getNickname())
                 .setText(R.id.tv_spend_time,
                         String.format(mContext.getResources().getString(R.string.star_meet_type), item.getName(), item.getOrder_time()));
