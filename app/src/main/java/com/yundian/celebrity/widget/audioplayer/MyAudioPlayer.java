@@ -2,6 +2,9 @@ package com.yundian.celebrity.widget.audioplayer;
 
 import android.media.AudioManager;
 
+import com.yundian.celebrity.utils.LogUtils;
+import com.yundian.celebrity.utils.ToastUtils;
+
 import java.io.IOException;
 
 import tv.danmaku.ijk.media.player.IMediaPlayer;
@@ -15,7 +18,9 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 public class MyAudioPlayer {
     private IjkMediaPlayer ijkMediaPlayer;
     private boolean mIsStopped=true;
+    private boolean mIsError=false;
     private boolean isPrepared=false;
+    private IMediaPlayer.OnCompletionListener mCompletionListener;
 
 
     public MyAudioPlayer() {
@@ -24,6 +29,7 @@ public class MyAudioPlayer {
         IjkMediaPlayer.native_profileBegin("libijkplayer.so");
         ijkMediaPlayer = new IjkMediaPlayer();
         ijkMediaPlayer.setOnPreparedListener(mPreparedListener);
+        ijkMediaPlayer.setOnErrorListener(mErrorListener);
 
         ijkMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
     }
@@ -37,19 +43,38 @@ public class MyAudioPlayer {
     };
 
     public void setOnCompleteListener(IMediaPlayer.OnCompletionListener mCompletionListener){
+        this.mCompletionListener=mCompletionListener;
         ijkMediaPlayer.setOnCompletionListener(mCompletionListener);
     }
+    IMediaPlayer.OnErrorListener mErrorListener=new IMediaPlayer.OnErrorListener() {
+        @Override
+        public boolean onError(IMediaPlayer iMediaPlayer, int i, int i1) {
+            isPrepared=false;
+            mIsError=true;
+            releaseWithError();
+//            stop();
+            LogUtils.logd("urlerror");
+            ToastUtils.showShort("获取url链接失败");
+            return true;
+        }
+    };
 
     public MyAudioPlayer setDataSource(String path) {
         try {
-            isPrepared=true;
+
             if(!mIsStopped){
                     stop();
             }
+//            if(mIsError){
+//                releaseWithError();
+//            }
+
             ijkMediaPlayer.setDataSource(path);
+            isPrepared=true;
             ijkMediaPlayer.prepareAsync();
         } catch (IOException e) {
             e.printStackTrace();
+
         }
         return this;
     }
@@ -64,18 +89,33 @@ public class MyAudioPlayer {
     public void stop(){
         if (ijkMediaPlayer != null&&!mIsStopped) {
             ijkMediaPlayer.stop();
+
             ijkMediaPlayer.reset();
         }
         mIsStopped = true;
 //        mMediaPlayer = null;
     }
 
-    public void release(){
+    public void releaseMedia(){
         if (ijkMediaPlayer != null) {
             ijkMediaPlayer.stop();
             ijkMediaPlayer.release();
             ijkMediaPlayer = null;
         }
+    }
+
+    public void releaseWithError(){
+        if (ijkMediaPlayer != null) {
+//            ijkMediaPlayer.stop();
+            ijkMediaPlayer.release();
+            ijkMediaPlayer =new IjkMediaPlayer();
+            ijkMediaPlayer.setOnPreparedListener(mPreparedListener);
+            ijkMediaPlayer.setOnErrorListener(mErrorListener);
+
+            ijkMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            setOnCompleteListener(mCompletionListener);
+        }
+        mIsError=false;
     }
     public boolean isMediaPlayerStop(){
         return mIsStopped;

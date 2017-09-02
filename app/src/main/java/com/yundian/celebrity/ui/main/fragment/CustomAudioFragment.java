@@ -2,14 +2,12 @@ package com.yundian.celebrity.ui.main.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yundian.celebrity.R;
@@ -41,6 +39,7 @@ import tv.danmaku.ijk.media.player.IMediaPlayer;
 
 public class CustomAudioFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
 
+    private static CustomAudioAdapter.ImageViewDelegate imageViewDelegate;
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout swipeLayout;
 
@@ -53,16 +52,14 @@ public class CustomAudioFragment extends BaseFragment implements SwipeRefreshLay
     public static final String POSITION="position";
     public static final String FANS_ASK_BEAN="FansAskBean";
     private MyAudioPlayer myAudioPlayer;
-    public ImageView currentPlayIvPlay;
+//    public ImageView currentPlayIvPlay;
 
     IMediaPlayer.OnCompletionListener mCompletionListener = new IMediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(IMediaPlayer iMediaPlayer) {
             myAudioPlayer.stop();
-            if(currentPlayIvPlay!=null){
-                currentPlayIvPlay.setBackground(getResources().getDrawable(R.drawable.voice_icon));
+            imageViewDelegate.onCompletionAnimation();
 
-            }
 
         }
     };
@@ -93,7 +90,7 @@ public class CustomAudioFragment extends BaseFragment implements SwipeRefreshLay
         swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeLayout);
     }
     private int currentPlayingPosition=-1;
-    private AnimationDrawable voiceBackground;
+//    private AnimationDrawable voiceBackground;
     private void initAdapter() {
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
@@ -114,7 +111,7 @@ public class CustomAudioFragment extends BaseFragment implements SwipeRefreshLay
             }
 
             @Override
-            public void onListenAnswer(FansAskBean item,int position,ImageView ivPlay) {
+            public void onListenAnswer(FansAskBean item,int position,CustomAudioAdapter.ImageViewDelegate imageViewDelegate) {
 
 
                 if(myAudioPlayer==null){
@@ -123,32 +120,29 @@ public class CustomAudioFragment extends BaseFragment implements SwipeRefreshLay
                 }
 
                 if(myAudioPlayer!=null&&(currentPlayingPosition!=position||myAudioPlayer.isMediaPlayerStop())&&!myAudioPlayer.isMediaPlayerPrepared()){
-                    if(voiceBackground!=null){
-                        voiceBackground.stop();
-                        currentPlayIvPlay.setBackground(getResources().getDrawable(R.drawable.voice_icon));
+                    if(CustomAudioFragment.imageViewDelegate!=null){
+                        CustomAudioFragment.imageViewDelegate.onStopAnimation();
                     }
-                    CustomAudioFragment.this.currentPlayIvPlay=ivPlay;
-                    // TODO: 2017/8/30  
+                    imageViewDelegate.onPlayAnimation();
+
+
                     myAudioPlayer.setDataSource(AppConfig.QI_NIU_PIC_ADRESS+item.getSanswer());
 
-//                    ImageView ivPlay = (ImageView)view.findViewById(R.id.iv_play_record);
-                    ivPlay.setBackground(getResources().getDrawable(R.drawable.animation_voice_paly));
-
-                    voiceBackground = (AnimationDrawable) ivPlay.getBackground();
-                    voiceBackground.start();
-
                     currentPlayingPosition = position;
+                    CustomAudioFragment.imageViewDelegate=imageViewDelegate;
                 }else if(myAudioPlayer!=null&&myAudioPlayer.isMediaPlayerPrepared()){
+//                    if(CustomAudioFragment.imageViewDelegate!=null){
+//                        CustomAudioFragment.imageViewDelegate.onStopAnimation();
+//                    }
                     ToastUtils.showShort("prepared");
                 }else if(myAudioPlayer!=null&&(currentPlayingPosition==position&&!myAudioPlayer.isMediaPlayerStop())){
-                    if(voiceBackground!=null){
-                        voiceBackground.stop();
-                        ivPlay.setBackground(getResources().getDrawable(R.drawable.voice_icon));
-                    }
+                    imageViewDelegate.onStopAnimation();
 
                     myAudioPlayer.stop();
                     currentPlayingPosition=-1;
+                    CustomAudioFragment.imageViewDelegate=imageViewDelegate;
                 }
+
             }
         });
         customAudioAdapter.setOnLoadMoreListener(this, mRecyclerView);

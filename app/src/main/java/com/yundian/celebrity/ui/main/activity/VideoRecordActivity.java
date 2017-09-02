@@ -601,7 +601,7 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
 
 //        if (mediaPlayer != null) {
 //            mediaPlayer.stop();
-//            mediaPlayer.release();
+//            mediaPlayer.releaseWithError();
 //            mediaPlayer = null;
 //        }
     }

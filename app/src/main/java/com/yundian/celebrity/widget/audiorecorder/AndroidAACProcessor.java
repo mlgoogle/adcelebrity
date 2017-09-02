@@ -274,7 +274,7 @@ public class AndroidAACProcessor implements AudioProcessor {
 //        try {
 //            if (codec != null) {
 //                codec.stop();
-//                codec.release();
+//                codec.releaseWithError();
 //                codec = null;
 //            }
 //

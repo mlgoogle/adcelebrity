@@ -65,8 +65,8 @@ public enum Host {
 //        return "tapi.smartdata-x.com";//线上正式
 //        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //        if(BuildConfig.DEBUG){
-            return "139.224.34.22"; //本地
-////            return "122.144.169.214"; //测试
+//            return "139.224.34.22"; //本地
+            return "122.144.169.214"; //测试
 //        }else{
 ////            return "tapi.smartdata-x.com";//线上正式
 //            return "122.144.169.214"; //测试
@@ -87,8 +87,8 @@ public enum Host {
 
 //         return (short) 16060;  //本地明星端
 //dsf
-//        return (short) 16016;  //明星端
-        return (short) 16080;
+        return (short) 16016;  //明星端
+//        return (short) 16080;
 
 //        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //        if(BuildConfig.DEBUG){

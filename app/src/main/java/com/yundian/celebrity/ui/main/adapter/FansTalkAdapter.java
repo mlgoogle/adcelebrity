@@ -2,7 +2,6 @@ package com.yundian.celebrity.ui.main.adapter;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -50,7 +49,7 @@ public class FansTalkAdapter extends BaseQuickAdapter<HaveStarUsersBean, BaseVie
 
 
         ImageView headView = helper.getView(R.id.iv_star_head);
-        ImageLoaderUtils.display(mContext, headView, item.getHead_url());
+        ImageLoaderUtils.displayUrl(mContext, headView, item.getHead_url());
         helper.setText(R.id.tv_star_name, item.getNickname());
 //        helper.setText(R.id.tv_talk_msg_count, item.get);
     }

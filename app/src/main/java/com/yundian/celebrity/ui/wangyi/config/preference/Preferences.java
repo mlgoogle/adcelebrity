@@ -3,6 +3,7 @@ package com.yundian.celebrity.ui.wangyi.config.preference;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.yundian.celebrity.app.AppApplication;
 import com.yundian.celebrity.ui.wangyi.DemoCache;
 
 
@@ -44,7 +45,7 @@ public class Preferences {
             return DemoCache.getContext().getSharedPreferences("Demo", Context.MODE_PRIVATE);
 
         }else{
-            return null;
+            return AppApplication.getAppContext().getSharedPreferences("Demo", Context.MODE_PRIVATE);
         }
     }
 }
