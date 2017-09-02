@@ -2,7 +2,6 @@ package com.yundian.celebrity.widget.photobutton;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
@@ -64,11 +63,11 @@ public class TypeButton extends View{
         //如果类型为取消，则绘制内部为返回箭头
         if (button_type == TYPE_CANCEL) {
             mPaint.setAntiAlias(true);
-            mPaint.setColor(0xEECCCCCC);
+            mPaint.setColor(0xFFFFFFFF);
             mPaint.setStyle(Paint.Style.FILL);
             canvas.drawCircle(center_X, center_Y, button_radius, mPaint);
 
-            mPaint.setColor(Color.BLACK);
+            mPaint.setColor(0xff999999);
             mPaint.setStyle(Paint.Style.STROKE);
             mPaint.setStrokeWidth(strokeWidth);
 
@@ -95,7 +94,7 @@ public class TypeButton extends View{
             canvas.drawCircle(center_X, center_Y, button_radius, mPaint);
             mPaint.setAntiAlias(true);
             mPaint.setStyle(Paint.Style.STROKE);
-            mPaint.setColor(0xFF00CC00);
+            mPaint.setColor(0xFFFB9938);
             mPaint.setStrokeWidth(strokeWidth);
 
             path.moveTo(center_X - button_size / 6f, center_Y);

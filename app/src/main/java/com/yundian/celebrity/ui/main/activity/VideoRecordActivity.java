@@ -1,6 +1,5 @@
 package com.yundian.celebrity.ui.main.activity;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,9 +23,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kiwi.ui.StickerConfigMgr;
 import com.qiniu.android.common.Zone;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.Configuration;
@@ -47,14 +50,20 @@ import com.qiniu.pili.droid.shortvideo.PLUploadProgressListener;
 import com.qiniu.pili.droid.shortvideo.PLUploadResultListener;
 import com.qiniu.pili.droid.shortvideo.PLUploadSetting;
 import com.qiniu.pili.droid.shortvideo.PLVideoEncodeSetting;
+import com.qiniu.pili.droid.shortvideo.PLVideoFilterListener;
 import com.qiniu.pili.droid.shortvideo.PLVideoFrame;
 import com.qiniu.pili.droid.shortvideo.PLVideoSaveListener;
 import com.yundian.celebrity.R;
 import com.yundian.celebrity.app.AppConfig;
+import com.yundian.celebrity.base.BasePlayActivity;
+import com.yundian.celebrity.bean.FansAskBean;
 import com.yundian.celebrity.bean.UptokenBean;
 import com.yundian.celebrity.listener.OnAPIListener;
 import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
+import com.yundian.celebrity.ui.main.fragment.CustomAudioFragment;
 import com.yundian.celebrity.ui.main.fragment.VideoAskFragment;
+import com.yundian.celebrity.utils.ImageLoaderUtils;
+import com.yundian.celebrity.utils.KiwiTrackWrapper;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.widget.photobutton.CaptureLayout;
 import com.yundian.celebrity.widget.photobutton.lisenter.CaptureLisenter;
@@ -76,10 +85,10 @@ import java.io.IOException;
 import java.util.Random;
 
 import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
+import static com.yundian.celebrity.ui.main.fragment.VideoAskFragment.FANS_ASK_BUNDLE;
 
 
-public class VideoRecordActivity extends Activity implements PLRecordStateListener, PLVideoSaveListener, PLFocusListener, PLUploadProgressListener, PLUploadResultListener {
+public class VideoRecordActivity extends BasePlayActivity implements PLRecordStateListener, PLVideoSaveListener, PLFocusListener, PLUploadProgressListener, PLUploadResultListener {
     private static final String PREVIEW = "preview";
     private static final String PLAYBACK = "play_back";
     protected static final String FRAMEPATH = "framePath";
@@ -97,7 +106,7 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
 //    private CustomProgressDialog mProcessingDialog;
 
     private View mSwitchCameraBtn;
-    private View mSwitchFlashBtn;
+//    private View mSwitchFlashBtn;
     private FocusIndicator mFocusIndicator;
 //    private SeekBar mAdjustBrightnessSeekBar;
 
@@ -145,14 +154,27 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
     private String bitmapPath;
     private String imageName;
     private String uptoken;
+    private KiwiTrackWrapper mKiwiTrackWrapper;
+    private ImageView ivHead;
+    private RelativeLayout rlAskContent;
+    private TextView tvName;
+    private TextView tvQuestionContent;
+    private FansAskBean fansAskBean;
+    private ImageView ivQuestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        super.onCreate(savedInstanceState);
+
+        Bundle bundle = getIntent().getBundleExtra(FANS_ASK_BUNDLE);
+        if (bundle != null) {
+            fansAskBean = (FansAskBean) bundle.getParcelable(CustomAudioFragment.FANS_ASK_BEAN);
+        }
         LayoutInflater inflater = getLayoutInflater();  //调用Activity的getLayoutInflater)
         rootView = (ViewGroup) inflater.inflate(R.layout.activity_record, null);
 
@@ -162,7 +184,15 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
 
         container = (FrameLayout) findViewById(R.id.glsurface_container);
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        ivQuestion = (ImageView) findViewById(R.id.iv_question);
 
+        rlAskContent = (RelativeLayout) findViewById(R.id.rl_ask_content);
+        ivHead = (ImageView) findViewById(R.id.iv_head);
+        tvName = (TextView) findViewById(R.id.tv_name);
+        tvQuestionContent = (TextView) findViewById(R.id.tv_question_content);
+        ImageLoaderUtils.displayUrl(this,ivHead,fansAskBean.getHeadUrl());
+        tvName.setText(fansAskBean.getNickName());
+        tvQuestionContent.setText(fansAskBean.getUask());
 
         mCaptureLayout = (CaptureLayout) findViewById(R.id.layout_capture);
 
@@ -172,6 +202,7 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
         mCaptureLayout.setDuration(duration * 1000);
 
         mCaptureLayout.setEnabled(false);
+
 
         mCaptureLayout.setCaptureLisenter(new CaptureLisenter() {
             @Override
@@ -320,8 +351,19 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
             }
         });
 
+        ivQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(rlAskContent.getVisibility()==View.VISIBLE){
+                    rlAskContent.setVisibility(View.GONE);
+                }else{
+                    rlAskContent.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
         mSwitchCameraBtn = findViewById(R.id.switch_camera);
-        mSwitchFlashBtn = findViewById(R.id.switch_flash);
+//        mSwitchFlashBtn = findViewById(R.id.switch_flash);
         mFocusIndicator = (FocusIndicator) findViewById(R.id.focus_indicator);
 //        mAdjustBrightnessSeekBar = (SeekBar) findViewById(R.id.adjust_brightness);
 
@@ -354,7 +396,7 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
         mCameraSetting.setCameraId(facingId);
         //把camera拍到的内容显示在preview上的一些设置
         mCameraSetting.setCameraPreviewSizeRatio(getPreviewSizeRatio(0));
-        mCameraSetting.setCameraPreviewSizeLevel(getPreviewSizeLevel(7));
+        mCameraSetting.setCameraPreviewSizeLevel(getPreviewSizeLevel(6));
 
         //麦克风的设置
         PLMicrophoneSetting microphoneSetting = new PLMicrophoneSetting();
@@ -362,14 +404,14 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
         //video编码的设置
         PLVideoEncodeSetting videoEncodeSetting = new PLVideoEncodeSetting(this);
         videoEncodeSetting.setEncodingSizeLevel(getEncodingSizeLevel(17));
-        videoEncodeSetting.setEncodingBitrate(getEncodingBitrateLevel(7));
+        videoEncodeSetting.setEncodingBitrate(getEncodingBitrateLevel(6));
 
         //音频的设置
         PLAudioEncodeSetting audioEncodeSetting = new PLAudioEncodeSetting();
 
         //record录像的设置
         PLRecordSetting recordSetting = new PLRecordSetting();
-        recordSetting.setMaxRecordDuration(RecordSettings.DEFAULT_MAX_RECORD_DURATION);
+        recordSetting.setMaxRecordDuration(duration*1000);
         recordSetting.setVideoCacheDir(Config.VIDEO_STORAGE_DIR);
 
         String fileName = createFileName() + "record.mp4";
@@ -388,51 +430,51 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
 //        //全部设置给recorder
         mShortVideoRecorder.prepare(preview, mCameraSetting, microphoneSetting, videoEncodeSetting,
                 audioEncodeSetting, USE_KIWI ? null : faceBeautySetting, recordSetting);
+        mShortVideoRecorder.setFlashEnabled(false);
 
+        if (USE_KIWI) {
+            StickerConfigMgr.setSelectedStickerConfig(null);
 
-//        if (USE_KIWI) {
-//            StickerConfigMgr.setSelectedStickerConfig(null);
-//
-//            mKiwiTrackWrapper = new KiwiTrackWrapper(this, mCameraSetting.getCameraId());
-//            mKiwiTrackWrapper.onCreate(this);
-//
-////            mControlView = (KwControlView) findViewById(R.id.kiwi_control_layout);
-////            mControlView.setOnEventListener(mKiwiTrackWrapper.initUIEventListener());
-////            mControlView.setVisibility(VISIBLE);
-//
-//            mShortVideoRecorder.setVideoFilterListener(new PLVideoFilterListener() {
-//
-//                private int surfaceWidth;
-//                private int surfaceHeight;
-//                private boolean isTrackerOnSurfaceChangedCalled;
-//
-//                @Override
-//                public void onSurfaceCreated() {
-//                    mKiwiTrackWrapper.onSurfaceCreated(VideoRecordActivity.this);
-//                }
-//
-//                @Override
-//                public void onSurfaceChanged(int width, int height) {
-//                    surfaceWidth = width;
-//                    surfaceHeight = height;
-//                }
-//
-//                @Override
-//                public void onSurfaceDestroy() {
-//                    mKiwiTrackWrapper.onSurfaceDestroyed();
-//                }
-//
-//                @Override
-//                public int onDrawFrame(int texId, int texWidth, int texHeight, long l) {
-//                    if (!isTrackerOnSurfaceChangedCalled) {
-//                        isTrackerOnSurfaceChangedCalled = true;
-//                        mKiwiTrackWrapper.onSurfaceChanged(surfaceWidth, surfaceHeight, texWidth, texHeight);
-//                    }
-//                    VideoRecordActivity.this.textureId = texId;
-//                    return mKiwiTrackWrapper.onDrawFrame(texId, texWidth, texHeight);
-//                }
-//            });
-//        }
+            mKiwiTrackWrapper = new KiwiTrackWrapper(this, mCameraSetting.getCameraId());
+            mKiwiTrackWrapper.onCreate(this);
+
+//            mControlView = (KwControlView) findViewById(R.id.kiwi_control_layout);
+//            mControlView.setOnEventListener(mKiwiTrackWrapper.initUIEventListener());
+//            mControlView.setVisibility(VISIBLE);
+
+            mShortVideoRecorder.setVideoFilterListener(new PLVideoFilterListener() {
+
+                private int surfaceWidth;
+                private int surfaceHeight;
+                private boolean isTrackerOnSurfaceChangedCalled;
+
+                @Override
+                public void onSurfaceCreated() {
+                    mKiwiTrackWrapper.onSurfaceCreated(VideoRecordActivity.this);
+                }
+
+                @Override
+                public void onSurfaceChanged(int width, int height) {
+                    surfaceWidth = width;
+                    surfaceHeight = height;
+                }
+
+                @Override
+                public void onSurfaceDestroy() {
+                    mKiwiTrackWrapper.onSurfaceDestroyed();
+                }
+
+                @Override
+                public int onDrawFrame(int texId, int texWidth, int texHeight, long l) {
+                    if (!isTrackerOnSurfaceChangedCalled) {
+                        isTrackerOnSurfaceChangedCalled = true;
+                        mKiwiTrackWrapper.onSurfaceChanged(surfaceWidth, surfaceHeight, texWidth, texHeight);
+                    }
+                    VideoRecordActivity.this.textureId = texId;
+                    return mKiwiTrackWrapper.onDrawFrame(texId, texWidth, texHeight);
+                }
+            });
+        }
         //手势识别
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
@@ -581,9 +623,9 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
     protected void onResume() {
         super.onResume();
 //        progressButton.setEnabled(false);
-//        if (mKiwiTrackWrapper != null) {
-//            mKiwiTrackWrapper.onResume(this);
-//        }
+        if (mKiwiTrackWrapper != null) {
+            mKiwiTrackWrapper.onResume(this);
+        }
         updateRecordingBtns(true);
         mCaptureLayout.setEnabled(true);
         mShortVideoRecorder.resume();
@@ -592,9 +634,9 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
     @Override
     protected void onPause() {
         super.onPause();
-//        if (mKiwiTrackWrapper != null) {
-//            mKiwiTrackWrapper.onPause(this);
-//        }
+        if (mKiwiTrackWrapper != null) {
+            mKiwiTrackWrapper.onPause(this);
+        }
         updateRecordingBtns(false);
         mCaptureLayout.setEnabled(false);
         mShortVideoRecorder.pause();
@@ -623,9 +665,9 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        if (mKiwiTrackWrapper != null) {
-//            mKiwiTrackWrapper.onDestroy(this);
-//        }
+        if (mKiwiTrackWrapper != null) {
+            mKiwiTrackWrapper.onDestroy(this);
+        }
         mShortVideoRecorder.destroy();
         releaseMediaPlayer();
     }
@@ -634,9 +676,9 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
 
     //点击切换换一个摄像头
     public void onClickSwitchCamera(View v) {
-//        if (mKiwiTrackWrapper != null) {
-//            mKiwiTrackWrapper.switchCamera(mCameraSetting.getCameraId());
-//        }
+        if (mKiwiTrackWrapper != null) {
+            mKiwiTrackWrapper.switchCamera(mCameraSetting.getCameraId());
+        }
         mShortVideoRecorder.switchCamera();
     }
 
@@ -653,9 +695,9 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mSwitchFlashBtn.setVisibility(mShortVideoRecorder.isFlashSupport() ? VISIBLE : GONE);
+//                mSwitchFlashBtn.setVisibility(mShortVideoRecorder.isFlashSupport() ? VISIBLE : GONE);
                 mFlashEnabled = false;
-                mSwitchFlashBtn.setActivated(mFlashEnabled);
+//                mSwitchFlashBtn.setActivated(mFlashEnabled);
                 mCaptureLayout.setEnabled(true);
 //                progressButton.setEnabled(true);
 

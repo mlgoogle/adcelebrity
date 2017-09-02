@@ -6,10 +6,16 @@ package com.yundian.celebrity.event;
  */
 public class VideoMessageEvent {
     private final String url;
+    private final String frameUrl;
     private int position;
-    public VideoMessageEvent(int position, String url) {
+    public VideoMessageEvent(int position, String url,String frameUrl) {
         this.position = position;
         this.url = url;
+        this.frameUrl = frameUrl;
+    }
+
+    public String getFrameUrl() {
+        return frameUrl;
     }
 
     public String getUrl() {

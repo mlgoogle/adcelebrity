@@ -1,7 +1,6 @@
 package com.yundian.celebrity.ui.main.activity;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,15 +12,24 @@ import android.widget.ImageView;
 
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 import com.yundian.celebrity.R;
+import com.yundian.celebrity.app.AppConfig;
+import com.yundian.celebrity.base.BasePlayActivity;
+import com.yundian.celebrity.bean.FansAskBean;
+import com.yundian.celebrity.ui.main.fragment.CustomAudioFragment;
+import com.yundian.celebrity.ui.main.fragment.VideoAskFragment;
+import com.yundian.celebrity.utils.ImageLoaderUtils;
+import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.widget.customVideoPlayer.CustomUIVideo;
 import com.yundian.celebrity.widget.customVideoPlayer.OnTransitionListener;
+
+import static com.yundian.celebrity.ui.main.fragment.VideoAskFragment.FANS_ASK_BUNDLE;
 
 
 /**
  * 单独的视频播放页面
  * Created by shuyu on 2016/11/11.
  */
-public class PlayActivity extends Activity {
+public class PlayActivity extends BasePlayActivity {
 
     public final static String IMG_TRANSITION = "IMG_TRANSITION";
     public final static String TRANSITION = "TRANSITION";
@@ -35,6 +43,8 @@ public class PlayActivity extends Activity {
 
     private Transition transition;
     private String playUrl;
+    private FansAskBean fansAskBean;
+    private int videoType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +52,30 @@ public class PlayActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_video);
 
-
+        Bundle bundle = getIntent().getBundleExtra(FANS_ASK_BUNDLE);
+        if (bundle != null) {
+            fansAskBean = (FansAskBean) bundle.getParcelable(CustomAudioFragment.FANS_ASK_BEAN);
+        }
 //        ButterKnife.bind(this);
         videoPlayer = (CustomUIVideo)findViewById(R.id.video_player);
+
+
         videoPlayer.setOnCallBack(new CustomUIVideo.CallBack() {
             @Override
             public void onClickBack() {
                 finish();
+            }
+
+            @Override
+            public void onCompletion() {
+//                finish();
             }
         });
 //        ImageView question = (ImageView)videoPlayer.findViewById(R.id.iv_question);
@@ -60,6 +84,29 @@ public class PlayActivity extends Activity {
 
         isTransition = getIntent().getBooleanExtra(TRANSITION, false);
         playUrl = getIntent().getStringExtra("playUrl");
+        videoType = getIntent().getIntExtra(VideoAskFragment.VIDEO_TYPE, -1);
+//        playUrl = getIntent().getStringExtra("playUrl");
+
+        if(fansAskBean!=null){
+            videoPlayer.setQuestionContent(fansAskBean);
+
+            //增加封面
+            ImageView imageView = new ImageView(this);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+            if(videoType==VideoAskFragment.ANSWER_TYPE){
+                ImageLoaderUtils.displayUrl(this,imageView, AppConfig.QI_NIU_PIC_ADRESS+fansAskBean.getThumbnailS());
+                LogUtils.logd("FrameUrl:"+AppConfig.QI_NIU_PIC_ADRESS+fansAskBean.getThumbnailS());
+            }else if(videoType==VideoAskFragment.ASK_TYPE){
+                ImageLoaderUtils.displayUrl(this,imageView,AppConfig.QI_NIU_PIC_ADRESS+fansAskBean.getThumbnail());
+                LogUtils.logd("FrameUrl:"+AppConfig.QI_NIU_PIC_ADRESS+fansAskBean.getThumbnail());
+            }else{
+                ImageLoaderUtils.displayUrl(this,imageView,AppConfig.QI_NIU_PIC_ADRESS+fansAskBean.getThumbnail());
+                LogUtils.logd("FrameUrl:"+AppConfig.QI_NIU_PIC_ADRESS+fansAskBean.getThumbnail());
+            }
+//            imageView.setImageResource(R.mipmap.ic_launcher);
+            videoPlayer.setThumbImageView(imageView);
+        }
         init();
     }
 
@@ -67,11 +114,7 @@ public class PlayActivity extends Activity {
 
         videoPlayer.setUp(playUrl, true, "");
 
-        //增加封面
-        ImageView imageView = new ImageView(this);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setImageResource(R.mipmap.ic_launcher);
-        videoPlayer.setThumbImageView(imageView);
+
 
         //增加title
 //        videoPlayer.getTitleTextView().setVisibility(View.VISIBLE);

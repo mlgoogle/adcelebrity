@@ -45,6 +45,9 @@ public class VideoAskFragment extends BaseFragment implements SwipeRefreshLayout
     public static final String POSITION="position";
     public static final String DURATION="duration";
     public static final String FANS_ASK_BEAN="FansAskBean";
+    public static final String VIDEO_TYPE="FansAsk";
+    public static final int ANSWER_TYPE=1;
+    public static final int ASK_TYPE=0;
 
     private VideoAskAdapter videoAskAdapter;
     private List<FansAskBean> dataList = new ArrayList<>();
@@ -112,6 +115,12 @@ public class VideoAskFragment extends BaseFragment implements SwipeRefreshLayout
                 //用户提问视频
                 if(item.getSanswer()!=null&& !TextUtils.isEmpty(item.getSanswer())){
                     Intent intent = new Intent(getActivity(),PlayActivity.class);
+                    intent.putExtra(VIDEO_TYPE,ANSWER_TYPE);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(FANS_ASK_BEAN,item);
+
+                    intent.putExtra(FANS_ASK_BUNDLE,bundle);
+
                     intent.putExtra("playUrl", AppConfig.QI_NIU_PIC_ADRESS+item.getSanswer());
                     startActivity(intent);
                 }else{
@@ -123,6 +132,12 @@ public class VideoAskFragment extends BaseFragment implements SwipeRefreshLayout
             public void onLookAskVideo(FansAskBean item) {
                 if(item.getVideo_url()!=null&& !TextUtils.isEmpty(item.getVideo_url())){
                     Intent intent = new Intent(getActivity(),PlayActivity.class);
+                    intent.putExtra(VIDEO_TYPE,ASK_TYPE);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(FANS_ASK_BEAN,item);
+                    intent.putExtra(FANS_ASK_BUNDLE,bundle);
+
                     intent.putExtra("playUrl",AppConfig.QI_NIU_PIC_ADRESS+item.getVideo_url());
                     startActivity(intent);
                 }else{
@@ -275,6 +290,8 @@ public class VideoAskFragment extends BaseFragment implements SwipeRefreshLayout
         if(listBeans!=null){
             listBeans.get(eventBusMessage.getPosition()).setAnswer_t(-1);
             listBeans.get(eventBusMessage.getPosition()).setSanswer(eventBusMessage.getUrl());
+            listBeans.get(eventBusMessage.getPosition()).setThumbnailS(eventBusMessage.getFrameUrl());
+            LogUtils.logd("FrameUrl:"+eventBusMessage.getFrameUrl());
             videoAskAdapter.notifyDataSetChanged();
         }
 

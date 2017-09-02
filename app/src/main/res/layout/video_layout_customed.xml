@@ -33,21 +33,20 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_alignParentBottom="true"
-
-        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:visibility="invisible">
-
         <ImageView
             android:id="@+id/iv_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_ask_normal"
+            android:src="@drawable/hide_question"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_margin="20dp"/>
 
         <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl_ask_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -63,7 +62,7 @@
 
                 android:layout_height="26dp" />
             <TextView
-                android:id="@id/tv_name"
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/iv_head"
@@ -74,6 +73,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_question_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iv_head"
@@ -83,6 +83,7 @@
                 android:textSize="16sp"
                 android:layout_alignLeft="@id/tv_name"/>
         </RelativeLayout>
+
     </RelativeLayout>
 
 
@@ -99,18 +100,18 @@
     <RelativeLayout
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/video_title_bg"
         android:gravity="center_vertical">
         <ProgressBar
             android:id="@+id/top_progressbar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="15dp"
+            android:layout_height="10dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:max="100"
             android:progressDrawable="@drawable/video_play_progress" />
 
@@ -119,10 +120,11 @@
             android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:layout_marginTop="6dp"
+
+            android:layout_marginTop="21dp"
+            android:layout_marginRight="20dp"
             android:layout_below="@id/top_progressbar"
-            android:src="@drawable/icon_ask_normal"
+            android:src="@drawable/video_close"
             android:layout_alignRight="@id/top_progressbar"
             />
         <ImageView

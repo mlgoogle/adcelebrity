@@ -2,9 +2,9 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
         <shape>
-            <solid android:color="#4c000000"/>
+            <solid android:color="#aaffffff"/>
 
-            <size android:height="24.0dip"/>
+            <size android:height="10.0dip"/>
             <corners android:radius="10.0dip"/>
 
         </shape>
@@ -13,8 +13,8 @@
         <clip>
             <shape>
                 <solid android:color="#ffe0e0e0"/>
-                <size android:height="24.0dip"/>
-                <corners android:radius="1.0dip"/>
+                <size android:height="10.0dip"/>
+                <corners android:radius="10.0dip"/>
             </shape>
         </clip>
     </item>
@@ -22,8 +22,8 @@
         <clip>
             <shape>
                 <solid android:color="@color/color_FB9938"/>
-                <size android:height="24.0dip"/>
-                <corners android:radius="1.0dip"/>
+                <size android:height="10.0dip"/>
+                <corners android:radius="10.0dip"/>
             </shape>
         </clip>
     </item>

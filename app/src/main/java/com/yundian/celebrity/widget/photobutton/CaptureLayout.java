@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.yundian.celebrity.R;
+import com.yundian.celebrity.widget.AudioRecordButton;
 import com.yundian.celebrity.widget.photobutton.lisenter.CaptureLisenter;
 import com.yundian.celebrity.widget.photobutton.lisenter.TypeLisenter;
 
@@ -146,7 +148,7 @@ public class CaptureLayout extends FrameLayout {
     private void initView() {
         setWillNotDraw(false);
         //btn_capture
-        btn_capture = new CaptureButton(getContext(), button_size);
+        btn_capture = new AudioRecordButton(getContext(), button_size, R.drawable.video);
         LayoutParams btn_capture_param = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 //        btn_capture_param.addRule(CENTER_IN_PARENT, TRUE);
         btn_capture_param.gravity = Gravity.CENTER;
