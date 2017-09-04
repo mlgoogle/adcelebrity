@@ -256,7 +256,7 @@ public class FansInteractionFragment extends BaseFragment implements CircleContr
                 if (isLoadMore) {
                     circleFriendAdapter.loadMoreEnd();
                 } else {
-                    swipeLayout.setRefreshing(false);  //下拉刷新,应该显示空白页
+                    swipeLayout.setRefreshing(false);//下拉刷新,应该显示空白页
                     circleFriendAdapter.setEnableLoadMore(true);
                 }
             }
@@ -267,6 +267,7 @@ public class FansInteractionFragment extends BaseFragment implements CircleContr
 
                 if (circleFriendBean == null || circleFriendBean.getCircle_list() == null || circleFriendBean.getCircle_list().size() == 0) {
                     circleFriendAdapter.loadMoreEnd();  //没有更多数据     显示"没有更多数据"
+                    swipeLayout.setRefreshing(false);//下拉刷新,应该显示空白页
                     LogUtils.loge("-------------显示没有更多数据");
                     return;
                 }

@@ -172,5 +172,5 @@ dependencies {
     compile 'com.shuyu:gsyVideoPlayer-arm64:2.0.5'
     compile 'com.shuyu:gsyVideoPlayer-x64:2.0.5'
     compile 'com.shuyu:gsyVideoPlayer-x86:2.0.5'
-    compile project(':kiwi')
+//    compile project(':kiwi')
 }

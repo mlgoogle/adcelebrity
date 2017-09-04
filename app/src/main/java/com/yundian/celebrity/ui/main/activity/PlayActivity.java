@@ -53,9 +53,6 @@ public class PlayActivity extends BasePlayActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_video);
 

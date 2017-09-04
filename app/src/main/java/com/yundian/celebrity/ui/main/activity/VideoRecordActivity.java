@@ -29,7 +29,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kiwi.ui.StickerConfigMgr;
 import com.qiniu.android.common.Zone;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.Configuration;
@@ -50,7 +49,6 @@ import com.qiniu.pili.droid.shortvideo.PLUploadProgressListener;
 import com.qiniu.pili.droid.shortvideo.PLUploadResultListener;
 import com.qiniu.pili.droid.shortvideo.PLUploadSetting;
 import com.qiniu.pili.droid.shortvideo.PLVideoEncodeSetting;
-import com.qiniu.pili.droid.shortvideo.PLVideoFilterListener;
 import com.qiniu.pili.droid.shortvideo.PLVideoFrame;
 import com.qiniu.pili.droid.shortvideo.PLVideoSaveListener;
 import com.yundian.celebrity.R;
@@ -63,7 +61,6 @@ import com.yundian.celebrity.networkapi.NetworkAPIFactoryImpl;
 import com.yundian.celebrity.ui.main.fragment.CustomAudioFragment;
 import com.yundian.celebrity.ui.main.fragment.VideoAskFragment;
 import com.yundian.celebrity.utils.ImageLoaderUtils;
-import com.yundian.celebrity.utils.KiwiTrackWrapper;
 import com.yundian.celebrity.utils.LogUtils;
 import com.yundian.celebrity.widget.photobutton.CaptureLayout;
 import com.yundian.celebrity.widget.photobutton.lisenter.CaptureLisenter;
@@ -99,7 +96,7 @@ public class VideoRecordActivity extends BasePlayActivity implements PLRecordSta
     /**
      * NOTICE: KIWI needs extra cost
      */
-    private static final boolean USE_KIWI = true;
+    private static final boolean USE_KIWI = false;
 
     private PLShortVideoRecorder mShortVideoRecorder;
 
@@ -154,7 +151,6 @@ public class VideoRecordActivity extends BasePlayActivity implements PLRecordSta
     private String bitmapPath;
     private String imageName;
     private String uptoken;
-    private KiwiTrackWrapper mKiwiTrackWrapper;
     private ImageView ivHead;
     private RelativeLayout rlAskContent;
     private TextView tvName;
@@ -432,49 +428,50 @@ public class VideoRecordActivity extends BasePlayActivity implements PLRecordSta
                 audioEncodeSetting, USE_KIWI ? null : faceBeautySetting, recordSetting);
         mShortVideoRecorder.setFlashEnabled(false);
 
-        if (USE_KIWI) {
-            StickerConfigMgr.setSelectedStickerConfig(null);
-
-            mKiwiTrackWrapper = new KiwiTrackWrapper(this, mCameraSetting.getCameraId());
-            mKiwiTrackWrapper.onCreate(this);
-
-//            mControlView = (KwControlView) findViewById(R.id.kiwi_control_layout);
-//            mControlView.setOnEventListener(mKiwiTrackWrapper.initUIEventListener());
-//            mControlView.setVisibility(VISIBLE);
-
-            mShortVideoRecorder.setVideoFilterListener(new PLVideoFilterListener() {
-
-                private int surfaceWidth;
-                private int surfaceHeight;
-                private boolean isTrackerOnSurfaceChangedCalled;
-
-                @Override
-                public void onSurfaceCreated() {
-                    mKiwiTrackWrapper.onSurfaceCreated(VideoRecordActivity.this);
-                }
-
-                @Override
-                public void onSurfaceChanged(int width, int height) {
-                    surfaceWidth = width;
-                    surfaceHeight = height;
-                }
-
-                @Override
-                public void onSurfaceDestroy() {
-                    mKiwiTrackWrapper.onSurfaceDestroyed();
-                }
-
-                @Override
-                public int onDrawFrame(int texId, int texWidth, int texHeight, long l) {
-                    if (!isTrackerOnSurfaceChangedCalled) {
-                        isTrackerOnSurfaceChangedCalled = true;
-                        mKiwiTrackWrapper.onSurfaceChanged(surfaceWidth, surfaceHeight, texWidth, texHeight);
-                    }
-                    VideoRecordActivity.this.textureId = texId;
-                    return mKiwiTrackWrapper.onDrawFrame(texId, texWidth, texHeight);
-                }
-            });
-        }
+//        if (USE_KIWI) {
+//            //不用美颜库暂时注释掉
+//            StickerConfigMgr.setSelectedStickerConfig(null);
+//
+//            mKiwiTrackWrapper = new KiwiTrackWrapper(this, mCameraSetting.getCameraId());
+//            mKiwiTrackWrapper.onCreate(this);
+//
+////            mControlView = (KwControlView) findViewById(R.id.kiwi_control_layout);
+////            mControlView.setOnEventListener(mKiwiTrackWrapper.initUIEventListener());
+////            mControlView.setVisibility(VISIBLE);
+//
+//            mShortVideoRecorder.setVideoFilterListener(new PLVideoFilterListener() {
+//
+//                private int surfaceWidth;
+//                private int surfaceHeight;
+//                private boolean isTrackerOnSurfaceChangedCalled;
+//
+//                @Override
+//                public void onSurfaceCreated() {
+//                    mKiwiTrackWrapper.onSurfaceCreated(VideoRecordActivity.this);
+//                }
+//
+//                @Override
+//                public void onSurfaceChanged(int width, int height) {
+//                    surfaceWidth = width;
+//                    surfaceHeight = height;
+//                }
+//
+//                @Override
+//                public void onSurfaceDestroy() {
+//                    mKiwiTrackWrapper.onSurfaceDestroyed();
+//                }
+//
+//                @Override
+//                public int onDrawFrame(int texId, int texWidth, int texHeight, long l) {
+//                    if (!isTrackerOnSurfaceChangedCalled) {
+//                        isTrackerOnSurfaceChangedCalled = true;
+//                        mKiwiTrackWrapper.onSurfaceChanged(surfaceWidth, surfaceHeight, texWidth, texHeight);
+//                    }
+//                    VideoRecordActivity.this.textureId = texId;
+//                    return mKiwiTrackWrapper.onDrawFrame(texId, texWidth, texHeight);
+//                }
+//            });
+//        }
         //手势识别
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
@@ -623,9 +620,9 @@ public class VideoRecordActivity extends BasePlayActivity implements PLRecordSta
     protected void onResume() {
         super.onResume();
 //        progressButton.setEnabled(false);
-        if (mKiwiTrackWrapper != null) {
-            mKiwiTrackWrapper.onResume(this);
-        }
+//        if (mKiwiTrackWrapper != null) {
+//            mKiwiTrackWrapper.onResume(this);
+//        }
         updateRecordingBtns(true);
         mCaptureLayout.setEnabled(true);
         mShortVideoRecorder.resume();
@@ -634,9 +631,9 @@ public class VideoRecordActivity extends BasePlayActivity implements PLRecordSta
     @Override
     protected void onPause() {
         super.onPause();
-        if (mKiwiTrackWrapper != null) {
-            mKiwiTrackWrapper.onPause(this);
-        }
+//        if (mKiwiTrackWrapper != null) {
+//            mKiwiTrackWrapper.onPause(this);
+//        }
         updateRecordingBtns(false);
         mCaptureLayout.setEnabled(false);
         mShortVideoRecorder.pause();
@@ -665,9 +662,9 @@ public class VideoRecordActivity extends BasePlayActivity implements PLRecordSta
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mKiwiTrackWrapper != null) {
-            mKiwiTrackWrapper.onDestroy(this);
-        }
+//        if (mKiwiTrackWrapper != null) {
+//            mKiwiTrackWrapper.onDestroy(this);
+//        }
         mShortVideoRecorder.destroy();
         releaseMediaPlayer();
     }
@@ -676,9 +673,9 @@ public class VideoRecordActivity extends BasePlayActivity implements PLRecordSta
 
     //点击切换换一个摄像头
     public void onClickSwitchCamera(View v) {
-        if (mKiwiTrackWrapper != null) {
-            mKiwiTrackWrapper.switchCamera(mCameraSetting.getCameraId());
-        }
+//        if (mKiwiTrackWrapper != null) {
+//            mKiwiTrackWrapper.switchCamera(mCameraSetting.getCameraId());
+//        }
         mShortVideoRecorder.switchCamera();
     }
 
