@@ -39,7 +39,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 
 /**
@@ -410,7 +409,8 @@ public class InComeInfoFragment extends BaseFragment {
                 if(ex instanceof  NullPointerException){
                     ToastUtils.showShort("数据为空");
                     list.clear();
-                    inComeInfoAdapter.getData().clear();
+                    List<IncomeReturnBean> data = inComeInfoAdapter.getData();
+                    data.clear();
                     inComeInfoAdapter.notifyDataSetChanged();
                     chartFragment.loadChartData(null);
                 }else{

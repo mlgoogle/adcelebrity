@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -108,6 +109,8 @@ public class MainActivity extends BaseActivity {
         }
     };
     private FanAskFragment fanAskFragment;
+    private List<Fragment> fragmentList;
+    private Fragment mContent;
 
 
     @Override
@@ -156,35 +159,60 @@ public class MainActivity extends BaseActivity {
         Intent intent = getIntent();
         match_info = intent.getIntExtra(AppConstant.MATCH_SUCESS_INFO, 0);
         if (match_info == 1) {
-            SwitchTo(2);
+//            SwitchTo(2);
+            switchContent(fragmentList.get(2));
             tabLayout.setCurrentTab(2);
         }
     }
 
 
     private void initFragment(Bundle savedInstanceState) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         int currentTabPosition = 0;
         if (savedInstanceState != null) {
             inComeInfoFragment = (InComeInfoFragment) getSupportFragmentManager().findFragmentByTag("InComeInfoFragment");
             contactFansFragment = (ContactFansFragment) getSupportFragmentManager().findFragmentByTag("ContactFansFragment");
             meetManageFragment = (MeetManageFragment) getSupportFragmentManager().findFragmentByTag("MeetManageFragment");
-
             fanAskFragment = (FanAskFragment) getSupportFragmentManager().findFragmentByTag("FanAskFragment");
 
             currentTabPosition = savedInstanceState.getInt(AppConstant.HOME_CURRENT_TAB_POSITION);
+            if(fragmentList==null){
+                fragmentList=new ArrayList<>();
+                fragmentList.add(inComeInfoFragment);
+                fragmentList.add(contactFansFragment);
+                fragmentList.add(meetManageFragment);
+                fragmentList.add(fanAskFragment);
+            }
+
+            Fragment fragment = fragmentList.get(currentTabPosition);
+//
+//            transaction.add(R.id.fl_main,fragment , fragment.getClass().getName());
+//            transaction.show(fragment);
+//            transaction.commit();
+            switchContent(fragment);
+
+//            SwitchTo(currentTabPosition);
         } else {
             inComeInfoFragment = new InComeInfoFragment();
             contactFansFragment = new ContactFansFragment();
             meetManageFragment = new MeetManageFragment();
-            fanAskFragment = new FanAskFragment();
-            transaction.add(R.id.fl_main, inComeInfoFragment, "InComeInfoFragment");
-            transaction.add(R.id.fl_main, contactFansFragment, "ContactFansFragment");
-            transaction.add(R.id.fl_main, meetManageFragment, "MeetManageFragment");
-            transaction.add(R.id.fl_main, fanAskFragment, "FanAskFragment");
+            fanAskFragment =new FanAskFragment();
+
+            fragmentList = new ArrayList<>();
+            fragmentList.add(inComeInfoFragment);
+            fragmentList.add(contactFansFragment);
+            fragmentList.add(meetManageFragment);
+            fragmentList.add(fanAskFragment);
+
+            InComeInfoFragment inComeInfoFragment = (InComeInfoFragment) fragmentList.get(currentTabPosition);
+            switchContent(inComeInfoFragment);
+//            transaction.add(R.id.fl_main, inComeInfoFragment, "InComeInfoFragment");
+//            transaction.add(R.id.fl_main, contactFansFragment, "ContactFansFragment");
+//            transaction.add(R.id.fl_main, meetManageFragment, "MeetManageFragment");
+//            transaction.add(R.id.fl_main, fanAskFragment, "FanAskFragment");
         }
-        transaction.commit();
-        SwitchTo(currentTabPosition);
+//        transaction.commit();
+//        SwitchTo(currentTabPosition);
         tabLayout.setCurrentTab(currentTabPosition);
     }
 
@@ -233,40 +261,85 @@ public class MainActivity extends BaseActivity {
         ChatRoomHelper.init();
     }
 
+
+    public void switchContent(Fragment to) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if(mContent==null){
+            if(!to.isAdded()){
+                transaction.add(R.id.fl_main,to , to.getClass().getName());
+                transaction.show(to);
+                transaction.commit();
+            }else {
+                transaction.show(to).commit(); // 显示下一个
+
+            }
+            mContent=to;
+
+//            InComeInfoFragment inComeInfoFragment = (InComeInfoFragment) fragmentList.get(currentTabPosition);
+
+
+        }else{
+            if (mContent != to) {
+
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().setCustomAnimations(
+//                    android.R.anim.fade_in, R.anim.slide_out);
+
+                if (!to.isAdded()) {    // 先判断是否被add过
+                    transaction.hide(mContent).add(R.id.fl_main, to,to.getClass().getName()).commit(); // 隐藏当前的fragment，add下一个到Activity中
+                } else {
+                    transaction.hide(mContent).show(to).commit(); // 隐藏当前的fragment，显示下一个
+                }
+                mContent = to;
+            }
+        }
+
+    }
     /**
      * 切换
      */
     private void SwitchTo(int position) {
         LogUtils.logd("主页菜单position" + position);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+
+
         switch (position) {
             case 0:
-                transaction.hide(contactFansFragment);
-                transaction.hide(meetManageFragment);
-                transaction.hide(fanAskFragment);
-                transaction.show(inComeInfoFragment);
+//                transaction.hide(contactFansFragment);
+//                transaction.hide(meetManageFragment);
+//                transaction.hide(fanAskFragment);
+                InComeInfoFragment inComeInfoFragment = (InComeInfoFragment) fragmentList.get(position);
+                if(fragmentList.get(position).isAdded()){
+                    for (Fragment fragment:fragmentList) {
+                        transaction.hide(fragment);
+                    }
+                    transaction.show(fragmentList.get(position));
+                }else{
+                    transaction.add(R.id.fl_main,inComeInfoFragment , "InComeInfoFragment");
+                    transaction.show(inComeInfoFragment);
+                }
                 transaction.commitAllowingStateLoss();
                 break;
             case 1:
-                transaction.hide(inComeInfoFragment);
-                transaction.hide(meetManageFragment);
-                transaction.hide(fanAskFragment);
+//                transaction.hide(inComeInfoFragment);
+//                transaction.hide(meetManageFragment);
+//                transaction.hide(fanAskFragment);
                 transaction.show(contactFansFragment);
                 transaction.commitAllowingStateLoss();
                 break;
             case 2:
 //                CheckLoginUtil.checkLogin(this);
-                transaction.hide(contactFansFragment);
-                transaction.hide(inComeInfoFragment);
-                transaction.hide(fanAskFragment);
+//                transaction.hide(contactFansFragment);
+//                transaction.hide(inComeInfoFragment);
+//                transaction.hide(fanAskFragment);
                 transaction.show(meetManageFragment);
                 transaction.commitAllowingStateLoss();
                 break;
             case 3:
 //                CheckLoginUtil.checkLogin(this);
-                transaction.hide(contactFansFragment);
-                transaction.hide(inComeInfoFragment);
-                transaction.hide(meetManageFragment);
+//                transaction.hide(contactFansFragment);
+//                transaction.hide(inComeInfoFragment);
+//                transaction.hide(meetManageFragment);
                 transaction.show(fanAskFragment);
                 transaction.commitAllowingStateLoss();
                 break;
@@ -287,7 +360,9 @@ public class MainActivity extends BaseActivity {
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                SwitchTo(position);
+
+                switchContent(fragmentList.get(position));
+//                SwitchTo(position);
             }
 
             @Override
@@ -391,7 +466,8 @@ public class MainActivity extends BaseActivity {
     public void ReciveMessageEventBus(final EventBusMessage eventBusMessage) {
         switch (eventBusMessage.Message) {
             case 2:  //登录取消
-                SwitchTo(0);
+//                SwitchTo(0);
+                switchContent(fragmentList.get(0));
                 tabLayout.setCurrentTab(0);
                 break;
             case -11:
@@ -407,9 +483,9 @@ public class MainActivity extends BaseActivity {
                 requestBankInfo();  //更新银行卡信息
                 requestBalance();   //更新余额信息
                 tabLayout.setCurrentTab(0);
-                inComeInfoFragment.getData();
-                contactFansFragment.loadData();
-                meetManageFragment.loadData();
+//                inComeInfoFragment.getData();
+//                contactFansFragment.loadData();
+//                meetManageFragment.loadData();
                 break;
         }
     }
