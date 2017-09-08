@@ -22,9 +22,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:paddingBottom="16dp"
+
                 android:background="@color/colorPrimary"
                 />
+         <!--   <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_below="@id/rv_list"/>-->
 
             <TextView
                 android:id="@+id/tv_add_type"

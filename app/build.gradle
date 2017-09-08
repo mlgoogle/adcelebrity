@@ -24,7 +24,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
-        applicationId "com.yundian.celebrity"
+        applicationId "com.cloudTop.starshare"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 20170830

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:starshare="http://schemas.android.com/apk/res/com.yundian.celebrity"
+    xmlns:starshare="http://schemas.android.com/apk/res/com.cloudTop.starshare"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.yundian.celebrity.widget.NormalTitleBar
+    <com.cloudTop.starshare.widget.NormalTitleBar
         android:id="@+id/nt_title"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -86,7 +86,7 @@
 
 
 
-        <com.yundian.celebrity.widget.EasySwitchButton
+        <com.cloudTop.starshare.widget.EasySwitchButton
             android:id="@+id/esb_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -152,6 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="点击播放"
+
                 android:layout_marginLeft="52dp"
                 android:textColor="@color/color_666666"
                 android:textSize="@dimen/fontSize_14sp" />
@@ -164,6 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/ll_listen"
             android:layout_centerVertical="true"
+            android:layout_marginRight="13dp"
             android:layout_marginLeft="30dp"
             android:src="@drawable/cancel"
             />

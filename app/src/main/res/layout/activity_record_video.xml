@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:starshare="http://schemas.android.com/apk/res/com.yundian.celebrity"
+    xmlns:starshare="http://schemas.android.com/apk/res/com.cloudTop.starshare"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.yundian.celebrity.widget.NormalTitleBar
+    <com.cloudTop.starshare.widget.NormalTitleBar
         android:id="@+id/nt_title"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -18,8 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/nt_title"
-        android:paddingBottom="20dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,6 +42,7 @@
                 android:text="小姜"
                 android:textColor="@color/color_black_333333"
                 android:textSize="@dimen/fontSize_14sp" />
+
             <TextView
                 android:id="@+id/tv_custom_time"
                 android:layout_width="wrap_content"
@@ -50,6 +51,7 @@
                 android:text="15s定制"
                 android:textColor="@color/color_666666"
                 android:textSize="@dimen/fontSize_14sp" />
+
             <TextView
                 android:id="@+id/tv_ask_time"
                 android:layout_width="wrap_content"
@@ -92,12 +94,11 @@
         android:id="@+id/rl_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_below="@id/ll_ask_content">
+        android:layout_below="@id/ll_ask_content"
+        android:layout_marginTop="15dp">
 
 
-
-        <com.yundian.celebrity.widget.EasySwitchButton
+        <com.cloudTop.starshare.widget.EasySwitchButton
             android:id="@+id/esb_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -106,52 +107,66 @@
             starshare:isOpened="true"
             starshare:switch_off="@drawable/open_questions_off"
             starshare:switch_on="@drawable/open_questions_oppen" />
+
         <TextView
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/esb_button"
+            android:layout_centerVertical="true"
             android:layout_marginRight="14dp"
+            android:layout_toLeftOf="@id/esb_button"
             android:text="视频公开" />
     </RelativeLayout>
 
 
     <TextView
         android:id="@+id/tip"
-        android:layout_below="@id/rl_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/rl_button"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="16dp"
         android:text="Tips:仅能提交一条视频，可删除后重新录制。可选择公开 或者私密，公开的视频能被其他用户所见。"
         android:textColor="@color/color_666666"
         android:textSize="@dimen/fontSize_14sp" />
+
     <RelativeLayout
         android:id="@+id/rl_frame"
         android:visibility="gone"
-        android:layout_below="@id/tip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tip"
         android:layout_centerVertical="true"
 
-        android:layout_marginTop="29dp"
-        >
+        android:layout_marginTop="29dp">
 
-        <ImageView
-            android:id="@+id/frame"
+        <RelativeLayout
+            android:id="@+id/rl_video_watch"
             android:layout_width="131dp"
             android:layout_height="131dp"
-           android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/frame"
+                android:layout_width="131dp"
+                android:layout_height="131dp" />
+
+            <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="26dp"
+                android:src="@drawable/video_play" />
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/cancel"
-            android:src="@drawable/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="26dp"
-             />
+            android:src="@drawable/cancel" />
     </RelativeLayout>
 
     <TextView
@@ -161,17 +176,18 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="35dp"
-        android:textSize="14sp"
+        android:text="点击录制"
         android:textColor="#333333"
-        android:text="点击录制"/>
+        android:textSize="14sp" />
+
     <ImageView
-        android:clickable="true"
-        android:src="@drawable/video_btn"
         android:id="@+id/btn_video_record"
         android:layout_width="wrap_content"
-        android:layout_marginBottom="9dp"
         android:layout_height="wrap_content"
         android:layout_above="@id/desc"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="9dp"
+        android:clickable="true"
+        android:src="@drawable/video_btn" />
 
 </RelativeLayout>
