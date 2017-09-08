@@ -300,7 +300,7 @@ public class RecordVideoActivity1 extends BaseActivity {
             videoPath = intent.getStringExtra(VideoRecordActivity.VIDEOPATH);
             videoName = intent.getStringExtra(VideoRecordActivity.VIDEONAME);
             frameName = intent.getStringExtra(VideoRecordActivity.FRAMENAME);
-
+            LogUtils.logd("接收到返回的内容:本地缩略图:"+framePath+"本地视频:"+videoPath+"线上缩略图:"+frameName+"线上视频:"+videoName);
             File frameFile = new File(framePath);
             ImageLoaderUtils.display(this, img_video, frameFile);
             hasRecorded=true;
@@ -373,6 +373,7 @@ public class RecordVideoActivity1 extends BaseActivity {
     private void doSendContent() {
 
         String starCode = SharePrefUtil.getInstance().getStarcode();
+        LogUtils.logd("上传视频到服务器,视频:"+videoName+"缩略图:"+frameName);
         // TODO: 2017/8/29
         NetworkAPIFactoryImpl.getDealAPI().publishVideoAnswer(fansAskBean.getId(),isOpened?1:0, videoName,frameName, new OnAPIListener<RequestResultBean>() {
             @Override

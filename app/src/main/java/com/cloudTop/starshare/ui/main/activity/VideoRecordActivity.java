@@ -29,6 +29,26 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cloudTop.starshare.R;
+import com.cloudTop.starshare.app.AppConfig;
+import com.cloudTop.starshare.base.BasePlayActivity;
+import com.cloudTop.starshare.bean.FansAskBean;
+import com.cloudTop.starshare.bean.UptokenBean;
+import com.cloudTop.starshare.listener.OnAPIListener;
+import com.cloudTop.starshare.networkapi.NetworkAPIFactoryImpl;
+import com.cloudTop.starshare.ui.main.fragment.CustomAudioFragment;
+import com.cloudTop.starshare.ui.main.fragment.VideoAskFragment;
+import com.cloudTop.starshare.utils.ImageLoaderUtils;
+import com.cloudTop.starshare.utils.LogUtils;
+import com.cloudTop.starshare.widget.photobutton.CaptureLayout;
+import com.cloudTop.starshare.widget.photobutton.lisenter.CaptureLisenter;
+import com.cloudTop.starshare.widget.photobutton.lisenter.TypeLisenter;
+import com.cloudTop.starshare.widget.videorecorder.Config;
+import com.cloudTop.starshare.widget.videorecorder.CustomProgressDialog;
+import com.cloudTop.starshare.widget.videorecorder.FocusIndicator;
+import com.cloudTop.starshare.widget.videorecorder.RecordSettings;
+import com.cloudTop.starshare.widget.videorecorder.ToastUtils;
+import com.cloudTop.starshare.widget.videorecorder.render.GLRenderer;
 import com.qiniu.android.common.Zone;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.Configuration;
@@ -51,26 +71,6 @@ import com.qiniu.pili.droid.shortvideo.PLUploadSetting;
 import com.qiniu.pili.droid.shortvideo.PLVideoEncodeSetting;
 import com.qiniu.pili.droid.shortvideo.PLVideoFrame;
 import com.qiniu.pili.droid.shortvideo.PLVideoSaveListener;
-import com.cloudTop.starshare.R;
-import com.cloudTop.starshare.app.AppConfig;
-import com.cloudTop.starshare.base.BasePlayActivity;
-import com.cloudTop.starshare.bean.FansAskBean;
-import com.cloudTop.starshare.bean.UptokenBean;
-import com.cloudTop.starshare.listener.OnAPIListener;
-import com.cloudTop.starshare.networkapi.NetworkAPIFactoryImpl;
-import com.cloudTop.starshare.ui.main.fragment.CustomAudioFragment;
-import com.cloudTop.starshare.ui.main.fragment.VideoAskFragment;
-import com.cloudTop.starshare.utils.ImageLoaderUtils;
-import com.cloudTop.starshare.utils.LogUtils;
-import com.cloudTop.starshare.widget.photobutton.CaptureLayout;
-import com.cloudTop.starshare.widget.photobutton.lisenter.CaptureLisenter;
-import com.cloudTop.starshare.widget.photobutton.lisenter.TypeLisenter;
-import com.cloudTop.starshare.widget.videorecorder.Config;
-import com.cloudTop.starshare.widget.videorecorder.CustomProgressDialog;
-import com.cloudTop.starshare.widget.videorecorder.FocusIndicator;
-import com.cloudTop.starshare.widget.videorecorder.RecordSettings;
-import com.cloudTop.starshare.widget.videorecorder.ToastUtils;
-import com.cloudTop.starshare.widget.videorecorder.render.GLRenderer;
 
 import org.json.JSONObject;
 
@@ -79,6 +79,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.Random;
 
 import static android.view.View.GONE;
@@ -157,6 +158,9 @@ public class VideoRecordActivity extends BasePlayActivity implements PLRecordSta
     private TextView tvQuestionContent;
     private FansAskBean fansAskBean;
     private ImageView ivQuestion;
+    private MyHandler mHandler ;
+    private int successCount;
+    private String fileName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,6 +180,8 @@ public class VideoRecordActivity extends BasePlayActivity implements PLRecordSta
 
         setContentView(rootView);
         getToken();
+
+        mHandler = new MyHandler(this);
         //预览区
 
         container = (FrameLayout) findViewById(R.id.glsurface_container);
@@ -799,23 +805,23 @@ public class VideoRecordActivity extends BasePlayActivity implements PLRecordSta
     }
 
 
-    private Handler handleProgress = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0://更新进度条
-
-                    if (mediaPlayer != null) {
-                        int position = mediaPlayer.getCurrentPosition();
-                        if (position >= 0) {
-                            progressBar.setProgress(position);
-//                        String cur = UIUtils.getShowTime(position);
-//                        currTimeText.setText(cur);
-                        }
-                        break;
-                    }
-            }
-        }
-    };
+//    private Handler handleProgress = new Handler() {
+//        public void handleMessage(Message msg) {
+//            switch (msg.what) {
+//                case 0://更新进度条
+//
+//                    if (mediaPlayer != null) {
+//                        int position = mediaPlayer.getCurrentPosition();
+//                        if (position >= 0) {
+//                            progressBar.setProgress(position);
+////                        String cur = UIUtils.getShowTime(position);
+////                        currTimeText.setText(cur);
+//                        }
+//                        break;
+//                    }
+//            }
+//        }
+//    };
 
     //取消
     @Override
@@ -865,7 +871,7 @@ public class VideoRecordActivity extends BasePlayActivity implements PLRecordSta
                         @Override
                         public void updateProgress() {
                             if (glRenderer.getMediaPlayer() != null) {
-                                handleProgress.sendEmptyMessage(0);
+                                mHandler.sendEmptyMessage(0);
                             }
                         }
 
@@ -998,7 +1004,50 @@ public class VideoRecordActivity extends BasePlayActivity implements PLRecordSta
         }
 
     }
+    private class MyHandler extends Handler{
+        private final WeakReference<VideoRecordActivity> mActivity;
+        private MyHandler(VideoRecordActivity videoRecordActivity) {
+            mActivity = new WeakReference<>(videoRecordActivity);
+        }
 
+        @Override
+        public void handleMessage(Message msg) {
+            VideoRecordActivity activity = mActivity.get();
+            if(activity!=null){
+                switch (msg.what){
+                    case 0://更新进度条
+
+                        if (mediaPlayer != null) {
+                            int position = mediaPlayer.getCurrentPosition();
+                            if (position >= 0) {
+                                progressBar.setProgress(position);
+//                        String cur = UIUtils.getShowTime(position);
+//                        currTimeText.setText(cur);
+                            }
+                            break;
+                        }
+
+                    case 1 :
+                        if (successCount==2){
+                            mProcessingDialog.dismiss();
+                            mIsUpload = false;
+
+                            Intent intent = new Intent();
+                            intent.putExtra(FRAMEPATH, bitmapPath);
+                            intent.putExtra(FRAMENAME, imageName);
+                            intent.putExtra(VIDEOPATH, filePath);
+                            intent.putExtra(VIDEONAME, fileName);
+                            LogUtils.logd("接收到返回的内容:本地缩略图:" + bitmapPath + "本地视频:" + filePath + "线上缩略图:" + imageName + "线上视频:" + fileName);
+                            activity.setResult(RESULT_OK, intent);
+                            activity.finish();
+                            successCount=0;
+                        }
+
+                        break;
+                }
+            }
+        }
+    }
     private void upLoadCover() {
         if (uploadManager == null) {
             Configuration config = new Configuration.Builder()
@@ -1028,6 +1077,8 @@ public class VideoRecordActivity extends BasePlayActivity implements PLRecordSta
 //                                                String imageUrl = Constant.QI_NIU_BASE_URL + key;
                             imageName = key;
                             LogUtils.loge("获取的图片地址:" + imageName);
+                            successCount++;
+                            mHandler.sendEmptyMessage(1);
 //                            doSendContent(imageUrl);
                         } else {
                             Log.i("qiniu", "Upload Fail");
@@ -1127,18 +1178,22 @@ public class VideoRecordActivity extends BasePlayActivity implements PLRecordSta
     @Override
     public void onUploadVideoSuccess(String fileName) {
 //        ToastUtils.s(VideoRecordActivity.this, "上传成功");
-        ToastUtils.l(this, "文件上传成功，" + fileName + "已复制到粘贴板");
-        mProcessingDialog.dismiss();
-        mIsUpload = false;
+//        ToastUtils.l(this, "文件上传成功，" + fileName + "已复制到粘贴板");
+        this.fileName=fileName;
+        successCount++;
+        mHandler.sendEmptyMessage(1);
 
-        Intent intent = new Intent();
-        intent.putExtra(FRAMEPATH, bitmapPath);
-        intent.putExtra(FRAMENAME, imageName);
-        intent.putExtra(VIDEOPATH, filePath);
-        intent.putExtra(VIDEONAME, fileName);
-
-        setResult(RESULT_OK, intent);
-        finish();
+//        mProcessingDialog.dismiss();
+//        mIsUpload = false;
+//
+//        Intent intent = new Intent();
+//        intent.putExtra(FRAMEPATH, bitmapPath);
+//        intent.putExtra(FRAMENAME, imageName);
+//        intent.putExtra(VIDEOPATH, filePath);
+//        intent.putExtra(VIDEONAME, fileName);
+//        LogUtils.logd("接收到返回的内容:本地缩略图:"+bitmapPath+"本地视频:"+filePath+"线上缩略图:"+imageName+"线上视频:"+fileName);
+//        setResult(RESULT_OK, intent);
+//        finish();
     }
 
     @Override
