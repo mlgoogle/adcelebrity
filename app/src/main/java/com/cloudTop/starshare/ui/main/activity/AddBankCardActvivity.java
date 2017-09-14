@@ -38,6 +38,11 @@ public class AddBankCardActvivity extends BaseActivity {
     EditText etUserName;
     @Bind(R.id.et_user_cardno)
     EditText etUserCardno;
+
+    @Bind(R.id.et_city_bank)
+    EditText etUserCardCity;
+    @Bind(R.id.et_prov_bank)
+    EditText etUserCardProv;
     @Bind(R.id.et_user_phone)
     EditText etUserPhone;
     @Bind(R.id.et_code_msg)
@@ -110,11 +115,15 @@ public class AddBankCardActvivity extends BaseActivity {
             String account = etUserCardno.getText().toString().trim();
             String phone = etUserPhone.getText().toString().trim();
             String codeMsg = etCodeMsg.getText().toString().trim();
+            String loginCity = etUserCardCity.getText().toString().trim();
+            String loginRegion = etUserCardProv.getText().toString().trim();
+//            String loginCity = SharePrefUtil.getInstance().getLoginCity();
+//            String loginRegion = SharePrefUtil.getInstance().getLoginRegion();
 
-
-            NetworkAPIFactoryImpl.getDealAPI().bindCard(bankUsername, account, new OnAPIListener<BankInfoBean>() {
+            NetworkAPIFactoryImpl.getDealAPI().bindCard(bankUsername, account,loginRegion,loginCity, new OnAPIListener<BankInfoBean>() {
                 @Override
                 public void onError(Throwable ex) {
+                    ToastUtils.showShort("绑定失败");
                 }
 
                 @Override
@@ -169,8 +178,11 @@ public class AddBankCardActvivity extends BaseActivity {
                 @Override
                 public void onSuccess(RegisterVerifyCodeBeen o) {
                     verifyCodeBeen = o;
-                    new CountUtil(btnGetCode).start();   //收到回调才开启计时
-                    LogUtils.logd("获取到--注册短信验证码,时间戳是:" + o.toString());
+                    LogUtils.logd("获取到--注册短信验证码,result是:" + o.getResult());
+                    if(o.getResult()==1){
+                        new CountUtil(btnGetCode).start();   //收到回调才开启计时
+                        LogUtils.logd("获取到--注册短信验证码,时间戳是:" + o.toString());
+                    }
                 }
             });
         } else {

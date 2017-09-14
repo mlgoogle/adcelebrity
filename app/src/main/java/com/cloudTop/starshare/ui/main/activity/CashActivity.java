@@ -205,7 +205,7 @@ public class CashActivity extends BaseActivity {
 //            #11
             case R.id.tv_user_bank_cssount:  //模拟测试数据
 //                ToastUtils.showShort("测试数据");
-                startActivity(CashHistoryActivity_Test.class);
+//                startActivity(CashHistoryActivity_Test.class);
 
                 break;
         }

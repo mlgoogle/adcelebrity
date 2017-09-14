@@ -27,13 +27,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.liulishuo.engzo.lingorecorder.LingoRecorder;
-import com.liulishuo.engzo.lingorecorder.processor.WavProcessor;
-import com.qiniu.android.common.Zone;
-import com.qiniu.android.http.ResponseInfo;
-import com.qiniu.android.storage.Configuration;
-import com.qiniu.android.storage.UpCompletionHandler;
-import com.qiniu.android.storage.UploadManager;
 import com.cloudTop.starshare.R;
 import com.cloudTop.starshare.app.AppConfig;
 import com.cloudTop.starshare.base.BaseActivity;
@@ -55,6 +48,13 @@ import com.cloudTop.starshare.widget.NormalTitleBar;
 import com.cloudTop.starshare.widget.audioplayer.MyAudioPlayer;
 import com.cloudTop.starshare.widget.audiorecorder.AndroidAACProcessor;
 import com.cloudTop.starshare.widget.photobutton.lisenter.CaptureLisenter;
+import com.liulishuo.engzo.lingorecorder.LingoRecorder;
+import com.liulishuo.engzo.lingorecorder.processor.WavProcessor;
+import com.qiniu.android.common.Zone;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.Configuration;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -64,6 +64,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import butterknife.Bind;
+import tv.danmaku.ijk.media.player.IMediaPlayer;
 
 
 /**
@@ -190,6 +191,7 @@ public class RecordAudioActivity1 extends BaseActivity implements View.OnClickLi
 
         lingoRecorder = new LingoRecorder();
         myAudioPlayer = new MyAudioPlayer();
+        myAudioPlayer.setOnCompleteListener(mCompletionListener);
 
         filePath = SAVE_PATH + SAVE_NAME_WAV;
         aacFilePath = SAVE_PATH + SAVE_NAME_AAC;
@@ -326,7 +328,11 @@ public class RecordAudioActivity1 extends BaseActivity implements View.OnClickLi
 
 
 //                getLongTime(filePath);
-                audioSecond.setText(time/1000 + "s");
+                long duration = time / 1000;
+                if(duration==0){
+                    duration=1;
+                }
+                audioSecond.setText(duration + "s");
 
 //                    }
 //                }).start();
@@ -407,7 +413,7 @@ public class RecordAudioActivity1 extends BaseActivity implements View.OnClickLi
                     if (isTimeShort) {
                         Toast.makeText(RecordAudioActivity1.this, "时间太短,已删", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(RecordAudioActivity1.this, "文件已删除", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(RecordAudioActivity1.this, "文件已删除", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -479,7 +485,7 @@ public class RecordAudioActivity1 extends BaseActivity implements View.OnClickLi
 
     private void startAnim(boolean isStart) {
         audioLayout.setVisibility(View.VISIBLE);
-        info.setText("上滑取消");
+        info.setText("手指上滑取消录制");
 //        recordBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.mic_pressed_bg));
         micIcon.setBackgroundDrawable(null);
         micIcon.setBackgroundDrawable(getResources().getDrawable(R.drawable.audio_tip));
@@ -497,7 +503,7 @@ public class RecordAudioActivity1 extends BaseActivity implements View.OnClickLi
     }
 
     private void moveAnim() {
-        info.setText("松手取消");
+        info.setText("松开手指取消录制");
         micIcon.setBackgroundDrawable(null);
         micIcon.setBackgroundDrawable(getResources().getDrawable(R.drawable.cancel_audio));
     }
@@ -640,12 +646,19 @@ public class RecordAudioActivity1 extends BaseActivity implements View.OnClickLi
         });
     }
 
+    IMediaPlayer.OnCompletionListener mCompletionListener = new IMediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(IMediaPlayer iMediaPlayer) {
+            myAudioPlayer.stop();
+        }
+    };
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_audio_review:
-                if (filePath != null && !TextUtils.isEmpty(filePath)) {
+                if (!TextUtils.isEmpty(filePath)) {
+
                     boolean isMediaPlayerStop = myAudioPlayer.isMediaPlayerStop();
                     boolean isPrepared = !myAudioPlayer.isMediaPlayerPrepared();
                     if (myAudioPlayer != null && isMediaPlayerStop) {
@@ -675,4 +688,22 @@ public class RecordAudioActivity1 extends BaseActivity implements View.OnClickLi
             ToastUtils.showShort("不公开");
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (myAudioPlayer != null){
+            myAudioPlayer.releaseMedia();
+            myAudioPlayer=null;
+        }
+    }
+
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        if (myAudioPlayer != null){
+//            myAudioPlayer.releaseMedia();
+//            myAudioPlayer=null;
+//        }
+//    }
 }

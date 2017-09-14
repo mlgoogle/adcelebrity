@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 
+import com.cloudTop.starshare.utils.SharePrefUtil;
 import com.testin.agent.Bugout;
 import com.testin.agent.BugoutConfig;
 import com.cloudTop.starshare.R;
@@ -99,6 +100,12 @@ public class SplashActivity extends Activity {
                 AppConfig.AREA = ipAddress.getData().getArea();
                 AppConfig.ISP_ID = Long.valueOf(ipAddress.getData().getIsp_id());
                 AppConfig.ISP = ipAddress.getData().getIsp();
+
+                String city = ipAddress.getData().getCity();
+                String region = ipAddress.getData().getRegion();
+                SharePrefUtil.getInstance().setLoginRegion(region);
+                SharePrefUtil.getInstance().setLoginCity(city);
+
                 NetworkAPIFactoryImpl.getUserAPI().getQiNiuPicDress(new OnAPIListener<QiNiuAdressBean>() {
                     @Override
                     public void onError(Throwable ex) {

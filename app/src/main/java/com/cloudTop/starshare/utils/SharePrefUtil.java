@@ -84,6 +84,27 @@ public class SharePrefUtil {
         sp.edit().putString("token", token).apply();
     }
 
+    public void setLoginCity(String city){
+        sp = context.getSharedPreferences(UserInfo, MODE_PRIVATE);
+        sp.edit().putString("city", city).apply();
+    }
+    public String getLoginCity() {
+        sp = context.getSharedPreferences(UserInfo, MODE_PRIVATE);
+        String city = sp.getString("city", "");
+        return city;
+    }
+
+    public void setLoginRegion(String region){
+        sp = context.getSharedPreferences(UserInfo, MODE_PRIVATE);
+        sp.edit().putString("region", region).apply();
+    }
+    public String getLoginRegion() {
+        sp = context.getSharedPreferences(UserInfo, MODE_PRIVATE);
+        String region = sp.getString("region", "");
+        return region;
+    }
+
+
 
     /**
      * 清空UserInfo

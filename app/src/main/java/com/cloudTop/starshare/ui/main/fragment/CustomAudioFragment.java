@@ -59,8 +59,6 @@ public class CustomAudioFragment extends BaseFragment implements SwipeRefreshLay
         public void onCompletion(IMediaPlayer iMediaPlayer) {
             myAudioPlayer.stop();
             imageViewDelegate.onCompletionAnimation();
-
-
         }
     };
     @Override
@@ -99,7 +97,7 @@ public class CustomAudioFragment extends BaseFragment implements SwipeRefreshLay
 
             @Override
             public void onGoRecord(FansAskBean item,int position) {
-                ToastUtils.showShort("dianjirecord");
+//                ToastUtils.showShort("dianjirecord");
                 Intent intent = new Intent(getActivity(),RecordAudioActivity1.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(FANS_ASK_BEAN,item);
@@ -235,16 +233,25 @@ public class CustomAudioFragment extends BaseFragment implements SwipeRefreshLay
         onHiddenChanged(getUserVisibleHint());
     }
 
-
     @Override
     public void onHiddenChanged(boolean hidden) {
+        LogUtils.loge("切换fragment");
         if (hidden) {
+            stopMediaPlayer();
             LogUtils.loge("定制语音:onHiddenChanged-----------------------------刷新首页" + isVisible());
         } else {
             LogUtils.loge("bu可见------------------刷新");
+
         }
         super.onHiddenChanged(hidden);
 
+    }
+
+    protected void stopMediaPlayer() {
+        if(myAudioPlayer!=null){
+            myAudioPlayer.stop();
+            imageViewDelegate.onCompletionAnimation();
+        }
     }
 
     //接收消息
@@ -266,5 +273,22 @@ public class CustomAudioFragment extends BaseFragment implements SwipeRefreshLay
 //                customAudioAdapter.notifyDataSetChanged();
 //                break;
 //        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if(myAudioPlayer!=null){
+            myAudioPlayer.releaseMedia();
+            myAudioPlayer=null;
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        stopMediaPlayer();
     }
 }

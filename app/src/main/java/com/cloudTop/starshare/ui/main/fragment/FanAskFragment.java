@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.cloudTop.starshare.R;
 import com.cloudTop.starshare.base.BaseFragment;
+import com.cloudTop.starshare.utils.LogUtils;
 import com.cloudTop.starshare.widget.NormalTitleBar;
 
 import butterknife.OnClick;
@@ -115,5 +116,19 @@ public class FanAskFragment extends BaseFragment {
 //            videoAskFragment.getData(false, 0, 10);
 //
 //        }
+    }
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        LogUtils.loge("切换fragment");
+        if (hidden) {
+            customAudioFragment.stopMediaPlayer();
+            LogUtils.loge("定制语音:onHiddenChanged-----------------------------刷新首页" + isVisible());
+        } else {
+            LogUtils.loge("bu可见------------------刷新");
+
+
+        }
+        super.onHiddenChanged(hidden);
+
     }
 }

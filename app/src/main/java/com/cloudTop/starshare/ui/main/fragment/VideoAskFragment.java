@@ -106,7 +106,7 @@ public class VideoAskFragment extends BaseFragment implements SwipeRefreshLayout
                     intent.putExtra(DURATION,60);
                 }
 
-                ToastUtils.showShort("dianjirecord");
+//                ToastUtils.showShort("dianjirecord");
                 startActivity(intent);
             }
 

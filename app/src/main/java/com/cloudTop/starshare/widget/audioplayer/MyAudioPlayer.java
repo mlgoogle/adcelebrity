@@ -51,7 +51,7 @@ public class MyAudioPlayer {
         public boolean onError(IMediaPlayer iMediaPlayer, int i, int i1) {
             isPrepared=false;
             mIsError=true;
-            releaseWithError();
+            resetWithError();
 //            stop();
             LogUtils.logd("urlerror");
             ToastUtils.showShort("获取url链接失败");
@@ -66,7 +66,7 @@ public class MyAudioPlayer {
                     stop();
             }
 //            if(mIsError){
-//                releaseWithError();
+//                resetWithError();
 //            }
 
             ijkMediaPlayer.setDataSource(path);
@@ -104,7 +104,7 @@ public class MyAudioPlayer {
         }
     }
 
-    public void releaseWithError(){
+    public void resetWithError(){
         if (ijkMediaPlayer != null) {
 //            ijkMediaPlayer.stop();
             ijkMediaPlayer.release();

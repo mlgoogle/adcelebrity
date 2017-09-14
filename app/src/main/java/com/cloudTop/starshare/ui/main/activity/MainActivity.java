@@ -14,26 +14,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.flyco.tablayout.CommonTabLayout;
-import com.flyco.tablayout.listener.CustomTabEntity;
-import com.flyco.tablayout.listener.OnTabSelectListener;
-import com.netease.nim.uikit.LoginSyncDataStatusObserver;
-import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
-import com.netease.nim.uikit.permission.MPermission;
-import com.netease.nim.uikit.permission.annotation.OnMPermissionDenied;
-import com.netease.nim.uikit.permission.annotation.OnMPermissionGranted;
-import com.netease.nim.uikit.permission.annotation.OnMPermissionNeverAskAgain;
-import com.netease.nimlib.sdk.NIMClient;
-import com.netease.nimlib.sdk.Observer;
-import com.netease.nimlib.sdk.RequestCallbackWrapper;
-import com.netease.nimlib.sdk.StatusBarNotificationConfig;
-import com.netease.nimlib.sdk.mixpush.MixPushService;
-import com.netease.nimlib.sdk.msg.MsgService;
-import com.netease.nimlib.sdk.msg.MsgServiceObserve;
-import com.netease.nimlib.sdk.msg.model.RecentContact;
-import com.netease.nimlib.sdk.uinfo.UserService;
-import com.netease.nimlib.sdk.uinfo.constant.UserInfoFieldEnum;
-import com.qiangxi.checkupdatelibrary.dialog.UpdateDialog;
 import com.cloudTop.starshare.R;
 import com.cloudTop.starshare.app.AppConstant;
 import com.cloudTop.starshare.app.Constant;
@@ -55,6 +35,26 @@ import com.cloudTop.starshare.ui.wangyi.config.preference.UserPreferences;
 import com.cloudTop.starshare.utils.CheckLoginUtil;
 import com.cloudTop.starshare.utils.LogUtils;
 import com.cloudTop.starshare.utils.SharePrefUtil;
+import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.netease.nim.uikit.LoginSyncDataStatusObserver;
+import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
+import com.netease.nim.uikit.permission.MPermission;
+import com.netease.nim.uikit.permission.annotation.OnMPermissionDenied;
+import com.netease.nim.uikit.permission.annotation.OnMPermissionGranted;
+import com.netease.nim.uikit.permission.annotation.OnMPermissionNeverAskAgain;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.Observer;
+import com.netease.nimlib.sdk.RequestCallbackWrapper;
+import com.netease.nimlib.sdk.StatusBarNotificationConfig;
+import com.netease.nimlib.sdk.mixpush.MixPushService;
+import com.netease.nimlib.sdk.msg.MsgService;
+import com.netease.nimlib.sdk.msg.MsgServiceObserve;
+import com.netease.nimlib.sdk.msg.model.RecentContact;
+import com.netease.nimlib.sdk.uinfo.UserService;
+import com.netease.nimlib.sdk.uinfo.constant.UserInfoFieldEnum;
+import com.qiangxi.checkupdatelibrary.dialog.UpdateDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -67,8 +67,8 @@ import java.util.Map;
 
 import butterknife.Bind;
 
-import static com.qiangxi.checkupdatelibrary.dialog.UpdateDialog.UPDATE_DIALOG_PERMISSION_REQUEST_CODE;
 import static com.cloudTop.starshare.ui.view.ForceUpdateDialog.FORCE_UPDATE_DIALOG_PERMISSION_REQUEST_CODE;
+import static com.qiangxi.checkupdatelibrary.dialog.UpdateDialog.UPDATE_DIALOG_PERMISSION_REQUEST_CODE;
 
 public class MainActivity extends BaseActivity {
     @Bind(R.id.tab_bottom_layout)
@@ -176,6 +176,7 @@ public class MainActivity extends BaseActivity {
             fanAskFragment = (FanAskFragment) getSupportFragmentManager().findFragmentByTag("FanAskFragment");
 
             currentTabPosition = savedInstanceState.getInt(AppConstant.HOME_CURRENT_TAB_POSITION);
+            LogUtils.loge("恢复currentTabPosition:"+currentTabPosition);
             if(fragmentList==null){
                 fragmentList=new ArrayList<>();
                 fragmentList.add(inComeInfoFragment);
@@ -235,7 +236,8 @@ public class MainActivity extends BaseActivity {
         LogUtils.loge("onSaveInstanceState进来了1");
         if (tabLayout != null) {
             LogUtils.loge("onSaveInstanceState进来了2");
-            outState.putInt(AppConstant.HOME_CURRENT_TAB_POSITION, tabLayout.getCurrentTab());
+            int currentTab = tabLayout.getCurrentTab();
+            outState.putInt(AppConstant.HOME_CURRENT_TAB_POSITION, currentTab);
         }
     }
 

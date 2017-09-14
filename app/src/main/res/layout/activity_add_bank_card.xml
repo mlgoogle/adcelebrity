@@ -90,7 +90,53 @@
 
             <include layout="@layout/layout_item_bottom_line" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:background="@color/main_bg_color"
+                android:orientation="horizontal">
 
+                <TextView
+                    style="@style/bank_text_style"
+                    android:text="@string/prov_bank" />
+
+                <EditText
+                    android:id="@+id/et_prov_bank"
+                    style="@style/bank_text_style"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/input_card_prov"
+                    android:textColorHint="@color/color_cccccc" />
+
+
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_item_bottom_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:background="@color/main_bg_color"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/bank_text_style"
+                    android:text="@string/city_bank" />
+
+                <EditText
+                    android:id="@+id/et_city_bank"
+                    style="@style/bank_text_style"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/input_card_city"
+                    android:textColorHint="@color/color_cccccc" />
+
+
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_item_bottom_line" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_60"
@@ -123,6 +169,8 @@
             </LinearLayout>
 
             <include layout="@layout/layout_item_bottom_line" />
+
+
 
             <Button
                 android:id="@+id/btn_bind_bank"

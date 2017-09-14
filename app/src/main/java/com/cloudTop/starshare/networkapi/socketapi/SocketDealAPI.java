@@ -294,11 +294,13 @@ public class SocketDealAPI extends SocketBaseAPI implements DealAPI {
     }
 
     @Override
-    public void bindCard(String bankUsername, String account, OnAPIListener<BankInfoBean> listener) {
+    public void bindCard(String bankUsername, String account,String prov,String city,OnAPIListener<BankInfoBean> listener) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", SharePrefUtil.getInstance().getUserId());
         map.put("token", SharePrefUtil.getInstance().getToken());
         map.put("bankUsername", bankUsername);
+        map.put("prov", prov);
+        map.put("city", city);
         map.put("account", account);
         SocketDataPacket socketDataPacket = socketDataPacket(SocketAPIConstant.OperateCode.BindCard,
                 SocketAPIConstant.ReqeutType.Bank, map);
