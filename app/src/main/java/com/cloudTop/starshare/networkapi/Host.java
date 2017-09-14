@@ -87,7 +87,8 @@ public enum Host {
 
 //         return (short) 16080;  //本地明星端
 //dsf
-        return (short) 16016;  //明星端
+//        return (short) 16016;  //明星端
+        return (short) 17004;//星云
 //        return (short) 16080;
 
 //        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
