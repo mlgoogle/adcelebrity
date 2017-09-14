@@ -119,7 +119,7 @@
                     android:background="@color/color_fafafa"
                     android:visibility="gone">
                     <!--表情-->
-                    <com.yundian.celebrity.widget.emoji.EmotionLayout
+                    <com.cloudTop.starshare.widget.emoji.EmotionLayout
                         android:id="@+id/elEmotion"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

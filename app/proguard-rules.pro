@@ -76,7 +76,10 @@
 -dontwarn org.apache.http.**
 -dontwarn android.net.http.**
 
-
+-keep class tv.danmaku.ijk.** { *; }
+-dontwarn tv.danmaku.ijk.**
+-keep class com.shuyu.gsyvideoplayer.** { *; }
+-dontwarn com.shuyu.gsyvideoplayer.**
 
 #高德地图2d
 -keep class com.amap.api.maps2d.**{*;}
