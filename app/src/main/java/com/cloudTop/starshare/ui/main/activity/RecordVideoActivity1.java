@@ -210,9 +210,10 @@ public class RecordVideoActivity1 extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(RecordVideoActivity1.this,PlayActivity.class);
                 intent.putExtra("playUrl",videoPath);
+                intent.putExtra("frameUrl",framePath);
                 intent.putExtra(VideoAskFragment.VIDEO_TYPE,SELF_WATCH_TYPE);
                 Bundle bundle = new Bundle();
-//                bundle.putParcelable(FANS_ASK_BEAN,fansAskBean);
+                bundle.putParcelable(FANS_ASK_BEAN,fansAskBean);
                 intent.putExtra(FANS_ASK_BUNDLE,bundle);
 
                 startActivity(intent);

@@ -10,7 +10,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 import com.cloudTop.starshare.R;
 import com.cloudTop.starshare.app.AppConfig;
 import com.cloudTop.starshare.base.BasePlayActivity;
@@ -21,6 +20,9 @@ import com.cloudTop.starshare.utils.ImageLoaderUtils;
 import com.cloudTop.starshare.utils.LogUtils;
 import com.cloudTop.starshare.widget.customVideoPlayer.CustomUIVideo;
 import com.cloudTop.starshare.widget.customVideoPlayer.OnTransitionListener;
+import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
+
+import java.io.File;
 
 import static com.cloudTop.starshare.ui.main.fragment.VideoAskFragment.FANS_ASK_BUNDLE;
 
@@ -81,6 +83,7 @@ public class PlayActivity extends BasePlayActivity {
 
         isTransition = getIntent().getBooleanExtra(TRANSITION, false);
         playUrl = getIntent().getStringExtra("playUrl");
+        String localFrame = getIntent().getStringExtra("frameUrl");
         videoType = getIntent().getIntExtra(VideoAskFragment.VIDEO_TYPE, -1);
 //        playUrl = getIntent().getStringExtra("playUrl");
 
@@ -97,7 +100,12 @@ public class PlayActivity extends BasePlayActivity {
             }else if(videoType==VideoAskFragment.ASK_TYPE){
                 ImageLoaderUtils.displayUrl(this,imageView,AppConfig.QI_NIU_PIC_ADRESS+fansAskBean.getThumbnail());
                 LogUtils.logd("FrameUrl:"+AppConfig.QI_NIU_PIC_ADRESS+fansAskBean.getThumbnail());
-            }else{
+            }else if (videoType==VideoAskFragment.SELF_WATCH_TYPE){
+                File frameFile = new File(localFrame);
+
+                ImageLoaderUtils.display(this,imageView,frameFile);
+            }
+            else{
                 ImageLoaderUtils.displayUrl(this,imageView,AppConfig.QI_NIU_PIC_ADRESS+fansAskBean.getThumbnail());
                 LogUtils.logd("FrameUrl:"+AppConfig.QI_NIU_PIC_ADRESS+fansAskBean.getThumbnail());
             }
