@@ -66,10 +66,10 @@ public enum Host {
 //        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //        if(BuildConfig.DEBUG){
 //            return "139.224.34.22"; //本地
-//            return "nsb.smartdata-x.com"; //测试
+            return "nsb.smartdata-x.com"; //测试
 //        }else{
 ////            return "tapi.smartdata-x.com";//线上正式
-            return "122.144.169.214"; //测试
+//            return "122.144.169.214"; //测试
 //        }
 
         //sdf
