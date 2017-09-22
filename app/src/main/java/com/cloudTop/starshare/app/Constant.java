@@ -4,7 +4,8 @@ import com.cloudTop.starshare.R;
 
 public interface Constant {
 
-    String[] mTitles = {"收益情况", "联系粉丝", "约见管理","粉丝问答"};
+//    String[] mTitles = {"收益情况", "联系粉丝", "约见管理","粉丝问答"};
+    String[] mTitles = {"收益情况", "联系粉丝", "约见管理"};
     int[] mIconUnselectIds = {
             R.drawable.market_no_ok, R.drawable.differ_answer_no_ok, R.drawable.icon_manager_normal,R.drawable.icon_ask_normal};
     int[] mIconSelectIds = {

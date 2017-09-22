@@ -27,7 +27,7 @@ android {
         applicationId "com.cloudTop.starshare"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 20170830
+        versionCode 20170917
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "GIT_REVISION", "\"${getGitVersion()}\""

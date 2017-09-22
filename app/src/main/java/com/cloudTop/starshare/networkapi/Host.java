@@ -66,7 +66,10 @@ public enum Host {
 //        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //        if(BuildConfig.DEBUG){
 //            return "139.224.34.22"; //本地
-            return "nsb.smartdata-x.com"; //测试
+//            return "nsb.smartdata-x.com"; //测试
+//        return "101.132.27.138"; //星云
+        return "cloud.a.smartdata-x.com";
+//        return "cloud.p.smartdata-x.com";
 //        }else{
 ////            return "tapi.smartdata-x.com";//线上正式
 //            return "122.144.169.214"; //测试
@@ -87,8 +90,8 @@ public enum Host {
 
 //         return (short) 16080;  //本地明星端
 //dsf
-        return (short) 16016;  //明星端
-//        return (short) 17004;//星云
+//        return (short) 16016;  //明星端
+        return (short) 17004;//星云
 
 //        return (short) 16080;
 

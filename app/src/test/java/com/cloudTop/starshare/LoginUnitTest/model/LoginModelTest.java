@@ -45,6 +45,7 @@ import static org.powermock.api.mockito.PowerMockito.mock;
 
 //不能mockfinal类,只有jmock才行
 @PrepareForTest(NimUIKit.class)
+
 @RunWith(PowerMockRunner.class)
 @PowerMockRunnerDelegate(CustomTestRunner.class)
 @PowerMockIgnore({"org.mockito.*","org.robolectric.*","android.*"})

@@ -161,19 +161,7 @@ public class AndroidAACProcessor implements AudioProcessor {
         encodeOutputBuffers = codec.getOutputBuffers();
         encodeBufferInfo = new MediaCodec.BufferInfo();
 
-//        showLog("doEncode");
-//        for (int i = 0; i < encodeInputBuffers.length - 1; i++) {
-//            //获取解码器所在线程输出的数据 代码后边会贴上
-//            if (bytes == null) {
-//                break;
-//            }
-//            inputIndex = codec.dequeueInputBuffer(1000);//同解码器
-//            inputBuffer = encodeInputBuffers[inputIndex];//同解码器
-//            inputBuffer.clear();//同解码器
-//            inputBuffer.limit(size);
-//            inputBuffer.put(bytes);//PCM数据填充给inputBuffer
-//            codec.queueInputBuffer(inputIndex, 0, size, System.nanoTime(), 0);//通知编码器 编码
-//        }
+
 
         int inputBufferIndex = codec.dequeueInputBuffer(-1);
         if (inputBufferIndex >= 0) {
