@@ -50,6 +50,10 @@
         <item name="android:activityCloseExitAnimation">@anim/act_out_from_left</item>
     </style>
 
+    <style name="popup_anim_style">
+        <item name="android:windowEnterAnimation">@anim/menushow</item>
+        <item name="android:windowExitAnimation">@anim/menudiss</item>
+    </style>
 
     <style name="CustomDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>

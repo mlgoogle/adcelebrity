@@ -12,6 +12,8 @@
     <string name="identity_tip_msg">您需要进行身份验证,\n之后才可以进行明星时间交易。</string>
     <string name="start_verification">开始验证</string>
     <string name="about">关于</string>
+    <string name="heard_num">听过 %1$d</string>
+    <string name="look_num">观看 %1$d</string>
     <string name="main_tab_session">会话</string>
     <string name="main_tab_contact">通讯录</string>
     <string name="user_profile">个人名片</string>
@@ -89,8 +91,12 @@
     <string name="input_card_number">请输入您的卡号</string>
     <string name="input_card_phone">请输入您的预留手机号</string>
     <string name="input_card_code">请输入验证码</string>
+    <string name="input_card_prov">请输入开户省</string>
+    <string name="input_card_city">请输入开户市</string>
     <string name="phone_number_bank">手机号</string>
     <string name="phone_code_bank">验证码</string>
+    <string name="prov_bank">开户省</string>
+    <string name="city_bank">开户市</string>
     <string name="bind_bank_card">绑定银行卡</string>
     <string name="forget_deal_pwd">忘记交易密码</string>
     <string name="name_code">%1$s (%2$s)</string>
@@ -131,8 +137,11 @@
     <string name="user_buyed_star">已购明星</string>
     <string name="end_times">距离结束还有</string>
     <string name="fans_talk">粉丝聊天</string>
+    <string name="custom_audio_talk">定制语音</string>
     <string name="fans_interaction">粉丝互动</string>
+    <string name="video_fans_ask">视频问答</string>
     <string name="contact_fans">联系粉丝</string>
+    <string name="ask_fans">粉丝问答</string>
     <string name="meeting_type">约见类型</string>
     <string name="meeting_order">约见订单</string>
     <string name="meeting_type_tips">Tips：未确认的都将视为不同意此约见类型，否则粉丝无法正常约见您。</string>

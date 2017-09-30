@@ -7,7 +7,7 @@
     android:background="@color/color_fafafa"
     android:orientation="vertical">
 
-    <com.yundian.celebrity.widget.NormalTitleBar
+    <com.cloudTop.starshare.widget.NormalTitleBar
         android:id="@+id/nt_title"
         android:layout_width="match_parent"
         android:layout_height="48dp" />
@@ -83,7 +83,7 @@
         android:textColor="@color/font_999999"
         android:textSize="@dimen/text_size_14" />
 
-    <com.yundian.celebrity.ui.view.CustomerRadioGroup
+    <com.cloudTop.starshare.ui.view.CustomerRadioGroup
         android:id="@+id/rg_recharge_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -145,7 +145,7 @@
 
         </LinearLayout>
 
-    </com.yundian.celebrity.ui.view.CustomerRadioGroup>
+    </com.cloudTop.starshare.ui.view.CustomerRadioGroup>
 
     <Button
         android:id="@+id/btn_recharge_sure"

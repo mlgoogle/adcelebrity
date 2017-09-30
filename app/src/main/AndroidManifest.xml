@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yundian.celebrity">
+    package="com.cloudTop.starshare">
     <!--屏幕旋转监听权限-->
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"></uses-permission>
     <uses-permission android:name="android.permission.INTERNET" />
@@ -30,9 +30,9 @@
         android:required="true" />
 
     <permission
-        android:name="com.yundian.celebrity.permission.RECEIVE_MSG"
+        android:name="com.cloudTop.starshare.permission.RECEIVE_MSG"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.yundian.celebrity.permission.RECEIVE_MSG" />
+    <uses-permission android:name="com.cloudTop.starshare.permission.RECEIVE_MSG" />
     <!-- 加入应用需要的权限 -->
     <!-- 网络相关 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -51,14 +51,14 @@
 
 
     <application
-        android:name=".app.AppApplication"
+        android:name="com.cloudTop.starshare.app.AppApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.activity.SplashActivity">
+        <activity android:name="com.cloudTop.starshare.ui.main.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -67,7 +67,7 @@
         </activity>
 
         <activity
-            android:name=".ui.main.activity.MainActivity"
+            android:name="com.cloudTop.starshare.ui.main.activity.MainActivity"
             android:configChanges="keyboardHidden|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -76,14 +76,14 @@
 
         <!--微信相关-->
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="com.cloudTop.starshare.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name=".wxapi.WXPayEntryActivity"
+            android:name="com.cloudTop.starshare.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
@@ -93,7 +93,7 @@
         <!--三方-->
         <!--微博回调-->
         <activity
-            android:name=".WBShareActivity"
+            android:name="com.cloudTop.starshare.WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -194,20 +194,20 @@
 
         <!--网易云-->
         <activity
-            android:name=".ui.wangyi.session.activity.P2PMessageActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.session.activity.P2PMessageActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".ui.wangyi.session.activity.TeamMessageActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.session.activity.TeamMessageActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <!-- 关于 -->
         <activity
-            android:name=".ui.wangyi.main.activity.AboutActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.main.activity.AboutActivity"
             android:configChanges="orientation"
             android:label="@string/about"
             android:screenOrientation="portrait"
@@ -215,49 +215,49 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <activity
-            android:name=".ui.wangyi.main.activity.SettingsActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.main.activity.SettingsActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name=".ui.wangyi.main.activity.NoDisturbActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.main.activity.NoDisturbActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <activity
-            android:name=".ui.wangyi.contact.activity.AddFriendActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.contact.activity.AddFriendActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <activity
-            android:name=".ui.wangyi.contact.activity.UserProfileActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.contact.activity.UserProfileActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <activity
-            android:name=".ui.wangyi.contact.activity.UserProfileSettingActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.contact.activity.UserProfileSettingActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <activity
-            android:name=".ui.wangyi.contact.activity.UserProfileEditItemActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.contact.activity.UserProfileEditItemActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <activity
-            android:name=".ui.wangyi.contact.activity.BlackListActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.contact.activity.BlackListActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -265,7 +265,7 @@
 
         <!-- 文件管理器 -->
         <activity
-            android:name=".ui.wangyi.file.browser.FileBrowserActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.file.browser.FileBrowserActivity"
             android:configChanges="orientation"
             android:label="@string/file_browser"
             android:screenOrientation="portrait"
@@ -273,53 +273,53 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <activity
-            android:name=".ui.wangyi.main.activity.SystemMessageActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.main.activity.SystemMessageActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".ui.wangyi.main.activity.CustomNotificationActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.main.activity.CustomNotificationActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".ui.wangyi.session.activity.MessageHistoryActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.session.activity.MessageHistoryActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".ui.wangyi.session.activity.MessageInfoActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-
-        <activity
-            android:name=".ui.wangyi.team.activity.AdvancedTeamSearchActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.session.activity.MessageInfoActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity
-            android:name=".ui.wangyi.team.activity.AdvancedTeamJoinActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.team.activity.AdvancedTeamSearchActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity
-            android:name=".ui.wangyi.main.activity.TeamListActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.team.activity.AdvancedTeamJoinActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity
+            android:name="com.cloudTop.starshare.ui.wangyi.main.activity.TeamListActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <activity
-            android:name=".ui.main.activity.TimeAddressActivity"
+            android:name="com.cloudTop.starshare.ui.main.activity.TimeAddressActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -327,45 +327,45 @@
 
         <!-- 全局搜索 -->
         <activity
-            android:name=".ui.wangyi.main.activity.GlobalSearchActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.main.activity.GlobalSearchActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/global_search_bg"
             android:windowSoftInputMode="stateUnspecified"></activity>
 
         <activity
-            android:name=".ui.wangyi.main.activity.GlobalSearchDetailActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.main.activity.GlobalSearchDetailActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name=".ui.wangyi.main.activity.GlobalSearchDetailActivity2"
+            android:name="com.cloudTop.starshare.ui.wangyi.main.activity.GlobalSearchDetailActivity2"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <!-- 查看阅后即焚 -->
         <activity
-            android:name=".ui.wangyi.session.activity.WatchSnapChatPictureActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.session.activity.WatchSnapChatPictureActivity"
             android:configChanges="keyboardHidden"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 下载文件 -->
         <activity
-            android:name=".ui.wangyi.session.activity.FileDownloadActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.session.activity.FileDownloadActivity"
             android:configChanges="keyboardHidden"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- map -->
         <activity
-            android:name=".ui.wangyi.location.activity.LocationAmapActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.location.activity.LocationAmapActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/location_map"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.wangyi.location.activity.NavigationAmapActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.location.activity.NavigationAmapActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/location_navigate"
             android:screenOrientation="portrait"
@@ -373,7 +373,7 @@
 
         <!-- 音视频 -->
         <activity
-            android:name=".ui.wangyi.avchat.activity.AVChatActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.avchat.activity.AVChatActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/FullScreenTheme"
@@ -381,7 +381,7 @@
 
         <!-- 白板 -->
         <activity
-            android:name=".ui.wangyi.rts.activity.RTSActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.rts.activity.RTSActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -389,14 +389,14 @@
 
         <!-- 消息历史搜索 -->
         <activity
-            android:name=".ui.wangyi.session.search.SearchMessageActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.session.search.SearchMessageActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/global_search_bg"
             android:windowSoftInputMode="adjustPan|stateUnspecified" />
 
         <activity
-            android:name=".ui.wangyi.session.search.DisplayMessageActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.session.search.DisplayMessageActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -404,13 +404,13 @@
 
         <!-- 聊天室 -->
         <activity
-            android:name=".ui.wangyi.chatroom.activity.ChatRoomActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.chatroom.activity.ChatRoomActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity
-            android:name=".ui.wangyi.jsbridge.JsBridgeActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.jsbridge.JsBridgeActivity"
             android:label="@string/js_bridge"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -418,12 +418,12 @@
 
         <!-- NRTC Settings -->
         <activity
-            android:name=".ui.wangyi.avchat.activity.AVChatSettingsActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.avchat.activity.AVChatSettingsActivity"
             android:screenOrientation="portrait" />
 
         <!-- 多端登录管理 -->
         <activity
-            android:name=".ui.wangyi.main.activity.MultiportActivity"
+            android:name="com.cloudTop.starshare.ui.wangyi.main.activity.MultiportActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -466,11 +466,11 @@
         <!-- 申明自定义通知的广播接收器，第三方APP集成时，action中的com.netease.nim.demo请替换为自己的包名 -->
         <!-- 需要权限申明 <uses-permission android:name="com.netease.nim.demo.permission.RECEIVE_MSG"/> -->
         <receiver
-            android:name=".ui.wangyi.receiver.CustomNotificationReceiver"
+            android:name="com.cloudTop.starshare.ui.wangyi.receiver.CustomNotificationReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.yundian.celebrity.ACTION.RECEIVE_CUSTOM_NOTIFICATION" />
+                <action android:name="com.cloudTop.starshare.ACTION.RECEIVE_CUSTOM_NOTIFICATION" />
             </intent-filter>
         </receiver>
 
@@ -480,13 +480,13 @@
             <!--android:enabled="true"-->
             <!--android:exported="false">-->
             <!--<intent-filter>-->
-                <!--<action android:name="com.yundian.celebrity.ACTION.RECEIVE_RTS_NOTIFICATION" />-->
+                <!--<action android:name="com.cloudTop.starshare.ACTION.RECEIVE_RTS_NOTIFICATION" />-->
             <!--</intent-filter>-->
         <!--</receiver>-->
 
         <!-- 申明本地电话状态（通话状态）的广播接收器，第三方APP集成时音视频模块时，如果需要在App中处理网络通话与本地电话的交互请加上此接收器 -->
         <!-- 在Demo的示例代码中是在Application进行了网络通话与本地电话的互斥处理 -->
-        <receiver android:name=".ui.wangyi.avchat.receiver.IncomingCallReceiver">
+        <receiver android:name="com.cloudTop.starshare.ui.wangyi.avchat.receiver.IncomingCallReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
@@ -513,7 +513,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.yundian.celebrity"
+            android:authorities="com.cloudTop.starshare"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -552,51 +552,74 @@
         <!--支付宝等三方-->
 
         <activity
-            android:name=".ui.main.activity.UserAssetsManageActivity"
+            android:name="com.cloudTop.starshare.ui.main.activity.UserAssetsManageActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.activity.AddBankCardActvivity"
+            android:name="com.cloudTop.starshare.ui.main.activity.AddBankCardActvivity"
             android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.activity.CashActivity"
+            android:name="com.cloudTop.starshare.ui.main.activity.CashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.activity.CashHistoryActivity"
+            android:name="com.cloudTop.starshare.ui.main.activity.CashHistoryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.activity.ResetPayPwdActivity"
+            android:name="com.cloudTop.starshare.ui.main.activity.ResetPayPwdActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.activity.LoginActivity"
+            android:name="com.cloudTop.starshare.ui.main.activity.LoginActivity"
             android:launchMode="singleTask"
             android:theme="@style/TransparentActivityDialog" />
 
-        <activity android:name=".ui.main.activity.ResetUserPwdActivity" />
-        <activity android:name=".ui.main.activity.AddMeetTypeActivity" />
+        <activity android:name="com.cloudTop.starshare.ui.main.activity.ResetUserPwdActivity" />
+        <activity android:name="com.cloudTop.starshare.ui.main.activity.AddMeetTypeActivity" />
         <activity
-            android:name=".ui.main.activity.MeetingFansDetailActivity"
+            android:name="com.cloudTop.starshare.ui.main.activity.MeetingFansDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.activity.InComeDetailActivity"
+            android:name="com.cloudTop.starshare.ui.main.activity.InComeDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.activity.PublishStateActivity"
+            android:name="com.cloudTop.starshare.ui.main.activity.PublishStateActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.activity.SettingDealPwdActivity"
+            android:name="com.cloudTop.starshare.ui.main.activity.SettingDealPwdActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.main.activity.CashHistoryActivity_Test"
+            android:name="com.cloudTop.starshare.ui.main.activity.CashHistoryActivity_Test"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.main.activity.RecordAudioActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.cloudTop.starshare.ui.main.activity.RecordAudioActivity1"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.cloudTop.starshare.ui.main.activity.VideoRecordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.cloudTop.starshare.ui.main.activity.RecordVideoActivity1"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.cloudTop.starshare.ui.main.activity.PlayActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
             android:screenOrientation="portrait" />
     </application>
