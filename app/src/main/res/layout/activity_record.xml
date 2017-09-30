@@ -51,7 +51,7 @@
             android:layout_height="0dp"
             android:clipChildren="false">
 
-            <com.yundian.celebrity.widget.videorecorder.FocusIndicator
+            <com.cloudTop.starshare.widget.videorecorder.FocusIndicator
                 android:id="@+id/focus_indicator"
                 android:layout_width="100dp"
                 android:layout_height="100dp" />
@@ -63,19 +63,21 @@
             android:id="@+id/progressbar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="1.5dp"
+            android:layout_height="10dp"
             android:layout_alignParentTop="true"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:max="100"
             android:visibility="gone"
-            android:progressDrawable="@drawable/video_progress" />
+            android:progressDrawable="@drawable/video_play_progress" />
 
 
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@android:color/transparent"
         android:orientation="vertical">
@@ -84,23 +86,69 @@
             android:id="@+id/record_progressbar"
             android:layout_width="match_parent"
             android:layout_height="8dp" />-->
+        <RelativeLayout
+            android:id="@+id/rl_ask_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
 
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/ask_content_shape"
+            android:padding="14dp"
+            >
+            <ImageView
+                android:id="@+id/iv_head"
+                android:layout_width="26dp"
 
-        <com.yundian.celebrity.widget.photobutton.CaptureLayout
+                android:layout_height="26dp" />
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/iv_head"
+                android:layout_marginLeft="6dp"
+                android:textSize="14sp"
+
+                android:text="小姜"
+                />
+
+            <TextView
+                android:id="@+id/tv_question_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_head"
+                android:text="女神,你在爱情邮局片场中有什么趣事吗"
+                android:layout_marginTop="12dp"
+
+                android:textSize="16sp"
+                android:layout_alignLeft="@id/tv_name"/>
+        </RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/hide_question"
+            android:layout_gravity="right"
+            android:layout_margin="20dp"/>
+
+        <com.cloudTop.starshare.widget.photobutton.CaptureLayout
             android:id="@+id/layout_capture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="bottom|center_horizontal" />
-
-
+            android:gravity="bottom|center_horizontal"
+            android:layout_marginBottom="43dp"/>
+      <!--  <com.kiwi.ui.widget.KwControlView
+            android:id="@+id/kiwi_control_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />-->
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp">
-
-
+        android:layout_margin="25dp">
 
         <ImageView
             android:id="@+id/switch_camera"
@@ -109,14 +157,14 @@
             android:layout_marginLeft="10dp"
             android:onClick="onClickSwitchCamera"
             android:src="@drawable/btn_switch_camera" />
-        <ImageView
+     <!--   <ImageView
             android:id="@+id/switch_flash"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginLeft="10dp"
             android:onClick="onClickSwitchFlash"
             android:src="@drawable/btn_switch_camera"
-            android:visibility="gone" />
+            android:visibility="gone" />-->
 
     </LinearLayout>
 </FrameLayout>

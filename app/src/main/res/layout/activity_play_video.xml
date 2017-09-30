@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     >
 
-    <com.yundian.celebrity.widget.customVideoPlayer.CustomUIVideo
+    <com.cloudTop.starshare.widget.customVideoPlayer.CustomUIVideo
         android:id="@+id/video_player"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
